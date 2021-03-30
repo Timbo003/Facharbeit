@@ -7,16 +7,14 @@ import de.tim.facharbeit.Frame;
 
 public class Blob extends Structure{
 
-	public enum Health
-	{
+	public enum Health{
 		HEALTHY, INFECTED, IMUNE, DEAD
 	}
 	
-	public enum Characteristics 
-	{
+	public enum Characteristics {
 	 Stubenhocker, Partymacher, Einkäufer
 	}
-	
+ 
 	private House home;
 	private Color blobColor;
 	private Health blobHealth;
@@ -52,20 +50,15 @@ public class Blob extends Structure{
 	
 	public void setBlobHealth(Health health) {
 		this.blobHealth = health;
-		if (this.blobHealth == Health.HEALTHY) {
-		this.blobColor = Color.green;
+		switch (this.blobHealth) {
+		case HEALTHY: {this.blobColor = Color.green;break;}
+		case INFECTED: {this.blobColor = Color.red;break;}
+		case IMUNE: {this.blobColor = Color.blue;break;}
+		case DEAD: {this.blobColor = Color.gray;break;}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + this.blobHealth);
 		}
-		else if(this.blobHealth == Health.INFECTED){
-			this.blobColor = Color.red;
-		}
-		else if(this.blobHealth == Health.IMUNE){
-			this.blobColor = Color.blue;
-		}else if(this.blobHealth == Health.DEAD){
-			this.blobColor = Color.gray;
-		}else {
-			System.out.println(this.blobHealth + " is not a HealthState");
-		}
-		
+		Frame.instance.update();	
 	}
 	
 	

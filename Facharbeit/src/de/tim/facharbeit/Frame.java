@@ -11,8 +11,10 @@ import de.tim.facharbeit.structure.Structure;
 public class Frame extends JPanel {
 
 	private JFrame frame;
+	public static Frame instance;
 
 	public Frame() {
+		instance = this;
         frame = new JFrame("Simulation");									
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);

@@ -18,8 +18,8 @@ public class House extends Structure {						//House stammt von Structure ab
 	
 	private void spawnBlobs() {
 		blobs.add(new Blob(x + 10, y + 10, this, Health.HEALTHY));
-		blobs.add(new Blob(x + 20, y + 30, this, Health.INFECTED));
-		blobs.add(new Blob(x + 30, y + 10, this, Health.DEAD));
+		blobs.add(new Blob(x + 20, y + 30, this, Health.DEAD));
+		blobs.add(new Blob(x + 30, y + 10, this, Health.IMUNE));
 		Main.structures.addAll(blobs);
 	}
 
