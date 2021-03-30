@@ -11,12 +11,13 @@ public class Main {
 
 	public static List<Structure> structures = new ArrayList<>();		//alle sachen, welche auf der map gezeigt werden
 
-	private static Frame frame;
+	private static Frame Frame;
+
 
 	public static void main(String[] args) {
 		System.out.println("start");
-		frame = new Frame();	
-		createHouses(10);
+		Frame = new Frame();	
+		createHouses(15);
 
 //		Structure myStructure = structures.get(0);						//Irgeneine Struktur. Aber ist es ein Blob oder Haus?
 //		if (myStructure instanceof House) {								//wenn die Struktur ein Haus is dann wird gecastet
@@ -24,7 +25,6 @@ public class Main {
 //			myHouse.getBlobAmount();									//Dann kann man mit dem Haus arbeiten
 //		}
 
-		frame.update();
 		System.out.println("end");
 	}
 

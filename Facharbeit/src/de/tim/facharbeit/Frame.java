@@ -7,9 +7,10 @@ import javax.swing.JPanel;
 
 import de.tim.facharbeit.structure.Structure;
 
+
 public class Frame extends JPanel {
 
-    private JFrame frame;
+	private JFrame frame;
 
 	public Frame() {
         frame = new JFrame("Simulation");									

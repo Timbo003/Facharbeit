@@ -4,9 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import de.tim.facharbeit.Main;
+import de.tim.facharbeit.structure.Blob.Health;
 
 public class House extends Structure {						//House stammt von Structure ab
 
@@ -18,9 +17,9 @@ public class House extends Structure {						//House stammt von Structure ab
 	}
 	
 	private void spawnBlobs() {
-		blobs.add(new Blob(x + 10, y + 10, this, new Color(50,205,50)));
-		blobs.add(new Blob(x + 20, y + 30, this, new Color(50,205,50)));
-		blobs.add(new Blob(x + 30, y + 10, this, new Color(50,205,50)));
+		blobs.add(new Blob(x + 10, y + 10, this, Health.HEALTHY));
+		blobs.add(new Blob(x + 20, y + 30, this, Health.INFECTED));
+		blobs.add(new Blob(x + 30, y + 10, this, Health.IMUNE));
 		Main.structures.addAll(blobs);
 	}
 
