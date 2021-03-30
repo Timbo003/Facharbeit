@@ -2,8 +2,8 @@ package de.tim.facharbeit.structure;
 
 public class Point {
 
-	public int x;
-	public int y;
+	private int x;
+	private int y;
 	
 	public Point(int x, int y) {
 		this.x = x;
@@ -23,6 +23,8 @@ public class Point {
 		this.y = y;
 	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "x: " + x + " y: " + y; 
+	}
 }
