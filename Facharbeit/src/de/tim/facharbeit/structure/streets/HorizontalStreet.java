@@ -7,8 +7,8 @@ public class HorizontalStreet extends Street{
 	private Point point;
 	private int length;
 
-	protected HorizontalStreet(Point point, int length) {
-		super(point.getX() + Street.size/2, point.getY() - Street.size/2, length, Street.size);
+	public HorizontalStreet(Point point, int length) {
+		super(point.getX() - Street.size/2, point.getY() - Street.size/2, length, Street.size);
 		this.point = point;
 		this.length = length;
 	}

@@ -50,12 +50,5 @@ public abstract class Structure {
 		this.height = height;
 	}
 
-
-
-	
-
-
-
-
     public abstract void draw(Graphics graphics);  
 }

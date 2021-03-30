@@ -10,8 +10,8 @@ import de.tim.facharbeit.structure.Structure;
 
 public abstract class Street extends Structure {
 
-	protected static final int size = 20;
-	private static List<Street> allStreets = new ArrayList<>();					//Liste aller Straﬂen
+	protected static final int size = 40;
+	public static List<Street> allStreets = new ArrayList<>();					//Liste aller Straﬂen
 	
 	private List<Street> neighbours = new ArrayList<>();						//Liste der anliegenden Straﬂen
 	

@@ -8,7 +8,7 @@ public class VerticalStreet extends Street {
 	private int length;
 	
 	public VerticalStreet(Point point, int length) {													//erstellt die Straﬂe
-		super(point.getX() - Street.size/2, point.getY() + Street.size/2, Street.size, length);
+		super(point.getX() - Street.size/2, point.getY() - Street.size/2, Street.size, length);
 		this.point = point;
 		this.length = length;
 	}
