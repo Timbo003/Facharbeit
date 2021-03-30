@@ -27,6 +27,8 @@ public class Main {
 		streetManager.streetStartUp();
 		
 		streetManager.createStreet(Street.allStreets.get(1), 200);
+		streetManager.createStreet(Street.allStreets.get(4), 200);
+		
 		
 
 

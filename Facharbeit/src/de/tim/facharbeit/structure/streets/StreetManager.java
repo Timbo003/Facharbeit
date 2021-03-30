@@ -24,7 +24,7 @@ public class StreetManager {
 		if (street instanceof VerticalStreet) {										//wenn sie vertikal ist muss die neue horizontal sein
 			HorizontalStreet newStreet = new HorizontalStreet(street.getDistance(distance), 600);
 		}else {																		//wenn nicht, dan ist sie horizontal und die neue muss vertikal sein
-			VerticalStreet newStreet = new VerticalStreet(street.getDistance(distance), 400);
+			VerticalStreet newStreet = new VerticalStreet(street.getDistance(distance), -400);
 		}
 		Main.structures.addAll(Street.allStreets);
 	}
