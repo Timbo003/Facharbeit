@@ -10,7 +10,7 @@ import de.tim.facharbeit.structure.Structure;
 
 public abstract class Street extends Structure {
 
-	protected static final int size = 40;
+	protected static final int size = 4;
 	public static List<Street> allStreets = new ArrayList<>();					//Liste aller Straﬂen
 	
 	private List<Street> neighbours = new ArrayList<>();						//Liste der anliegenden Straﬂen
@@ -31,4 +31,8 @@ public abstract class Street extends Structure {
 	public abstract boolean checkPoint(Point point);			//funk gibt es in vererbten klassen nicht im parent
 
 	public abstract Point getDistance(int distance);
+	
+	public abstract int getLength() throws Exception;
+	
+	protected abstract Point getPoint();
 }

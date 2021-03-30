@@ -23,6 +23,15 @@ public class Point {
 		this.y = y;
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Point) {
+			Point point = (Point) obj;
+			if (point.getX() == this.getX() && point.getY() == this.getY()) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }

@@ -1,5 +1,8 @@
 package de.tim.facharbeit;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.sql.Time;
 import java.util.ArrayList;
 
 
@@ -22,7 +25,16 @@ public class Main {
 		streetManager = new StreetManager();
 		streetManager.streetStartUp();
 		
-		streetManager.createStreet(4, 200);
+		
+		new Timer().scheduleAtFixedRate(new TimerTask() {
+			
+			@Override
+			public void run() {
+				System.out.println("Next run");
+				streetManager.createStreet(125);
+				Frame.instance.update();
+			}
+		}, 0, 1000);
 		
 		
 		
