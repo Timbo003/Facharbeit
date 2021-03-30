@@ -1,16 +1,12 @@
 package de.tim.facharbeit;
 import java.util.List;
-import java.util.Random;
 import java.util.ArrayList;
 
-import de.tim.facharbeit.structure.Blob;
-import de.tim.facharbeit.structure.House;
-import de.tim.facharbeit.structure.Point;
+
 import de.tim.facharbeit.structure.Structure;
-import de.tim.facharbeit.structure.streets.HorizontalStreet;
-import de.tim.facharbeit.structure.streets.Street;
+
 import de.tim.facharbeit.structure.streets.StreetManager;
-import de.tim.facharbeit.structure.streets.VerticalStreet;
+
 
 public class Main {
 
@@ -26,8 +22,8 @@ public class Main {
 		streetManager = new StreetManager();
 		streetManager.streetStartUp();
 		
-		streetManager.createStreet(Street.allStreets.get(1), 200);
-		streetManager.createStreet(Street.allStreets.get(4), 200);
+		streetManager.createStreet(4, 200);
+		
 		
 		
 
@@ -49,7 +45,7 @@ public class Main {
 //	
 //	private static void createHouses(int house) {
 //		Random random = new Random();
-//		for (int i = 0; i < house; i++) { //Soviele Häuser sollen hinzugefügt werden
+//		for (int i = 0; i < house; i++) { //Soviele Hï¿½user sollen hinzugefï¿½gt werden
 //			for (int j = 0; j < 1000; j++) { //So oft wird maximal getestet ob die Position frei ist
 //				int x = random.nextInt(500);
 //				int y = random.nextInt(300);
