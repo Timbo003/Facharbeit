@@ -33,6 +33,7 @@ public class Street extends Structure {
 	public Street(Point point, StreetOrientation orientation) throws Exception {
 		this(point, orientation, getEndStreet(point, orientation).getDistance(point));
 		this.end = getEndStreet(point, orientation);
+		System.out.println("END: " + end);
 
 	}
 
@@ -58,7 +59,7 @@ public class Street extends Structure {
 	}
 
 	private boolean isPointOnStreet(Point point) {
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i <= length + size; i++) {
 			int x = orientation == StreetOrientation.HORIZONTAL ? super.getX() + i : super.getX();
 			int y = orientation == StreetOrientation.VERTICAL ? super.getY() + i : super.getY();
 			if (point.getX() == x && point.getY() == y) {
@@ -69,7 +70,7 @@ public class Street extends Structure {
 	}
 
 	public static Street getEndStreet(Point point, StreetOrientation orientation) {
-		for (int i = 1; i <= 1000; i++) {
+		for (int i = 1; i <= 10000; i++) {
 //			System.out.println("------ " + i + " ------");
 			int x = orientation == StreetOrientation.HORIZONTAL ? point.getX() + i : point.getX();
 			int y = orientation == StreetOrientation.VERTICAL ? point.getY() + i : point.getY();
@@ -78,7 +79,7 @@ public class Street extends Structure {
 			for (Street street : streets) {
 				int index = streets.indexOf(street);
 //				System.out.print("index: " + index);
-				if (street.isPointOnStreet(p)) {
+				if (street.isPointOnStreet(p) && street.orientation != orientation) {
 //					System.out.println(" ok");
 					return street;
 				}
@@ -94,6 +95,7 @@ public class Street extends Structure {
 		if (this.orientation == StreetOrientation.VERTICAL) {
 			return this.getX() - point.getX();
 		} else {
+			System.out.println("yyy: " + this.getY());
 			return this.getY() - point.getY();
 		}
 	}
@@ -114,6 +116,7 @@ public class Street extends Structure {
 	public void sortsNeighbors() {
 		this.neighbors.add(this.start);
 		this.neighbors.add(this.end);
+		System.out.println("size beguin: " + neighbors.size());
 		for (Street n : neighbors) {
 			if (n.orientation.equals(StreetOrientation.HORIZONTAL)) {
 
@@ -123,6 +126,7 @@ public class Street extends Structure {
 				
 			}
 		}
+		System.out.println("size after: " + neighbors.size());
 	}
 
 	public void sortX() {
@@ -162,26 +166,20 @@ public class Street extends Structure {
 	private Street getNextNeighbor(Street street) {
 		System.out.println("requsted: " + neighbors.indexOf(street));
 		boolean found = false;
-//		
-//		for (Street s : neighbors) {
-//			System.out.println(s);
-//		}
-//		
-		return neighbors.get(neighbors.indexOf(street) + 1);
 		
-//		for (int i = 0; i < neighbors.size(); i++) {
-//			Street s = neighbors.get(i);
-//			if (s.equals(street)) {
-//				System.out.println("found: " + i);
-//				found = true;
-//			} else if (found && this.isPointOnStreet(s.startPoint)) {
-//				System.out.println("returned: " + i);
-//				System.out.println("index: " + neighbors.indexOf(s));
-//				return s;
-//			}
-//		}
-//		System.out.println("null");
-//		return null;
+		for (int i = 0; i < neighbors.size(); i++) {
+			Street s = neighbors.get(i);
+			if (s.equals(street)) {
+				System.out.println("found: " + i);
+				found = true;
+			} else if (found && this.isPointOnStreet(s.startPoint)) {
+				System.out.println("returned: " + i);
+				System.out.println("index: " + neighbors.indexOf(s));
+				return s;
+			}
+		}
+		System.out.println("null");
+		return null;
 	}
 
 	public void createHouses() {
@@ -191,6 +189,7 @@ public class Street extends Structure {
 				children.add(street);
 			}
 		}
+		System.out.println("----------------------- neighbors: " + neighbors.size() + " childs: " + children.size());
 		for (int i = 0; i < children.size() - 1; i++) {
 			Street s1 = children.get(i);
 			Street s2 = children.get(i + 1);
@@ -206,10 +205,16 @@ public class Street extends Structure {
 		Street vertical1 = s1;
 		Street vertical2 = s2;
 		Street horizonal2 = vertical1.getNextNeighbor(horizontal1);
+		System.out.println(s1);
+		System.out.println(s2);
 
 		if (horizonal2 == null) {
 			return;
 		}
+		System.out.println("vertical1: " + vertical1);
+		System.out.println("vertical2: " + vertical2);
+		System.out.println("horizontal1: " + horizontal1);
+		System.out.println("horizontal2: " + horizonal2);
 		
 		int width = vertical2.getDistance(vertical1.startPoint);
 		int height = horizonal2.getDistance(horizontal1.startPoint);
