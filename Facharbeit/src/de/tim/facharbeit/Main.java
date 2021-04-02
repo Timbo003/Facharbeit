@@ -26,7 +26,7 @@ public class Main {
 //	public static List<Street> newStreet = new ArrayList<>();
 
 	private static Frame Frame;
-	private static int streetInt = 5;
+	private static int streetInt = 6;
 
 	public static void main(String[] args) {
 		System.out.println("start");
@@ -41,9 +41,8 @@ public class Main {
 			Frame.instance.update();
 			
 		}
-		dumpList(Street.streets);
-		//TODO sort
-		
+		sortStreets();
+		dumpList(Street.streets);	
 //		new Timer().scheduleAtFixedRate(new TimerTask() {
 //
 //			@Override
@@ -54,7 +53,14 @@ public class Main {
 //			}
 //		}, 0, 1000);
 	}
-
+	public static void sortStreets() {
+		for (int i = 0; i < Street.streets.size(); i++) {
+			Street street = Street.streets.get(i);
+			street.sortsNeighbors();
+			System.out.println(street.neighbors);
+		}
+	}
+	
 	private static void createStreets() {
 		Street street0 = new Street(new Point(20, 20), StreetOrientation.HORIZONTAL, 300);  // 0 -
 		Street street1 = new Street(new Point(20, 20), StreetOrientation.VERTICAL, 300);    // 1|
@@ -112,11 +118,11 @@ public class Main {
 	
 	public static void dumpList(List<Street> list) {
 		for (int i = 0; i < list.size(); i++) {
-			System.out.println("street number: " + i);
-			System.out.println("start of the street: " + list.get(i).start);
-			System.out.println("neighbors of the street: " + list.get(i).neighbors);
-			System.out.println("end of the street: " + list.get(i).end);
-			System.out.println("");
+//			System.out.println("street number: " + i);
+//			System.out.println("start of the street: " + list.get(i).start);
+//			System.out.println("neighbors of the street: " + list.get(i).neighbors);
+//			System.out.println("end of the street: " + list.get(i).end);
+//			System.out.println("");
 		}
 	}
 }

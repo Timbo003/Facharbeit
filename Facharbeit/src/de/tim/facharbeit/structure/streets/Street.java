@@ -3,6 +3,8 @@ package de.tim.facharbeit.structure.streets;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -111,15 +113,28 @@ public class Street extends Structure {
 	}
 	
 	public void sortsNeighbors(){
-		
 		if( this.orientation == StreetOrientation.HORIZONTAL) {						//y wert verändert sich
+			List<Integer> yValue = new ArrayList<>();
+			
 			this.neighbors.add(this.start);
 			this.neighbors.add(this.end);
 			
-			List<Street> yValue = new ArrayList<>();
-			for (int i = 0; i < ; i++) {
-				
+			for (int i = 0; i < neighbors.size(); i++) {
+				yValue.add(this.neighbors.get(i).startPoint.getY());
 			}
+			Collections.sort(yValue);
+			System.out.println(yValue);
+		}else {
+			List<Integer> xValue = new ArrayList<>();
+			
+			this.neighbors.add(this.start);
+			this.neighbors.add(this.end);
+			
+			for (int i = 0; i < neighbors.size(); i++) {
+				xValue.add(this.neighbors.get(i).startPoint.getY());
+			}
+			Collections.sort(xValue);
+			System.out.println(xValue);
 		}
 		
 	}
