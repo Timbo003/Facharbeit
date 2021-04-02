@@ -19,14 +19,14 @@ import de.tim.facharbeit.structure.streets.StreetOrientation;
 public class Main {
 
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
-	public static List<Street> street0 = new ArrayList<>(); 
-	public static List<Street> street1 = new ArrayList<>(); 
-	public static List<Street> street2 = new ArrayList<>(); 
-	public static List<Street> street3 = new ArrayList<>(); 
-	public static List<Street> newStreet = new ArrayList<>();
+//	public static List<Street> street0 = new ArrayList<>(); 
+//	public static List<Street> street1 = new ArrayList<>(); 
+//	public static List<Street> street2 = new ArrayList<>(); 
+//	public static List<Street> street3 = new ArrayList<>(); 
+//	public static List<Street> newStreet = new ArrayList<>();
 
 	private static Frame Frame;
-	private static int streetInt = 1;
+	private static int streetInt = 5;
 
 	public static void main(String[] args) {
 		System.out.println("start");
@@ -41,7 +41,8 @@ public class Main {
 			Frame.instance.update();
 			
 		}
-		System.out.println(Street.neighbors);
+		dumpList(Street.streets);
+		//TODO sort
 		
 //		new Timer().scheduleAtFixedRate(new TimerTask() {
 //
@@ -55,28 +56,25 @@ public class Main {
 	}
 
 	private static void createStreets() {
-		new Street(new Point(20, 20), StreetOrientation.HORIZONTAL, 300); // 0 -
-		new Street(new Point(20, 20), StreetOrientation.VERTICAL, 300); // 1 |
-		new Street(new Point(20, 320), StreetOrientation.HORIZONTAL, 300); // 2 _
-		new Street(new Point(320, 20), StreetOrientation.VERTICAL, 300); // 3     |
+		Street street0 = new Street(new Point(20, 20), StreetOrientation.HORIZONTAL, 300);  // 0 -
+		Street street1 = new Street(new Point(20, 20), StreetOrientation.VERTICAL, 300);    // 1|
+		Street street2 = new Street(new Point(20, 320), StreetOrientation.HORIZONTAL, 300); // 2 _
+		Street street3 = new Street(new Point(320, 20), StreetOrientation.VERTICAL, 300);   // 3   |
 		
-		street0.add(Street.streets.get(1));
-		street0.add(Street.streets.get(3));
-		Street.neighbors.add(0, street0);
+		street0.start = street1;
+		street0.end = street3;
 		
-		street1.add(Street.streets.get(0));
-		street1.add(Street.streets.get(2));
-		Street.neighbors.add(1, street1);
+		street1.start = street0;
+		street1.end = street2;
 		
-		street2.add(Street.streets.get(1));
-		street2.add(Street.streets.get(3));
-		Street.neighbors.add(2, street2);
+		street2.start = street1;
+		street2.end = street3;
 		
-		street3.add(Street.streets.get(0));
-		street3.add(Street.streets.get(2));
-		Street.neighbors.add(3, street3);
+		street3.start = street0;
+		street3.end = street2;
 	}
-
+	
+	//TODO Javadoc
 	private static void addStreet() {
 		Random random = new Random();
 		int i = random.nextInt(Street.streets.size());
@@ -102,27 +100,23 @@ public class Main {
 		System.out.println(point);
 		System.out.println(orientation);
 		try {
-			new Street(point, orientation);
+			Street newStreet = new Street(point, orientation);
+			newStreet.start = old;
 			System.out.println("Name of the new street: " + Street.streets.get(Street.streets.size() - 1));
 			System.out.println("name of the source Street: " + old);
-			
-			setupStreetNeighbors(Street.streets.get(Street.streets.size() - 1), old, null);								//übergeben die nueste straße und ihre Nachbarn
-			 
+			newStreet.reconfigureNeighbors();			 
 		} catch (Exception e) {
 			addStreet();
 		}
 	}
 	
-	private static void setupStreetNeighbors(Street street, Street Neighbor1, Street Neighbor2) {
-		newStreet.add(Neighbor1);
-		newStreet.add(Neighbor2);
-		Street.neighbors.add(Street.neighbors.size(), newStreet);
-		
-		updateNeighbors(street);
+	public static void dumpList(List<Street> list) {
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println("street number: " + i);
+			System.out.println("start of the street: " + list.get(i).start);
+			System.out.println("neighbors of the street: " + list.get(i).neighbors);
+			System.out.println("end of the street: " + list.get(i).end);
+			System.out.println("");
+		}
 	}
-	
-	private static void updateNeighbors(Street street) {
-		Street.neighbors.get(Street.neighbors.size()-1).get(0);					//TODO die stelle dieser Straße in der Liste suchen und street zu ihren nachbern hinzufügen
-	}
-
 }

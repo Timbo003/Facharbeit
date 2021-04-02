@@ -15,14 +15,23 @@ public class Street extends Structure {
 
 	protected static final int size = 3;
 	public static List<Street> streets = new ArrayList<>(); 
-	public static List<List<Street>> neighbors = new ArrayList<>();
+	
+	public List<Street> neighbors = new ArrayList<>();
+	public Street start;
+	public Street end;
+	public Point startPoint;
+	public Point endPoint;
 	
 	
 	private int length;
 	private StreetOrientation orientation;
 
+
+	
 	public Street(Point point, StreetOrientation orientation) throws Exception {
-		this(point, orientation , getNeighbour(point, orientation).getDistance(point));
+		this(point, orientation , getEndStreet(point, orientation).getDistance(point));
+		this.end= getEndStreet(point, orientation);
+
 	}
 	
 	public Street(Point point, StreetOrientation orientation, int length) {
@@ -33,6 +42,10 @@ public class Street extends Structure {
 		streets.add(this);
 		this.length = length;
 		this.orientation = orientation;
+		this.startPoint = point;
+		int x = orientation == StreetOrientation.HORIZONTAL ? this.startPoint.getX() :this.startPoint.getX() + length;
+		int y = orientation == StreetOrientation.HORIZONTAL ? this.startPoint.getY() + length:this.startPoint.getY();
+		endPoint = new Point(x, y);
 	}
 	
 	public int getLength() {
@@ -43,7 +56,7 @@ public class Street extends Structure {
 		return orientation;
 	}
 
-	private boolean checkPoint(Point point) {
+	private boolean isPointOnStreet(Point point) {
 		for (int i = 0; i < length; i++) {
 			int x = orientation == StreetOrientation.HORIZONTAL ? super.getX() + i : super.getX();
 			int y = orientation == StreetOrientation.VERTICAL ? super.getY() + i: super.getY();
@@ -54,7 +67,7 @@ public class Street extends Structure {
 		return false;
 	}
 	
-	protected static Street getNeighbour(Point point, StreetOrientation orientation) {
+	public static Street getEndStreet(Point point, StreetOrientation orientation) {
 		for (int i = 1; i <= 1000; i++) {
 			System.out.println("------ " + i + " ------");
 			int x = orientation == StreetOrientation.HORIZONTAL ? point.getX() + i : point.getX();
@@ -64,7 +77,7 @@ public class Street extends Structure {
 			for (Street street : streets) {
 				int index = streets.indexOf(street);
 				System.out.print("index: " + index);
-				if (street.checkPoint(p)) {
+				if (street.isPointOnStreet(p)) {
 					System.out.println(" ok");
 					return street;
 				}
@@ -91,4 +104,24 @@ public class Street extends Structure {
 		graphics.setColor(color);
 		graphics.fillRect(x, y, width, height);
 	}
+	
+	public void reconfigureNeighbors() {
+		this.start.neighbors.add(this);
+		this.end.neighbors.add(this);
+	}
+	
+	public void sortsNeighbors(){
+		
+		if( this.orientation == StreetOrientation.HORIZONTAL) {						//y wert verändert sich
+			this.neighbors.add(this.start);
+			this.neighbors.add(this.end);
+			
+			List<Street> yValue = new ArrayList<>();
+			for (int i = 0; i < ; i++) {
+				
+			}
+		}
+		
+	}
+	
 }
