@@ -26,7 +26,7 @@ public class Main {
 //	public static List<Street> newStreet = new ArrayList<>();
 
 	private static Frame Frame;
-	private static int streetInt = 6;
+	private static int streetInt = 10;
 
 	public static void main(String[] args) {
 		System.out.println("start");
@@ -34,7 +34,7 @@ public class Main {
 
 		createStreets();
 		Frame.instance.update();
-		System.out.println("created Street");
+		System.out.println("created starting Street");
 		
 		for (int i = 0; i < streetInt; i++) {
 			addStreet();
@@ -42,22 +42,23 @@ public class Main {
 			
 		}
 		sortStreets();
+		createHouses();
 //		dumpList(Street.streets);	
-
+		System.out.println("end");
 	}
 	public static void sortStreets() {
 		for (int i = 0; i < Street.streets.size(); i++) {
 			Street street = Street.streets.get(i);
 			street.sortsNeighbors();
-			System.out.println(street.neighbors);
+//			System.out.println(street.neighbors);
 		}
 	}
 	
 	private static void createStreets() {
-		Street street0 = new Street(new Point(20, 20), StreetOrientation.HORIZONTAL, 300);  // 0 -
-		Street street1 = new Street(new Point(20, 20), StreetOrientation.VERTICAL, 300);    // 1|
-		Street street2 = new Street(new Point(20, 320), StreetOrientation.HORIZONTAL, 300); // 2 _
-		Street street3 = new Street(new Point(320, 20), StreetOrientation.VERTICAL, 300);   // 3   |
+		Street street0 = new Street(new Point(20 , 20), StreetOrientation.HORIZONTAL, Frame.getWidth() - 40);  // 0 -
+		Street street1 = new Street(new Point(20, 20), StreetOrientation.VERTICAL, Frame.getHeight() - 40);    // 1|
+		Street street2 = new Street(new Point(20, 730), StreetOrientation.HORIZONTAL, Frame.getWidth() - 40); // 2 _
+		Street street3 = new Street(new Point(1480, 20), StreetOrientation.VERTICAL, Frame.getHeight() - 40);   // 3   |
 		
 		street0.start = street1;
 		street0.end = street3;
@@ -80,7 +81,7 @@ public class Main {
 			addStreet();
 			return;
 		}
-		System.out.println("i: " + i);									
+//		System.out.println("i: " + i);									
 		Street old = Street.streets.get(i);
 		int b = old.getLength() - 10;
 		if (b <= 0) {
@@ -88,20 +89,20 @@ public class Main {
 			return;
 		}
 		int a = random.nextInt(b) + 10;
-		System.out.println("a: " + a);
+//		System.out.println("a: " + a);
 		StreetOrientation orientation = old.getOrientation() == StreetOrientation.VERTICAL
 				? StreetOrientation.HORIZONTAL
 				: StreetOrientation.VERTICAL;
 		int x = old.getX() + (orientation == StreetOrientation.VERTICAL ? a : 0);
 		int y = old.getY() + (orientation == StreetOrientation.VERTICAL ? 0 : a);
 		Point point = new Point(x, y);
-		System.out.println(point);
-		System.out.println(orientation);
+//		System.out.println(point);
+//		System.out.println(orientation);
 		try {
 			Street newStreet = new Street(point, orientation);
 			newStreet.start = old;
-			System.out.println("Name of the new street: " + Street.streets.get(Street.streets.size() - 1));
-			System.out.println("name of the source Street: " + old);
+//			System.out.println("Name of the new street: " + Street.streets.get(Street.streets.size() - 1));
+//			System.out.println("name of the source Street: " + old);
 			newStreet.reconfigureNeighbors();			 
 		} catch (Exception e) {
 			addStreet();
@@ -109,11 +110,9 @@ public class Main {
 	}
 	
 	public static void createHouses() {
-		for (int i = 0; i < Street.streets.size(); i++) {
-			Street street = Street.streets.get(i);
-			if (street.getOrientation() == StreetOrientation.HORIZONTAL) {
-				
-			}
+		for (Street street : Street.streets) {
+			street.createHouses();
+			break;
 		}
 	}
 	

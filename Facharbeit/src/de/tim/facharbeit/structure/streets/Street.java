@@ -8,14 +8,15 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-
+import de.tim.facharbeit.Frame;
 import de.tim.facharbeit.Main;
+import de.tim.facharbeit.structure.House;
 import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.Structure;
 
 public class Street extends Structure {
 
-	protected static final int size = 3;
+	protected static final int size = 4;
 	public static List<Street> streets = new ArrayList<>(); 
 	
 	public List<Street> neighbors = new ArrayList<>();
@@ -71,22 +72,22 @@ public class Street extends Structure {
 	
 	public static Street getEndStreet(Point point, StreetOrientation orientation) {
 		for (int i = 1; i <= 1000; i++) {
-			System.out.println("------ " + i + " ------");
+//			System.out.println("------ " + i + " ------");
 			int x = orientation == StreetOrientation.HORIZONTAL ? point.getX() + i : point.getX();
 			int y = orientation == StreetOrientation.VERTICAL ? point.getY() + i: point.getY();
 			Point p = new Point(x, y);
-			System.out.println(p);
+//			System.out.println(p);
 			for (Street street : streets) {
 				int index = streets.indexOf(street);
-				System.out.print("index: " + index);
+//				System.out.print("index: " + index);
 				if (street.isPointOnStreet(p)) {
-					System.out.println(" ok");
+//					System.out.println(" ok");
 					return street;
 				}
-				System.out.println(" wrong");
+//				System.out.println(" wrong");
 			}
 		}
-		System.err.println("no neighours");
+//		System.err.println("no neighours");
 		return null;
 		
 	}
@@ -123,19 +124,88 @@ public class Street extends Structure {
 				yValue.add(this.neighbors.get(i).startPoint.getY());
 			}
 			Collections.sort(yValue);
-			System.out.println(yValue);
-		}else {
+//			System.out.println(yValue);
+			
+			List<Street> sortedNeighbors = new ArrayList<>();
+			for (int i = 0; i < this.neighbors.size(); i++) {
+				for (int j = 0; j < this.neighbors.size(); j++) {
+					if (yValue.get(i) == this.neighbors.get(j).getY()) {
+						if (!sortedNeighbors.contains(this.neighbors.get(j))) {
+							sortedNeighbors.add(this.neighbors.get(j));
+						}
+					}
+				}
+			}
+			this.neighbors.clear();
+			this.neighbors.addAll(sortedNeighbors);
+//			System.out.println("Horizontal number: " + yValue);
+//			System.out.println("Horizontal: " + this.neighbors);
+			
+		}else {																		//x wert verändert sich
 			List<Integer> xValue = new ArrayList<>();
 			
 			this.neighbors.add(this.start);
 			this.neighbors.add(this.end);
 			
 			for (int i = 0; i < neighbors.size(); i++) {
-				xValue.add(this.neighbors.get(i).startPoint.getY());
+				xValue.add(this.neighbors.get(i).startPoint.getX());
 			}
 			Collections.sort(xValue);
-			System.out.println(xValue);
+//			System.out.println(xValue);
+			
+			List<Street> sortedNeighbors = new ArrayList<>();
+			for (int i = 0; i < this.neighbors.size(); i++) {
+				for (int j = 0; j < this.neighbors.size(); j++) {
+					if (xValue.get(i) == this.neighbors.get(j).getX()) {
+						if (!sortedNeighbors.contains(this.neighbors.get(j))) {
+							sortedNeighbors.add(this.neighbors.get(j));
+						}		
+					}
+				}
+			}
+			this.neighbors.clear();
+			this.neighbors.addAll(sortedNeighbors);
+//			System.out.println("Vertical number: " + xValue);
+//			System.out.println("Vertical: " + this.neighbors);
+		}	
+	}
+	
+	public void createHouses() {
+		List<Street> children = new ArrayList<>();
+		for (Street street : neighbors) {
+			if (this.isPointOnStreet(street.startPoint)) {
+				children.add(street);
+			}
 		}
-		
+		for (int i = 0; i < children.size() - 1; i++) {
+			buildHouse(children.get(i), children.get(i + 1));
+			break;
+		} 
+	}
+	
+	private void buildHouse(Street street1, Street street2) {
+		System.out.println("build1: " + neighbors.indexOf(street1));
+		System.out.println("build2: " + neighbors.indexOf(street2));
+		int hight = street1.getDistance(street2.startPoint);
+		int width = 20; //this.getDistance(street1.getNextNeighbor(this).startPoint)
+		System.out.println(width + "  " + hight);
+		House house = new House(street1.startPoint, width, hight);
+		Main.structures.add(house);
+		Frame.instance.update();
+	}
+	
+	private Street getNextNeighbor(Street street) {
+		System.out.println("requsted: " + neighbors.indexOf(street));
+		boolean found = false;
+		for (Street s : neighbors) {
+			if (s.equals(street)) {
+				System.out.println("found: " + neighbors.indexOf(s));
+				found = true;
+			} else if (found && this.isPointOnStreet(s.startPoint)) {
+				System.out.println("returned: " + neighbors.indexOf(s));
+				return s;
+			}
+		}
+		return null;
 	}
 }

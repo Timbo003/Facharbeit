@@ -18,7 +18,7 @@ public class Frame extends JPanel {
         frame = new JFrame("Simulation");									
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-		frame.getContentPane().setPreferredSize(new Dimension(600,400));	
+		frame.getContentPane().setPreferredSize(new Dimension(1500,750));	
 		super.setBackground(Color.WHITE);
 		super.setLayout(null);
 		frame.add(this);
