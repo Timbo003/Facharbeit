@@ -1,12 +1,12 @@
 Plan:
 
 1: Nachbarstraßen in der Liste hinzufügen und der Reihe nach (von links nach rechts und von oben nach unten) sortieren. 
-
 2: Funktion für Abstand von zwei Straßen.
 3: Überlege dir welche Straßen (Beziehungen) du brauchst um ein Haus hinzufügen zu können.
 4: berechne den Mittelpunkt
 
+5:DEBUGGING
+
 dijkstra algorithmus zur Wegfindung der Menschen (anfangs- und endpunkte als knoten)
 
 
-auf jeder horizontalen alle straßen durschgehen, die ihren startpunkt darauf haben
