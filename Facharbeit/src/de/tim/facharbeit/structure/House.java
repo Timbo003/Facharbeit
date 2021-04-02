@@ -11,21 +11,21 @@ public class House extends Structure {						//House stammt von Structure ab
 
 	private List<Blob> blobs = new ArrayList<>();
 
-	public House(int x, int y) {
-		super(x, y, 50, 50);
+	public House(Point point, int width, int hight ) {
+		super(point, width, hight);
 		spawnBlobs();
 	}
 	
 	private void spawnBlobs() {
-		blobs.add(new Blob(x + 10, y + 10, this, Health.HEALTHY));
-		blobs.add(new Blob(x + 20, y + 30, this, Health.DEAD));
-		blobs.add(new Blob(x + 30, y + 10, this, Health.IMUNE));
+		blobs.add(new Blob(new Point(point.getX() + 10, point.getY() + 10),  this, Health.HEALTHY));
+		blobs.add(new Blob(new Point(point.getX() + 20, point.getY() + 30), this, Health.DEAD));
+		blobs.add(new Blob(new Point(point.getX() + 30, point.getY() + 10), this, Health.IMUNE));
 		Main.structures.addAll(blobs);
 	}
 
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(Color.black);
-		graphics.drawRect(x, y, width, height);
+		graphics.drawRect(point.getX(),point.getY() , width, height);
 	}
 }

@@ -4,34 +4,32 @@ import java.awt.Graphics;
 
 public abstract class Structure {
 
-	protected int x;			//ist vererbbar
-	protected int y;
+	protected Point point;			//ist vererbbar	
 	protected int height;
 	protected int width;
 
 
-    public Structure(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
+    public Structure(Point point, int width, int height) {
+        this.point = point;
         this.width = width;
         this.height = height;
     }
     
 
+	public Point getPoint() {
+		return point;
+	}
+
+	public void setPoint(Point point) {
+		this.point = point;
+	}
+	
 	public int getX() {
-		return x;
+		return point.getX();
 	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-    
-   	public int getY(){
-		return y;
-    } 
-
-	public void setY(int y) {
-		this.y = y;
+	
+	public int getY() {
+		return point.getY();
 	}
 	
 	public int getWidth() {

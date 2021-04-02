@@ -42,16 +42,8 @@ public class Main {
 			
 		}
 		sortStreets();
-		dumpList(Street.streets);	
-//		new Timer().scheduleAtFixedRate(new TimerTask() {
-//
-//			@Override
-//			public void run() {
-//				addStreet();
-//
-//				Frame.instance.update();
-//			}
-//		}, 0, 1000);
+//		dumpList(Street.streets);	
+
 	}
 	public static void sortStreets() {
 		for (int i = 0; i < Street.streets.size(); i++) {
@@ -116,13 +108,22 @@ public class Main {
 		}
 	}
 	
+	public static void createHouses() {
+		for (int i = 0; i < Street.streets.size(); i++) {
+			Street street = Street.streets.get(i);
+			if (street.getOrientation() == StreetOrientation.HORIZONTAL) {
+				
+			}
+		}
+	}
+	
 	public static void dumpList(List<Street> list) {
 		for (int i = 0; i < list.size(); i++) {
-//			System.out.println("street number: " + i);
-//			System.out.println("start of the street: " + list.get(i).start);
-//			System.out.println("neighbors of the street: " + list.get(i).neighbors);
-//			System.out.println("end of the street: " + list.get(i).end);
-//			System.out.println("");
+			System.out.println("street number: " + i);
+			System.out.println("start of the street: " + list.get(i).start);
+			System.out.println("neighbors of the street: " + list.get(i).neighbors);
+			System.out.println("end of the street: " + list.get(i).end);
+			System.out.println("");
 		}
 	}
 }

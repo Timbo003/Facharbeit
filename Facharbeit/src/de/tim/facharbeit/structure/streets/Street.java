@@ -37,7 +37,7 @@ public class Street extends Structure {
 	}
 	
 	public Street(Point point, StreetOrientation orientation, int length) {
-		super(point.getX(), point.getY(),
+		super(point,
 		orientation == StreetOrientation.HORIZONTAL ? length : size, 
 		orientation == StreetOrientation.VERTICAL ? length : size);
 		Main.structures.add(this);
@@ -104,7 +104,7 @@ public class Street extends Structure {
 		Random random = new Random();
 		Color color = new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
 		graphics.setColor(color);
-		graphics.fillRect(x, y, width, height);
+		graphics.fillRect(this.point.getX(), this.point.getY(), width, height);
 	}
 	
 	public void reconfigureNeighbors() {
@@ -138,5 +138,4 @@ public class Street extends Structure {
 		}
 		
 	}
-	
 }

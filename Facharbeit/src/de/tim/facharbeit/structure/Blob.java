@@ -21,8 +21,8 @@ public class Blob extends Structure{
 	private Characteristics character;
 	
 
-	public Blob(int x, int y, House home, Health blobHealth) {
-		super(x, y, 10, 10);
+	public Blob(Point point, House home, Health blobHealth) {
+		super(point, 10, 10);
 		this.home = home;
 		setBlobHealth(blobHealth);
 	}
@@ -32,7 +32,7 @@ public class Blob extends Structure{
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(blobColor);
-		graphics.fillOval(x, y, width, height);
+		graphics.fillOval(point.getX(), point.getY(), width, height);
 		
 	}
 
