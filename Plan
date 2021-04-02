@@ -1,7 +1,6 @@
 Plan:
 
-simple:
-Score board
-Health
-andere Methode für die Map
-	
+1: Nachbarstraßen in der Liste hinzufügen und der Reihe nach (von links nach rechts und von oben nach unten) sortieren.
+2: Funktion für Abstand von zwei Straßen.
+3: Überlege dir welche Straßen (Beziehungen) du brauchst um ein Haus hinzufügen zu können.
+4: berechne den Mittelpunkt

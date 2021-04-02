@@ -15,6 +15,8 @@ public class Street extends Structure {
 
 	protected static final int size = 3;
 	public static List<Street> streets = new ArrayList<>(); 
+	public static List<List<Street>> neighbors = new ArrayList<>();
+	
 	
 	private int length;
 	private StreetOrientation orientation;
