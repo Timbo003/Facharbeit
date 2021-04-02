@@ -33,7 +33,7 @@ public class Frame extends JPanel {
 
 	@Override
 	public void paint(Graphics graphics) {
-        for (int i = 0; i < Main.structures.size(); i++) {
+        for (int i = Main.structures.size() - 1; i >= 0 ; i--) {
             Main.structures.get(i).draw(graphics);
         }
 	}

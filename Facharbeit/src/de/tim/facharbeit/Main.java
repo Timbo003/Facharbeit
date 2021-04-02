@@ -111,8 +111,10 @@ public class Main {
 	
 	public static void createHouses() {
 		for (Street street : Street.streets) {
-			street.createHouses();
-			break;
+			if (street.orientation == StreetOrientation.HORIZONTAL) {	
+				street.createHouses();		
+				break;
+			}
 		}
 	}
 	
