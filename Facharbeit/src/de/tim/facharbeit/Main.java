@@ -9,6 +9,7 @@ import javax.swing.plaf.basic.BasicSplitPaneUI.BasicVerticalLayoutManager;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.Structure;
@@ -20,6 +21,7 @@ public class Main {
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
 
 	private static Frame Frame;
+	private static int streetInt = 5;
 
 	public static void main(String[] args) {
 		System.out.println("start");
@@ -27,17 +29,23 @@ public class Main {
 
 		createStreets();
 		Frame.instance.update();
-		System.out.println("end");
-
-		new Timer().scheduleAtFixedRate(new TimerTask() {
-
-			@Override
-			public void run() {
-				addStreet();
-
-				Frame.instance.update();
-			}
-		}, 0, 1000);
+		System.out.println("created Street");
+		
+		for (int i = 0; i < streetInt; i++) {
+			addStreet();
+			Frame.instance.update();
+			
+		}
+		
+//		new Timer().scheduleAtFixedRate(new TimerTask() {
+//
+//			@Override
+//			public void run() {
+//				addStreet();
+//
+//				Frame.instance.update();
+//			}
+//		}, 0, 1000);
 	}
 
 	private static void createStreets() {
