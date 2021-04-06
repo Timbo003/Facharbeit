@@ -52,8 +52,8 @@ public class Street extends Structure {
 		this.length = length;
 		this.orientation = orientation;
 		this.startPoint = point;
-		int x = orientation == StreetOrientation.HORIZONTAL ? this.startPoint.getX() : this.startPoint.getX() + length;
-		int y = orientation == StreetOrientation.HORIZONTAL ? this.startPoint.getY() + length : this.startPoint.getY();
+		int x = orientation == StreetOrientation.HORIZONTAL ? this.startPoint.getX() + length: this.startPoint.getX() ;
+		int y = orientation == StreetOrientation.HORIZONTAL ? this.startPoint.getY() : this.startPoint.getY()+ length ;
 		endPoint = new Point(x, y);
 	}
 
@@ -198,13 +198,21 @@ public class Street extends Structure {
 		System.out.println("###########################################################");
 		System.out.println(this);
 		System.out.println("###########################################################");
-		List<Street> children = neighbors;
-				/*new ArrayList<>();
-		for (Street street : neighbors) {
-			if (this.isPointOnStreet(street.startPoint) || street.isPointOnStreet(this.startPoint)) {
-				children.add(street);
+		System.out.println(streets.get(1));
+		System.out.println(streets.get(1).endPoint);
+		
+		List<Street> children = new LinkedList<>();;
+
+		for(Street street : neighbors) {
+			children.add(street);
+		}
+		
+		for(Street street : neighbors) {
+			if (this.isPointOnStreet(street.endPoint)) {
+				children.remove(street);
 			}
-		}*/
+		}
+		
 		System.out.println("----------------------- neighbors: " + neighbors.size() + " childs: " + children.size());
 		for (int i = 0; i < children.size() - 1; i++) {
 			Street s1 = children.get(i);
@@ -220,13 +228,25 @@ public class Street extends Structure {
 		Street horizontal1 = this;
 		Street vertical1 = s1;
 		Street vertical2 = s2;
-		Street horizonal2 = vertical1.getNextNeighbor(horizontal1);
-		System.out.println(s1);
-		System.out.println(s2);
+		
+		List<Street> childrenv1 = new LinkedList<>();
+		for(Street street : vertical1.neighbors) {
+			childrenv1.add(street);
+		}
+		for(Street street : vertical1.neighbors) {
+			if (vertical1.isPointOnStreet(street.endPoint)) {
+				childrenv1.remove(street);
+			}
+		}
+		
+		Street horizonal2 = childrenv1.get(childrenv1.indexOf(this)+ 1);
+		
 
+		
 		if (horizonal2 == null) {
 			return;
 		}
+		
 		System.out.println("vertical1: " + vertical1);
 		System.out.println("vertical2: " + vertical2);
 		System.out.println("horizontal1: " + horizontal1);
