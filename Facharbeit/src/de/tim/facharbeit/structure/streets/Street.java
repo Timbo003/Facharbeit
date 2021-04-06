@@ -143,36 +143,6 @@ public class Street extends Structure {
 		}
 		System.out.println("size after: " + neighbors.size());
 	}
-
-//	public  void createHouse() {
-//		//System.out.println(this.orientation);
-//		
-//		List<Street> children = new LinkedList<>();
-//		for (Street street : neighbors) {
-//			if (this.isPointOnStreet(street.startPoint) || street.isPointOnStreet(this.startPoint)) {
-//				children.add(street);
-//				System.out.println("added street: " + street);
-//				System.out.println("added");
-//			}
-//		}
-//		System.out.println(this);
-//		System.out.println("children.size(): " + children.size());
-//		System.out.println("neighbors.size(): " + neighbors.size());
-//		
-//		for (int i = 0; i < children.size(); i++) {
-//			if (this.startPoint != children.get(i).startPoint) {
-//				System.out.println("fit");
-//				if (i != 0) {
-//					int width = children.get(i).startPoint.getX() - children.get(i - 1).startPoint.getX();
-//					System.out.println("width: " + width);
-//				}
-//
-//			}
-//			//System.out.println("children.size(): " + children.size());
-//			System.out.println("child identical");
-//		}	
-//		
-//	}
 	
 	private Street getNextNeighbor(Street street) {
 		System.out.println("requsted: " + neighbors.indexOf(street));
