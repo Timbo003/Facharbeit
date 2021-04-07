@@ -1,10 +1,10 @@
 package de.tim.facharbeit.structure.streets;
 
-public class StreetOutOfBoundsException extends Exception {
+public class StreetException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	public StreetOutOfBoundsException(String type) {
+	public StreetException(String type) {
 		super(type);
 	}
 }

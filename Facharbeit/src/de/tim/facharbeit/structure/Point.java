@@ -27,4 +27,14 @@ public class Point {
 	public String toString() {
 		return "x: " + x + " y: " + y; 
 	}
+	
+	public int distance(Point p) {
+		if (p.x == this.x) {
+			return Math.abs(p.y - this.y);
+		} else  if (p.y == this.y) {
+			return Math.abs(p.x - this.x);
+		}
+		System.err.println("Invalid disance");
+		return 0;
+	}
 }
