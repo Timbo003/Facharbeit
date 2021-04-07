@@ -4,37 +4,41 @@ public class Point {
 
 	private int x;
 	private int y;
-	
+
 	public Point(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public int getX() {
 		return x;
 	}
+
 	public void setX(int x) {
 		this.x = x;
 	}
+
 	public int getY() {
 		return y;
 	}
+
 	public void setY(int y) {
 		this.y = y;
 	}
-	
+
+	public int pointDistance(Point point) {
+		if (this.x == point.x) {
+			return Math.abs(point.y - this.y);
+		} else if (this.y == point.y) {
+			return Math.abs(point.x - this.x);
+		}
+		System.err.println("pointDistance not working");
+		return 0;
+
+	}
+
 	@Override
 	public String toString() {
-		return "x: " + x + " y: " + y; 
-	}
-	
-	public int distance(Point p) {
-		if (p.x == this.x) {
-			return Math.abs(p.y - this.y);
-		} else  if (p.y == this.y) {
-			return Math.abs(p.x - this.x);
-		}
-		System.err.println("Invalid disance");
-		return 0;
+		return "x: " + x + " y: " + y;
 	}
 }

@@ -10,6 +10,7 @@ import javax.swing.plaf.basic.BasicSplitPaneUI.BasicVerticalLayoutManager;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.Structure;
@@ -22,6 +23,9 @@ public class Main {
 
 	private static Frame Frame;
 	private static int streetInt = 10;
+	private static int minimumDistance = 50;
+	
+	static Random random = new Random();
 
 	public static void main(String[] args) {
 		System.out.println("start");
@@ -30,12 +34,12 @@ public class Main {
 		createStreets();
 		Frame.instance.update();
 		System.out.println("created starting Street");
-		
+
 		for (int i = 0; i < streetInt; i++) {
 			addStreet();
 			Frame.instance.update();
 		}
-		
+
 		sortStreets();
 		Frame.instance.update();
 		System.out.println("DUMPING STREETS \n\n\n");
@@ -43,41 +47,39 @@ public class Main {
 			System.out.println(street);
 		}
 		System.out.println("\n\n\n");
-		
-		
+
 		createHouse();
-		
+
 		System.out.println("end");
 	}
-	
-	
+
 	private static void createStreets() {
-		Street street0 = new Street(new Point(20 , 20), StreetOrientation.HORIZONTAL, Frame.getWidth() - 40);  // 0 -
-		Street street1 = new Street(new Point(20, 20), StreetOrientation.VERTICAL, Frame.getHeight() - 40);    // 1|
+		Street street0 = new Street(new Point(20, 20), StreetOrientation.HORIZONTAL, Frame.getWidth() - 40); // 0 -
+		Street street1 = new Street(new Point(20, 20), StreetOrientation.VERTICAL, Frame.getHeight() - 40); // 1|
 		Street street2 = new Street(new Point(20, 730), StreetOrientation.HORIZONTAL, Frame.getWidth() - 36); // 2 _
-		Street street3 = new Street(new Point(1480, 20), StreetOrientation.VERTICAL, Frame.getHeight() - 36);   // 3   |
-		
+		Street street3 = new Street(new Point(1480, 20), StreetOrientation.VERTICAL, Frame.getHeight() - 36); // 3 |
+
 		street0.start = street1;
 		street0.end = street3;
-		
+
 		street1.start = street0;
 		street1.end = street2;
-		
+
 		street2.start = street1;
 		street2.end = street3;
-		
+
 		street3.start = street0;
 		street3.end = street2;
 	}
-	
+
 	private static void createHouse() {
-		for(Street street : Street.streets) {
-			if(street.orientation == StreetOrientation.HORIZONTAL) {
+		for (Street street : Street.streets) {
+			if (street.orientation == StreetOrientation.HORIZONTAL) {
 				street.createHouses();
 			}
 		}
 	}
-	
+
 	public static void sortStreets() {
 		for (int i = 0; i < Street.streets.size(); i++) {
 			Street street = Street.streets.get(i);
@@ -87,32 +89,49 @@ public class Main {
 	}
 	
 	//TODO Javadoc
-	private static void addStreet() {
-		Random random = new Random();
-		int i = random.nextInt(Street.streets.size());
-		if (i == 2 || i == 3) {								//nur von oben nach unten & von links nach rechts sollen straßen erzeugt werden
-			addStreet();
-			return;
-		}								
-		Street old = Street.streets.get(i);
-		int b = old.getLength() - 15;
-		if (b <= 0) {
-			addStreet();
-			return;
+		private static void addStreet() {
+			Random random = new Random();
+			int i = random.nextInt(Street.streets.size());
+			if (i == 2 || i == 3) {								//nur von oben nach unten & von links nach rechts sollen straßen erzeugt werden
+				addStreet();
+				return;
+			}								
+			Street old = Street.streets.get(i);
+			int b = old.getLength() - 15;
+			if (b <= 0) {
+				addStreet();
+				return;
+			}
+			int a = random.nextInt(b) + 15;
+			StreetOrientation orientation = old.getOrientation() == StreetOrientation.VERTICAL
+					? StreetOrientation.HORIZONTAL
+					: StreetOrientation.VERTICAL;
+			int x = old.getX() + (orientation == StreetOrientation.VERTICAL ? a : 0);
+			int y = old.getY() + (orientation == StreetOrientation.VERTICAL ? 0 : a);
+			Point point = new Point(x, y);
+			
+			List<Point> intersectionPoints = new LinkedList<>();						//includes intersections of old	
+			for (Street street : Street.streets) {
+				if (old.isPointOnStreet(street.startPoint)) {							//liste wird gefüllt mit straßen, welche ihren AP auf der straße haben
+					intersectionPoints.add(street.startPoint);
+				}
+			}
+			intersectionPoints.add(old.endPoint);										
+			
+			for (Point point2 : intersectionPoints) {
+				if (point2.pointDistance(point) < minimumDistance) {
+					System.err.println("Distance is to short");
+					addStreet();
+					return;
+				}
+			}
+			
+			try {
+				Street newStreet = new Street(point, orientation);
+				newStreet.start = old;
+				newStreet.reconfigureNeighbors();			 
+			} catch (Exception e) {
+				addStreet();
+			}
 		}
-		int a = random.nextInt(b) + 15;
-		StreetOrientation orientation = old.getOrientation() == StreetOrientation.VERTICAL
-				? StreetOrientation.HORIZONTAL
-				: StreetOrientation.VERTICAL;
-		int x = old.getX() + (orientation == StreetOrientation.VERTICAL ? a : 0);
-		int y = old.getY() + (orientation == StreetOrientation.VERTICAL ? 0 : a);
-		Point point = new Point(x, y);
-		try {
-			Street newStreet = new Street(point, orientation);
-			newStreet.start = old;
-			newStreet.reconfigureNeighbors();			 
-		} catch (Exception e) {
-			addStreet();
-		}
-	}
 }

@@ -61,7 +61,7 @@ public class Street extends Structure {
 
 
 
-	private boolean isPointOnStreet(Point point) {
+	public boolean isPointOnStreet(Point point) {
 		for (int i = 0; i <= length + size; i++) {
 			int x = orientation == StreetOrientation.HORIZONTAL ? this.getX() + i : this.getX();
 			int y = orientation == StreetOrientation.VERTICAL ? this.getY() + i : this.getY();
