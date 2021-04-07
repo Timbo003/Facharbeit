@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import de.tim.facharbeit.Main;
-import de.tim.facharbeit.structure.Human.Health;
+
 
 public class Block extends Structure {						//House stammt von Structure ab
 

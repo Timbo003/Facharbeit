@@ -7,35 +7,24 @@ import de.tim.facharbeit.Frame;
 
 public class Human extends Structure{
 
-	public enum Health{
-		HEALTHY, INFECTED, IMUNE, DEAD
-	}
 	
-	public enum Characteristics {
-	 Stubenhocker, Partymacher, Einkäufer
-	}
- 
+	
+	
+	//variables//
 	private House home;
 	private Color blobColor;
 	private Health blobHealth;
-	private Characteristics character;
+	private Character character;
 	
-
+	//constructor//
 	public Human(Point point, House home, Health blobHealth) {
 		super(point, 10, 10);
 		this.home = home;
 		setBlobHealth(blobHealth);
 	}
-
 	
 	
-	@Override
-	public void draw(Graphics graphics) {
-		graphics.setColor(blobColor);
-		graphics.fillOval(point.getX(), point.getY(), width, height);
-		
-	}
-
+	//get & set//
 	public House getHome() {
 		return home;
 	}
@@ -61,5 +50,13 @@ public class Human extends Structure{
 		Frame.instance.update();	
 	}
 	
+	
+	//draw & toString//
+	@Override
+	public void draw(Graphics graphics) {
+		graphics.setColor(blobColor);
+		graphics.fillOval(point.getX(), point.getY(), width, height);
+		
+	}
 	
 }
