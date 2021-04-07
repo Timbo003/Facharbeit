@@ -42,15 +42,18 @@ public class Main {
 
 		sortStreets();
 		Frame.instance.update();
-		System.out.println("DUMPING STREETS \n\n\n");
-		for (Street street : Street.streets) {
-			System.out.println(street);
-		}
-		System.out.println("\n\n\n");
-
+		dumpAllStreets();
 		createHouse();
 
 		System.out.println("end");
+	}
+	
+	public static void dumpAllStreets() {
+		System.out.println("DUMPING STREETS :");
+		for (Street street : Street.streets) {
+			System.out.println(street);
+		}
+		System.out.println("\n");
 	}
 
 	private static void createStreets() {
@@ -75,7 +78,7 @@ public class Main {
 	private static void createHouse() {
 		for (Street street : Street.streets) {
 			if (street.orientation == StreetOrientation.HORIZONTAL) {
-				street.createHouses();
+				street.createBlocks();
 			}
 		}
 	}

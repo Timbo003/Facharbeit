@@ -4,28 +4,46 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+
 import de.tim.facharbeit.Main;
-import de.tim.facharbeit.structure.Blob.Health;
+import de.tim.facharbeit.structure.Human.Health;
 
-public class House extends Structure {						//House stammt von Structure ab
+public class House extends Structure{
+	
+	private List<Human> humans = new ArrayList<>();
+	
+	private Block block;
 
-	private List<Blob> blobs = new ArrayList<>();
-
-	public House(Point point, int width, int hight ) {
-		super(point, width, hight);
+	public House(Point point, int width, int height) {
+		super(point, width, height);
 		spawnBlobs();
 	}
 	
+	
 	private void spawnBlobs() {
-		blobs.add(new Blob(new Point(point.getX() + 10, point.getY() + 10),  this, Health.HEALTHY));
-		blobs.add(new Blob(new Point(point.getX() + 20, point.getY() + 30), this, Health.INFECTED));
-		blobs.add(new Blob(new Point(point.getX() + 30, point.getY() + 10), this, Health.IMUNE));
-		Main.structures.addAll(blobs);
+		humans.add(new Human(new Point(point.getX() + 10, point.getY() + 10),  this, Health.HEALTHY));
+		humans.add(new Human(new Point(point.getX() + 20, point.getY() + 30), this, Health.DEAD));
+		humans.add(new Human(new Point(point.getX() + 30, point.getY() + 10), this, Health.IMUNE));
+		Main.structures.addAll(humans);
 	}
+	
 
 	@Override
-	public void draw(Graphics graphics) { 
-		graphics.setColor(Color.gray);
+	public void draw(Graphics graphics) {
+		graphics.setColor(new Color(112, 146, 190));
 		graphics.fillRect(point.getX(),point.getY() , width, height);
+		
 	}
+	
+	public Block getBlock() {
+		return block;
+	}
+
+
+	public void setBlock(Block block) {
+		this.block = block;
+	}
+
+
+
 }

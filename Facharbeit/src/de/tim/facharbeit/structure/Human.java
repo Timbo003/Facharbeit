@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 import de.tim.facharbeit.Frame;
 
-public class Blob extends Structure{
+public class Human extends Structure{
 
 	public enum Health{
 		HEALTHY, INFECTED, IMUNE, DEAD
@@ -21,7 +21,7 @@ public class Blob extends Structure{
 	private Characteristics character;
 	
 
-	public Blob(Point point, House home, Health blobHealth) {
+	public Human(Point point, House home, Health blobHealth) {
 		super(point, 10, 10);
 		this.home = home;
 		setBlobHealth(blobHealth);
