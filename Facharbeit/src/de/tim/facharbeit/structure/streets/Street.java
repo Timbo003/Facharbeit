@@ -20,8 +20,9 @@ public class Street extends Structure {
 
 	protected static final int size = 4;
 	public static List<Street> streets = new ArrayList<>();
-
 	public List<Street> neighbors = new LinkedList<>();
+	public static List<Block> blocks = new LinkedList<>();
+	
 	public Street start;
 	public Street end;
 	public Point startPoint;
@@ -208,6 +209,7 @@ public class Street extends Structure {
 		}
 		Block block = new Block(point, width - 10, height - 10);
 		Main.structures.add(block);
+		blocks.add(block);
 		Frame.instance.update();
 	}
 	

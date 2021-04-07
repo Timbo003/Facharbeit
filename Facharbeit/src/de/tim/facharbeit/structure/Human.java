@@ -7,9 +7,6 @@ import de.tim.facharbeit.Frame;
 
 public class Human extends Structure{
 
-	
-	
-	
 	//variables//
 	private House home;
 	private Color blobColor;

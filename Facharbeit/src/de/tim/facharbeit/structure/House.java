@@ -11,12 +11,13 @@ public class House extends Structure{
 	
 	//variables//
 	private List<Human> humans = new ArrayList<>();
-	private Block block;
+	public Block block;
 
 	
 	//constructor//
-	public House(Point point, int width, int height) {
+	public House(Point point, int width, int height, Block block) {
 		super(point, width, height);
+		this.block = block;
 		spawnBlobs();
 	}
 	
@@ -24,9 +25,14 @@ public class House extends Structure{
 	//others//
 	private void spawnBlobs() {
 		humans.add(new Human(new Point(point.getX() + 10, point.getY() + 10),  this, Health.HEALTHY));
-		humans.add(new Human(new Point(point.getX() + 20, point.getY() + 30), this, Health.DEAD));
+		humans.add(new Human(new Point(point.getX() + 20, point.getY() + 30), this, Health.INFECTED));
 		humans.add(new Human(new Point(point.getX() + 30, point.getY() + 10), this, Health.IMUNE));
 		Main.structures.addAll(humans);
+	}
+	
+	private boolean isHouseNearStreet() {
+		return false;
+		
 	}
 	
 	
@@ -44,6 +50,6 @@ public class House extends Structure{
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(new Color(112, 146, 190));
-		graphics.fillRect(point.getX(),point.getY() , width, height);
+		graphics.drawRect(point.getX(),point.getY() , width, height);
 	}
 }

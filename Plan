@@ -4,13 +4,14 @@ Plan:
 2: Funktion für Abstand von zwei Straßen.
 3: Überlege dir welche Straßen (Beziehungen) du brauchst um ein Haus hinzufügen zu können.
 4: berechne den Mittelpunkt
-5:DEBUGGING
-6:mindestabstand
+5: DEBUGGING
+6: mindestabstand
+7: Houses --> Blocks 
+8: Houses in Blocks spawnen
 
-7:Houses --> Blocks 
-8:Houses in Blocks spawnen
-9:add entrance to Houses 
-10:add goTo Funk to Blob
+9: 
+10:add entrance to Houses 
+12:add goTo Funk to Blob
 
 
 

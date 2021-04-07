@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.Structure;
 import de.tim.facharbeit.structure.streets.Street;
@@ -22,12 +23,16 @@ public class Main {
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
 
 	private static Frame Frame;
-	private static int streetInt = 10;
+	private static int streetInt = 15;
 	private static int minimumDistance = 50;
 	
 	static Random random = new Random();
 
 	public static void main(String[] args) {
+		double dd= 2.7;
+		int inti = (int) dd;
+		System.out.println(inti);
+		
 		System.out.println("start");
 		Frame = new Frame();
 
@@ -43,7 +48,7 @@ public class Main {
 		sortStreets();
 		Frame.instance.update();
 		dumpAllStreets();
-		createHouse();
+		createBlocks();
 
 		System.out.println("end");
 	}
@@ -53,7 +58,7 @@ public class Main {
 		for (Street street : Street.streets) {
 			System.out.println(street);
 		}
-		System.out.println("\n");
+		System.out.println("");
 	}
 
 	private static void createStreets() {
@@ -75,13 +80,7 @@ public class Main {
 		street3.end = street2;
 	}
 
-	private static void createHouse() {
-		for (Street street : Street.streets) {
-			if (street.orientation == StreetOrientation.HORIZONTAL) {
-				street.createBlocks();
-			}
-		}
-	}
+
 
 	public static void sortStreets() {
 		for (int i = 0; i < Street.streets.size(); i++) {
@@ -137,4 +136,12 @@ public class Main {
 				addStreet();
 			}
 		}
+		
+		private static void createBlocks() {
+			for (Street street : Street.streets) {
+				if (street.orientation == StreetOrientation.HORIZONTAL) {
+					street.createBlocks();
+				}
+			}
+		}	
 }
