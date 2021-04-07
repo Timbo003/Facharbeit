@@ -13,8 +13,10 @@ import de.tim.facharbeit.structure.streets.Street;
 public class Block extends Structure { // House stammt von Structure ab
 
 	private List<House> houses = new ArrayList<>();
+	private List<Garden> gardens = new ArrayList<>();
+
 	public List<Street> surroundingStreets = new ArrayList<>();
-	
+
 	int standardDimensions = Main.minimumDistance - 10;
 
 	public Block(Point point, int width, int height, List<Street> surroundingStreets) {
@@ -54,33 +56,21 @@ public class Block extends Structure { // House stammt von Structure ab
 		for (int i = 0; i < nW; i++) {
 			for (int j = 0; j < nH; j++) {
 				Point point = new Point(this.getX() + i * houseWidth, this.getY() + j * houseHeight);
-				houses.add(new House(point, houseWidth, houseHeight, this));
-				Main.structures.addAll(houses);
-			}
-		}
 
-		if (!(nW == 0 && nH == 0)) {
-			if (nW == 0) {
-				for (int i = 0; i < nH; i++) {
-					Point point = new Point(this.getX(), this.getY() + i * houseHeight);
-					houses.add(new House(point, this.width, houseHeight, this));
-					Main.structures.addAll(houses);
+				if (i == 0) {
+					houses.add(new House(point, houseWidth, houseHeight, this, HouseOrientation.LEFT));
+				} else if (j == 0) {
+					houses.add(new House(point, houseWidth, houseHeight, this, HouseOrientation.UP));
+				} else if (nW - i == 1) {
+					houses.add(new House(point, houseWidth, houseHeight, this, HouseOrientation.RIGHT));
+				} else if (nH - j == 1) {
+					houses.add(new House(point, houseWidth, houseHeight, this, HouseOrientation.DOWN));
+				} else {
+					gardens.add(new Garden(point, houseWidth, houseHeight, this));
 				}
-			} else if (nH == 0) {
-				for (int i = 0; i < nW; i++) {
-					Point point = new Point(this.getX()+ i * houseWidth, this.getY());
-					houses.add(new House(point, houseWidth, this.height, this));
-					Main.structures.addAll(houses);
-				}
+				Main.structures.addAll(houses);
+				Main.structures.addAll(gardens);
 			}
-		} else {
-			Point point = new Point(this.getX(), this.getY());
-			houses.add(new House(point, this.width, this.height, this));
-			Main.structures.addAll(houses);
-		}
-		
-		for (House house : houses) {
-			System.out.println(house.isHouseNearStreet());
 		}
 	}
 
