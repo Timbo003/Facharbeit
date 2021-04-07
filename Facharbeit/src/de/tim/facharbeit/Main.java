@@ -23,8 +23,8 @@ public class Main {
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
 
 	private static Frame Frame;
-	private static int streetInt = 15;
-	private static int minimumDistance = 50;
+	private static int streetInt = 25;
+	public static int minimumDistance = 100;
 	
 	static Random random = new Random();
 

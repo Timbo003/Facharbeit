@@ -8,21 +8,20 @@ import java.util.List;
 
 import de.tim.facharbeit.Frame;
 import de.tim.facharbeit.Main;
+import de.tim.facharbeit.structure.streets.Street;
 
 public class Block extends Structure { // House stammt von Structure ab
 
 	private List<House> houses = new ArrayList<>();
-	int standardDimensions = 50;
+	public List<Street> surroundingStreets = new ArrayList<>();
+	
+	int standardDimensions = Main.minimumDistance - 10;
 
-	public Block(Point point, int width, int height) {
+	public Block(Point point, int width, int height, List<Street> surroundingStreets) {
 		super(point, width, height);
+		this.surroundingStreets = surroundingStreets;
 		spawnHouses();
 	}
-
-//	private void spawnHouses() {
-//		houses.add(new House(new Point(point.getX() + 10, point.getY() + 10), width-20, height-20));
-//		Main.structures.addAll(houses);
-//	}
 
 	public void spawnHouses() {
 		int nW = this.width / standardDimensions;
@@ -79,7 +78,10 @@ public class Block extends Structure { // House stammt von Structure ab
 			houses.add(new House(point, this.width, this.height, this));
 			Main.structures.addAll(houses);
 		}
-
+		
+		for (House house : houses) {
+			System.out.println(house.isHouseNearStreet());
+		}
 	}
 
 	@Override

@@ -18,11 +18,11 @@ import de.tim.facharbeit.structure.Structure;
 
 public class Street extends Structure {
 
-	protected static final int size = 4;
+	public static final int size = 4;
 	public static List<Street> streets = new ArrayList<>();
 	public List<Street> neighbors = new LinkedList<>();
 	public static List<Block> blocks = new LinkedList<>();
-	
+
 	public Street start;
 	public Street end;
 	public Point startPoint;
@@ -30,11 +30,11 @@ public class Street extends Structure {
 
 	private int length;
 	public StreetOrientation orientation;
-	
+
 	public int getLength() {
 		return length;
 	}
-	
+
 	public StreetOrientation getOrientation() {
 		return orientation;
 	}
@@ -53,14 +53,10 @@ public class Street extends Structure {
 		this.length = length;
 		this.orientation = orientation;
 		this.startPoint = point;
-		int x = orientation == StreetOrientation.HORIZONTAL ? this.startPoint.getX() + length: this.startPoint.getX() ;
-		int y = orientation == StreetOrientation.HORIZONTAL ? this.startPoint.getY() : this.startPoint.getY()+ length ;
+		int x = orientation == StreetOrientation.HORIZONTAL ? this.startPoint.getX() + length : this.startPoint.getX();
+		int y = orientation == StreetOrientation.HORIZONTAL ? this.startPoint.getY() : this.startPoint.getY() + length;
 		endPoint = new Point(x, y);
 	}
-
-
-
-
 
 	public boolean isPointOnStreet(Point point) {
 		for (int i = 0; i <= length + size; i++) {
@@ -72,7 +68,6 @@ public class Street extends Structure {
 		}
 		return false;
 	}
-	
 
 	public static Street getEndStreet(Point point, StreetOrientation orientation) {
 		for (int i = 1; i <= 10000; i++) {
@@ -102,7 +97,7 @@ public class Street extends Structure {
 			return this.getY() - point.getY();
 		}
 	}
-	
+
 	public void sortX() {
 		Street temp = null;
 		for (int i = 0; i < this.neighbors.size(); i++) {
@@ -119,7 +114,7 @@ public class Street extends Structure {
 	public void sortY() {
 		Street temp = null;
 		for (int i = 0; i < this.neighbors.size(); i++) {
-			for (int j = 1; j < this.neighbors.size() ; j++) {
+			for (int j = 1; j < this.neighbors.size(); j++) {
 				if (this.neighbors.get(j - 1).getY() > this.neighbors.get(j).getY()) {
 					temp = this.neighbors.get(j - 1);
 					this.neighbors.set(j - 1, this.neighbors.get(j));
@@ -128,7 +123,7 @@ public class Street extends Structure {
 			}
 		}
 	}
-	
+
 	public void sortsNeighbors() {
 		this.neighbors.add(this.start);
 		this.neighbors.add(this.end);
@@ -138,40 +133,41 @@ public class Street extends Structure {
 				n.sortX();
 			} else {
 				n.sortY();
-				
+
 			}
 		}
 	}
-	
+
 	private Street getNextNeighbor(Street street) {
 		boolean found = false;
-		
+
 		for (int i = 0; i < neighbors.size(); i++) {
 			Street s = neighbors.get(i);
 			if (s.equals(street)) {
-				//System.out.println("found: " + i);
+				// System.out.println("found: " + i);
 				found = true;
 			} else if (found && (this.isPointOnStreet(street.startPoint) || street.isPointOnStreet(this.startPoint))) {
 				return s;
-			} 
+			}
 		}
 		System.err.println("getNextNeighbor returned null");
 		return null;
 	}
-	
-	public void createBlocks() {
-		List<Street> children = new LinkedList<>();;
 
-		for(Street street : neighbors) {
+	public void createBlocks() {
+		List<Street> children = new LinkedList<>();
+		;
+
+		for (Street street : neighbors) {
 			children.add(street);
 		}
-		
-		for(Street street : neighbors) {
+
+		for (Street street : neighbors) {
 			if (this.isPointOnStreet(street.endPoint)) {
 				children.remove(street);
 			}
 		}
-		
+
 		for (int i = 0; i < children.size() - 1; i++) {
 			Street s1 = children.get(i);
 			Street s2 = children.get(i + 1);
@@ -207,15 +203,22 @@ public class Street extends Structure {
 		} else {
 			point = new Point(vertical1.startPoint.getX() + 5, vertical1.startPoint.getY() + 5);
 		}
-		Block block = new Block(point, width - 10, height - 10);
+		
+		List<Street> blockList = new ArrayList<>();
+		
+		blockList.add(horizontal1);
+		blockList.add(vertical1);
+		blockList.add(horizonal2);
+		blockList.add(vertical2);
+		
+		Block block = new Block(point, width - 10, height - 10, blockList);
 		Main.structures.add(block);
 		blocks.add(block);
 		Frame.instance.update();
 	}
-	
-	
+
 	private Color color;
-	
+
 	@Override
 	public void draw(Graphics graphics) {
 		if (color == null) {
@@ -230,9 +233,10 @@ public class Street extends Structure {
 		this.start.neighbors.add(this);
 		this.end.neighbors.add(this);
 	}
-	
+
 	@Override
 	public String toString() {
-		return "street index: " + streets.indexOf(this) + " Orientation: " + orientation + " x: " + this.getX() + " y: " + this.getY() + " l: " + this.length + " color: " + color + " neighbors: " + neighbors.size();
+		return "street index: " + streets.indexOf(this) + " Orientation: " + orientation + " x: " + this.getX() + " y: "
+				+ this.getY() + " l: " + this.length + " color: " + color + " neighbors: " + neighbors.size();
 	}
 }

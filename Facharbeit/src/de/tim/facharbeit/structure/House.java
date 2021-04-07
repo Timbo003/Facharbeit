@@ -30,7 +30,10 @@ public class House extends Structure{
 		Main.structures.addAll(humans);
 	}
 	
-	private boolean isHouseNearStreet() {
+	public boolean isHouseNearStreet() {
+		System.out.println(block.surroundingStreets);
+		
+		
 		return false;
 		
 	}
