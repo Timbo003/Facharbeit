@@ -12,7 +12,7 @@ import de.tim.facharbeit.Main;
 public class House extends Structure {
 
 	// variables//
-	private List<Human> humans = new ArrayList<>();
+	public List<Human> humans = new ArrayList<>();
 	public Block block;
 	public Entrance entrance;
 	public HouseOrientation orientation;

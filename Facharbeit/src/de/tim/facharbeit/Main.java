@@ -15,29 +15,36 @@ import java.util.LinkedList;
 import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.House;
+import de.tim.facharbeit.structure.Human;
 import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.Structure;
 import de.tim.facharbeit.structure.streets.Street;
 import de.tim.facharbeit.structure.streets.StreetOrientation;
 
-
 public class Main {
 
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
 	public static List<Health> healthArr = new ArrayList<>();
-	
+
 	private static Frame Frame;
-	private static int streetInt = 25;
+	private static StartFrame StartFrame;
+	private static int streetInt = 20;
 	public static int minimumDistance = 100;
+	private static int nInfected = 10;
+	private static int nImune = 7;
+	public static boolean nextFrame = true;
 
 	static Random random = new Random();
 
 	public static void main(String[] args) {
-		double dd = 2.7;
-		int inti = (int) dd;
-		System.out.println(inti);
-
 		System.out.println("start");
+		
+		
+		StartFrame = new StartFrame();
+		StartFrame.setupStartFrame();
+	}
+	
+	public static void switchToSim() {
 		Frame = new Frame();
 
 		createStreets();
@@ -55,22 +62,34 @@ public class Main {
 		createBlocks();
 
 		System.out.println("end");
-
-		System.out.println("");
 		
-		healthArr = fillHealthArr(10, 10, 10);
-		System.out.println(healthArr);
-		shuffleHealthList(healthArr);
-		System.out.println(healthArr);
-		System.out.println("\n" + totalHouses());
+		giveRightHealthToHumans(fillHealthArr(totalHumans() - nImune - nInfected, nInfected, nImune));
 	}
-	
+
+	public static int totalHumans() {
+		int totalHumans = 0;
+		for (Block block : Street.blocks) {
+			for (House house : block.houses) {
+				totalHumans += house.humans.size();
+			}
+		}
+		return totalHumans;
+	}
+
 	public static int totalHouses() {
 		int totalHouses = 0;
 		for (Block block : Street.blocks) {
 			totalHouses += block.houses.size();
 		}
 		return totalHouses;
+	}
+
+	public static int totalBlocks() {
+		int totalBlocks = 0;
+		for (Block block : Street.blocks) {
+			totalBlocks += 1;
+		}
+		return totalBlocks;
 	}
 
 	public static List<Health> fillHealthArr(int healthy, int infected, int imune) {
@@ -83,6 +102,7 @@ public class Main {
 		for (int i = 0; i < imune; i++) {
 			healthArr.add(Health.IMUNE);
 		}
+		shuffleHealthList(healthArr);
 		return healthArr;
 	}
 
@@ -98,6 +118,17 @@ public class Main {
 			healthArr.set(rand, tmp);
 		}
 		return healthArr;
+	}
+
+	public static void giveRightHealthToHumans(List<Health> healthArr) {
+		for (Block block : Street.blocks) {
+			for (House house : block.houses) {
+				for (Human human : house.humans) {
+					human.setBlobHealth(healthArr.get(0));
+					healthArr.remove(0);
+				}
+			}
+		}
 	}
 
 	public static void dumpAllStreets() {

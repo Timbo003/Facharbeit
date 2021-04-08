@@ -34,7 +34,6 @@ public class Point {
 		}
 		System.err.println("pointDistance not working");
 		return 0;
-
 	}
 
 	@Override

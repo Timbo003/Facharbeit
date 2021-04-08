@@ -9,10 +9,13 @@ Plan:
 7: Houses --> Blocks 
 8: Houses in Blocks spawnen
 9: streets von block speichern
-
 10: 3x3 zu grünfläche
 11:add entrance to Houses 
-12:add goTo Funk to Blob
+12:add how many shall be inffected 
+
+13:add goTo Funk to Blob
+	go to y
+	go to x
 
 
 
