@@ -28,30 +28,31 @@ public class Main {
 
 	private static Frame Frame;
 	private static StartFrame StartFrame;
-	private static int streetInt = 20;
 	public static int minimumDistance = 100;
-	private static int nInfected = 10;
-	private static int nImune = 7;
+	private static int nImune = 5;
 	public static boolean nextFrame = true;
 
 	static Random random = new Random();
 
 	public static void main(String[] args) {
-		System.out.println("start");
 		
+		
+		
+		System.out.println("start");
 		
 		StartFrame = new StartFrame();
 		StartFrame.setupStartFrame();
 	}
 	
 	public static void switchToSim() {
+
 		Frame = new Frame();
 
 		createStreets();
 		Frame.instance.update();
 		System.out.println("created starting Street");
 
-		for (int i = 0; i < streetInt; i++) {
+		for (int i = 0; i < Variables.streetCount; i++) {
 			addStreet();
 			Frame.instance.update();
 		}
@@ -63,7 +64,7 @@ public class Main {
 
 		System.out.println("end");
 		
-		giveRightHealthToHumans(fillHealthArr(totalHumans() - nImune - nInfected, nInfected, nImune));
+		giveRightHealthToHumans(fillHealthArr(totalHumans() - Variables.imuneCount - Variables.infectedCount, Variables.infectedCount, Variables.imuneCount));
 	}
 
 	public static int totalHumans() {
@@ -110,9 +111,8 @@ public class Main {
 		Health tmp;
 		int rand;
 		Random r = new Random();
-		for (var i = 0; i < healthArr.size(); i++) {
+		for (int i = 0; i < healthArr.size(); i++) {
 			rand = r.nextInt(healthArr.size());
-
 			tmp = healthArr.get(i);
 			healthArr.set(i, healthArr.get(rand));
 			healthArr.set(rand, tmp);
