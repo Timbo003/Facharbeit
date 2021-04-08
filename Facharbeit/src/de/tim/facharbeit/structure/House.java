@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import de.tim.facharbeit.Main;
 
@@ -26,10 +28,18 @@ public class House extends Structure {
 
 	// others//
 	private void spawnBlobs() {
-		humans.add(new Human(new Point(point.getX() + 10, point.getY() + 10), this, Health.HEALTHY));
-		humans.add(new Human(new Point(point.getX() + 20, point.getY() + 30), this, Health.INFECTED));
-		humans.add(new Human(new Point(point.getX() + 30, point.getY() + 10), this, Health.IMUNE));
-		Main.structures.addAll(humans);
+		Random random = new Random();
+		int randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+		for (int i = 0; i < randomNum; i++) {
+			
+			humans.add(new Human(new Point(point.getX() + (width/ 2) + i *10, point.getY() + (height/ 2) + i *10), this, Health.HEALTHY));
+			
+		}
+		Main.structures.addAll(humans);		
+//		
+//		humans.add(new Human(new Point(point.getX() + (width/ 2)+20, point.getY() + (height/ 2)), this, Health.INFECTED));
+//		humans.add(new Human(new Point(point.getX() + (width/ 2)-20, point.getY() + (height/ 2)), this, Health.IMUNE));
+		
 	}
 
 	private void createEntrance() {

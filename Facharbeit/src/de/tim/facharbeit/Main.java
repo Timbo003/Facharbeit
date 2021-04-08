@@ -13,26 +13,30 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import de.tim.facharbeit.structure.Block;
+import de.tim.facharbeit.structure.Health;
+import de.tim.facharbeit.structure.House;
 import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.Structure;
 import de.tim.facharbeit.structure.streets.Street;
 import de.tim.facharbeit.structure.streets.StreetOrientation;
 
+
 public class Main {
 
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
-
+	public static List<Health> healthArr = new ArrayList<>();
+	
 	private static Frame Frame;
 	private static int streetInt = 25;
 	public static int minimumDistance = 100;
-	
+
 	static Random random = new Random();
 
 	public static void main(String[] args) {
-		double dd= 2.7;
+		double dd = 2.7;
 		int inti = (int) dd;
 		System.out.println(inti);
-		
+
 		System.out.println("start");
 		Frame = new Frame();
 
@@ -51,8 +55,51 @@ public class Main {
 		createBlocks();
 
 		System.out.println("end");
+
+		System.out.println("");
+		
+		healthArr = fillHealthArr(10, 10, 10);
+		System.out.println(healthArr);
+		shuffleHealthList(healthArr);
+		System.out.println(healthArr);
+		System.out.println("\n" + totalHouses());
 	}
 	
+	public static int totalHouses() {
+		int totalHouses = 0;
+		for (Block block : Street.blocks) {
+			totalHouses += block.houses.size();
+		}
+		return totalHouses;
+	}
+
+	public static List<Health> fillHealthArr(int healthy, int infected, int imune) {
+		for (int i = 0; i < healthy; i++) {
+			healthArr.add(Health.HEALTHY);
+		}
+		for (int i = 0; i < infected; i++) {
+			healthArr.add(Health.INFECTED);
+		}
+		for (int i = 0; i < imune; i++) {
+			healthArr.add(Health.IMUNE);
+		}
+		return healthArr;
+	}
+
+	public static List<Health> shuffleHealthList(List<Health> healthArr) {
+		Health tmp;
+		int rand;
+		Random r = new Random();
+		for (var i = 0; i < healthArr.size(); i++) {
+			rand = r.nextInt(healthArr.size());
+
+			tmp = healthArr.get(i);
+			healthArr.set(i, healthArr.get(rand));
+			healthArr.set(rand, tmp);
+		}
+		return healthArr;
+	}
+
 	public static void dumpAllStreets() {
 		System.out.println("DUMPING STREETS :");
 		for (Street street : Street.streets) {
@@ -80,8 +127,6 @@ public class Main {
 		street3.end = street2;
 	}
 
-
-
 	public static void sortStreets() {
 		for (int i = 0; i < Street.streets.size(); i++) {
 			Street street = Street.streets.get(i);
@@ -89,59 +134,60 @@ public class Main {
 //			System.out.println(street.neighbors);
 		}
 	}
-	
-	//TODO Javadoc
-		private static void addStreet() {
-			Random random = new Random();
-			int i = random.nextInt(Street.streets.size());
-			if (i == 2 || i == 3) {								//nur von oben nach unten & von links nach rechts sollen straßen erzeugt werden
-				addStreet();
-				return;
-			}								
-			Street old = Street.streets.get(i);
-			int b = old.getLength() - 15;
-			if (b <= 0) {
-				addStreet();
-				return;
-			}
-			int a = random.nextInt(b) + 15;
-			StreetOrientation orientation = old.getOrientation() == StreetOrientation.VERTICAL
-					? StreetOrientation.HORIZONTAL
-					: StreetOrientation.VERTICAL;
-			int x = old.getX() + (orientation == StreetOrientation.VERTICAL ? a : 0);
-			int y = old.getY() + (orientation == StreetOrientation.VERTICAL ? 0 : a);
-			Point point = new Point(x, y);
-			
-			List<Point> intersectionPoints = new LinkedList<>();						//includes intersections of old	
-			for (Street street : Street.streets) {
-				if (old.isPointOnStreet(street.startPoint)) {							//liste wird gefüllt mit straßen, welche ihren AP auf der straße haben
-					intersectionPoints.add(street.startPoint);
-				}
-			}
-			intersectionPoints.add(old.endPoint);										
-			
-			for (Point point2 : intersectionPoints) {
-				if (point2.pointDistance(point) < minimumDistance) {
-					System.err.println("Distance is to short");
-					addStreet();
-					return;
-				}
-			}
-			
-			try {
-				Street newStreet = new Street(point, orientation);
-				newStreet.start = old;
-				newStreet.reconfigureNeighbors();			 
-			} catch (Exception e) {
-				addStreet();
+
+	// TODO Javadoc
+	private static void addStreet() {
+		Random random = new Random();
+		int i = random.nextInt(Street.streets.size());
+		if (i == 2 || i == 3) { // nur von oben nach unten & von links nach rechts sollen straßen erzeugt werden
+			addStreet();
+			return;
+		}
+		Street old = Street.streets.get(i);
+		int b = old.getLength() - 15;
+		if (b <= 0) {
+			addStreet();
+			return;
+		}
+		int a = random.nextInt(b) + 15;
+		StreetOrientation orientation = old.getOrientation() == StreetOrientation.VERTICAL
+				? StreetOrientation.HORIZONTAL
+				: StreetOrientation.VERTICAL;
+		int x = old.getX() + (orientation == StreetOrientation.VERTICAL ? a : 0);
+		int y = old.getY() + (orientation == StreetOrientation.VERTICAL ? 0 : a);
+		Point point = new Point(x, y);
+
+		List<Point> intersectionPoints = new LinkedList<>(); // includes intersections of old
+		for (Street street : Street.streets) {
+			if (old.isPointOnStreet(street.startPoint)) { // liste wird gefüllt mit straßen, welche ihren AP auf der
+															// straße haben
+				intersectionPoints.add(street.startPoint);
 			}
 		}
-		
-		private static void createBlocks() {
-			for (Street street : Street.streets) {
-				if (street.orientation == StreetOrientation.HORIZONTAL) {
-					street.createBlocks();
-				}
+		intersectionPoints.add(old.endPoint);
+
+		for (Point point2 : intersectionPoints) {
+			if (point2.pointDistance(point) < minimumDistance) {
+				System.err.println("Distance is to short");
+				addStreet();
+				return;
 			}
-		}	
+		}
+
+		try {
+			Street newStreet = new Street(point, orientation);
+			newStreet.start = old;
+			newStreet.reconfigureNeighbors();
+		} catch (Exception e) {
+			addStreet();
+		}
+	}
+
+	private static void createBlocks() {
+		for (Street street : Street.streets) {
+			if (street.orientation == StreetOrientation.HORIZONTAL) {
+				street.createBlocks();
+			}
+		}
+	}
 }

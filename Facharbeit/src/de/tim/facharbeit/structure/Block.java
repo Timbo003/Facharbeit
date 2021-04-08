@@ -12,7 +12,7 @@ import de.tim.facharbeit.structure.streets.Street;
 
 public class Block extends Structure { // House stammt von Structure ab
 
-	private List<House> houses = new ArrayList<>();
+	public List<House> houses = new ArrayList<>();
 	private List<Garden> gardens = new ArrayList<>();
 
 	public List<Street> surroundingStreets = new ArrayList<>();

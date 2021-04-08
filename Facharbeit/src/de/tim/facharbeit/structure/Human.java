@@ -10,14 +10,14 @@ public class Human extends Structure{
 	//variables//
 	private House home;
 	private Color blobColor;
-	private Health blobHealth;
+	private Health health;
 	private Character character;
 	
 	//constructor//
-	public Human(Point point, House home, Health blobHealth) {
+	public Human(Point point, House home, Health health) {
 		super(point, 10, 10);
 		this.home = home;
-		setBlobHealth(blobHealth);
+		setBlobHealth(health);
 	}
 	
 	
@@ -35,14 +35,14 @@ public class Human extends Structure{
 	}
 	
 	public void setBlobHealth(Health health) {
-		this.blobHealth = health;
-		switch (this.blobHealth) {
+		this.health = health;
+		switch (this.health) {
 		case HEALTHY: {this.blobColor = Color.green;break;}
 		case INFECTED: {this.blobColor = Color.red;break;}
 		case IMUNE: {this.blobColor = Color.blue;break;}
 		case DEAD: {this.blobColor = Color.gray;break;}
 		default:
-			throw new IllegalArgumentException("Unexpected value: " + this.blobHealth);
+			throw new IllegalArgumentException("Unexpected value: " + this.health);
 		}
 		Frame.instance.update();	
 	}
