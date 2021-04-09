@@ -33,6 +33,8 @@ public class Frame extends JPanel {
 
 	@Override
 	public void paint(Graphics graphics) {
+		graphics.setColor(Color.WHITE);
+		graphics.fillRect(0, 0, 1500, 750);		
         for (int i = Main.structures.size() - 1; i >= 0 ; i--) {
             Main.structures.get(i).draw(graphics);
         }

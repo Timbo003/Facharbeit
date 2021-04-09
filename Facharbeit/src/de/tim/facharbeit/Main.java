@@ -18,19 +18,19 @@ import de.tim.facharbeit.structure.House;
 import de.tim.facharbeit.structure.Human;
 import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.Structure;
+import de.tim.facharbeit.structure.manager.AnimationManager;
+import de.tim.facharbeit.structure.manager.HumanManager;
 import de.tim.facharbeit.structure.streets.Street;
 import de.tim.facharbeit.structure.streets.StreetOrientation;
 
 public class Main {
 
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
-	public static List<Health> healthArr = new ArrayList<>();
+	
 
 	private static Frame Frame;
 	private static StartFrame StartFrame;
 	public static int minimumDistance = 100;
-	private static int nImune = 5;
-	public static boolean nextFrame = true;
 
 	static Random random = new Random();
 
@@ -61,21 +61,49 @@ public class Main {
 		Frame.instance.update();
 		dumpAllStreets();
 		createBlocks();
+		
+		HumanManager.healthStartup();
 
 		System.out.println("end");
 		
-		giveRightHealthToHumans(fillHealthArr(totalHumans() - Variables.imuneCount - Variables.infectedCount, Variables.infectedCount, Variables.imuneCount));
+		
+		AnimationManager.start();
+
+//		calculateDistance();
 	}
 
-	public static int totalHumans() {
-		int totalHumans = 0;
-		for (Block block : Street.blocks) {
-			for (House house : block.houses) {
-				totalHumans += house.humans.size();
+	
+	public static void calculateDistance() {
+		long time = System.currentTimeMillis();
+		List<Human> humans = getAllHumans();
+		int[] distances = new int[humans.size()*humans.size()];
+		int counter = 0;
+		for (int i = 0; i < humans.size(); i++) {
+			Human human1 = humans.get(i);
+			for (int j = i + 1; j < humans.size(); j++) {
+				Human human2 = humans.get(j);
+				if (human1.equals(human2)) continue;
+				distances[counter++] = human1.distanceTo(human2.getPoint());
+				if (human1.distanceTo(human2.getPoint()) < 1) {
+					human1.setHealth(Health.DEAD);
+					human2.setHealth(Health.DEAD);
+				}
 			}
 		}
-		return totalHumans;
+		System.out.println("DONE! Took " + (System.currentTimeMillis() - time) + "ms");
 	}
+	
+	public static List<Human> getAllHumans(){
+		List<Human> humans = new ArrayList<>();
+		for (Structure structure : Main.structures) {
+			if (structure instanceof Human) {
+				Human human = (Human) structure;
+				humans.add(human);
+			}
+		}
+		return humans;
+	}
+	
 
 	public static int totalHouses() {
 		int totalHouses = 0;
@@ -93,43 +121,7 @@ public class Main {
 		return totalBlocks;
 	}
 
-	public static List<Health> fillHealthArr(int healthy, int infected, int imune) {
-		for (int i = 0; i < healthy; i++) {
-			healthArr.add(Health.HEALTHY);
-		}
-		for (int i = 0; i < infected; i++) {
-			healthArr.add(Health.INFECTED);
-		}
-		for (int i = 0; i < imune; i++) {
-			healthArr.add(Health.IMUNE);
-		}
-		shuffleHealthList(healthArr);
-		return healthArr;
-	}
-
-	public static List<Health> shuffleHealthList(List<Health> healthArr) {
-		Health tmp;
-		int rand;
-		Random r = new Random();
-		for (int i = 0; i < healthArr.size(); i++) {
-			rand = r.nextInt(healthArr.size());
-			tmp = healthArr.get(i);
-			healthArr.set(i, healthArr.get(rand));
-			healthArr.set(rand, tmp);
-		}
-		return healthArr;
-	}
-
-	public static void giveRightHealthToHumans(List<Health> healthArr) {
-		for (Block block : Street.blocks) {
-			for (House house : block.houses) {
-				for (Human human : house.humans) {
-					human.setBlobHealth(healthArr.get(0));
-					healthArr.remove(0);
-				}
-			}
-		}
-	}
+	
 
 	public static void dumpAllStreets() {
 		System.out.println("DUMPING STREETS :");
