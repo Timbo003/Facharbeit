@@ -29,11 +29,6 @@ public class Block extends Structure { // House stammt von Structure ab
 		int nW = this.width / standardDimensions;
 		int nH = this.height / standardDimensions;
 
-		System.out.println("\n");
-		System.out.println();
-		System.out.println("nW: " + nW);
-		System.out.println("nH: " + nH);
-
 		int houseWidth = 10;
 		int houseHeight = 10;
 
@@ -47,11 +42,6 @@ public class Block extends Structure { // House stammt von Structure ab
 		} else {
 			houseHeight = this.getHeight() / nH;
 		}
-
-		System.out.println("houseWidth: " + houseWidth);
-		System.out.println("houseHeight: " + houseHeight);
-		System.out.println("blockWidth: " + this.width);
-		System.out.println("blockHeight: " + this.height);
 
 		for (int i = 0; i < nW; i++) {
 			for (int j = 0; j < nH; j++) {
@@ -77,6 +67,6 @@ public class Block extends Structure { // House stammt von Structure ab
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(Color.lightGray);
-		graphics.fillRect(point.getX(), point.getY(), width, height);
+		graphics.drawRect(point.getX(), point.getY(), width, height);
 	}
 }

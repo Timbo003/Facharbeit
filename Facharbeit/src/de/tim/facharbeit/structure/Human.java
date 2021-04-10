@@ -107,10 +107,10 @@ public class Human extends Structure {
 		int newX = getX() + x;
 		int newY = getY() + y;
 		
-		if (newX < home.getX() || newX > home.getX() + home.width) {
+		if (newX < home.getX() + 15|| newX > home.getX() + home.width - 15) {
 			newX = getX() - x *2;
 		}
-		if (newY < home.getY() || newY > home.getY() + home.height) {
+		if (newY < home.getY() + 15|| newY > home.getY() + home.height- 15) {
 			newY = getY() - y *2;
 		}
 		setPoint(new Point(newX, newY));

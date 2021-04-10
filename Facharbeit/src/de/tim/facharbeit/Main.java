@@ -59,16 +59,21 @@ public class Main {
 
 		sortStreets();
 		Frame.instance.update();
-		dumpAllStreets();
+		//dumpAllStreets();
 		createBlocks();
 		
+		HumanManager.humanStartup();
 		HumanManager.healthStartup();
+		
+		System.out.println(HumanManager.totalHumans());
 
-		System.out.println("end");
+		
 		
 		
 		AnimationManager.start();
+		System.out.println("struc" + Main.structures);
 
+		System.out.println("end");
 //		calculateDistance();
 	}
 

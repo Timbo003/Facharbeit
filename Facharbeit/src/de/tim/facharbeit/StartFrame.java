@@ -102,6 +102,40 @@ public class StartFrame {
 		imuneSlider.setVisible(true);
 		SliderLable.add(imuneSlider);
 		SliderLable.add(imuneSliderText);
+		
+		
+		// slider & text for humanCount
+		JLabel humanCountSliderText = new JLabel();
+		humanCountSliderText.setBounds(0, 0, 100, 100);
+		humanCountSliderText.setVisible(true);
+		humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
+
+		JSlider humanCountSlider = new JSlider(2, 300, Variables.totalHumanCounter);
+		humanCountSlider.addChangeListener((e) -> {
+			Variables.totalHumanCounter = humanCountSlider.getValue();
+			humanCountSliderText.setText("Humans: " + humanCountSlider.getValue());
+		});
+		humanCountSlider.setBounds(0, 20, 100, 100);
+		humanCountSlider.setVisible(true);
+		SliderLable.add(humanCountSlider);
+		SliderLable.add(humanCountSliderText);
+		
+		
+		// slider & text for maxHumansInHome
+		JLabel maxHumansInHomeSliderText = new JLabel();
+		maxHumansInHomeSliderText.setBounds(0, 0, 100, 100);
+		maxHumansInHomeSliderText.setVisible(true);
+		maxHumansInHomeSliderText.setText("maxHumansInHome: " + Variables.maxHumansInHome);
+
+		JSlider maxHumansInHomeSlider = new JSlider(1, 10, Variables.maxHumansInHome);
+		maxHumansInHomeSlider.addChangeListener((e) -> {
+			Variables.maxHumansInHome = maxHumansInHomeSlider.getValue();
+			maxHumansInHomeSliderText.setText("maxHumansInHome: " + maxHumansInHomeSlider.getValue());
+		});
+		maxHumansInHomeSlider.setBounds(0, 20, 100, 100);
+		maxHumansInHomeSlider.setVisible(true);
+		SliderLable.add(maxHumansInHomeSlider);
+		SliderLable.add(maxHumansInHomeSliderText);
 
 		frame.add(SliderLable);
 	}

@@ -22,24 +22,14 @@ public class House extends Structure {
 		super(point, width, height);
 		this.block = block;
 		this.orientation = orientation;
-		spawnBlobs();
 		createEntrance();
 	}
 
 	// others//
-	private void spawnBlobs() {
-		Random random = new Random();
-		int randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
-		for (int i = 0; i < randomNum; i++) {
-			
-			humans.add(new Human(new Point(point.getX() + (width/ 2) + i *10, point.getY() + (height/ 2) + i *10), this, Health.HEALTHY));
-			
-		}
-		Main.structures.addAll(humans);		
-//		
-//		humans.add(new Human(new Point(point.getX() + (width/ 2)+20, point.getY() + (height/ 2)), this, Health.INFECTED));
-//		humans.add(new Human(new Point(point.getX() + (width/ 2)-20, point.getY() + (height/ 2)), this, Health.IMUNE));
-		
+	public void spawnBlob() {
+		Human human = new Human(new Point(point.getX() + (width/ 2)+20, point.getY() + (height/ 2)), this, Health.HEALTHY);
+		humans.add(human);
+		Main.structures.add(human);			
 	}
 
 	private void createEntrance() {

@@ -3,30 +3,24 @@ package de.tim.facharbeit.structure.manager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import de.tim.facharbeit.Frame;
+import de.tim.facharbeit.Main;
 import de.tim.facharbeit.Variables;
 import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.House;
 import de.tim.facharbeit.structure.Human;
+import de.tim.facharbeit.structure.Structure;
 import de.tim.facharbeit.structure.streets.Street;
 
 public class HumanManager {
 	private static List<Health> healthArr = new ArrayList<>();
-	
-	
-	
-	
-	
-	
-	
-	//MakeTheHealthRight//
-	public static void healthStartup() {
-		giveRightHealthToHumans(fillHealthArr(totalHumans() - Variables.imuneCount - Variables.infectedCount, Variables.infectedCount, Variables.imuneCount));
+	private static List<House> houseArr = new ArrayList<>();
 
-	}
-	
-	private static int totalHumans() {
+	public static int totalHumans() {
 		int totalHumans = 0;
 		for (Block block : Street.blocks) {
 			for (House house : block.houses) {
@@ -35,7 +29,56 @@ public class HumanManager {
 		}
 		return totalHumans;
 	}
-	
+
+	// SpawnTheRightAmountOfHumans//
+	public static void humanStartup() {
+		int tmpHumanCount = Variables.totalHumanCounter;
+		fillHouseList();
+		shuffleHouseList();
+		for (House house : houseArr) {
+			shuffleHouseList();
+			System.out.println("shuffled");
+			if (tmpHumanCount > 0) {
+				if (house.humans.size() < Variables.maxHumansInHome) {
+					house.spawnBlob();
+					tmpHumanCount -= 1;
+					continue;
+				}
+				continue;
+			}else {
+				break;
+			}
+		}
+	}
+
+	private static void fillHouseList() {
+		for (Structure structure : Main.structures) {
+			if (structure instanceof House) {
+				houseArr.add((House) structure);
+
+			}
+		}
+	}
+
+	private static void shuffleHouseList() {
+		House tmp;
+		int rand;
+		Random r = new Random();
+		for (int i = 0; i < houseArr.size(); i++) {
+			rand = r.nextInt(houseArr.size());
+			tmp = houseArr.get(i);
+			houseArr.set(i, houseArr.get(rand));
+			houseArr.set(rand, tmp);
+		}
+	}
+
+	// MakeTheHealthRight//
+	public static void healthStartup() {
+		giveRightHealthToHumans(fillHealthArr(totalHumans() - Variables.imuneCount - Variables.infectedCount,
+				Variables.infectedCount, Variables.imuneCount));
+
+	}
+
 	private static List<Health> fillHealthArr(int healthy, int infected, int imune) {
 		for (int i = 0; i < healthy; i++) {
 			healthArr.add(Health.HEALTHY);
@@ -73,6 +116,5 @@ public class HumanManager {
 			}
 		}
 	}
-	
-	
+
 }
