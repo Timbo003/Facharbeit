@@ -1,4 +1,4 @@
-package de.tim.facharbeit;
+package de.tim.facharbeit.frames;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,6 +17,9 @@ import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import de.tim.facharbeit.Main;
+import de.tim.facharbeit.Variables;
 
 public class StartFrame {
 	private static JFrame frame;

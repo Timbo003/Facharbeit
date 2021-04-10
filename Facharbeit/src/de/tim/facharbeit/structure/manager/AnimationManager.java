@@ -3,8 +3,8 @@ package de.tim.facharbeit.structure.manager;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import de.tim.facharbeit.Frame;
 import de.tim.facharbeit.Main;
+import de.tim.facharbeit.frames.Frame;
 import de.tim.facharbeit.structure.Human;
 import de.tim.facharbeit.structure.Structure;
 

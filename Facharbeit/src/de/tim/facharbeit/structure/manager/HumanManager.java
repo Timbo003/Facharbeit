@@ -6,9 +6,9 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import de.tim.facharbeit.Frame;
 import de.tim.facharbeit.Main;
 import de.tim.facharbeit.Variables;
+import de.tim.facharbeit.frames.Frame;
 import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.House;

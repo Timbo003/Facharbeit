@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import de.tim.facharbeit.frames.Frame;
+import de.tim.facharbeit.frames.StartFrame;
 import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.House;

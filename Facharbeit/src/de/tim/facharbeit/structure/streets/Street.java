@@ -10,8 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import de.tim.facharbeit.Frame;
 import de.tim.facharbeit.Main;
+import de.tim.facharbeit.frames.Frame;
 import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.Structure;

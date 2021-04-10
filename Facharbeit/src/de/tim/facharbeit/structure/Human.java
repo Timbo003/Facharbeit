@@ -6,7 +6,7 @@ import java.util.Random;
 
 import javax.swing.JLabel;
 
-import de.tim.facharbeit.Frame;
+import de.tim.facharbeit.frames.Frame;
 
 public class Human extends Structure {
 
