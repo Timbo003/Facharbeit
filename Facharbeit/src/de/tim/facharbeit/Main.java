@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import de.tim.facharbeit.dijkstra.DijkstraManager;
+import de.tim.facharbeit.dijkstra.DijkstraPoint;
 import de.tim.facharbeit.frames.Frame;
 import de.tim.facharbeit.frames.StartFrame;
 import de.tim.facharbeit.structure.Block;
@@ -37,9 +39,6 @@ public class Main {
 	static Random random = new Random();
 
 	public static void main(String[] args) {
-		
-		
-		
 		System.out.println("start");
 		
 		StartFrame = new StartFrame();
@@ -77,6 +76,8 @@ public class Main {
 
 		System.out.println("end");
 //		calculateDistance();
+		
+		DijkstraManager.createDijkstraPoints();
 	}
 
 	

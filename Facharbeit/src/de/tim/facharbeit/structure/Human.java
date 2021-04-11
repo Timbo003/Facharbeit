@@ -12,6 +12,7 @@ public class Human extends Structure {
 
 	// variables//
 	private House home;
+	private House target;
 	private Color blobColor;
 	private Health health;
 	private Character character;
@@ -22,8 +23,6 @@ public class Human extends Structure {
 		this.home = home;
 		setHealth(health);
 	}
-
-	// tmp
 
 	// get & set//
 	public House getHome() {

@@ -36,6 +36,16 @@ public class Point {
 		return 0;
 	}
 
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Point) {
+			Point point = (Point) obj;
+			return this.x == point.x && this.y == point.y;
+		}
+		return false;
+	}
+
 	@Override
 	public String toString() {
 		return "x: " + x + " y: " + y;
