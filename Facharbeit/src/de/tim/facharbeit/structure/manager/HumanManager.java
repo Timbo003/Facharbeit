@@ -6,6 +6,8 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JPopupMenu;
+
 import de.tim.facharbeit.Main;
 import de.tim.facharbeit.Variables;
 import de.tim.facharbeit.frames.Frame;
@@ -33,30 +35,29 @@ public class HumanManager {
 	// SpawnTheRightAmountOfHumans//
 	public static void humanStartup() {
 		int tmpHumanCount = Variables.totalHumanCounter;
-		fillHouseList();
-		shuffleHouseList();
-		for (House house : houseArr) {
-			shuffleHouseList();
-			System.out.println("shuffled");
-			if (tmpHumanCount > 0) {
-				if (house.humans.size() < Variables.maxHumansInHome) {
-					house.spawnBlob();
-					tmpHumanCount -= 1;
+		houseArr = Main.totalHouses();
+		//fillHouseList();
+		//shuffleHouseList();
+		System.out.println(Main.totalHouses().size());
+		System.out.println("a: " + houseArr.size());
+		int i = 0;
+		while (tmpHumanCount > 0 && i++ < 100) {
+			for (House house : houseArr) {
+				shuffleHouseList();
+				if (tmpHumanCount > 0) {
+					if (house.humans.size() < Variables.maxHumansInHome) {
+						house.spawnBlob();
+						tmpHumanCount -= 1;
+						continue;
+					}
 					continue;
+				}else {
+					break;
 				}
-				continue;
-			}else {
-				break;
 			}
 		}
-	}
-
-	private static void fillHouseList() {
-		for (Structure structure : Main.structures) {
-			if (structure instanceof House) {
-				houseArr.add((House) structure);
-
-			}
+		if (i > 100) {
+			System.err.println("Houses can't contain that many Humans, because single house cap is reached!");
 		}
 	}
 

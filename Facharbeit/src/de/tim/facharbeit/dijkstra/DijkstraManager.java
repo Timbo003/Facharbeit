@@ -14,14 +14,28 @@ public class DijkstraManager {
 	private static List<Street> checkedStreets = new ArrayList<>();
 	
 	
-	public static void DijkstraAlgorythmus() {
+	public static List<DijkstraPoint> DijkstraAlgorythmus(DijkstraPoint start, DijkstraPoint target) {
+		List<DijkstraPoint> path = new ArrayList<>();
+		
+		if (path.get(path.size()-1) == target) {
+			return path;
+		}
+		
+		
+		
+		start.marked = true;
+		return path;
+		
 		
 	}
 
 	public static void createDijkstraPoints() {
 		checkStreet(Street.streets.get(0));
-		
 		System.out.println("size: " + crossings.size());
+		for (DijkstraPoint dijkstraPoint : crossings) {
+			dijkstraPoint.setupDistances();
+			System.out.println("distance to up: " + dijkstraPoint.distanceToUp + "\ndistance to down: " + dijkstraPoint.distanceToDown +"\ndistance to left: " + dijkstraPoint.distanceToLeft +"\ndistance to right: " + dijkstraPoint.distanceToRight +"\n\n");
+		}
 	}
 	
 	

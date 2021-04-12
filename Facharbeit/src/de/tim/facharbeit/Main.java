@@ -60,24 +60,23 @@ public class Main {
 
 		sortStreets();
 		Frame.instance.update();
-		//dumpAllStreets();
 		createBlocks();
 		
 		HumanManager.humanStartup();
 		HumanManager.healthStartup();
 		
-		System.out.println(HumanManager.totalHumans());
-
-		
-		
-		
 		AnimationManager.start();
-		System.out.println("struc" + Main.structures);
 
 		System.out.println("end");
 //		calculateDistance();
 		
 		DijkstraManager.createDijkstraPoints();
+		System.out.println(HumanManager.totalHumans());
+		
+		for (Structure structure : structures) {
+			System.out.println(structure);
+		}
+		System.out.println(structures.size());
 	}
 
 	
@@ -113,15 +112,15 @@ public class Main {
 	}
 	
 
-	public static int totalHouses() {
-		int totalHouses = 0;
+	public static List<House> totalHouses() {
+		List<House> houses = new ArrayList<>();
 		for (Block block : Street.blocks) {
-			totalHouses += block.houses.size();
+			houses.addAll(block.houses);
 		}
-		return totalHouses;
+		return houses;
 	}
 
-	public static int totalBlocks() {
+	public static int totalBlocks() { //return Street.blocks.size(); //<--- Reicht das nicht ????
 		int totalBlocks = 0;
 		for (Block block : Street.blocks) {
 			totalBlocks += 1;

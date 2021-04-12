@@ -29,7 +29,7 @@ public class House extends Structure {
 	public void spawnBlob() {
 		Human human = new Human(new Point(point.getX() + (width/ 2)+20, point.getY() + (height/ 2)), this, Health.HEALTHY);
 		humans.add(human);
-		Main.structures.add(human);			
+		Main.structures.add(human);		
 	}
 
 	private void createEntrance() {
