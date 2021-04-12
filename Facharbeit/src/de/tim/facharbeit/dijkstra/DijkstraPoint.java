@@ -32,7 +32,7 @@ public class DijkstraPoint extends Structure {
 		super(point, 10, 10);
 		this.point = point;
 		points.add(this);
-		Main.structures.add(this);
+		//Main.structures.add(this);
 	}
 
 	public void setupDistances() {

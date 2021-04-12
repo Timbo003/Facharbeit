@@ -48,18 +48,26 @@ public class Block extends Structure { // House stammt von Structure ab
 				Point point = new Point(this.getX() + i * houseWidth, this.getY() + j * houseHeight);
 
 				if (i == 0) {
-					houses.add(new House(point, houseWidth, houseHeight, this, HouseOrientation.LEFT));
+					House newHouse = new House(point, houseWidth, houseHeight, this, HouseOrientation.LEFT);
+					houses.add(newHouse);
+					Main.structures.add(newHouse);
 				} else if (j == 0) {
-					houses.add(new House(point, houseWidth, houseHeight, this, HouseOrientation.UP));
+					House newHouse = new House(point, houseWidth, houseHeight, this, HouseOrientation.UP);
+					houses.add(newHouse);
+					Main.structures.add(newHouse);
 				} else if (nW - i == 1) {
-					houses.add(new House(point, houseWidth, houseHeight, this, HouseOrientation.RIGHT));
+					House newHouse = new House(point, houseWidth, houseHeight, this, HouseOrientation.RIGHT);
+					houses.add(newHouse);
+					Main.structures.add(newHouse);
 				} else if (nH - j == 1) {
-					houses.add(new House(point, houseWidth, houseHeight, this, HouseOrientation.DOWN));
+					House newHouse = new House(point, houseWidth, houseHeight, this, HouseOrientation.DOWN);
+					houses.add(newHouse);
+					Main.structures.add(newHouse);
 				} else {
-					gardens.add(new Garden(point, houseWidth, houseHeight, this));
+					Garden garden = new Garden(point, houseWidth, houseHeight, this);
+					gardens.add(garden);
+					Main.structures.add(garden);
 				}
-				Main.structures.addAll(houses);
-				Main.structures.addAll(gardens);
 			}
 		}
 	}

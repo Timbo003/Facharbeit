@@ -1,8 +1,10 @@
 package de.tim.facharbeit.dijkstra;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
+import de.tim.facharbeit.Main;
 import de.tim.facharbeit.frames.Frame;
 import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.streets.Street;
@@ -20,9 +22,6 @@ public class DijkstraManager {
 		if (path.get(path.size()-1) == target) {
 			return path;
 		}
-		
-		
-		
 		start.marked = true;
 		return path;
 		
@@ -36,6 +35,9 @@ public class DijkstraManager {
 			dijkstraPoint.setupDistances();
 			System.out.println("distance to up: " + dijkstraPoint.distanceToUp + "\ndistance to down: " + dijkstraPoint.distanceToDown +"\ndistance to left: " + dijkstraPoint.distanceToLeft +"\ndistance to right: " + dijkstraPoint.distanceToRight +"\n\n");
 		}
+		Main.structures.addAll(crossings);
+		Frame.instance.update();
+		
 	}
 	
 	
@@ -74,13 +76,6 @@ public class DijkstraManager {
 		for (Street neighbor : street.neighbors) {
 			if (!(isStreetChecked(neighbor))) {
 				checkStreet(neighbor);
-//				new Timer().schedule(new TimerTask() {
-//					
-//					@Override
-//					public void run() {
-//						checkStreet(neighbor);
-//					}
-//				}, 2500);;
 			}
 		}
 	}
