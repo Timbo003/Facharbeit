@@ -17,6 +17,8 @@ import de.tim.facharbeit.dijkstra.DijkstraPoint;
 import de.tim.facharbeit.frames.Frame;
 import de.tim.facharbeit.frames.StartFrame;
 import de.tim.facharbeit.structure.Block;
+import de.tim.facharbeit.structure.Entrance;
+import de.tim.facharbeit.structure.Garden;
 import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.House;
 import de.tim.facharbeit.structure.Human;
@@ -66,17 +68,12 @@ public class Main {
 		HumanManager.healthStartup();
 		
 		AnimationManager.start();
-
-		System.out.println("end");
 //		calculateDistance();
 		
 		DijkstraManager.createDijkstraPoints();
 		System.out.println(HumanManager.totalHumans());
 		
-		for (Structure structure : structures) {
-			System.out.println(structure);
-		}
-		System.out.println(structures.size());
+		System.out.println("end");
 	}
 
 	
@@ -212,7 +209,80 @@ public class Main {
 			addStreet();
 		}
 	}
+	
+	public static void givaAllNumbs(){
+		
+		System.out.println("structures size: " + structures.size());
+		
+		int Blocks = 0;
+		for (Structure structure : structures) {
+			if (structure instanceof Block) {
+//				System.out.println(structure);
+				Blocks++;
+			}
+		}
+		System.out.println("Blocks: " + Blocks);
 
+		int Houses = 0;
+		for (Structure structure : structures) {
+			if (structure instanceof House) {
+//				System.out.println(structure);
+				Houses++;
+			}
+		}
+		System.out.println("Houses: " + Houses);
+
+		int Humans = 0;
+		for (Structure structure : structures) {
+			if (structure instanceof Human) {
+//				System.out.println(structure);
+				Humans++;
+				
+			}
+		}
+		System.out.println("Humans: " + Humans);
+
+		int Gardens = 0;
+		for (Structure structure : structures) {
+			if (structure instanceof Garden) {
+//				System.out.println(structure);
+				Gardens++;
+				
+			}
+		}
+		System.out.println("Gardens: " + Gardens);
+
+		int DijPoint = 0;
+		for (Structure structure : structures) {
+			if (structure instanceof DijkstraPoint) {
+//				System.out.println(structure);
+				DijPoint++;
+				
+			}
+		}
+		System.out.println("DijPoint: " + DijPoint);
+		
+		int Entrances = 0;
+		for (Structure structure : structures) {
+			if (structure instanceof Entrance) {
+//				System.out.println(structure);
+				Entrances++;
+				
+			}
+		}
+		System.out.println("Entrances: " + Entrances);
+		
+		int Streets = 0;
+		for (Structure structure : structures) {
+			if (structure instanceof Street) {
+//				System.out.println(structure);
+				Streets++;
+				
+			}
+		}
+		System.out.println("Streets: " + Streets);
+	}
+	
 	private static void createBlocks() {
 		for (Street street : Street.streets) {
 			if (street.orientation == StreetOrientation.HORIZONTAL) {
