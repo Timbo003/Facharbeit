@@ -1,10 +1,7 @@
 package de.tim.facharbeit.dijkstra;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import javax.print.attribute.SetOfIntegerSyntax;
 
 import de.tim.facharbeit.Main;
 import de.tim.facharbeit.frames.Frame;
@@ -25,20 +22,16 @@ public class DijkstraManager {
 		start.distanceFromStart = 0;
 		dijkstraAlgorythmus(start);
 		while (!dijkstraAlgorythmus(getNext())) {
-			//System.out.println("----");
-			for (DijkstraPoint point : crossings) {
-				//System.out.println(point);
-			}
 		}
 		buildPath();
-		
+
 		System.out.println("path: ");
 		for (DijkstraPoint point : path) {
 			System.out.println(point);
 		}
 		return path;
 	}
-	
+
 	public static void resetPoints() {
 		for (DijkstraPoint point : crossings) {
 			point.setMarked(false);
@@ -83,21 +76,25 @@ public class DijkstraManager {
 		}
 		return returner;
 	}
-	
-	public static void buildPath(){
+
+	public static void buildPath() {
 		DijkstraPoint last = target.last;
 		path.add(target);
 		path.add(last);
-		while(last != null && last.last != null) {
+		while (last != null && last.last != null) {
 			last = last.last;
 			path.add(last);
 		}
+
+		System.out.println(path);
+		for (int i = 0; i < path.size() / 2; i++) {
+			DijkstraPoint tmp = path.get(i);
+			path.set(i, path.get(path.size() - i - 1));
+			path.set(path.size() - i - 1, tmp);
+		}
+		System.out.println("swap: " + path);
+
 	}
-	
-	
-	
-	
-	
 
 	public static void createDijkstraPoints() {
 		checkStreet(Street.streets.get(0));

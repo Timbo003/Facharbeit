@@ -67,19 +67,18 @@ public class Main {
 		HumanManager.humanStartup();
 		HumanManager.healthStartup();
 		
-		AnimationManager.start();
+		
 
 		DijkstraManager.createDijkstraPoints();
 		System.out.println(HumanManager.totalHumans());
 		
-		System.out.println("start: " + DijkstraManager.crossings.get(0) + "\n" + "target: " + DijkstraManager.crossings.get(DijkstraManager.crossings.size() -1));
-		DijkstraManager.startDijkstra(DijkstraManager.crossings.get(0), DijkstraManager.crossings.get(DijkstraManager.crossings.size() -1));
-		DijkstraManager.resetPoints();
+//		System.out.println("start: " + DijkstraManager.crossings.get(0) + "\n" + "target: " + DijkstraManager.crossings.get(DijkstraManager.crossings.size() -1));
+//		DijkstraManager.startDijkstra(DijkstraManager.crossings.get(0), DijkstraManager.crossings.get(DijkstraManager.crossings.size() -1));
+//		DijkstraManager.resetPoints();
 
-		for (DijkstraPoint point : DijkstraManager.crossings) {
-			System.out.println(point.isMarked());
-		}
-
+		
+		AnimationManager.start();
+		
 		System.out.println("end");
 	}
 
