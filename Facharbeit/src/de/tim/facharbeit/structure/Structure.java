@@ -21,6 +21,7 @@ public abstract class Structure {
 	}
 
 	public void setPoint(Point point) {
+		if (point == null) throw new Error("NEIN!");
 		this.point = point;
 	}
 	

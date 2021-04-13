@@ -47,11 +47,16 @@ public class Human extends Structure {
 		Point point = nextPointOnTheWay(target);
 		super.setPoint(point);
 		if (point.equals(target)) {
-			if (++pathIndex >= path.size()) {
+			pathIndex++;
+			if (reachedTarget()) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public boolean reachedTarget() {
+		return pathIndex >= path.size();
 	}
 	
 	public Point nextPointOnTheWay(Point target) {
@@ -74,7 +79,7 @@ public class Human extends Structure {
 		} else {
 			System.err.println("not a fitting point");
 		}
-		return null;
+		return target;
 	}
 
 	public void setHealth(Health health) {

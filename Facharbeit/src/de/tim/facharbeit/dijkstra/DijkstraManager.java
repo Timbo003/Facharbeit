@@ -38,6 +38,9 @@ public class DijkstraManager {
 			point.distanceFromStart = Integer.MAX_VALUE;
 			point.last = null;
 		}
+		path = new ArrayList<>();
+		checkedStreets = new ArrayList<>();
+		
 	}
 
 	public static boolean dijkstraAlgorythmus(DijkstraPoint aktuell) {
