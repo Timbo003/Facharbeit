@@ -68,11 +68,18 @@ public class Main {
 		HumanManager.healthStartup();
 		
 		AnimationManager.start();
-//		calculateDistance();
-		
+
 		DijkstraManager.createDijkstraPoints();
 		System.out.println(HumanManager.totalHumans());
 		
+		System.out.println("start: " + DijkstraManager.crossings.get(0) + "\n" + "target: " + DijkstraManager.crossings.get(DijkstraManager.crossings.size() -1));
+		DijkstraManager.startDijkstra(DijkstraManager.crossings.get(0), DijkstraManager.crossings.get(DijkstraManager.crossings.size() -1));
+		DijkstraManager.resetPoints();
+
+		for (DijkstraPoint point : DijkstraManager.crossings) {
+			System.out.println(point.isMarked());
+		}
+
 		System.out.println("end");
 	}
 

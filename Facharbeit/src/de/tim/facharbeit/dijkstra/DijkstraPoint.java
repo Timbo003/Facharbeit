@@ -14,15 +14,16 @@ public class DijkstraPoint extends Structure {
 	private static List<DijkstraPoint> points = new ArrayList<>();
 
 	public Point point;
-	
+
 	protected DijkstraPoint up;
 	protected DijkstraPoint left;
 	protected DijkstraPoint right;
 	protected DijkstraPoint down;
 
-	protected boolean marked = false;
-	protected int distanceFromStart;
-	
+	private boolean marked = false;
+	protected int distanceFromStart = Integer.MAX_VALUE;
+	protected DijkstraPoint last;
+
 	protected int distanceToUp;
 	protected int distanceToLeft;
 	protected int distanceToRight;
@@ -32,28 +33,27 @@ public class DijkstraPoint extends Structure {
 		super(point, 10, 10);
 		this.point = point;
 		points.add(this);
-		//Main.structures.add(this);
 	}
 
 	public void setupDistances() {
 		if (up != null) {
 			distanceToUp = point.getY() - up.point.getY();
-		}else {
+		} else {
 			distanceToUp = -1;
 		}
 		if (down != null) {
 			distanceToDown = down.point.getY() - point.getY();
-		}else {
+		} else {
 			distanceToDown = -1;
 		}
 		if (left != null) {
 			distanceToLeft = point.getX() - left.point.getX();
-		}else {
+		} else {
 			distanceToLeft = -1;
 		}
 		if (right != null) {
 			distanceToRight = right.point.getX() - point.getX();
-		}else {
+		} else {
 			distanceToRight = -1;
 		}
 	}
@@ -90,6 +90,19 @@ public class DijkstraPoint extends Structure {
 		this.down = down;
 	}
 
+	public boolean isMarked() {
+		return marked;
+	}
+
+	public void setMarked(boolean marked) {
+		this.marked = marked;
+	}
+	
+	
+	public static void setColor(Color color) {
+		
+	}
+
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(Color.RED);
@@ -108,7 +121,7 @@ public class DijkstraPoint extends Structure {
 			graphics.fillRect(getX(), getY() - 5, 20, 10);
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return "x: " + point.getX() + " y: " + point.getY();
