@@ -16,12 +16,12 @@ public class Human extends Structure {
 
 	// variables//
 	private House home;
-	private House target;
+	private House targetHouse;
 	private Color blobColor;
 	private Health health;
 	private Character character;
 	public List<DijkstraPoint> path = new ArrayList<>();
-	private int pathIndex = 1;
+	public int pathIndex = 1;
 	
 	// constructor//
 	public Human(Point point, House home, Health health) {

@@ -38,6 +38,8 @@ public class DijkstraManager {
 			point.distanceFromStart = Integer.MAX_VALUE;
 			point.last = null;
 		}
+		path = new ArrayList<>();
+		checkedStreets = new ArrayList<>();
 	}
 
 	public static boolean dijkstraAlgorythmus(DijkstraPoint aktuell) {
@@ -101,9 +103,9 @@ public class DijkstraManager {
 		System.out.println("size: " + crossings.size());
 		for (DijkstraPoint dijkstraPoint : crossings) {
 			dijkstraPoint.setupDistances();
-			System.out.println("distance to up: " + dijkstraPoint.distanceToUp + "\ndistance to down: "
-					+ dijkstraPoint.distanceToDown + "\ndistance to left: " + dijkstraPoint.distanceToLeft
-					+ "\ndistance to right: " + dijkstraPoint.distanceToRight + "\n\n");
+//			System.out.println("distance to up: " + dijkstraPoint.distanceToUp + "\ndistance to down: "
+//					+ dijkstraPoint.distanceToDown + "\ndistance to left: " + dijkstraPoint.distanceToLeft
+//					+ "\ndistance to right: " + dijkstraPoint.distanceToRight + "\n\n");
 		}
 		Main.structures.addAll(crossings);
 		Frame.instance.update();

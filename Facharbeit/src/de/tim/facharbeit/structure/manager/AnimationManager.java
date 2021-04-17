@@ -3,6 +3,7 @@ package de.tim.facharbeit.structure.manager;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,6 +12,7 @@ import de.tim.facharbeit.dijkstra.DijkstraManager;
 import de.tim.facharbeit.dijkstra.DijkstraPoint;
 import de.tim.facharbeit.frames.Frame;
 import de.tim.facharbeit.structure.Health;
+import de.tim.facharbeit.structure.House;
 import de.tim.facharbeit.structure.Human;
 import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.Structure;
@@ -21,42 +23,55 @@ public class AnimationManager {
 	public static void start() {
 		
 		
-		Human testHuman = Street.blocks.get(0).houses.get(0).humans.get(0);
-		testHuman.setHealth(Health.DEAD);
-		
-		
-
-		testHuman.setPoint(DijkstraManager.crossings.get(0).getPoint());
-		System.out.println("test" + testHuman.getPoint());
-		Frame.instance.update();
-
-		testHuman.path = DijkstraManager.startDijkstra(DijkstraManager.crossings.get(0), DijkstraManager.crossings.get(DijkstraManager.crossings.size() -1));
-
-		
-		walkAnimation(testHuman);
+		for (Structure structure : Main.structures) {
+			if (structure instanceof Human) {
+				Random random = new Random();
+				int randIntStart = random.nextInt(DijkstraManager.crossings.size() - 1);
+				int randIntEnd = random.nextInt(DijkstraManager.crossings.size() - 1);
+				while (randIntEnd == randIntStart) {
+					randIntEnd = random.nextInt(DijkstraManager.crossings.size() - 1);
+				}
+				
+				DijkstraPoint start = DijkstraManager.crossings.get(randIntStart);
+				DijkstraPoint end = DijkstraManager.crossings.get(randIntEnd); 
+				System.out.println("start: " + start);
+				System.out.println("end: " + end);
+				
+				Human human = (Human) structure;
+				
+				human.setPoint(start.getPoint());
+				Frame.instance.update();
+				human.path = DijkstraManager.startDijkstra(start, end);
+				DijkstraManager.resetPoints();
+			}
+		}
+		walkAnimation();
 	}
 	
-	private static void walkAnimation(Human human) {
+	private static void walkAnimation() {
 		Timer timer = new Timer();
+		
+//		List<Human> humas = Main.getAllHumans();
+		
 		timer.scheduleAtFixedRate(new TimerTask() {
 
 			@Override
 			public void run() {
-				Point point = human.getPoint();
-				System.out.println(point);
-
-				if (human.walkStep()) {
-					timer.cancel();
+				boolean finished = true;
+				for (Structure structure : Main.structures) {
+					if (structure instanceof Human) {
+						Human human = (Human) structure;
+						if (human.getPoint().equals(human.path.get(human.path.size() - 1).getPoint())) {
+							continue;
+						}
+						finished = false;
+						human.setPoint(human.nextPointOnTheWay(human.path.get(human.pathIndex).getPoint()));
+					}	
 				}
-//				human.setPoint(human.nextPointOnTheWay(target));
-//				Frame.instance.update();
-//				if (point.equals(target)) {
-//					System.out.println("destination reached");
-//					walkAnimation(human, );
-//					Frame.instance.update();
-//					timer.cancel();
-//
-//				}
+				if (finished) {
+					timer.cancel();
+					System.out.println("finished");
+				}
 				Frame.instance.update();
 			}
 		}, 100, 5);
