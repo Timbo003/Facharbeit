@@ -38,6 +38,8 @@ public class DijkstraManager {
 			point.distanceFromStart = Integer.MAX_VALUE;
 			point.last = null;
 		}
+		path = new ArrayList<>();
+		checkedStreets = new ArrayList<>();
 	}
 
 	public static boolean dijkstraAlgorythmus(DijkstraPoint aktuell) {
@@ -176,12 +178,5 @@ public class DijkstraManager {
 				return null;
 			return new Point(street.getX(), point.getY());
 		}
-//		if (!(point1.pointDistance(point2) < 10)) return null;
-//		if (orientation1 == orientation2) throw new Error("RIP");
-//		Point vertical = orientation1 == StreetOrientation.VERTICAL ? point1 : point2;
-//		Point horizontal = orientation1 == StreetOrientation.HORIZONTAL ? point1 : point2;
-//		int x = vertical.getX();
-//		int y = horizontal.getY();
-//		return new Point(x, y);
 	}
 }
