@@ -33,7 +33,7 @@ public class Main {
 
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
 	
-
+	//it works now
 	private static Frame Frame;
 	private static StartFrame StartFrame;
 	public static int minimumDistance = 100;
