@@ -70,6 +70,7 @@ public class Main {
 		DijkstraManager.createDijkstraPoints();
 
 		AnimationManager.start();
+
 		
 		System.out.println("end");
 	}

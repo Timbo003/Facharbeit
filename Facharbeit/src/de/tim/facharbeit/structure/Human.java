@@ -57,6 +57,37 @@ public class Human extends Structure {
 		return false;
 	}
 	
+	public Point nextPointToPoint(Point target) {
+		if (point.equals(target)) {
+			return null;
+		}
+		int stride = 1;
+		if (point.getX() == target.getX()) {
+			if (point.getY() < target.getY()) {
+				int x = target.getX();
+				int y = target.getY() + stride;
+				return new Point(x, y);
+			}else {
+				int x = target.getX();
+				int y = target.getY() - stride;
+				return new Point(x, y);
+			}
+		}else if (point.getY() == target.getY()) {
+			if (point.getX() < target.getX()) {
+				int x = target.getX()+ stride;
+				int y = target.getY();
+				return new Point(x, y);
+			}else {
+				int x = target.getX()- stride;
+				int y = target.getY();
+				return new Point(x, y);
+			}
+		}else{
+			System.err.println("cant do it");
+			return null;
+		}
+	}
+	
 	public Point nextPointToEntrance(Entrance entrance) {
 		if (point.equals(entrance.point)) {
 			return null;

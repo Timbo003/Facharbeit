@@ -19,7 +19,6 @@ import de.tim.facharbeit.structure.Structure;
 import de.tim.facharbeit.structure.streets.Street;
 
 public class AnimationManager {
-
 	public static void start() {
 
 //		for (Structure structure : Main.structures) {
@@ -46,22 +45,27 @@ public class AnimationManager {
 //		}
 //
 //		walkAnimation();
-		
+
 		walkToEntranceAnimation();
+		//walkToPoint();
+
+		
+
 	}
-	
-	private static void walkToEntranceAnimation() {
+
+	private static void walkToPoint() {
 		Timer timer = new Timer();
-		
+		Frame.instance.update();
+
 		List<Human> humans = Main.getAllHumans();
-		
+
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				System.out.println(humans.size() + " humans walking.");
 				List<Integer> removeIndexes = new ArrayList<>();
 				for (Human human : humans) {
-					Point point = human.nextPointToEntrance(human.currentHouse.entrance);
+					Point point = human.nextPointToPoint(human.currentHouse.getDijkstraPoint().point);
 					if (point == null) {
 						human.setHealth(Health.DEAD);
 						removeIndexes.add(humans.indexOf(human));
@@ -71,10 +75,45 @@ public class AnimationManager {
 				}
 				for (int i = removeIndexes.size() - 1; i >= 0; i--) {
 					int b = removeIndexes.get(i);
-					humans.remove(b); 
+					humans.remove(b);
 				}
 				if (humans.size() == 0) {
 					timer.cancel();
+					System.out.println("finished");
+
+				}
+				Frame.instance.update();
+			}
+		}, 100, 25);
+	}
+
+	private static void walkToEntranceAnimation() {
+		Timer timer = new Timer();
+
+		List<Human> humans = Main.getAllHumans();
+
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				System.out.println(humans.size() + " humans walking.");
+				List<Integer> removeIndexes = new ArrayList<>();
+				for (Human human : humans) {
+					Point point = human.nextPointToEntrance(human.currentHouse.entrance);
+					if (point == null) {
+						//human.setPoint(human.currentHouse.);
+						human.setHealth(Health.DEAD);
+						removeIndexes.add(humans.indexOf(human));
+						continue;
+					}
+					human.setPoint(point);
+				}
+				for (int i = removeIndexes.size() - 1; i >= 0; i--) {
+					int b = removeIndexes.get(i);
+					humans.remove(b);
+				}
+				if (humans.size() == 0) {
+					timer.cancel();
+					
 					System.out.println("finished");
 				}
 				Frame.instance.update();
@@ -82,8 +121,6 @@ public class AnimationManager {
 		}, 100, 25);
 	}
 
-	
-	
 	private static void walkAnimation() {
 		Timer timer = new Timer();
 
@@ -97,7 +134,7 @@ public class AnimationManager {
 				List<Integer> removeIndexes = new ArrayList<>();
 				for (Human human : humans) {
 					Point point = human.nextPointOnTheWay(human.path.get(human.pathIndex).getPoint());
-					
+
 					if (point == null) {
 						human.setHealth(Health.DEAD);
 						removeIndexes.add(humans.indexOf(human));
@@ -107,7 +144,7 @@ public class AnimationManager {
 				}
 				for (int i = removeIndexes.size() - 1; i >= 0; i--) {
 					int b = removeIndexes.get(i);
-					humans.remove(b); 
+					humans.remove(b);
 				}
 				if (humans.size() == 0) {
 					timer.cancel();
