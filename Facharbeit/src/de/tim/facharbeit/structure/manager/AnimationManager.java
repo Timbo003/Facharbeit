@@ -47,15 +47,18 @@ public class AnimationManager {
 //		walkAnimation();
 
 		walkToEntranceAnimation();
-		//walkToPoint();
-
 		
+		
+//		for (Human human : Main.getAllHumans()) {
+//			human.setPoint(human.currentHouse.pointOnStreet);
+//		}
+
+		walkToPoint();
 
 	}
 
 	private static void walkToPoint() {
 		Timer timer = new Timer();
-		Frame.instance.update();
 
 		List<Human> humans = Main.getAllHumans();
 
@@ -65,9 +68,9 @@ public class AnimationManager {
 				System.out.println(humans.size() + " humans walking.");
 				List<Integer> removeIndexes = new ArrayList<>();
 				for (Human human : humans) {
-					Point point = human.nextPointToPoint(human.currentHouse.getDijkstraPoint().point);
+					Point point = human.nextPointOnTheWay(human.currentHouse.nearestDijkstra.getPoint());
 					if (point == null) {
-						human.setHealth(Health.DEAD);
+						human.setHealth(Health.IMUNE);
 						removeIndexes.add(humans.indexOf(human));
 						continue;
 					}
@@ -80,7 +83,6 @@ public class AnimationManager {
 				if (humans.size() == 0) {
 					timer.cancel();
 					System.out.println("finished");
-
 				}
 				Frame.instance.update();
 			}
@@ -100,7 +102,7 @@ public class AnimationManager {
 				for (Human human : humans) {
 					Point point = human.nextPointToEntrance(human.currentHouse.entrance);
 					if (point == null) {
-						//human.setPoint(human.currentHouse.);
+						human.setPoint(human.currentHouse.pointOnStreet);
 						human.setHealth(Health.DEAD);
 						removeIndexes.add(humans.indexOf(human));
 						continue;

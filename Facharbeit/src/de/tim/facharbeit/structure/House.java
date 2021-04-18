@@ -22,6 +22,8 @@ public class House extends Structure {
 	public Entrance entrance;
 	public HouseOrientation orientation;
 	public Point pointOnStreet;
+	public DijkstraPoint nearestDijkstra;
+	
 
 	// constructor//
 	public House(Point point, int width, int height, Block block, HouseOrientation orientation) {
@@ -82,7 +84,8 @@ public class House extends Structure {
 		System.out.println("entrance point " + entrance.point);
 		System.out.println("on street " + pointOnStreet);
 		System.out.println("nearest dij " + nearest.point);
-		return nearest;
+		nearestDijkstra = nearest;
+		return nearestDijkstra;
 	}
 
 	public void spawnBlob() {

@@ -68,6 +68,9 @@ public class Main {
 		HumanManager.healthStartup();
 		
 		DijkstraManager.createDijkstraPoints();
+		for (House house : totalHouses()) {
+			house.getDijkstraPoint();
+		}
 
 		AnimationManager.start();
 
