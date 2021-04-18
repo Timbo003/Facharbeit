@@ -9,6 +9,7 @@ import java.util.Random;
 
 import javax.swing.JLabel;
 
+import de.tim.facharbeit.dijkstra.DijkstraManager;
 import de.tim.facharbeit.dijkstra.DijkstraPoint;
 import de.tim.facharbeit.frames.Frame;
 
@@ -17,16 +18,18 @@ public class Human extends Structure {
 	// variables//
 	private House home;
 	private House targetHouse;
+	public House currentHouse;
 	private Color blobColor;
 	private Health health;
 	private Character character;
-	public List<DijkstraPoint> path = new ArrayList<>();
+	public List<DijkstraPoint> path = new ArrayList<>();	
 	public int pathIndex = 1;
 	
 	// constructor//
 	public Human(Point point, House home, Health health) {
 		super(point, 10, 10);
 		this.home = home;
+		this.currentHouse = home;
 		setHealth(health);
 	}
 
@@ -54,7 +57,50 @@ public class Human extends Structure {
 		return false;
 	}
 	
+	public Point nextPointToEntrance(Entrance entrance) {
+		if (point.equals(entrance.point)) {
+			return null;
+		}
+		int stride = 1;
+		HouseOrientation houseOrientation = home.orientation;
+		if (houseOrientation == HouseOrientation.LEFT || houseOrientation == HouseOrientation.RIGHT) {
+			if (entrance.getPoint().getY() != point.getY()) {
+				if (entrance.getPoint().getY() > point.getY()) {
+					return new Point(point.getX(), point.getY() + stride);
+				}else {
+					return new Point(point.getX(), point.getY() - stride);
+				}
+			}else if (entrance.getPoint().getY() == point.getY()) {
+				if (entrance.getPoint().getX() > point.getX()) {
+					return new Point(point.getX() + stride, point.getY());
+				}else {
+					return new Point(point.getX() - stride, point.getY());
+				}
+			}
+		}else if (houseOrientation == HouseOrientation.UP || houseOrientation == HouseOrientation.DOWN) {
+			if (entrance.getPoint().getX() != point.getX()) {
+				if (entrance.getPoint().getX() > point.getX()) {
+					return new Point(point.getX() + 1, point.getY());
+				}else {
+					return new Point(point.getX() - 1, point.getY());
+				}
+			}else if (entrance.getPoint().getX() == point.getX()) {
+				if (entrance.getPoint().getY() > point.getY()) {
+					return new Point(point.getX(), point.getY() + 1);
+				}else {
+					return new Point(point.getX(), point.getY() - 1);
+				}
+			}
+		}else{
+			System.err.println("no valid HouseOrientation");
+		}
+		return point;
+	}
+	
 	public Point nextPointOnTheWay(Point target) {
+		if (point.equals(target)) {
+			return null;
+		}
 		int stride = 1;
 		System.out.println(point);
 		if (target.getY() == point.getY()) { // Y gleich muss sich nach links oder rechts bewegen
@@ -120,14 +166,6 @@ public class Human extends Structure {
 		// Frame.instance.update();
 	}
 
-	public void moveToEntrance() {
-
-	}
-
-	public void nextStep() {
-		moveInHouse();
-	}
-
 	public void moveInHouse() {
 		Random random = new Random();
 		int x = random.nextInt(5) - 2;
@@ -149,6 +187,18 @@ public class Human extends Structure {
 		return (int) Math.sqrt((this.getX() - point.getX()) ^ 2 + (this.getY() - point.getY()) ^ 2);
 	}
 
+	public void reset() {
+		pathIndex = 1;
+		path.clear();
+	}
+	
+	
+	public void moveHome() {
+		DijkstraManager.resetPoints();
+		this.reset();	
+	}
+	
+	
 	// draw & toString//
 	@Override
 	public void draw(Graphics graphics) {

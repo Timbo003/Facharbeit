@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import de.tim.facharbeit.Main;
+import de.tim.facharbeit.dijkstra.DijkstraPoint;
 
 public class House extends Structure {
 
@@ -33,9 +34,15 @@ public class House extends Structure {
 	}
 
 	private void createEntrance() {
-		Entrance entrance = new Entrance(new Point(this.getX() + orientation.getX(this.getWidth()),
+		this.entrance = new Entrance(new Point(this.getX() + orientation.getX(this.getWidth()),
 				this.getY() + orientation.getY(this.getHeight())), this);
+		
 		Main.structures.add(entrance);
+	}
+	
+	public DijkstraPoint nearestDijkstraPoint() {
+		return null;
+		
 	}
 
 	// get & set//
