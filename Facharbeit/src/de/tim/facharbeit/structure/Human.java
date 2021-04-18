@@ -122,7 +122,7 @@ public class Human extends Structure {
 		}
 		return null;
 	}
-
+	
 	public void setHealth(Health health) {
 		this.health = health;
 		switch (this.health) {

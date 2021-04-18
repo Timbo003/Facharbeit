@@ -79,7 +79,7 @@ public class AnimationManager {
 				}
 				Frame.instance.update();
 			}
-		}, 100, 5);
+		}, 100, 25);
 	}
 
 	
