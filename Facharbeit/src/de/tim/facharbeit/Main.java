@@ -32,6 +32,7 @@ import de.tim.facharbeit.structure.streets.StreetOrientation;
 public class Main {
 
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
+	public static List<Timer> aktiveTimers = new ArrayList<>();
 	
 	//it works now
 	private static Frame Frame;
@@ -72,8 +73,8 @@ public class Main {
 			house.getDijkstraPoint();
 		}
 
-		AnimationManager.start();
-
+		
+		AnimationManager.start();	
 		
 		System.out.println("end");
 	}

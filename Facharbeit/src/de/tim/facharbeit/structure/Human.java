@@ -23,7 +23,7 @@ public class Human extends Structure {
 	private Health health;
 	private Character character;
 	public List<DijkstraPoint> path = new ArrayList<>();	
-	public int pathIndex = 1;
+	public int pathIndex = 0;
 	
 	// constructor//
 	public Human(Point point, House home, Health health) {
@@ -57,50 +57,23 @@ public class Human extends Structure {
 		return false;
 	}
 	
-	public Point nextPointToEntrance(Entrance entrance) {
-		if (point.equals(entrance.point)) {
+	public Point nextPointToEntrance() {
+		Point entrance = this.currentHouse.entrance.getPoint();
+		if (point.equals(entrance)) {
 			return null;
 		}
-		int stride = 1;
 		HouseOrientation houseOrientation = home.orientation;
 		if (houseOrientation == HouseOrientation.LEFT || houseOrientation == HouseOrientation.RIGHT) {
-			if (entrance.getPoint().getY() != point.getY()) {
-				if (entrance.getPoint().getY() > point.getY()) {
-					return new Point(point.getX(), point.getY() + stride);
-				}else {
-					return new Point(point.getX(), point.getY() - stride);
-				}
-			}else if (entrance.getPoint().getY() == point.getY()) {
-				if (entrance.getPoint().getX() > point.getX()) {
-					return new Point(point.getX() + stride, point.getY());
-				}else {
-					return new Point(point.getX() - stride, point.getY());
-				}
-			}
-		}else if (houseOrientation == HouseOrientation.UP || houseOrientation == HouseOrientation.DOWN) {
-			if (entrance.getPoint().getX() != point.getX()) {
-				if (entrance.getPoint().getX() > point.getX()) {
-					return new Point(point.getX() + 1, point.getY());
-				}else {
-					return new Point(point.getX() - 1, point.getY());
-				}
-			}else if (entrance.getPoint().getX() == point.getX()) {
-				if (entrance.getPoint().getY() > point.getY()) {
-					return new Point(point.getX(), point.getY() + 1);
-				}else {
-					return new Point(point.getX(), point.getY() - 1);
-				}
-			}
-		}else{
+			return new Point(this.getX(), entrance.getY());
+		} else if (houseOrientation == HouseOrientation.UP || houseOrientation == HouseOrientation.DOWN) {
+			return new Point(entrance.getX(), this.getY());
+		} else {
 			System.err.println("no valid HouseOrientation");
 		}
 		return point;
 	}
 	
-	public Point nextPointOnTheWay(Point target) {
-		if (point.equals(target)) {
-			return null;
-		}
+	private Point nextPointOnTheWay(Point target) {
 		int stride = 1;
 		System.out.println(point);
 		if (target.getY() == point.getY()) { // Y gleich muss sich nach links oder rechts bewegen
@@ -110,16 +83,16 @@ public class Human extends Structure {
 			} else { 
 				return new Point(point.getX() - stride, point.getY());
 			}
-		} else if (target.getX() == point.getX()   ) { // X gleich muss sich nach oben oder unten bewegen
+		} else if (target.getX() == point.getX()) { // X gleich muss sich nach oben oder unten bewegen
 			System.out.println("same x");
 			if (target.getY() > point.getY()) { 
 				return new Point(point.getX() , point.getY() + stride);
 			} else { 
 				return new Point(point.getX() , point.getY() - stride);
 			}
-		} else {
-			System.err.println("not a fitting point");
 		}
+		System.err.println("not a fitting point");
+		System.out.println(this.getPoint() + "-->" + target);
 		return null;
 	}
 	
@@ -187,8 +160,13 @@ public class Human extends Structure {
 		return (int) Math.sqrt((this.getX() - point.getX()) ^ 2 + (this.getY() - point.getY()) ^ 2);
 	}
 
+	
+	public int getPointAmountToWalk() {
+		return path.size() - pathIndex;
+	}
+	
 	public void reset() {
-		pathIndex = 1;
+		pathIndex = 0;
 		path.clear();
 	}
 	
