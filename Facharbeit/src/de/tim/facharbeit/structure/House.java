@@ -94,7 +94,6 @@ public class House extends Structure {
 		int x = random.nextInt(width - 20);
 		int y = random.nextInt(height - 20);
 		Point point = new Point(x + 10 + this.point.getX(), y + 10 + this.point.getY());
-//		Human human = new Human(new Point(point.getX() + (width/ 2)+20, point.getY() + (height/ 2)), this, Health.HEALTHY);
 		Human human = new Human(point, this, Health.HEALTHY);
 		humans.add(human);
 		Main.structures.add(human);

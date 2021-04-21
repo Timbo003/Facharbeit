@@ -17,13 +17,14 @@ public class Human extends Structure {
 
 	// variables//
 	private House home;
-	private House targetHouse;
+	public House targetHouse;
 	public House currentHouse;
 	private Color blobColor;
 	private Health health;
 	private Character character;
 	public List<DijkstraPoint> path = new ArrayList<>();	
 	public int pathIndex = 0;
+	public int speed = new Random().nextInt(7) + 2;
 	
 	// constructor//
 	public Human(Point point, House home, Health health) {
@@ -141,19 +142,24 @@ public class Human extends Structure {
 
 	public void moveInHouse() {
 		Random random = new Random();
-		int x = random.nextInt(5) - 2;
-		int y = random.nextInt(5) - 2;
+		int x = random.nextInt(3) - 1;
+		int y = random.nextInt(3) - 1;
+
 		int newX = getX() + x;
 		int newY = getY() + y;
 
-		if (newX < home.getX() + 15 || newX > home.getX() + home.width - 15) {
+		if (newX < currentHouse.getX() + 15 || newX > currentHouse.getX() + currentHouse.width - 15) {
 			newX = getX() - x * 2;
+			//newX = currentHouse.getX() + (currentHouse.width / 2);
 		}
-		if (newY < home.getY() + 15 || newY > home.getY() + home.height - 15) {
+		if (newY < currentHouse.getY() + 15 || newY > currentHouse.getY() + currentHouse.height - 15) {
 			newY = getY() - y * 2;
+			//newY = currentHouse.getY() + (currentHouse.height / 2);
 		}
+		
+		
+		
 		setPoint(new Point(newX, newY));
-
 	}
 
 	public int distanceTo(Point point) {

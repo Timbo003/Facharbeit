@@ -114,9 +114,12 @@ public class Main {
 
 	public static List<House> totalHouses() {
 		List<House> houses = new ArrayList<>();
-		for (Block block : Street.blocks) {
-			houses.addAll(block.houses);
+		for (Structure structure : Main.structures) {
+			if (structure instanceof House) {
+				houses.add((House) structure);
+			}
 		}
+			
 		return houses;
 	}
 
