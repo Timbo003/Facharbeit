@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import de.tim.facharbeit.dijkstra.DijkstraManager;
 import de.tim.facharbeit.dijkstra.DijkstraPoint;
 import de.tim.facharbeit.frames.Frame;
+import de.tim.facharbeit.frames.ScoreFrame;
 import de.tim.facharbeit.frames.StartFrame;
 import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Entrance;
@@ -32,11 +33,13 @@ import de.tim.facharbeit.structure.streets.StreetOrientation;
 public class Main {
 
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
-	public static List<Timer> aktiveTimers = new ArrayList<>();
+	public static List<Day> days = new ArrayList<>();
 	
 	//it works now
 	private static Frame Frame;
 	private static StartFrame StartFrame;
+	private static ScoreFrame ScoreFrame;
+	
 	public static int minimumDistance = 100;
 
 	static Random random = new Random();
@@ -49,7 +52,7 @@ public class Main {
 	}
 	
 	public static void switchToSim() {
-
+		ScoreFrame = new ScoreFrame();
 		Frame = new Frame();
 
 		createStreets();
@@ -67,6 +70,7 @@ public class Main {
 		
 		HumanManager.humanStartup();
 		HumanManager.healthStartup();
+		HumanManager.characterStartup();
 		
 		DijkstraManager.createDijkstraPoints();
 		for (House house : totalHouses()) {

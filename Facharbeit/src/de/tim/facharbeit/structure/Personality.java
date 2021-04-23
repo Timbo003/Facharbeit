@@ -1,5 +1,5 @@
 package de.tim.facharbeit.structure;
 
-public enum Character {
+public enum Personality {
 	BEDACHT, VERWEIGERER, NORMAL,
 }

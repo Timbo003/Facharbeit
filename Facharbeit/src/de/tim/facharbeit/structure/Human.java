@@ -20,8 +20,12 @@ public class Human extends Structure {
 	public House targetHouse;
 	public House currentHouse;
 	private Color blobColor;
+	
+	public int visited;
+	public int allowedVisits;
+	
 	private Health health;
-	private Character character;
+	private Personality personality;
 	public List<DijkstraPoint> path = new ArrayList<>();	
 	public int pathIndex = 0;
 	public int speed = new Random().nextInt(7) + 2;
@@ -45,6 +49,10 @@ public class Human extends Structure {
 	
 
 	// others//
+	
+	public boolean isHumanAllowdToWalk() {
+		return false;
+	}
 	
 	public boolean walkStep() {
 		Point target = path.get(pathIndex).getPoint();
@@ -122,22 +130,24 @@ public class Human extends Structure {
 		Frame.instance.update();
 	}
 
-	public void setCharacter(Character character) {
-		this.character = character;
-		switch (this.character) {
+	public void setPersonality(Personality personality) {
+		this.personality = personality;
+		switch (this.personality) {
 		case BEDACHT: {
-			;
+			this.allowedVisits = 1;
+			break;
 		}
 		case NORMAL: {
-			;
+			this.allowedVisits = 2;
+			break;
 		}
 		case VERWEIGERER: {
-			;
+			this.allowedVisits = 4;
+			break;
 		}
 		default:
-			throw new IllegalArgumentException("Unexpected character value: " + this.character);
+			throw new IllegalArgumentException("Unexpected character value: " + this.personality);
 		}
-		// Frame.instance.update();
 	}
 
 	public void moveInHouse() {

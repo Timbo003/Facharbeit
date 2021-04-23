@@ -19,29 +19,10 @@ import de.tim.facharbeit.structure.Structure;
 import de.tim.facharbeit.structure.streets.Street;
 
 public class AnimationManager {
+	
+	List<Human> humansThatAreAllowedToWalk = Main.getAllHumans();
 
-	public static void start() {
-
-//		for (Human human : Main.getAllHumans()) {
-//			Random random = new Random();
-//			human.reset();
-//
-//			DijkstraPoint start = human.currentHouse.getDijkstraPoint();
-//
-//			int randIntEnd = random.nextInt(DijkstraManager.crossings.size() - 1);
-//			DijkstraPoint end = DijkstraManager.crossings.get(randIntEnd);
-//
-//			while (start.equals(end)) {
-//				end = DijkstraManager.crossings.get(random.nextInt(DijkstraManager.crossings.size() - 1));
-//				System.out.println("same");
-//			}
-//
-//			human.path = DijkstraManager.startDijkstra(start, end);
-//			DijkstraManager.resetPoints();
-//
-//			System.out.println(human.path);
-//		}
-		
+	public static void start() {	
 		for (Human human : Main.getAllHumans()) {
 			human.reset();
 			
@@ -137,6 +118,6 @@ public class AnimationManager {
 				}
 				Frame.instance.update();
 			}
-		}, 100, 1);
+		}, 100, 4);
 	}
 }

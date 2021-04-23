@@ -15,29 +15,23 @@ import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.House;
 import de.tim.facharbeit.structure.Human;
+import de.tim.facharbeit.structure.Personality;
 import de.tim.facharbeit.structure.Structure;
 import de.tim.facharbeit.structure.streets.Street;
 
 public class HumanManager {
 	private static List<Health> healthArr = new ArrayList<>();
+	private static List<Personality> personalityArr = new ArrayList<>();
 	private static List<House> houseArr = new ArrayList<>();
 
 	public static int totalHumans() {
-		int totalHumans = 0;
-		for (Block block : Street.blocks) {
-			for (House house : block.houses) {
-				totalHumans += house.humans.size();
-			}
-		}
-		return totalHumans;
+		return Main.getAllHumans().size();
 	}
 
 	// SpawnTheRightAmountOfHumans//
 	public static void humanStartup() {
 		int tmpHumanCount = Variables.totalHumanCounter;
 		houseArr = Main.totalHouses();
-		//fillHouseList();
-		//shuffleHouseList();
 		System.out.println(Main.totalHouses().size());
 		System.out.println("a: " + houseArr.size());
 		int i = 0;
@@ -60,6 +54,9 @@ public class HumanManager {
 			System.err.println("Houses can't contain that many Humans, because single house cap is reached!");
 		}
 	}
+	
+	
+	
 
 	private static void shuffleHouseList() {
 		House tmp;
@@ -79,6 +76,48 @@ public class HumanManager {
 				Variables.infectedCount, Variables.imuneCount));
 
 	}
+	
+	public static void characterStartup() {
+		giveRightPersonalityToHumans(fillpersonalityArr(totalHumans() - Variables.verweigererCount - Variables.bedachtCount,
+				Variables.bedachtCount, Variables.verweigererCount));
+	}
+	
+	private static List<Personality> fillpersonalityArr(int normal, int bedacht, int verweigerer){
+		for (int i = 0; i < bedacht; i++) {
+			personalityArr.add(Personality.BEDACHT);
+		}
+		for (int i = 0; i < normal; i++) {
+			personalityArr.add(Personality.NORMAL);
+		}
+		for (int i = 0; i < verweigerer; i++) {
+			personalityArr.add(Personality.VERWEIGERER);
+		}
+		shufflePersonalityList(personalityArr);
+		return personalityArr;
+		
+	}
+	
+	private static List<Personality> shufflePersonalityList(List<Personality> personalityArr) {
+		Personality tmp;
+		int rand;
+		Random r = new Random();
+		for (int i = 0; i < personalityArr.size(); i++) {
+			rand = r.nextInt(personalityArr.size());
+			tmp = personalityArr.get(i);
+			personalityArr.set(i, personalityArr.get(rand));
+			personalityArr.set(rand, tmp);
+		}
+		return personalityArr;
+	}
+
+	private static void giveRightPersonalityToHumans(List<Personality> personalityArr) {
+		for (Human human : Main.getAllHumans()) {
+			human.setPersonality(personalityArr.get(0));
+			personalityArr.remove(0);
+		}
+	}
+	
+	
 
 	private static List<Health> fillHealthArr(int healthy, int infected, int imune) {
 		for (int i = 0; i < healthy; i++) {
@@ -108,13 +147,9 @@ public class HumanManager {
 	}
 
 	private static void giveRightHealthToHumans(List<Health> healthArr) {
-		for (Block block : Street.blocks) {
-			for (House house : block.houses) {
-				for (Human human : house.humans) {
-					human.setHealth(healthArr.get(0));
-					healthArr.remove(0);
-				}
-			}
+		for (Human human : Main.getAllHumans()) {
+			human.setHealth(healthArr.get(0));
+			healthArr.remove(0);
 		}
 	}
 

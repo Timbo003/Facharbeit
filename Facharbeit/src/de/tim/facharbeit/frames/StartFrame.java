@@ -105,8 +105,7 @@ public class StartFrame {
 		imuneSlider.setVisible(true);
 		SliderLable.add(imuneSlider);
 		SliderLable.add(imuneSliderText);
-		
-		
+
 		// slider & text for humanCount
 		JLabel humanCountSliderText = new JLabel();
 		humanCountSliderText.setBounds(0, 0, 100, 100);
@@ -122,23 +121,54 @@ public class StartFrame {
 		humanCountSlider.setVisible(true);
 		SliderLable.add(humanCountSlider);
 		SliderLable.add(humanCountSliderText);
-		
-		
+
 		// slider & text for maxHumansInHome
 		JLabel maxHumansInHomeSliderText = new JLabel();
 		maxHumansInHomeSliderText.setBounds(0, 0, 100, 100);
 		maxHumansInHomeSliderText.setVisible(true);
-		maxHumansInHomeSliderText.setText("maxHumansInHome: " + Variables.maxHumansInHome);
+		maxHumansInHomeSliderText.setText("Fam. größe: " + Variables.maxHumansInHome);
 
 		JSlider maxHumansInHomeSlider = new JSlider(1, 10, Variables.maxHumansInHome);
 		maxHumansInHomeSlider.addChangeListener((e) -> {
 			Variables.maxHumansInHome = maxHumansInHomeSlider.getValue();
-			maxHumansInHomeSliderText.setText("maxHumansInHome: " + maxHumansInHomeSlider.getValue());
+			maxHumansInHomeSliderText.setText("Fam. größe: " + maxHumansInHomeSlider.getValue());
 		});
 		maxHumansInHomeSlider.setBounds(0, 20, 100, 100);
 		maxHumansInHomeSlider.setVisible(true);
 		SliderLable.add(maxHumansInHomeSlider);
 		SliderLable.add(maxHumansInHomeSliderText);
+
+		// slider & text for bedacht
+		JLabel bedachtSliderText = new JLabel();
+		bedachtSliderText.setBounds(0, 0, 100, 100);
+		bedachtSliderText.setVisible(true);
+		bedachtSliderText.setText("bedacht: " + Variables.bedachtCount);
+
+		JSlider bedachtSlider = new JSlider(1, 100, Variables.bedachtCount);
+		bedachtSlider.addChangeListener((e) -> {
+			Variables.bedachtCount = bedachtSlider.getValue();
+			bedachtSliderText.setText("bedacht: " + bedachtSlider.getValue());
+		});
+		bedachtSlider.setBounds(0, 20, 100, 100);
+		bedachtSlider.setVisible(true);
+		SliderLable.add(bedachtSlider);
+		SliderLable.add(bedachtSliderText);
+
+		// slider & text for bedacht
+		JLabel verweigererSliderText = new JLabel();
+		verweigererSliderText.setBounds(0, 0, 100, 100);
+		verweigererSliderText.setVisible(true);
+		verweigererSliderText.setText("verweigerer: " + Variables.verweigererCount);
+
+		JSlider verweigererSlider = new JSlider(1, 100, Variables.verweigererCount);
+		verweigererSlider.addChangeListener((e) -> {
+			Variables.verweigererCount = verweigererSlider.getValue();
+			verweigererSliderText.setText("verweigerer: " + verweigererSlider.getValue());
+		});
+		verweigererSlider.setBounds(0, 20, 100, 100);
+		verweigererSlider.setVisible(true);
+		SliderLable.add(verweigererSlider);
+		SliderLable.add(verweigererSliderText);
 
 		frame.add(SliderLable);
 	}
