@@ -20,7 +20,7 @@ import de.tim.facharbeit.structure.streets.Street;
 
 public class AnimationManager {
 	
-	private static List<Human> humansThatAreAllowedToWalk;
+	private static List<Human> allowedList;
 	
 	public static void prepairAnimation(Human human) {
 		human.reset();
@@ -62,10 +62,14 @@ public class AnimationManager {
 		human.currentHouse = null;
 	}
 	
+	public static void refreshAllowedList() {
+		
+	}
+	
 	public static Human getRandomHuman() { //TODO don't use humans that are already walking
 		Random random = new Random();
 		Human human = Main.getAllHumans().get(random.nextInt(Main.getAllHumans().size()));
-		if (human.isHumanAllowdToWalk() && !(human.currentHouse.equals(null))) {
+		if (human.isHumanAllowdToWalk() && human.currentHouse !=null) {
 			return human;
 		}
 		return getRandomHuman();
@@ -101,7 +105,6 @@ public class AnimationManager {
 							human.setHealth(Health.DEAD);
 							System.out.println(human.currentHouse.getPoint());
 							System.out.println("1 human done");
-							AnimationManager.prepairAnimation(AnimationManager.getRandomHuman());
 							continue;
 						}
 					} else if (counter % (human.speed * 10) == 0) {

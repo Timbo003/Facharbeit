@@ -27,6 +27,7 @@ import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.Structure;
 import de.tim.facharbeit.structure.manager.AnimationManager;
 import de.tim.facharbeit.structure.manager.HumanManager;
+import de.tim.facharbeit.structure.manager.WalkManager;
 import de.tim.facharbeit.structure.streets.Street;
 import de.tim.facharbeit.structure.streets.StreetOrientation;
 
@@ -78,11 +79,10 @@ public class Main {
 			house.getDijkstraPoint();
 		}
 
-		AnimationManager.prepairAnimation(AnimationManager.getRandomHuman());
-		
-		HumanManager.refrechHumanHealthVar();
-
+		WalkManager.startHuman();
 		AnimationManager.walkAnimation();
+		
+		
 
 		System.out.println("end");
 	}

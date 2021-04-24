@@ -104,7 +104,7 @@ public class Human extends Structure {
 		}
 		System.err.println("not a fitting point");
 		System.out.println(this.getPoint() + "-->" + target);
-		return null;
+		return target;
 	}
 	
 	public void setHealth(Health health) {
