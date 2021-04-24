@@ -1,6 +1,7 @@
 package de.tim.facharbeit.structure.manager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -55,7 +56,22 @@ public class HumanManager {
 		}
 	}
 	
-	
+	public static void refrechHumanHealthVar() {
+		Variables.infected = 0;
+		Variables.imune = 0;
+		Variables.dead = 0;
+		Variables.healthy = 0;
+		
+		for (Human human : Main.getAllHumans()) {
+			switch (human.health) {
+			case HEALTHY: Variables.healthy++; break;
+			case DEAD: Variables.dead++; break;	
+			case INFECTED: Variables.infected++; break;	
+			case IMUNE: Variables.imune++; break;
+			default: break;
+			}
+		}
+	}
 	
 
 	private static void shuffleHouseList() {

@@ -33,26 +33,27 @@ import de.tim.facharbeit.structure.streets.StreetOrientation;
 public class Main {
 
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
-	public static List<Day> days = new ArrayList<>();
-	
-	//it works now
+
+	// it works now
 	private static Frame Frame;
 	private static StartFrame StartFrame;
-	private static ScoreFrame ScoreFrame;
-	
+	public static ScoreFrame ScoreFrame;
+
 	public static int minimumDistance = 100;
 
 	static Random random = new Random();
 
 	public static void main(String[] args) {
 		System.out.println("start");
-		
+
 		StartFrame = new StartFrame();
 		StartFrame.setupStartFrame();
 	}
-	
+
 	public static void switchToSim() {
 		ScoreFrame = new ScoreFrame();
+		ScoreFrame.setupScoreFrame();
+		
 		Frame = new Frame();
 
 		createStreets();
@@ -67,33 +68,36 @@ public class Main {
 		sortStreets();
 		Frame.instance.update();
 		createBlocks();
-		
+
 		HumanManager.humanStartup();
 		HumanManager.healthStartup();
 		HumanManager.characterStartup();
-		
+
 		DijkstraManager.createDijkstraPoints();
 		for (House house : totalHouses()) {
 			house.getDijkstraPoint();
 		}
 
+		AnimationManager.prepairAnimation(AnimationManager.getRandomHuman());
 		
-		AnimationManager.start();	
-		
+		HumanManager.refrechHumanHealthVar();
+
+		AnimationManager.walkAnimation();
+
 		System.out.println("end");
 	}
 
-	
 	public static void calculateDistance() {
 		long time = System.currentTimeMillis();
 		List<Human> humans = getAllHumans();
-		int[] distances = new int[humans.size()*humans.size()];
+		int[] distances = new int[humans.size() * humans.size()];
 		int counter = 0;
 		for (int i = 0; i < humans.size(); i++) {
 			Human human1 = humans.get(i);
 			for (int j = i + 1; j < humans.size(); j++) {
 				Human human2 = humans.get(j);
-				if (human1.equals(human2)) continue;
+				if (human1.equals(human2))
+					continue;
 				distances[counter++] = human1.distanceTo(human2.getPoint());
 				if (human1.distanceTo(human2.getPoint()) < 1) {
 					human1.setHealth(Health.DEAD);
@@ -103,8 +107,8 @@ public class Main {
 		}
 		System.out.println("DONE! Took " + (System.currentTimeMillis() - time) + "ms");
 	}
-	
-	public static List<Human> getAllHumans(){
+
+	public static List<Human> getAllHumans() {
 		List<Human> humans = new ArrayList<>();
 		for (Structure structure : Main.structures) {
 			if (structure instanceof Human) {
@@ -114,7 +118,6 @@ public class Main {
 		}
 		return humans;
 	}
-	
 
 	public static List<House> totalHouses() {
 		List<House> houses = new ArrayList<>();
@@ -123,19 +126,17 @@ public class Main {
 				houses.add((House) structure);
 			}
 		}
-			
+
 		return houses;
 	}
 
-	public static int totalBlocks() { //return Street.blocks.size(); //<--- Reicht das nicht ????
+	public static int totalBlocks() { // return Street.blocks.size(); //<--- Reicht das nicht ????
 		int totalBlocks = 0;
 		for (Block block : Street.blocks) {
 			totalBlocks += 1;
 		}
 		return totalBlocks;
 	}
-
-	
 
 	public static void dumpAllStreets() {
 		System.out.println("DUMPING STREETS :");
@@ -219,11 +220,11 @@ public class Main {
 			addStreet();
 		}
 	}
-	
-	public static void givaAllNumbs(){
-		
+
+	public static void givaAllNumbs() {
+
 		System.out.println("structures size: " + structures.size());
-		
+
 		int Blocks = 0;
 		for (Structure structure : structures) {
 			if (structure instanceof Block) {
@@ -247,7 +248,7 @@ public class Main {
 			if (structure instanceof Human) {
 //				System.out.println(structure);
 				Humans++;
-				
+
 			}
 		}
 		System.out.println("Humans: " + Humans);
@@ -257,7 +258,7 @@ public class Main {
 			if (structure instanceof Garden) {
 //				System.out.println(structure);
 				Gardens++;
-				
+
 			}
 		}
 		System.out.println("Gardens: " + Gardens);
@@ -267,32 +268,32 @@ public class Main {
 			if (structure instanceof DijkstraPoint) {
 //				System.out.println(structure);
 				DijPoint++;
-				
+
 			}
 		}
 		System.out.println("DijPoint: " + DijPoint);
-		
+
 		int Entrances = 0;
 		for (Structure structure : structures) {
 			if (structure instanceof Entrance) {
 //				System.out.println(structure);
 				Entrances++;
-				
+
 			}
 		}
 		System.out.println("Entrances: " + Entrances);
-		
+
 		int Streets = 0;
 		for (Structure structure : structures) {
 			if (structure instanceof Street) {
 //				System.out.println(structure);
 				Streets++;
-				
+
 			}
 		}
 		System.out.println("Streets: " + Streets);
 	}
-	
+
 	private static void createBlocks() {
 		for (Street street : Street.streets) {
 			if (street.orientation == StreetOrientation.HORIZONTAL) {

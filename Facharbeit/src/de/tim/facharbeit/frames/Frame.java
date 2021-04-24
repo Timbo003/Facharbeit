@@ -30,6 +30,7 @@ public class Frame extends JPanel {
 
 	public void update() {
 		super.repaint();
+		
 	}
 
 	@Override

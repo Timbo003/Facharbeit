@@ -1,6 +1,11 @@
 package de.tim.facharbeit;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Variables {
+	public static List<Day> days = new ArrayList<>();
+	
 	public static int streetCount = 10;
 	
 	public static int infectedCount = 5;
@@ -11,6 +16,12 @@ public class Variables {
 	
 	public static int bedachtCount = 5;
 	public static int verweigererCount = 5;
+	
+	
+	public static int infected = 0;
+	public static int imune = 0;
+	public static int dead = 0;
+	public static int healthy = 0;
 
 
 

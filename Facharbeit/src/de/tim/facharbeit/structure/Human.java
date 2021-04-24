@@ -9,9 +9,11 @@ import java.util.Random;
 
 import javax.swing.JLabel;
 
+import de.tim.facharbeit.Main;
 import de.tim.facharbeit.dijkstra.DijkstraManager;
 import de.tim.facharbeit.dijkstra.DijkstraPoint;
 import de.tim.facharbeit.frames.Frame;
+import de.tim.facharbeit.structure.manager.HumanManager;
 
 public class Human extends Structure {
 
@@ -24,8 +26,8 @@ public class Human extends Structure {
 	public int visited;
 	public int allowedVisits;
 	
-	private Health health;
-	private Personality personality;
+	public Health health = null;
+	public Personality personality;
 	public List<DijkstraPoint> path = new ArrayList<>();	
 	public int pathIndex = 0;
 	public int speed = new Random().nextInt(7) + 2;
@@ -51,7 +53,7 @@ public class Human extends Structure {
 	// others//
 	
 	public boolean isHumanAllowdToWalk() {
-		return false;
+		return allowedVisits > visited;
 	}
 	
 	public boolean walkStep() {
@@ -127,6 +129,12 @@ public class Human extends Structure {
 		default:
 			throw new IllegalArgumentException("Unexpected health value: " + this.health);
 		}
+		for (Human human : Main.getAllHumans()) {
+			if (human.health.equals(null)) {
+				break;
+			}
+			Main.ScoreFrame.update();;
+		}
 		Frame.instance.update();
 	}
 
@@ -184,6 +192,7 @@ public class Human extends Structure {
 	public void reset() {
 		pathIndex = 0;
 		path.clear();
+		
 	}
 	
 	

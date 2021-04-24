@@ -11,6 +11,6 @@ public class Day {
 	
 	public Day(int date) {
 		this.date = date;
-		Main.days.add(this);
+		Variables.days.add(this);
     }
 }
