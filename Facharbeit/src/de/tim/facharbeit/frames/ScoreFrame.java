@@ -21,6 +21,8 @@ public class ScoreFrame {
 	private static JLabel imuneLable = new JLabel();
 	private static JLabel healthyLable = new JLabel();
 	private static JLabel deadLable = new JLabel();
+	private static JLabel dateLable = new JLabel();
+	
 
 	public ScoreFrame() {
 		frame = new JFrame("ScoreScreen");
@@ -68,6 +70,12 @@ public class ScoreFrame {
 		deadLable.setVisible(true);
 		deadLable.setText("dead: " + Variables.dead);
 		varPanel.add(deadLable);
+
+		// imune
+		dateLable.setBounds(0, 0, 100, 100);
+		dateLable.setVisible(true);
+		dateLable.setText("date: " + (Variables.days.size() + 1));
+		varPanel.add(dateLable);
 
 		frame.add(varPanel);
 	}

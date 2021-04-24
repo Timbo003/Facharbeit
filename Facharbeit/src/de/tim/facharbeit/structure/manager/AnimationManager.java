@@ -63,7 +63,12 @@ public class AnimationManager {
 	}
 	
 	public static void refreshAllowedList() {
-		
+		allowedList.clear();
+		for (Human human : Main.getAllHumans()) {
+			if (human.isHumanAllowdToWalk()) {
+				allowedList.add(human);
+			}
+		}
 	}
 	
 	public static Human getRandomHuman() { //TODO don't use humans that are already walking
@@ -96,15 +101,16 @@ public class AnimationManager {
 					if (!(counter % human.speed == 0))
 						continue;
 					if (human.currentHouse == null) {
-						System.out.println("steps: " + human.getPointAmountToWalk());
-						System.out.println("path" + human.path);
+//						System.out.println("steps: " + human.getPointAmountToWalk());
+//						System.out.println("path" + human.path);
 
 						if (human.walkStep()) {
 							human.currentHouse = human.targetHouse;
 							human.targetHouse = null;
 							human.setHealth(Health.DEAD);
-							System.out.println(human.currentHouse.getPoint());
-							System.out.println("1 human done");
+							human.visited++;
+//							System.out.println(human.currentHouse.getPoint());
+//							System.out.println("1 human done");
 							continue;
 						}
 					} else if (counter % (human.speed * 10) == 0) {
