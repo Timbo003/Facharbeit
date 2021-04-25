@@ -21,7 +21,7 @@ public class Human extends Structure {
 	private House home;
 	public House targetHouse;
 	public House currentHouse;
-	private Color blobColor;
+	public Color blobColor;
 	
 	public int visited;
 	public int allowedVisits;
@@ -86,16 +86,16 @@ public class Human extends Structure {
 	
 	private Point nextPointOnTheWay(Point target) {
 		int stride = 1;
-		System.out.println(point);
+//		System.out.println(point);
 		if (target.getY() == point.getY()) { // Y gleich muss sich nach links oder rechts bewegen
-			System.out.println("same y");
+//			System.out.println("same y");
 			if (target.getX() > point.getX()) { 
 				return new Point(point.getX() + stride, point.getY());
 			} else { 
 				return new Point(point.getX() - stride, point.getY());
 			}
 		} else if (target.getX() == point.getX()) { // X gleich muss sich nach oben oder unten bewegen
-			System.out.println("same x");
+//			System.out.println("same x");
 			if (target.getY() > point.getY()) { 
 				return new Point(point.getX() , point.getY() + stride);
 			} else { 

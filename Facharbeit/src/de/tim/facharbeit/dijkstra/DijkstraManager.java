@@ -20,14 +20,15 @@ public class DijkstraManager {
 	public static List<DijkstraPoint> startDijkstra(DijkstraPoint start, DijkstraPoint ziel) {
 		target = ziel;
 		start.distanceFromStart = 0;
+//		System.out.println("start " + start + "  ziel " + ziel);
 		dijkstraAlgorythmus(start);
 		while (!dijkstraAlgorythmus(getNext())) {
 		}
 		buildPath();
 
-		System.out.println("path: ");
+//		System.out.println("path: ");
 		for (DijkstraPoint point : path) {
-			System.out.println(point);
+//			System.out.println(point);
 		}
 		return path;
 	}
@@ -44,7 +45,7 @@ public class DijkstraManager {
 
 	public static boolean dijkstraAlgorythmus(DijkstraPoint aktuell) {
 		int sum = 0;
-		System.out.println("dijkstra: " + aktuell);
+//		System.out.println("dijkstra: " + aktuell);
 		aktuell.setMarked(true);
 		for (DijkstraPoint point : crossings) {
 			if (point == aktuell.up) {
@@ -88,19 +89,19 @@ public class DijkstraManager {
 			path.add(last);
 		}
 
-		System.out.println(path);
+//		System.out.println(path);
 		for (int i = 0; i < path.size() / 2; i++) {
 			DijkstraPoint tmp = path.get(i);
 			path.set(i, path.get(path.size() - i - 1));
 			path.set(path.size() - i - 1, tmp);
 		}
-		System.out.println("swap: " + path);
+//		System.out.println("swap: " + path);
 
 	}
 
 	public static void createDijkstraPoints() {
 		checkStreet(Street.streets.get(0));
-		System.out.println("size: " + crossings.size());
+//		System.out.println("size: " + crossings.size());
 		for (DijkstraPoint dijkstraPoint : crossings) {
 			dijkstraPoint.setupDistances();
 //			System.out.println("distance to up: " + dijkstraPoint.distanceToUp + "\ndistance to down: "
@@ -122,8 +123,8 @@ public class DijkstraManager {
 			if (point == null) {
 				throw new Error("RIP");
 			}
-			System.out.println("Build from " + street.orientation + " point: " + street.startPoint + " and: "
-					+ neighbor.startPoint + " -->" + point);
+//			System.out.println("Build from " + street.orientation + " point: " + street.startPoint + " and: "
+//					+ neighbor.startPoint + " -->" + point);
 			DijkstraPoint current = new DijkstraPoint(point);
 			DijkstraPoint check = getPointFromCrossings(point);
 			if (check != null) {
@@ -178,12 +179,5 @@ public class DijkstraManager {
 				return null;
 			return new Point(street.getX(), point.getY());
 		}
-//		if (!(point1.pointDistance(point2) < 10)) return null;
-//		if (orientation1 == orientation2) throw new Error("RIP");
-//		Point vertical = orientation1 == StreetOrientation.VERTICAL ? point1 : point2;
-//		Point horizontal = orientation1 == StreetOrientation.HORIZONTAL ? point1 : point2;
-//		int x = vertical.getX();
-//		int y = horizontal.getY();
-//		return new Point(x, y);
 	}
 }

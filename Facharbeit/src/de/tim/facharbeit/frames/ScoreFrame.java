@@ -80,9 +80,13 @@ public class ScoreFrame {
 		frame.add(varPanel);
 	}
 
-	public void update() {
+	public static void updateDate() {
+		dateLable.setText("date: " + (Variables.days.size() + 1));
+	}
+	
+	public static void update() {
 		HumanManager.refrechHumanHealthVar();
-
+		
 		infectedLable.setText("infected: " + Variables.infected);
 		imuneLable.setText("imune: " + Variables.imune);
 		healthyLable.setText("healthy: " + Variables.healthy);

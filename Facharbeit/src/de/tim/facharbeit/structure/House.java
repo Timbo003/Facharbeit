@@ -40,7 +40,7 @@ public class House extends Structure {
 		int count = 0;
 		Street onThis = null;
 		while (!found) {
-			System.out.println(count);
+//			System.out.println(count);
 			if (orientation == HouseOrientation.UP) {
 				pointToCheck = new Point(entrance.getX(), entrance.getY() - count);
 			} else if (orientation == HouseOrientation.DOWN) {
@@ -81,9 +81,9 @@ public class House extends Structure {
 				}
 			}
 		}
-		System.out.println("entrance point " + entrance.point);
-		System.out.println("on street " + pointOnStreet);
-		System.out.println("nearest dij " + nearest.point);
+//		System.out.println("entrance point " + entrance.point);
+//		System.out.println("on street " + pointOnStreet);
+//		System.out.println("nearest dij " + nearest.point);
 		nearestDijkstra = nearest;
 		return nearestDijkstra;
 	}

@@ -80,7 +80,16 @@ public class Main {
 			house.getDijkstraPoint();
 		}
 
-		DayManager.nextDay();
+		Timer timer = new Timer();
+		
+		timer.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				DayManager.nextDay();
+			}
+		}, 3000);
+		
 		
 		
 

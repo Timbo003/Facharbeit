@@ -53,4 +53,9 @@ public class Day {
 	public void setDead(int dead) {
 		this.dead = dead;
 	}
+	
+	@Override
+	public String toString() {
+		return "date: " + date + "  infected: " + infected + "  healthy: " + healthy + "  imune: " + imune + "  dead: " + dead;
+	}
 }

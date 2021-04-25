@@ -46,7 +46,7 @@ public class HumanManager {
 						continue;
 					}
 					continue;
-				}else {
+				} else {
 					break;
 				}
 			}
@@ -55,24 +55,32 @@ public class HumanManager {
 			System.err.println("Houses can't contain that many Humans, because single house cap is reached!");
 		}
 	}
-	
+
 	public static void refrechHumanHealthVar() {
 		Variables.infected = 0;
 		Variables.imune = 0;
 		Variables.dead = 0;
 		Variables.healthy = 0;
-		
+
 		for (Human human : Main.getAllHumans()) {
 			switch (human.health) {
-			case HEALTHY: Variables.healthy++; break;
-			case DEAD: Variables.dead++; break;	
-			case INFECTED: Variables.infected++; break;	
-			case IMUNE: Variables.imune++; break;
-			default: break;
+			case HEALTHY:
+				Variables.healthy++;
+				break;
+			case DEAD:
+				Variables.dead++;
+				break;
+			case INFECTED:
+				Variables.infected++;
+				break;
+			case IMUNE:
+				Variables.imune++;
+				break;
+			default:
+				break;
 			}
 		}
 	}
-	
 
 	private static void shuffleHouseList() {
 		House tmp;
@@ -92,13 +100,14 @@ public class HumanManager {
 				Variables.infectedCount, Variables.imuneCount));
 
 	}
-	
+
 	public static void characterStartup() {
-		giveRightPersonalityToHumans(fillpersonalityArr(totalHumans() - Variables.verweigererCount - Variables.bedachtCount,
-				Variables.bedachtCount, Variables.verweigererCount));
+		giveRightPersonalityToHumans(
+				fillpersonalityArr(totalHumans() - Variables.verweigererCount - Variables.bedachtCount,
+						Variables.bedachtCount, Variables.verweigererCount));
 	}
-	
-	private static List<Personality> fillpersonalityArr(int normal, int bedacht, int verweigerer){
+
+	private static List<Personality> fillpersonalityArr(int normal, int bedacht, int verweigerer) {
 		for (int i = 0; i < bedacht; i++) {
 			personalityArr.add(Personality.BEDACHT);
 		}
@@ -110,9 +119,9 @@ public class HumanManager {
 		}
 		shufflePersonalityList(personalityArr);
 		return personalityArr;
-		
+
 	}
-	
+
 	private static List<Personality> shufflePersonalityList(List<Personality> personalityArr) {
 		Personality tmp;
 		int rand;
@@ -132,8 +141,15 @@ public class HumanManager {
 			personalityArr.remove(0);
 		}
 	}
-	
-	
+
+	public static boolean areAllHumansFinished() {
+		for (Human human : Main.getAllHumans()) {
+			if (human.currentHouse == null || human.currentHouse != human.getHome() || human.isHumanAllowdToWalk()) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	private static List<Health> fillHealthArr(int healthy, int infected, int imune) {
 		for (int i = 0; i < healthy; i++) {
