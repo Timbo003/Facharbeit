@@ -16,7 +16,6 @@ import de.tim.facharbeit.frames.Frame;
 import de.tim.facharbeit.structure.manager.HumanManager;
 
 public class Human extends Structure {
-
 	// variables//
 	private House home;
 	public House targetHouse;
@@ -25,7 +24,6 @@ public class Human extends Structure {
 	
 	public int timeInHouse;
 	public int minMovesInHouse;
-	
 	
 	public int visited;
 	public int allowedVisits;
@@ -55,10 +53,8 @@ public class Human extends Structure {
 	public void setHome(House home) {
 		this.home = home;
 	}
-	
 
 	// others//
-	
 	public boolean isHumanAllowdToWalk() {
 		return allowedVisits > visited;
 	}
@@ -183,8 +179,6 @@ public class Human extends Structure {
 			//newY = currentHouse.getY() + (currentHouse.height / 2);
 		}
 		
-		
-		
 		setPoint(new Point(newX, newY));
 	}
 
@@ -192,7 +186,6 @@ public class Human extends Structure {
 		return (int) Math.sqrt((this.getX() - point.getX()) ^ 2 + (this.getY() - point.getY()) ^ 2);
 	}
 
-	
 	public int getPointAmountToWalk() {
 		return path.size() - pathIndex;
 	}
@@ -200,21 +193,18 @@ public class Human extends Structure {
 	public void reset() {
 		pathIndex = 0;
 		path.clear();
-		
 	}
-	
 	
 	public void moveHome() {
 		DijkstraManager.resetPoints();
 		this.reset();	
 	}
 	
-	
 	// draw & toString//
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(blobColor);
-		graphics.fillOval(point.getX(), point.getY(), width, height);
+		graphics.fillOval(point.getX() -5, point.getY() -5 , width, height);
 
 	}
 
