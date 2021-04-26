@@ -23,6 +23,10 @@ public class Human extends Structure {
 	public House currentHouse;
 	public Color blobColor;
 	
+	public int timeInHouse;
+	public int minMovesInHouse;
+	
+	
 	public int visited;
 	public int allowedVisits;
 	
@@ -38,6 +42,9 @@ public class Human extends Structure {
 		this.home = home;
 		this.currentHouse = home;
 		setHealth(health);
+		Random random = new Random();
+		this.minMovesInHouse = random.nextInt(30) + 20 ;
+		this.timeInHouse = 0;
 	}
 
 	// get & set//
@@ -102,8 +109,8 @@ public class Human extends Structure {
 				return new Point(point.getX() , point.getY() - stride);
 			}
 		}
-		System.err.println("not a fitting point");
-		System.out.println(this.getPoint() + "-->" + target);
+//		System.err.println("not a fitting point");
+//		System.out.println(this.getPoint() + "-->" + target);
 		return target;
 	}
 	
@@ -159,6 +166,7 @@ public class Human extends Structure {
 	}
 
 	public void moveInHouse() {
+		this.timeInHouse++;
 		Random random = new Random();
 		int x = random.nextInt(3) - 1;
 		int y = random.nextInt(3) - 1;

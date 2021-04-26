@@ -128,7 +128,6 @@ public class DijkstraManager {
 			DijkstraPoint current = new DijkstraPoint(point);
 			DijkstraPoint check = getPointFromCrossings(point);
 			if (check != null) {
-				System.out.println("dublicate");
 				current = check;
 			} else {
 				crossings.add(current);

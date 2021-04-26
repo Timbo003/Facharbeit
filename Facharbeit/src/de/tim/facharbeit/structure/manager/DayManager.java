@@ -1,5 +1,7 @@
 package de.tim.facharbeit.structure.manager;
 
+import java.util.Timer;
+
 import de.tim.facharbeit.Day;
 import de.tim.facharbeit.Main;
 import de.tim.facharbeit.Variables;
@@ -12,7 +14,7 @@ public class DayManager {
 	
 	public static void nextDay() {
 		Day day = new Day(Variables.days.size());
-		Variables.days.add(day);
+//		Variables.days.add(day);
 		
 		ScoreFrame.updateDate();
 		
@@ -21,13 +23,24 @@ public class DayManager {
 		}
 		DijkstraManager.resetPoints();
 		
-		
 		if (Variables.days.size() > 0) {
 			Day formerDay =  Variables.days.get(Variables.days.size() - 1);
 			formerDay.setDead(Variables.dead);
 			formerDay.setInfected(Variables.infected);
 			formerDay.setHealthy(Variables.healthy);
 			formerDay.setImune(Variables.imune);
+		}
+		
+		for (Timer timer : Variables.activeTimers) {
+			timer.cancel();
+			timer.purge();
+			Variables.activeTimers.remove(timer);
+		}
+		Variables.activeTimers.clear();
+		
+		
+		for(Human human : Main.getAllHumans()) {
+			human.setHealth(human.health);
 		}
 		
 		WalkManager.startHuman();

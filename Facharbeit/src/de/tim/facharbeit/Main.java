@@ -80,15 +80,8 @@ public class Main {
 			house.getDijkstraPoint();
 		}
 
-		Timer timer = new Timer();
-		
-		timer.schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				DayManager.nextDay();
-			}
-		}, 3000);
+		DayManager.nextDay();
+	
 		
 		
 		
@@ -215,7 +208,7 @@ public class Main {
 
 		for (Point point2 : intersectionPoints) {
 			if (point2.pointDistance(point) < minimumDistance) {
-				System.err.println("Distance is to short");
+//				System.err.println("Distance is to short");
 				addStreet();
 				return;
 			}

@@ -144,7 +144,7 @@ public class StartFrame {
 		bedachtSliderText.setVisible(true);
 		bedachtSliderText.setText("bedacht: " + Variables.bedachtCount);
 
-		JSlider bedachtSlider = new JSlider(1, 100, Variables.bedachtCount);
+		JSlider bedachtSlider = new JSlider(0, 100, Variables.bedachtCount);
 		bedachtSlider.addChangeListener((e) -> {
 			Variables.bedachtCount = bedachtSlider.getValue();
 			bedachtSliderText.setText("bedacht: " + bedachtSlider.getValue());
@@ -156,11 +156,11 @@ public class StartFrame {
 
 		// slider & text for bedacht
 		JLabel verweigererSliderText = new JLabel();
-		verweigererSliderText.setBounds(0, 0, 100, 100);
+		verweigererSliderText.setBounds(1, 0, 100, 100);
 		verweigererSliderText.setVisible(true);
 		verweigererSliderText.setText("verweigerer: " + Variables.verweigererCount);
 
-		JSlider verweigererSlider = new JSlider(1, 100, Variables.verweigererCount);
+		JSlider verweigererSlider = new JSlider(0, 100, Variables.verweigererCount);
 		verweigererSlider.addChangeListener((e) -> {
 			Variables.verweigererCount = verweigererSlider.getValue();
 			verweigererSliderText.setText("verweigerer: " + verweigererSlider.getValue());

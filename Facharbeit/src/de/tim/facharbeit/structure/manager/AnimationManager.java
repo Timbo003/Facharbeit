@@ -24,17 +24,15 @@ public class AnimationManager {
 
 	public static void prepairAnimation(Human human) {
 		Random random = new Random();
-		
 
 		House house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
-		
+
 		while (house.nearestDijkstra.equals(human.currentHouse.nearestDijkstra)) {
 			house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
 		}
 		prepairAnimation(human, house);
 	}
-	
-	
+
 	public static void prepairAnimation(Human human, House house) {
 		human.reset();
 
@@ -42,16 +40,15 @@ public class AnimationManager {
 
 		DijkstraPoint start = human.currentHouse.nearestDijkstra;
 		DijkstraPoint end = human.targetHouse.nearestDijkstra;
-		
+
 		if (start.equals(end)) {
-			System.out.println("same");
 			human.path = new ArrayList<>();
 			human.path.add(human.currentHouse.nearestDijkstra);
+			DijkstraManager.resetPoints();
 		} else {
 			human.path = DijkstraManager.startDijkstra(start, end);
 			DijkstraManager.resetPoints();
 		}
-		
 
 		Point point = human.nextPointToEntrance();
 		DijkstraPoint midPoint = new DijkstraPoint(point);
@@ -77,22 +74,29 @@ public class AnimationManager {
 		human.currentHouse = null;
 	}
 
-
-	public static Human getRandomHuman() { // TODO don't use humans that are already walking
+	public static Human getRandomHuman() {
 		Random random = new Random();
-		Human human = WalkManager.getHumansInAHouse().get(random.nextInt(WalkManager.getHumansInAHouse().size()));
-		if (human.isHumanAllowdToWalk() && human.currentHouse != null) {
+		Human human = WalkManager.getHumansWhoMovedEnought()
+				.get(random.nextInt(WalkManager.getHumansWhoMovedEnought().size()));
+		if (human.isHumanAllowdToWalk() && human.currentHouse != null && human.timeInHouse > human.minMovesInHouse) {
+			human.timeInHouse = 0;
 			return human;
+
 		}
 		return getRandomHuman();
 	}
 
 	private static int counter = 0;
+	private static int animationCounter = 0;
 
 	public static void walkAnimation() {
 		System.out.println("--------------------- walkAnimation ----------------------------------");
+		DijkstraManager.resetPoints();
 
 		Timer timer = new Timer();
+		Random random = new Random();
+		
+		Variables.activeTimers.add(timer);
 
 		List<Human> humans = Main.getAllHumans();
 
@@ -100,33 +104,37 @@ public class AnimationManager {
 
 			@Override
 			public void run() {
-				counter++;
-				List<Integer> removeIndexes = new ArrayList<>();
-				for (Human human : humans) {
-					if (!(counter % human.speed == 0))
-						continue;
-					if (human.currentHouse == null) {
-						if (human.walkStep()) {
-							human.currentHouse = human.targetHouse;
-							human.targetHouse = null;
-							human.visited++;
+				animationCounter++;
+				if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0) {
+					animationCounter = 0;
+					counter++;
+					for (Human human : humans) {
+						if (!(counter % human.speed == 0))
 							continue;
+						if (human.currentHouse == null) {
+							if (human.walkStep()) {
+								human.timeInHouse = 0;
+								human.currentHouse = human.targetHouse;
+								human.targetHouse = null;
+								human.visited++;
+								continue;
+							}
+						} else if (counter % (human.speed * 10) == 0) {
+							human.moveInHouse();
 						}
-					} else if (counter % (human.speed * 10) == 0) {
-						human.moveInHouse();
 					}
+					if (HumanManager.areAllHumansFinished()) {
+						timer.cancel();
+						timer.purge();
+						cancel();
+						System.out.println("finished");
+						System.out.println(Variables.days);
+						DayManager.nextDay();
+					}
+					Frame.instance.update();
 				}
-				if (HumanManager.areAllHumansFinished()) {
-					timer.cancel();
-					System.out.println("finished");
-					DayManager.nextDay();
-					System.out.println(Variables.days);
-				}
-				Frame.instance.update();
 			}
 		}, 100, 1);
 	}
 
-
-	
 }

@@ -33,8 +33,6 @@ public class HumanManager {
 	public static void humanStartup() {
 		int tmpHumanCount = Variables.totalHumanCounter;
 		houseArr = Main.totalHouses();
-		System.out.println(Main.totalHouses().size());
-		System.out.println("a: " + houseArr.size());
 		int i = 0;
 		while (tmpHumanCount > 0 && i++ < 100) {
 			for (House house : houseArr) {
@@ -144,7 +142,7 @@ public class HumanManager {
 
 	public static boolean areAllHumansFinished() {
 		for (Human human : Main.getAllHumans()) {
-			if (human.currentHouse == null || human.currentHouse != human.getHome() || human.isHumanAllowdToWalk()) {
+			if (human.currentHouse == null || human.currentHouse != human.getHome() || human.isHumanAllowdToWalk() || human.minMovesInHouse > human.timeInHouse) {
 				return false;
 			}
 		}
