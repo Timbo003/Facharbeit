@@ -105,7 +105,7 @@ public class AnimationManager {
 			@Override
 			public void run() {
 				animationCounter++;
-				if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0) {
+				if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0) { //animationSpeed
 					animationCounter = 0;
 					counter++;
 					for (Human human : humans) {
@@ -129,6 +129,10 @@ public class AnimationManager {
 						cancel();
 						System.out.println("finished");
 						System.out.println(Variables.days);
+						for (Human human : Main.getAllHumans()) {
+							human.setHealth(Health.DEAD);
+							break;
+						}
 						DayManager.nextDay();
 					}
 					Frame.instance.update();

@@ -2,11 +2,18 @@ package de.tim.facharbeit.frames;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.Iterator;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import de.tim.facharbeit.Main;
+import de.tim.facharbeit.structure.Block;
+import de.tim.facharbeit.structure.Garden;
+import de.tim.facharbeit.structure.House;
+import de.tim.facharbeit.structure.Human;
 import de.tim.facharbeit.structure.Structure;
+import de.tim.facharbeit.structure.streets.Street;
 
 
 public class Frame extends JPanel {
@@ -36,9 +43,31 @@ public class Frame extends JPanel {
 	@Override
 	public void paint(Graphics graphics) {
 		graphics.setColor(Color.WHITE);
-		graphics.fillRect(0, 0, 1500, 750);		
-        for (int i = Main.structures.size() - 1; i >= 0 ; i--) {
-            Main.structures.get(i).draw(graphics);
-        }
+		graphics.fillRect(0, 0, 1500, 750);	
+		for (Structure structure : Main.structures) {
+			if (structure instanceof Street) {
+				structure.draw(graphics);
+			}
+		}
+		for (Structure structure : Main.structures) {
+			if (structure instanceof Block) {
+				structure.draw(graphics);
+			}
+		}
+		for (Structure structure : Main.structures) {
+			if (structure instanceof House || structure instanceof Garden ) {
+				structure.draw(graphics);
+			}
+		}
+		for (Structure structure : Main.structures) {
+			if (!(structure instanceof Block) || !(structure instanceof House) || !(structure instanceof Garden) || !(structure instanceof Street) || !(structure instanceof Human)) {
+				structure.draw(graphics);
+			}
+		}
+		for (Structure structure : Main.structures) {
+			if (structure instanceof Human) {
+				structure.draw(graphics);
+			}
+		}
 	}
 }
