@@ -175,6 +175,36 @@ public class HumanManager {
 		}
 		return healthArr;
 	}
+	
+	public static List<Human> getInfectedHumans(){
+		List<Human> infected = new ArrayList<>();
+		for (Human human : Main.getAllHumans()) {
+			if (human.health.equals(Health.INFECTED)) {
+				infected.add(human);
+			}
+		}
+		return infected;
+	}
+	
+	public static List<Human> getImuneHumans(){
+		List<Human> imune = new ArrayList<>();
+		for (Human human : Main.getAllHumans()) {
+			if (human.health.equals(Health.IMUNE)) {
+				imune.add(human);
+			}
+		}
+		return imune;
+	}
+	
+	public static List<Human> getHealthyHumans(){
+		List<Human> healthy = new ArrayList<>();
+		for (Human human : Main.getAllHumans()) {
+			if (human.health.equals(Health.HEALTHY)) {
+				healthy.add(human);
+			}
+		}
+		return healthy;
+	}
 
 	private static void giveRightHealthToHumans(List<Health> healthArr) {
 		for (Human human : Main.getAllHumans()) {

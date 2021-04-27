@@ -28,6 +28,7 @@ import de.tim.facharbeit.structure.Structure;
 import de.tim.facharbeit.structure.manager.AnimationManager;
 import de.tim.facharbeit.structure.manager.DayManager;
 import de.tim.facharbeit.structure.manager.HumanManager;
+import de.tim.facharbeit.structure.manager.InfectionManager;
 import de.tim.facharbeit.structure.manager.WalkManager;
 import de.tim.facharbeit.structure.streets.Street;
 import de.tim.facharbeit.structure.streets.StreetOrientation;
@@ -80,14 +81,14 @@ public class Main {
 			house.getDijkstraPoint();
 		}
 
+		InfectionManager.start();
+		
 		DayManager.nextDay();
-	
-		
-		
-		
-
 		System.out.println("end");
 	}
+	
+	
+	
 
 	public static void calculateDistance() {
 		long time = System.currentTimeMillis();

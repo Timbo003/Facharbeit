@@ -28,7 +28,7 @@ public class Variables {
 	
 	public static int animationSpeed = 7;
 	
-	
+	public static int infectionDistance = 1;
 
 
 
