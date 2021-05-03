@@ -18,8 +18,8 @@ import de.tim.facharbeit.frames.Frame;
 import de.tim.facharbeit.frames.GraphFrame;
 import de.tim.facharbeit.frames.ScoreFrame;
 import de.tim.facharbeit.frames.StartFrame;
-import de.tim.facharbeit.graph.graphManager;
-import de.tim.facharbeit.graph.graphStructure;
+import de.tim.facharbeit.graph.GraphManager;
+import de.tim.facharbeit.graph.GraphStructure;
 import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Entrance;
 import de.tim.facharbeit.structure.Garden;
@@ -39,7 +39,7 @@ import de.tim.facharbeit.structure.streets.StreetOrientation;
 public class Main {
 
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
-	public static List<graphStructure> graphStructures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
+	public static List<GraphStructure> GraphStructures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
 
 	public static List<Day> testDays = new ArrayList<>();
 	
@@ -99,7 +99,7 @@ public class Main {
 	
 	public static void switchToGraph() {
 		GraphFrame = new GraphFrame();
-		graphManager.setupNewGraph();
+		GraphManager.setupNewGraph();
 	}
 	
 	

@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import de.tim.facharbeit.Main;
-import de.tim.facharbeit.graph.graphStructure;
+import de.tim.facharbeit.graph.GraphStructure;
 
 public class GraphFrame extends JPanel {
 
@@ -35,10 +35,11 @@ public class GraphFrame extends JPanel {
 	
 	@Override
 	public void paint(Graphics graphics) {
+		System.out.println("drawing");
 		graphics.setColor(Color.WHITE);
 		graphics.fillRect(0, 0, 1500, 750);
-		for (graphStructure graphStructures : Main.graphStructures) {
-			graphStructures.draw(graphics);
+		for (GraphStructure graphStructure : Main.GraphStructures) {
+			graphStructure.draw(graphics);
 		}
 		
 	}
