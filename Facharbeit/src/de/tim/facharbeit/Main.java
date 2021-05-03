@@ -15,8 +15,11 @@ import java.util.LinkedList;
 import de.tim.facharbeit.dijkstra.DijkstraManager;
 import de.tim.facharbeit.dijkstra.DijkstraPoint;
 import de.tim.facharbeit.frames.Frame;
+import de.tim.facharbeit.frames.GraphFrame;
 import de.tim.facharbeit.frames.ScoreFrame;
 import de.tim.facharbeit.frames.StartFrame;
+import de.tim.facharbeit.graph.graphManager;
+import de.tim.facharbeit.graph.graphStructure;
 import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Entrance;
 import de.tim.facharbeit.structure.Garden;
@@ -36,11 +39,16 @@ import de.tim.facharbeit.structure.streets.StreetOrientation;
 public class Main {
 
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
+	public static List<graphStructure> graphStructures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
 
+	public static List<Day> testDays = new ArrayList<>();
+	
 	// it works now
 	private static Frame Frame;
 	private static StartFrame StartFrame;
 	public static ScoreFrame ScoreFrame;
+	private static GraphFrame GraphFrame;
+	
 
 	public static int minimumDistance = 100;
 
@@ -82,35 +90,35 @@ public class Main {
 		}
 
 		InfectionManager.start();
+		fillTestDays(10);
 		
-		DayManager.nextDay();
-		System.out.println("end");
-	}
-	
-	
-	
-
-	public static void calculateDistance() {
-		long time = System.currentTimeMillis();
-		List<Human> humans = getAllHumans();
-		int[] distances = new int[humans.size() * humans.size()];
-		int counter = 0;
-		for (int i = 0; i < humans.size(); i++) {
-			Human human1 = humans.get(i);
-			for (int j = i + 1; j < humans.size(); j++) {
-				Human human2 = humans.get(j);
-				if (human1.equals(human2))
-					continue;
-				distances[counter++] = human1.distanceTo(human2.getPoint());
-				if (human1.distanceTo(human2.getPoint()) < 1) {
-					human1.setHealth(Health.DEAD);
-					human2.setHealth(Health.DEAD);
-				}
-			}
+		//DayManager.nextDay();
+		
+		switchToGraph();
 		}
-		System.out.println("DONE! Took " + (System.currentTimeMillis() - time) + "ms");
+	
+	public static void switchToGraph() {
+		GraphFrame = new GraphFrame();
+		graphManager.setupNewGraph();
 	}
+	
+	
+	public static void fillTestDays(int nDays) {
+		Random random = new Random();
+		for (int i = 0; i < nDays; i++) {
+			Day newDay = new Day(i);
+			
+			newDay.dead = random.nextInt(20);
+			newDay.infected = random.nextInt(20);
+			newDay.imune = random.nextInt(20);
+			newDay.healthy = random.nextInt(20);
 
+			testDays.add(newDay);
+		}
+		System.out.println(testDays);
+		System.out.println(testDays.size());
+	}
+	
 	public static List<Human> getAllHumans() {
 		List<Human> humans = new ArrayList<>();
 		for (Structure structure : Main.structures) {
@@ -129,7 +137,6 @@ public class Main {
 				houses.add((House) structure);
 			}
 		}
-
 		return houses;
 	}
 
@@ -147,8 +154,8 @@ public class Main {
 			System.out.println(street);
 		}
 		System.out.println("");
-	}
-
+	}	
+	
 	private static void createStreets() {
 		Street street0 = new Street(new Point(20, 20), StreetOrientation.HORIZONTAL, Frame.getWidth() - 40); // 0 -
 		Street street1 = new Street(new Point(20, 20), StreetOrientation.VERTICAL, Frame.getHeight() - 40); // 1|

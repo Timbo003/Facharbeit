@@ -81,7 +81,6 @@ public class ScoreFrame {
 		varPanel.add(dateLable);
 
 		// slider & text for animationSpeed
-		
 		animationSpeedSliderText.setBounds(0, 0, 100, 100);
 		animationSpeedSliderText.setVisible(true);
 		animationSpeedSliderText.setText("Animation Speed: " + Variables.animationSpeed);

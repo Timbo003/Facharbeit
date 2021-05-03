@@ -105,7 +105,7 @@ public class AnimationManager {
 			@Override
 			public void run() {
 				animationCounter++;
-				if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0) { //animationSpeed
+				if ((animationCounter % Math.abs(Variables.animationSpeed  - 11) * 100) == 0) { //animationSpeed
 					animationCounter = 0;
 					counter++;
 					for (Human human : humans) {

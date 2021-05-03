@@ -30,8 +30,5 @@ public class Variables {
 	
 	public static int infectionDistance = 1;
 
-
-
-	
 	public static double mortality = 2.57;	
 }
