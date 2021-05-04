@@ -35,10 +35,10 @@ public class GraphFrame extends JPanel {
 	
 	@Override
 	public void paint(Graphics graphics) {
-		System.out.println("drawing");
+		//System.out.println("drawing");
 		graphics.setColor(Color.WHITE);
 		graphics.fillRect(0, 0, 1500, 750);
-		for (GraphStructure graphStructure : Main.GraphStructures) {
+		for (GraphStructure graphStructure : Main.graphStructures) {
 			graphStructure.draw(graphics);
 		}
 		

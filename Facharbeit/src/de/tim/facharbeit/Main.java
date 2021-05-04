@@ -39,7 +39,7 @@ import de.tim.facharbeit.structure.streets.StreetOrientation;
 public class Main {
 
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
-	public static List<GraphStructure> GraphStructures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
+	public static List<GraphStructure> graphStructures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
 
 	public static List<Day> testDays = new ArrayList<>();
 	
@@ -90,7 +90,7 @@ public class Main {
 		}
 
 		InfectionManager.start();
-		fillTestDays(10);
+		fillTestDays(25);
 		
 		//DayManager.nextDay();
 		
@@ -108,7 +108,7 @@ public class Main {
 		for (int i = 0; i < nDays; i++) {
 			Day newDay = new Day(i);
 			
-			newDay.dead = random.nextInt(20);
+			newDay.dead = random.nextInt(300);
 			newDay.infected = random.nextInt(20);
 			newDay.imune = random.nextInt(20);
 			newDay.healthy = random.nextInt(20);

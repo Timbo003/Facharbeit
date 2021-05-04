@@ -7,14 +7,14 @@ import de.tim.facharbeit.structure.Health;
 
 public class GraphPoint extends GraphStructure {
 
-	Health health;
+	Color color;
 	private int x;
 	private int y;
 
-	public GraphPoint(int x, int y, Health health) {
+	public GraphPoint(int x, int y, Color color) {
 		this.x = x;
 		this.y = y;
-		this.health = health;
+		this.color = color;
 	}
 
 	public int getX() {
@@ -39,22 +39,7 @@ public class GraphPoint extends GraphStructure {
 	}
 
 	public void draw(Graphics graphics) {
-		switch (health) {
-		case HEALTHY:
-			graphics.setColor(Color.green);
-			break;
-		case INFECTED:
-			graphics.setColor(Color.red);
-			break;
-		case IMUNE:
-			graphics.setColor(Color.blue);
-			break;
-		case DEAD:
-			graphics.setColor(Color.gray);
-			break;
-		default:
-			break;
-		}
+		graphics.setColor(color);
 		graphics.fillOval(x - 4, y - 4, 8, 8);
 	}
 
