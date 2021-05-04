@@ -90,7 +90,7 @@ public class Main {
 		}
 
 		InfectionManager.start();
-		fillTestDays(25);
+		fillTestDays(10);
 		
 		//DayManager.nextDay();
 		
@@ -106,13 +106,22 @@ public class Main {
 	public static void fillTestDays(int nDays) {
 		Random random = new Random();
 		for (int i = 0; i < nDays; i++) {
+			int max = 300;
+			
 			Day newDay = new Day(i);
 			
-			newDay.dead = random.nextInt(300);
-			newDay.infected = random.nextInt(20);
-			newDay.imune = random.nextInt(20);
-			newDay.healthy = random.nextInt(20);
-
+			newDay.dead = random.nextInt(max);
+			max = max - newDay.getDead();
+			
+			newDay.infected = random.nextInt(max);
+			max = max - newDay.getInfected();
+			
+			newDay.imune = random.nextInt(max);
+			max = max - newDay.getImune();
+			
+			newDay.healthy = random.nextInt(max);
+			max = max - newDay.getHealthy();
+			
 			testDays.add(newDay);
 		}
 		System.out.println(testDays);

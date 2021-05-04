@@ -19,16 +19,19 @@ public class GraphFrame extends JPanel {
 		instance = this;
         frame = new JFrame("Graph");									
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        frame.setResizable(true);
 		frame.getContentPane().setPreferredSize(new Dimension(1500,750));	
 		super.setBackground(Color.WHITE);
 		super.setLayout(null);
 		frame.add(this);
+			
 		frame.pack();						
 		frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        
+        
     }
-	
+
 	public void update() {
 		super.repaint();
 	}

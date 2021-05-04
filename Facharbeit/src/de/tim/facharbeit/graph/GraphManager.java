@@ -12,6 +12,10 @@ import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.Structure;
 
 public class GraphManager {
+	static int minX = 100;
+	static int minY = 50;
+	
+	static int xShift;
 
 	private static List<Integer> infected = new ArrayList<>();
 	private static List<Integer> dead = new ArrayList<>();
@@ -20,11 +24,34 @@ public class GraphManager {
 
 	public static void setupNewGraph() {
 		fillDataLists();
-//		System.out.println("infected: "+infected);
-//		System.out.println("imune: " + imune);
-//		System.out.println("healthy: " + healthy);
-//		System.out.println("dead: " + dead);
+		xShift = 1500 / infected.size();
+		
+		buildAxis();
+		
 		setupGraphLine();
+	}
+
+	private static void buildAxis() {
+		List<GraphPoint> xPoints = new ArrayList<>();
+		GraphPoint firstXPoint = new GraphPoint(minX, minY+600, Color.black);
+		xPoints.add(firstXPoint);
+		GraphPoint secondXPoint = new GraphPoint(xShift * infected.size() , minY + 600, Color.black);
+		xPoints.add(secondXPoint);
+		
+		GraphLine xAxis = new GraphLine(xPoints, Color.black);
+		Main.graphStructures.add(xAxis);
+		
+		
+		List<GraphPoint> yPoints = new ArrayList<>();
+		GraphPoint firstYPoint = new GraphPoint(minX, minY, Color.black);
+		yPoints.add(firstYPoint);
+		GraphPoint secondYPoint = new GraphPoint(minX, minY+600, Color.black);
+		yPoints.add(secondYPoint);
+
+		GraphLine yAxis = new GraphLine(yPoints, Color.black);
+		Main.graphStructures.add(yAxis);
+		
+		
 	}
 
 	private static void fillDataLists() {
@@ -37,18 +64,33 @@ public class GraphManager {
 	}
 
 	private static void setupGraphLine() {
-		List<GraphPoint> ImuneList = fillListWithGraphPoints(imune, Color.gray);
-		GraphLine ImuneLine = new GraphLine(ImuneList, Color.gray);
+		List<GraphPoint> ImuneList = fillListWithGraphPoints(imune, Color.blue);
+		GraphLine ImuneLine = new GraphLine(ImuneList, Color.blue);
 		Main.graphStructures.add(ImuneLine);
+		
+		List<GraphPoint> HealthyList = fillListWithGraphPoints(healthy, Color.green);
+		GraphLine HealthyLine = new GraphLine(HealthyList, Color.green);
+		Main.graphStructures.add(HealthyLine);
+		
+		List<GraphPoint> DeadList = fillListWithGraphPoints(dead, Color.gray);
+		GraphLine DeadLine = new GraphLine(DeadList, Color.gray);
+		Main.graphStructures.add(DeadLine);
+		
+		List<GraphPoint> InfectedList = fillListWithGraphPoints(infected, Color.red);
+		GraphLine InfectedLine = new GraphLine(InfectedList, Color.red);
+		Main.graphStructures.add(InfectedLine);
 	}
 
 	public static List<GraphPoint> fillListWithGraphPoints(List<Integer> intList, Color color){
 		List<GraphPoint> graphPointList = new ArrayList<GraphPoint>();
 		
-		int xShift = 1400 / intList.size();
+		
 		
 		for (int i = 0; i < intList.size(); i++) {
-			GraphPoint newPoint = new GraphPoint(xShift * i + 75, intList.get(i) * 2 + 20, color);
+			int x = xShift * i + minX;
+			int y = 700 - (intList.get(i) * 2 + minY);
+			
+			GraphPoint newPoint = new GraphPoint(x, y, color);
 			graphPointList.add(newPoint);
 			Main.graphStructures.add(newPoint);
 		}

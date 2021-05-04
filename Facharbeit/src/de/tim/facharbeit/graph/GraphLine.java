@@ -11,6 +11,7 @@ public class GraphLine extends GraphStructure {
 	private List<GraphPoint> points = new ArrayList<GraphPoint>();
 	public Color color;
 	
+	
 	public GraphLine(List<GraphPoint> points,Color color) {
 		this.color = color;
 		this.points = points;
