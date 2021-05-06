@@ -40,7 +40,7 @@ public class GraphPoint extends GraphStructure {
 
 	public void draw(Graphics graphics) {
 		graphics.setColor(color);
-		graphics.fillOval(x - 4, y - 4, 8, 8);
+		graphics.fillOval(x - 5, y - 5, 10, 10);
 	}
 
 }

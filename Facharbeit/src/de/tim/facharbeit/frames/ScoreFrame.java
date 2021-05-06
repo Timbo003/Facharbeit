@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -43,6 +44,16 @@ public class ScoreFrame {
 	}
 
 	public static void setupScoreFrame() {
+		// Start Button
+				JButton startSimButton = new JButton("Show Graph");
+				startSimButton.addActionListener((e) -> {
+					Main.switchToGraph();
+					System.out.println("Graph");
+				});
+				startSimButton.setBounds(50, frame.getHeight() - 150, frame.getWidth() - 100, 100);
+				startSimButton.setVisible(true);
+				frame.add(startSimButton);
+		
 		// varPanel
 		varPanel.setVisible(true);
 		varPanel.setBounds(50, 25, frame.getWidth() - 100, 300);

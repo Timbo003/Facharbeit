@@ -26,7 +26,7 @@ public class Point {
 		this.y = y;
 	}
 
-	public int pointDistance(Point point) {
+	public int pointDistance(Point point) {				//only on one Axis
 		if (this.x == point.x) {
 			return Math.abs(point.y - this.y);
 		} else if (this.y == point.y) {
@@ -35,7 +35,11 @@ public class Point {
 		System.err.println("pointDistance not working");
 		return 0;
 	}
-
+	
+	
+	public int distanceToPoint(Point point) {				
+		return (int) Math.sqrt((point.getX() - this.getX()) ^ 2 + (point.getY() - this.getY()) ^ 2);	
+		}
 	
 	@Override
 	public boolean equals(Object obj) {

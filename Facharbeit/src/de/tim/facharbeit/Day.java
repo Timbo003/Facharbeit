@@ -8,11 +8,20 @@ public class Day {
 	int imune;
 	int healthy;
 	int dead;
+	int maxAllowedDistance;
 	
 	public Day(int date) {
 		this.date = date;
 		Variables.days.add(this);
     }
+	
+	public int getMaxAllowedDistance() {
+		return maxAllowedDistance;
+	}
+
+	public void setMaxAllowedDistance(int maxAllowedDistance) {
+		this.maxAllowedDistance = maxAllowedDistance;
+	}
 
 	public int getDate() {
 		return date;
@@ -56,6 +65,6 @@ public class Day {
 	
 	@Override
 	public String toString() {
-		return "date: " + date + "  infected: " + infected + "  healthy: " + healthy + "  imune: " + imune + "  dead: " + dead + "\n";
+		return "date: " + date + "  infected: " + infected + "  healthy: " + healthy + "  imune: " + imune + "  dead: " + dead + "maxAllowedDistance: " + maxAllowedDistance + "\n";
 	}
 }

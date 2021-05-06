@@ -90,11 +90,10 @@ public class Main {
 		}
 
 		InfectionManager.start();
-		fillTestDays(10);
+		fillTestDays(50);
 		
-		//DayManager.nextDay();
+		DayManager.nextDay();
 		
-		switchToGraph();
 		}
 	
 	public static void switchToGraph() {
@@ -110,8 +109,8 @@ public class Main {
 			
 			Day newDay = new Day(i);
 			
-			newDay.dead = random.nextInt(max);
-			max = max - newDay.getDead();
+			newDay.healthy = random.nextInt(max);
+			max = max - newDay.getHealthy();
 			
 			newDay.infected = random.nextInt(max);
 			max = max - newDay.getInfected();
@@ -119,8 +118,7 @@ public class Main {
 			newDay.imune = random.nextInt(max);
 			max = max - newDay.getImune();
 			
-			newDay.healthy = random.nextInt(max);
-			max = max - newDay.getHealthy();
+			newDay.dead = max;
 			
 			testDays.add(newDay);
 		}

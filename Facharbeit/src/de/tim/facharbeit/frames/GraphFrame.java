@@ -1,8 +1,10 @@
 package de.tim.facharbeit.frames;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -41,6 +43,14 @@ public class GraphFrame extends JPanel {
 		//System.out.println("drawing");
 		graphics.setColor(Color.WHITE);
 		graphics.fillRect(0, 0, 1500, 750);
+		graphics.setColor(Color.BLACK);
+		
+		Graphics2D g2 = (Graphics2D) graphics;
+		g2.setStroke(new BasicStroke(4));
+		
+		g2.drawLine(100,  50, 100, 650);
+		g2.drawLine(100,  650, 1400, 650);
+		
 		for (GraphStructure graphStructure : Main.graphStructures) {
 			graphStructure.draw(graphics);
 		}

@@ -30,6 +30,10 @@ public class AnimationManager {
 		while (house.nearestDijkstra.equals(human.currentHouse.nearestDijkstra)) {
 			house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
 		}
+//		while (house.entrance.getPoint().distanceToPoint(human.getHome().entrance.getPoint()) >= Variables.allowedDistance) {
+//			house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
+//		}
+		
 		prepairAnimation(human, house);
 	}
 
@@ -64,8 +68,8 @@ public class AnimationManager {
 		int x = insidePoint.getX() - targetEntrance.getPoint().getX();
 		int y = insidePoint.getY() - targetEntrance.getPoint().getY();
 
-		int newX = insidePoint.getX() + 5 * x;
-		int newY = insidePoint.getY() + 5 * y;
+		int newX = insidePoint.getX() + 3 * x;
+		int newY = insidePoint.getY() + 3 * y;
 
 		Point p = new Point(newX, newY);
 

@@ -24,38 +24,16 @@ public class GraphManager {
 
 	public static void setupNewGraph() {
 		fillDataLists();
-		xShift = 1500 / infected.size();
-		
-		buildAxis();
+		double x = 1300D / (infected.size()-1);
+		System.out.println("x: " + x + " size: " + infected.size());
+		xShift = (int) x;
 		
 		setupGraphLine();
 	}
 
-	private static void buildAxis() {
-		List<GraphPoint> xPoints = new ArrayList<>();
-		GraphPoint firstXPoint = new GraphPoint(minX, minY+600, Color.black);
-		xPoints.add(firstXPoint);
-		GraphPoint secondXPoint = new GraphPoint(xShift * infected.size() , minY + 600, Color.black);
-		xPoints.add(secondXPoint);
-		
-		GraphLine xAxis = new GraphLine(xPoints, Color.black);
-		Main.graphStructures.add(xAxis);
-		
-		
-		List<GraphPoint> yPoints = new ArrayList<>();
-		GraphPoint firstYPoint = new GraphPoint(minX, minY, Color.black);
-		yPoints.add(firstYPoint);
-		GraphPoint secondYPoint = new GraphPoint(minX, minY+600, Color.black);
-		yPoints.add(secondYPoint);
-
-		GraphLine yAxis = new GraphLine(yPoints, Color.black);
-		Main.graphStructures.add(yAxis);
-		
-		
-	}
 
 	private static void fillDataLists() {
-		for (Day day : Main.testDays) {		//TODO hier muss nach den Tests Variables.days rein
+		for (Day day : Variables.days) {		//TODO hier muss nach den Tests Variables.days rein   //Main.testDays
 			infected.add(day.getInfected());
 			imune.add(day.getImune());
 			dead.add(day.getDead());

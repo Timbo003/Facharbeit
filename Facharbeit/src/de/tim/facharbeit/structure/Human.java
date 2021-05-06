@@ -30,7 +30,10 @@ public class Human extends Structure {
 	
 	public Health health = null;
 	public Personality personality;
+	
 	public List<DijkstraPoint> path = new ArrayList<>();	
+	public List<Human> infectionChecked = new ArrayList<>();
+	
 	public int pathIndex = 0;
 	public int speed = new Random().nextInt(7) + 2;
 	
@@ -169,21 +172,29 @@ public class Human extends Structure {
 
 		int newX = getX() + x;
 		int newY = getY() + y;
-
-		if (newX < currentHouse.getX() + 15 || newX > currentHouse.getX() + currentHouse.width - 15) {
+		
+		if (newX < currentHouse.getX() + 10 || newX > currentHouse.getX() + currentHouse.width - 10) {
 			newX = getX() - x * 2;
-			//newX = currentHouse.getX() + (currentHouse.width / 2);
 		}
-		if (newY < currentHouse.getY() + 15 || newY > currentHouse.getY() + currentHouse.height - 15) {
+		if (newY < currentHouse.getY() + 10 || newY > currentHouse.getY() + currentHouse.height - 10) {
 			newY = getY() - y * 2;
-			//newY = currentHouse.getY() + (currentHouse.height / 2);
 		}
 		
 		setPoint(new Point(newX, newY));
 	}
 
 	public int distanceTo(Point point) {
-		return (int) Math.sqrt((this.getX() - point.getX()) ^ 2 + (this.getY() - point.getY()) ^ 2);
+		int x1 = this.getX();
+		int y1 = this.getY();
+		
+		int x2 = point.getX();
+		int y2 = point.getY();
+		
+		
+		double distance = Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+
+		System.out.println("human distance" +distance);
+		return (int) distance;
 	}
 
 	public int getPointAmountToWalk() {
@@ -193,6 +204,7 @@ public class Human extends Structure {
 	public void reset() {
 		pathIndex = 0;
 		path.clear();
+		infectionChecked.clear();
 	}
 	
 	public void moveHome() {
