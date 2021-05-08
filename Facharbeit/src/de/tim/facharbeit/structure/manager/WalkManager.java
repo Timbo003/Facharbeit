@@ -7,9 +7,9 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 import de.tim.facharbeit.Main;
 import de.tim.facharbeit.Variables;
+import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.Human;
 
 public class WalkManager {
@@ -28,6 +28,7 @@ public class WalkManager {
 				if (random.nextInt(10) == 1) {
 					if (getHumansWhoMovedEnought().size() > 0) {
 						AnimationManager.prepairAnimation(AnimationManager.getRandomHuman());
+						willSomeoneDie();
 					}  
 				}
 				for (Human human : Main.getAllHumans()) {									//soll heim gehen
@@ -45,8 +46,22 @@ public class WalkManager {
 					System.out.println("canceled one startHuman timer");
 				}
 				
-			}
+			}	
 		}, 100, 10);
+	}
+	
+	private static void willSomeoneDie() {
+		Random random = new Random();
+		Human randInfected = HumanManager.getInfectedHumans().get(random.nextInt(HumanManager.getInfectedHumans().size()));
+		if (randInfected.deathCheck) {
+			
+		}else {
+			if (random.nextInt(1000) >= (Variables.mortality * 100)) {
+				randInfected.die();
+			}else {
+				randInfected.deathCheck= true;
+			}
+		}
 	}
 	
 	public static ArrayList<Human> getHumansInAHouse(){

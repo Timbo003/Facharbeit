@@ -46,7 +46,6 @@ public class InfectionManager {
 		Random random = new Random();
 
 		timer.scheduleAtFixedRate(new TimerTask() {
-
 			@Override
 			public void run() {
 				if (!(Variables.stop)) {

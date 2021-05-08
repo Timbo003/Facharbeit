@@ -61,7 +61,6 @@ public class AnimationManager {
 			if (human.path.get(i).equals(human.path.get(i + 1))) {
 				human.path.remove(i);
 			}
-
 		}
 
 		Point point = human.nextPointToEntrance();

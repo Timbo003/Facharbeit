@@ -62,7 +62,7 @@ public class SimulationFrame extends JPanel {
 	private void setupSimulationFrame() { // Panel for Buttens etc.
 		controllPanel = new JPanel();
 		controllPanel.setBounds(20, Variables.screenSize.height - 230, Variables.screenSize.width - 40, 190);
-		controllPanel.setBackground(Color.RED);
+		controllPanel.setBackground(new Color(114, 118, 125));
 		controllPanel.setVisible(true);
 		setupControllPanel();
 	}
@@ -102,7 +102,7 @@ public class SimulationFrame extends JPanel {
 	private void setupVarPanel() {
 		varPanel = new JPanel();
 		varPanel.setBounds(20,20, 200, 200);
-		varPanel.setBackground(Color.blue);
+		varPanel.setBackground(Color.LIGHT_GRAY);
 		varPanel.setVisible(true);
 
 		// infected
@@ -142,7 +142,7 @@ public class SimulationFrame extends JPanel {
 
 		animationSpeedSlider.addChangeListener((e) -> {
 			Variables.animationSpeed = animationSpeedSlider.getValue();
-			animationSpeedSliderText.setText("Animation Speed:: " + animationSpeedSlider.getValue());
+			animationSpeedSliderText.setText("Animation Speed: " + animationSpeedSlider.getValue());
 		});
 		animationSpeedSlider.setBounds(0, 20, controllPanel.getWidth(), 200);
 		animationSpeedSlider.setVisible(true);

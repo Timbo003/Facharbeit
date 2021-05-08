@@ -45,7 +45,7 @@ public class Main {
 	// it works now
 	private static SimulationFrame SimulationFrame;
 	private static StartFrame StartFrame;
-	private static GraphFrame GraphFrame;
+	
 	
 
 	public static int minimumDistance = 100;
@@ -87,40 +87,13 @@ public class Main {
 			house.getDijkstraPoint();
 		}
 		InfectionManager.start();
-		fillTestDays(0);
 		
 		DayManager.nextDay();
 		
 		}
 	
 	public static void switchToGraph() {
-		GraphFrame = new GraphFrame();
 		GraphManager.setupNewGraph();
-	}
-	
-	
-	public static void fillTestDays(int nDays) {
-		Random random = new Random();
-		for (int i = 0; i < nDays; i++) {
-			int max = 300;
-			
-			Day newDay = new Day(i);
-			
-			newDay.healthy = random.nextInt(max);
-			max = max - newDay.getHealthy();
-			
-			newDay.infected = random.nextInt(max);
-			max = max - newDay.getInfected();
-			
-			newDay.imune = random.nextInt(max);
-			max = max - newDay.getImune();
-			
-			newDay.dead = max;
-			
-			testDays.add(newDay);
-		}
-		System.out.println(testDays);
-		System.out.println(testDays.size());
 	}
 	
 	public static List<Human> getAllHumans() {
@@ -133,6 +106,21 @@ public class Main {
 		}
 		return humans;
 	}
+	
+	public static List<Human> getAllLifingHumans() {
+		List<Human> humans = new ArrayList<>();
+		for (Structure structure : Main.structures) {
+			if (structure instanceof Human) {
+				Human human = (Human) structure;
+				if (!(human.health.equals(Health.DEAD))) {
+					humans.add(human);
+				}
+				
+			}
+		}
+		return humans;
+	}
+	
 
 	public static List<House> totalHouses() {
 		List<House> houses = new ArrayList<>();

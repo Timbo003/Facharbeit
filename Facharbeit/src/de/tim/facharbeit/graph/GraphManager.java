@@ -8,6 +8,7 @@ import java.util.Random;
 import de.tim.facharbeit.Day;
 import de.tim.facharbeit.Main;
 import de.tim.facharbeit.Variables;
+import de.tim.facharbeit.frames.GraphFrame;
 import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.Structure;
 
@@ -23,11 +24,12 @@ public class GraphManager {
 	private static List<Integer> healthy = new ArrayList<>();
 
 	public static void setupNewGraph() {
+		GraphFrame GraphFrame = new GraphFrame();
+		resetForNewGraph();
 		fillDataLists();
 		double x = 1300D / (infected.size()-1);
 		System.out.println("x: " + x + " size: " + infected.size());
 		xShift = (int) x;
-		
 		setupGraphLine();
 	}
 
@@ -39,6 +41,14 @@ public class GraphManager {
 			dead.add(day.getDead());
 			healthy.add(day.getHealthy());
 		}
+	}
+	
+	private static void resetForNewGraph() {
+		Main.graphStructures.clear();
+		infected.clear();
+		dead.clear();
+		imune.clear();
+		healthy.clear();
 	}
 
 	private static void setupGraphLine() {

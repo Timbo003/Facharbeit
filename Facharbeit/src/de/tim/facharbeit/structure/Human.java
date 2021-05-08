@@ -27,6 +27,7 @@ public class Human extends Structure {
 
 	public int visited;
 	public int allowedVisits;
+	public boolean deathCheck;
 
 	public Health health = null;
 	public Personality personality;
@@ -74,6 +75,10 @@ public class Human extends Structure {
 		return false;
 	}
 
+	public void die() {
+		this.setHealth(Health.DEAD);
+	}
+	
 	public Point nextPointToEntrance() {
 		Point entrance = this.currentHouse.entrance.getPoint();
 		if (point.equals(entrance)) {
