@@ -29,7 +29,7 @@ public class Variables {
 	public static int animationSpeed = 7;
 	
 	public static int infectionDistance = 10;
-	public static int allowedDistance = 0;
+	public static int allowedDistance = 60;
 	public static int infectionRisk = 100;			// 1/infectionRisk = %
 	public static boolean stop = false;
 

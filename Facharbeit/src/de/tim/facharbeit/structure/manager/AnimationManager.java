@@ -27,10 +27,11 @@ public class AnimationManager {
 
 		House house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
 
-		while (house.nearestDijkstra.equals(human.currentHouse.nearestDijkstra)) {
+		while (house.entrance.getPoint()
+				.distanceToPoint(human.getHome().entrance.getPoint()) >= Variables.allowedDistance) {
 			house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
 		}
-//		while (house.entrance.getPoint().distanceToPoint(human.getHome().entrance.getPoint()) >= Variables.allowedDistance) {
+//		while () {
 //			house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
 //		}
 
@@ -52,6 +53,15 @@ public class AnimationManager {
 		} else {
 			human.path = DijkstraManager.startDijkstra(start, end);
 			DijkstraManager.resetPoints();
+		}
+
+		for (int i = 0; i < human.path.size() - 1; i++) { // wenn die allowedDistance klein ist kann der nearest
+															// dijkstra 2 mal hintereinander im path sein, hier nehmen
+															// wir ihn wieder raus
+			if (human.path.get(i).equals(human.path.get(i + 1))) {
+				human.path.remove(i);
+			}
+
 		}
 
 		Point point = human.nextPointToEntrance();
