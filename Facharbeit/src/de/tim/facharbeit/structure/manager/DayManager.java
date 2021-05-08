@@ -6,7 +6,7 @@ import de.tim.facharbeit.Day;
 import de.tim.facharbeit.Main;
 import de.tim.facharbeit.Variables;
 import de.tim.facharbeit.dijkstra.DijkstraManager;
-import de.tim.facharbeit.frames.ScoreFrame;
+import de.tim.facharbeit.frames.SimulationFrame;
 import de.tim.facharbeit.structure.Human;
 
 public class DayManager {
@@ -16,7 +16,7 @@ public class DayManager {
 		Day day = new Day(Variables.days.size());
 //		Variables.days.add(day);
 		
-		ScoreFrame.updateDate();
+		SimulationFrame.updateDate();
 		
 		for (Human human : Main.getAllHumans()) {
 			human.visited = 0;
@@ -29,6 +29,7 @@ public class DayManager {
 			formerDay.setInfected(Variables.infected);
 			formerDay.setHealthy(Variables.healthy);
 			formerDay.setImune(Variables.imune);
+			formerDay.setMaxAllowedDistance(Variables.allowedDistance);
 		}
 		
 		for (Timer timer : Variables.activeTimers) {

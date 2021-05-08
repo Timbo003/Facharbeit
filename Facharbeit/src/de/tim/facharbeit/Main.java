@@ -16,7 +16,6 @@ import de.tim.facharbeit.dijkstra.DijkstraManager;
 import de.tim.facharbeit.dijkstra.DijkstraPoint;
 import de.tim.facharbeit.frames.SimulationFrame;
 import de.tim.facharbeit.frames.GraphFrame;
-import de.tim.facharbeit.frames.ScoreFrame;
 import de.tim.facharbeit.frames.StartFrame;
 import de.tim.facharbeit.graph.GraphManager;
 import de.tim.facharbeit.graph.GraphStructure;
@@ -46,7 +45,6 @@ public class Main {
 	// it works now
 	private static SimulationFrame SimulationFrame;
 	private static StartFrame StartFrame;
-	public static ScoreFrame ScoreFrame;
 	private static GraphFrame GraphFrame;
 	
 
@@ -62,8 +60,8 @@ public class Main {
 	}
 
 	public static void switchToSim() {
-		ScoreFrame = new ScoreFrame();
-		ScoreFrame.setupScoreFrame();
+//		ScoreFrame = new ScoreFrame();
+//		ScoreFrame.setupScoreFrame();
 		
 		SimulationFrame = new SimulationFrame();
 
@@ -89,7 +87,7 @@ public class Main {
 			house.getDijkstraPoint();
 		}
 		InfectionManager.start();
-		fillTestDays(5);
+		fillTestDays(0);
 		
 		DayManager.nextDay();
 		

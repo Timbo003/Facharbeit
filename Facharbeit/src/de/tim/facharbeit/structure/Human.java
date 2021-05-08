@@ -139,7 +139,7 @@ public class Human extends Structure {
 			if (human.health.equals(null)) {
 				break;
 			}
-			Main.ScoreFrame.update();
+			SimulationFrame.updateText();
 			;
 		}
 		SimulationFrame.instance.update();
