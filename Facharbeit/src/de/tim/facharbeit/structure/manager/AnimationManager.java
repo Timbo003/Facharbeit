@@ -33,7 +33,7 @@ public class AnimationManager {
 //		while (house.entrance.getPoint().distanceToPoint(human.getHome().entrance.getPoint()) >= Variables.allowedDistance) {
 //			house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
 //		}
-		
+
 		prepairAnimation(human, house);
 	}
 
@@ -99,7 +99,7 @@ public class AnimationManager {
 
 		Timer timer = new Timer();
 		Random random = new Random();
-		
+
 		Variables.activeTimers.add(timer);
 
 		List<Human> humans = Main.getAllHumans();
@@ -108,40 +108,43 @@ public class AnimationManager {
 
 			@Override
 			public void run() {
-				animationCounter++;
-				if ((animationCounter % Math.abs(Variables.animationSpeed  - 11) * 100) == 0) { //animationSpeed
-					animationCounter = 0;
-					counter++;
-					for (Human human : humans) {
-						if (!(counter % human.speed == 0))
-							continue;
-						if (human.currentHouse == null) {
-							if (human.walkStep()) {
-								human.timeInHouse = 0;
-								human.currentHouse = human.targetHouse;
-								human.targetHouse = null;
-								human.visited++;
+				if (!(Variables.stop)) {
+					animationCounter++;
+					if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0) { // animationSpeed
+						animationCounter = 0;
+						counter++;
+						for (Human human : humans) {
+							if (!(counter % human.speed == 0))
 								continue;
+							if (human.currentHouse == null) {
+								if (human.walkStep()) {
+									human.timeInHouse = 0;
+									human.currentHouse = human.targetHouse;
+									human.targetHouse = null;
+									human.visited++;
+									continue;
+								}
+							} else if (counter % (human.speed * 10) == 0) {
+								human.moveInHouse();
 							}
-						} else if (counter % (human.speed * 10) == 0) {
-							human.moveInHouse();
 						}
-					}
-					if (HumanManager.areAllHumansFinished()) {
-						timer.cancel();
-						timer.purge();
-						cancel();
-						System.out.println("finished");
-						System.out.println(Variables.days);
-						for (Human human : Main.getAllHumans()) {
-							human.setHealth(Health.DEAD);
-							break;
+						if (HumanManager.areAllHumansFinished()) {
+							timer.cancel();
+							timer.purge();
+							cancel();
+							System.out.println("finished");
+							System.out.println(Variables.days);
+							for (Human human : Main.getAllHumans()) {
+								human.setHealth(Health.DEAD);
+								break;
+							}
+							DayManager.nextDay();
 						}
-						DayManager.nextDay();
+						Frame.instance.update();
 					}
-					Frame.instance.update();
 				}
 			}
+
 		}, 100, 1);
 	}
 

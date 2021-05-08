@@ -31,7 +31,7 @@ public class Variables {
 	public static int infectionDistance = 10;
 	public static int allowedDistance = 0;
 	public static int infectionRisk = 100;			// 1/infectionRisk = %
-	
+	public static boolean stop = false;
 
 
 	public static double mortality = 2.57;	

@@ -44,16 +44,33 @@ public class ScoreFrame {
 	}
 
 	public static void setupScoreFrame() {
-		// Start Button
-				JButton startSimButton = new JButton("Show Graph");
-				startSimButton.addActionListener((e) -> {
-					Main.switchToGraph();
-					System.out.println("Graph");
-				});
-				startSimButton.setBounds(50, frame.getHeight() - 150, frame.getWidth() - 100, 100);
-				startSimButton.setVisible(true);
-				frame.add(startSimButton);
+		// Graph Button
+		JButton stopButton = new JButton("Halt Stop");
+		stopButton.addActionListener((e) -> {
+			if (Variables.stop) {
+				stopButton.setText("Stop");
+				Variables.stop = false;
+			} else {
+				stopButton.setText("Resume");
+				Variables.stop = true;
+			}
+
+		});
+		stopButton.setBounds(50, frame.getHeight() - 150, 175, 100);
+		stopButton.setVisible(true);
+		frame.add(stopButton);
+
 		
+		// Graph Button
+		JButton showGraphButton = new JButton("Show Graph");
+		showGraphButton.addActionListener((e) -> {
+			Main.switchToGraph();
+			System.out.println("Graph");
+		});
+		showGraphButton.setBounds(275, frame.getHeight() - 150, 175, 100);
+		showGraphButton.setVisible(true);
+		frame.add(showGraphButton);
+
 		// varPanel
 		varPanel.setVisible(true);
 		varPanel.setBounds(50, 25, frame.getWidth() - 100, 300);
@@ -96,7 +113,6 @@ public class ScoreFrame {
 		animationSpeedSliderText.setVisible(true);
 		animationSpeedSliderText.setText("Animation Speed: " + Variables.animationSpeed);
 
-		
 		animationSpeedSlider.addChangeListener((e) -> {
 			Variables.animationSpeed = animationSpeedSlider.getValue();
 			animationSpeedSliderText.setText("Animation Speed:: " + animationSpeedSlider.getValue());

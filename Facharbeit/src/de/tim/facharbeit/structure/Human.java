@@ -21,22 +21,22 @@ public class Human extends Structure {
 	public House targetHouse;
 	public House currentHouse;
 	public Color blobColor;
-	
+
 	public int timeInHouse;
 	public int minMovesInHouse;
-	
+
 	public int visited;
 	public int allowedVisits;
-	
+
 	public Health health = null;
 	public Personality personality;
-	
-	public List<DijkstraPoint> path = new ArrayList<>();	
+
+	public List<DijkstraPoint> path = new ArrayList<>();
 	public List<Human> infectionChecked = new ArrayList<>();
-	
+
 	public int pathIndex = 0;
 	public int speed = new Random().nextInt(7) + 2;
-	
+
 	// constructor//
 	public Human(Point point, House home, Health health) {
 		super(point, 10, 10);
@@ -44,7 +44,7 @@ public class Human extends Structure {
 		this.currentHouse = home;
 		setHealth(health);
 		Random random = new Random();
-		this.minMovesInHouse = random.nextInt(30) + 20 ;
+		this.minMovesInHouse = random.nextInt(30) + 20;
 		this.timeInHouse = 0;
 	}
 
@@ -61,7 +61,7 @@ public class Human extends Structure {
 	public boolean isHumanAllowdToWalk() {
 		return allowedVisits > visited;
 	}
-	
+
 	public boolean walkStep() {
 		Point target = path.get(pathIndex).getPoint();
 		Point point = nextPointOnTheWay(target);
@@ -73,7 +73,7 @@ public class Human extends Structure {
 		}
 		return false;
 	}
-	
+
 	public Point nextPointToEntrance() {
 		Point entrance = this.currentHouse.entrance.getPoint();
 		if (point.equals(entrance)) {
@@ -89,30 +89,30 @@ public class Human extends Structure {
 		}
 		return point;
 	}
-	
+
 	private Point nextPointOnTheWay(Point target) {
 		int stride = 1;
 //		System.out.println(point);
 		if (target.getY() == point.getY()) { // Y gleich muss sich nach links oder rechts bewegen
 //			System.out.println("same y");
-			if (target.getX() > point.getX()) { 
+			if (target.getX() > point.getX()) {
 				return new Point(point.getX() + stride, point.getY());
-			} else { 
+			} else {
 				return new Point(point.getX() - stride, point.getY());
 			}
 		} else if (target.getX() == point.getX()) { // X gleich muss sich nach oben oder unten bewegen
 //			System.out.println("same x");
-			if (target.getY() > point.getY()) { 
-				return new Point(point.getX() , point.getY() + stride);
-			} else { 
-				return new Point(point.getX() , point.getY() - stride);
+			if (target.getY() > point.getY()) {
+				return new Point(point.getX(), point.getY() + stride);
+			} else {
+				return new Point(point.getX(), point.getY() - stride);
 			}
 		}
 //		System.err.println("not a fitting point");
 //		System.out.println(this.getPoint() + "-->" + target);
 		return target;
 	}
-	
+
 	public void setHealth(Health health) {
 		this.health = health;
 		switch (this.health) {
@@ -139,7 +139,8 @@ public class Human extends Structure {
 			if (human.health.equals(null)) {
 				break;
 			}
-			Main.ScoreFrame.update();;
+			Main.ScoreFrame.update();
+			;
 		}
 		Frame.instance.update();
 	}
@@ -172,51 +173,43 @@ public class Human extends Structure {
 
 		int newX = getX() + x;
 		int newY = getY() + y;
-		
+
 		if (newX < currentHouse.getX() + 10 || newX > currentHouse.getX() + currentHouse.width - 10) {
 			newX = getX() - x * 2;
 		}
 		if (newY < currentHouse.getY() + 10 || newY > currentHouse.getY() + currentHouse.height - 10) {
 			newY = getY() - y * 2;
 		}
-		
+
 		setPoint(new Point(newX, newY));
 	}
 
 	public int distanceTo(Point point) {
-		int x1 = this.getX();
-		int y1 = this.getY();
-		
-		int x2 = point.getX();
-		int y2 = point.getY();
-		
-		
-		double distance = Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
-
-		System.out.println("human distance" +distance);
-		return (int) distance;
+		int distance = (int) Math.sqrt((point.getY() - this.getY()) * (point.getY() - this.getY())
+				+ (point.getX() - this.getX()) * (point.getX() - this.getX()));
+		return distance;
 	}
 
 	public int getPointAmountToWalk() {
 		return path.size() - pathIndex;
 	}
-	
+
 	public void reset() {
 		pathIndex = 0;
 		path.clear();
 		infectionChecked.clear();
 	}
-	
+
 	public void moveHome() {
 		DijkstraManager.resetPoints();
-		this.reset();	
+		this.reset();
 	}
-	
+
 	// draw & toString//
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(blobColor);
-		graphics.fillOval(point.getX() -5, point.getY() -5 , width, height);
+		graphics.fillOval(point.getX() - 5, point.getY() - 5, width, height);
 
 	}
 
