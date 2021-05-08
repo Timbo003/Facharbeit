@@ -36,6 +36,6 @@ public class Variables {
 	public static int infectionRisk = 2000;			// 1/infectionRisk = %
 	public static boolean stop = false;
 
-
-	public static double mortality = 2.57;	
+	public static double mortality = 20;
+	//public static double mortality = 2.57;	
 }

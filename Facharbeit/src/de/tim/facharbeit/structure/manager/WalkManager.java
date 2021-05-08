@@ -31,7 +31,7 @@ public class WalkManager {
 						willSomeoneDie();
 					}  
 				}
-				for (Human human : Main.getAllHumans()) {									//soll heim gehen
+				for (Human human : Main.getAllLifingHumans()) {									//soll heim gehen
 					if (!(human.isHumanAllowdToWalk()) && human.currentHouse != null && human.timeInHouse > human.minMovesInHouse) {
 						if(!(human.currentHouse.equals(human.getHome()))) {
 							AnimationManager.prepairAnimation(human, human.getHome());
@@ -56,8 +56,9 @@ public class WalkManager {
 		if (randInfected.deathCheck) {
 			
 		}else {
-			if (random.nextInt(1000) >= (Variables.mortality * 100)) {
+			if (random.nextInt(10000) <= (Variables.mortality * 100)) {
 				randInfected.die();
+				randInfected.deathCheck= true;
 			}else {
 				randInfected.deathCheck= true;
 			}
@@ -66,7 +67,7 @@ public class WalkManager {
 	
 	public static ArrayList<Human> getHumansInAHouse(){
 		ArrayList<Human> humansInsideAHouse = new ArrayList<>();
-		for (Human human : Main.getAllHumans()) {
+		for (Human human : Main.getAllLifingHumans()) {
 			if (human.currentHouse != null && human.isHumanAllowdToWalk()) {
 				humansInsideAHouse.add(human);
 			}
@@ -76,7 +77,7 @@ public class WalkManager {
 	
 	public static ArrayList<Human> getHumansWhoMovedEnought(){
 		ArrayList<Human> humansWhoMovedEnought = new ArrayList<>();
-		for (Human human : Main.getAllHumans()) {
+		for (Human human : Main.getAllLifingHumans()) {
 			if (human.timeInHouse > human.minMovesInHouse && human.currentHouse != null && human.isHumanAllowdToWalk()) {
 				humansWhoMovedEnought.add(human);
 			}

@@ -141,7 +141,7 @@ public class HumanManager {
 	}
 
 	public static boolean areAllHumansFinished() {
-		for (Human human : Main.getAllHumans()) {
+		for (Human human : Main.getAllLifingHumans()) {
 			if (human.currentHouse == null || human.currentHouse != human.getHome() || human.isHumanAllowdToWalk() || human.minMovesInHouse > human.timeInHouse) {
 				return false;
 			}
@@ -198,7 +198,7 @@ public class HumanManager {
 	
 	public static List<Human> getHealthyHumans(){
 		List<Human> healthy = new ArrayList<>();
-		for (Human human : Main.getAllHumans()) {
+		for (Human human : Main.getAllLifingHumans()) {
 			if (human.health.equals(Health.HEALTHY)) {
 				healthy.add(human);
 			}

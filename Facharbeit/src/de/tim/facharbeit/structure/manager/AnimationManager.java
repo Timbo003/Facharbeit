@@ -111,7 +111,7 @@ public class AnimationManager {
 
 		Variables.activeTimers.add(timer);
 
-		List<Human> humans = Main.getAllHumans();
+		List<Human> humans = Main.getAllLifingHumans();
 
 		timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -134,7 +134,10 @@ public class AnimationManager {
 									continue;
 								}
 							} else if (counter % (human.speed * 10) == 0) {
-								human.moveInHouse();
+								if (!(human.health.equals(Health.DEAD))) {
+									human.moveInHouse();
+								}
+								
 							}
 						}
 						if (HumanManager.areAllHumansFinished()) {
@@ -143,10 +146,10 @@ public class AnimationManager {
 							cancel();
 							System.out.println("finished");
 							System.out.println(Variables.days);
-							for (Human human : Main.getAllHumans()) {
-								human.setHealth(Health.DEAD);
-								break;
-							}
+//							for (Human human : Main.getAllHumans()) {
+//								human.setHealth(Health.DEAD);
+//								break;
+//							}
 							DayManager.nextDay();
 						}
 						SimulationFrame.instance.update();
