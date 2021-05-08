@@ -12,7 +12,7 @@ import de.tim.facharbeit.Main;
 import de.tim.facharbeit.Variables;
 import de.tim.facharbeit.dijkstra.DijkstraManager;
 import de.tim.facharbeit.dijkstra.DijkstraPoint;
-import de.tim.facharbeit.frames.Frame;
+import de.tim.facharbeit.frames.SimulationFrame;
 import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.House;
 import de.tim.facharbeit.structure.Human;
@@ -150,7 +150,7 @@ public class AnimationManager {
 							}
 							DayManager.nextDay();
 						}
-						Frame.instance.update();
+						SimulationFrame.instance.update();
 					}
 				}
 			}

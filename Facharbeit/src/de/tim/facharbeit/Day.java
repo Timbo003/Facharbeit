@@ -65,6 +65,6 @@ public class Day {
 	
 	@Override
 	public String toString() {
-		return "date: " + date + "  infected: " + infected + "  healthy: " + healthy + "  imune: " + imune + "  dead: " + dead + "maxAllowedDistance: " + maxAllowedDistance + "\n";
+		return "date: " + date + "  infected: " + infected + "  healthy: " + healthy + "  imune: " + imune + "  dead: " + dead + " maxAllowedDistance: " + maxAllowedDistance + "\n";
 	}
 }

@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import de.tim.facharbeit.Main;
 import de.tim.facharbeit.dijkstra.DijkstraManager;
 import de.tim.facharbeit.dijkstra.DijkstraPoint;
-import de.tim.facharbeit.frames.Frame;
+import de.tim.facharbeit.frames.SimulationFrame;
 import de.tim.facharbeit.structure.manager.HumanManager;
 
 public class Human extends Structure {
@@ -142,7 +142,7 @@ public class Human extends Structure {
 			Main.ScoreFrame.update();
 			;
 		}
-		Frame.instance.update();
+		SimulationFrame.instance.update();
 	}
 
 	public void setPersonality(Personality personality) {

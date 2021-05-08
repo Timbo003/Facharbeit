@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 import de.tim.facharbeit.dijkstra.DijkstraManager;
 import de.tim.facharbeit.dijkstra.DijkstraPoint;
-import de.tim.facharbeit.frames.Frame;
+import de.tim.facharbeit.frames.SimulationFrame;
 import de.tim.facharbeit.frames.GraphFrame;
 import de.tim.facharbeit.frames.ScoreFrame;
 import de.tim.facharbeit.frames.StartFrame;
@@ -44,7 +44,7 @@ public class Main {
 	public static List<Day> testDays = new ArrayList<>();
 	
 	// it works now
-	private static Frame Frame;
+	private static SimulationFrame SimulationFrame;
 	private static StartFrame StartFrame;
 	public static ScoreFrame ScoreFrame;
 	private static GraphFrame GraphFrame;
@@ -65,19 +65,19 @@ public class Main {
 		ScoreFrame = new ScoreFrame();
 		ScoreFrame.setupScoreFrame();
 		
-		Frame = new Frame();
+		SimulationFrame = new SimulationFrame();
 
 		createStreets();
-		Frame.instance.update();
+		SimulationFrame.instance.update();
 		System.out.println("created starting Street");
 
 		for (int i = 0; i < Variables.streetCount; i++) {
 			addStreet();
-			Frame.instance.update();
+			SimulationFrame.instance.update();
 		}
 
 		sortStreets();
-		Frame.instance.update();
+		SimulationFrame.instance.update();
 		createBlocks();
 
 		HumanManager.humanStartup();
@@ -88,9 +88,8 @@ public class Main {
 		for (House house : totalHouses()) {
 			house.getDijkstraPoint();
 		}
-
 		InfectionManager.start();
-		fillTestDays(50);
+		fillTestDays(5);
 		
 		DayManager.nextDay();
 		
@@ -164,10 +163,10 @@ public class Main {
 	}	
 	
 	private static void createStreets() {
-		Street street0 = new Street(new Point(20, 20), StreetOrientation.HORIZONTAL, Frame.getWidth() - 40); // 0 -
-		Street street1 = new Street(new Point(20, 20), StreetOrientation.VERTICAL, Frame.getHeight() - 40); // 1|
-		Street street2 = new Street(new Point(20, 730), StreetOrientation.HORIZONTAL, Frame.getWidth() - 36); // 2 _
-		Street street3 = new Street(new Point(1480, 20), StreetOrientation.VERTICAL, Frame.getHeight() - 36); // 3 |
+		Street street0 = new Street(new Point(20, 20), StreetOrientation.HORIZONTAL, Variables.screenSize.width - 40); // 0 -
+		Street street1 = new Street(new Point(20, 20), StreetOrientation.VERTICAL, Variables.screenSize.height - 270); // 1|
+		Street street2 = new Street(new Point(20, Variables.screenSize.height - 250 ), StreetOrientation.HORIZONTAL, Variables.screenSize.width - 40); // 2 _
+		Street street3 = new Street(new Point(Variables.screenSize.width - 20, 20), StreetOrientation.VERTICAL, Variables.screenSize.height - 270); // 3 |
 
 		street0.start = street1;
 		street0.end = street3;

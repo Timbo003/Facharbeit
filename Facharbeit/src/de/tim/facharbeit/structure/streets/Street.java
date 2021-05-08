@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 import de.tim.facharbeit.Main;
-import de.tim.facharbeit.frames.Frame;
+import de.tim.facharbeit.frames.SimulationFrame;
 import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.Structure;
@@ -214,7 +214,7 @@ public class Street extends Structure {
 		Block block = new Block(point, width - 10, height - 10, blockList);
 		Main.structures.add(block);
 		blocks.add(block);
-		Frame.instance.update();
+		SimulationFrame.instance.update();
 	}
 
 	private Color color;

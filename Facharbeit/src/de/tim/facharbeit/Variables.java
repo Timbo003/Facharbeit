@@ -1,5 +1,7 @@
 package de.tim.facharbeit;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -8,6 +10,7 @@ public class Variables {
 	public static List<Day> days = new ArrayList<>();
 	public static List<Timer> activeTimers = new ArrayList<>();
 
+	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	public static int streetCount = 10;
 	

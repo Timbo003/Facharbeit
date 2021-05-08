@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.tim.facharbeit.Main;
-import de.tim.facharbeit.frames.Frame;
+import de.tim.facharbeit.frames.SimulationFrame;
 import de.tim.facharbeit.structure.Point;
 import de.tim.facharbeit.structure.streets.Street;
 import de.tim.facharbeit.structure.streets.StreetOrientation;
@@ -109,7 +109,7 @@ public class DijkstraManager {
 //					+ "\ndistance to right: " + dijkstraPoint.distanceToRight + "\n\n");
 		}
 		Main.structures.addAll(crossings);
-		Frame.instance.update();
+		SimulationFrame.instance.update();
 
 	}
 
@@ -144,7 +144,7 @@ public class DijkstraManager {
 			last = current;
 		}
 		checkedStreets.add(street);
-		Frame.instance.update();
+		SimulationFrame.instance.update();
 		for (Street neighbor : street.neighbors) {
 			if (!(isStreetChecked(neighbor))) {
 				checkStreet(neighbor);
