@@ -8,6 +8,7 @@ import de.tim.facharbeit.Main;
 import de.tim.facharbeit.Variables;
 import de.tim.facharbeit.dijkstra.DijkstraManager;
 import de.tim.facharbeit.frames.SimulationFrame;
+import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.Human;
 
 public class DayManager {
@@ -16,6 +17,7 @@ public class DayManager {
 		Day day = new Day(Variables.days.size());
 
 		Random random = new Random();
+		
 		if (Variables.days.size() > 0) {
 			for (Human human : HumanManager.getInfectedHumans()) {
 				if (!(human.deathCheck)) {
@@ -26,6 +28,11 @@ public class DayManager {
 						human.deathCheck = true;
 					}
 				}
+			}
+		}
+		for (Human human : HumanManager.getInfectedHumans()) {
+			if (human.daysInfected > Variables.maxTimeSick) {
+				human.setHealth(Health.IMUNE);
 			}
 		}
 
@@ -55,10 +62,10 @@ public class DayManager {
 		for (Human human : Main.getAllHumans()) {
 			human.setHealth(human.health);
 		}
-//		for (Human human : Main.getAllLifingHumans()) {
-//			human.deathCheck = false;
-//		}
-
+		for (Human human : HumanManager.getInfectedHumans()) {
+			human.daysInfected++;
+		}
+		
 		WalkManager.startHuman();
 		AnimationManager.walkAnimation();
 	}

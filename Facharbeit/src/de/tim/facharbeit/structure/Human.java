@@ -27,6 +27,7 @@ public class Human extends Structure {
 
 	public int visited;
 	public int allowedVisits;
+	public int daysInfected = 0;
 	public boolean deathCheck;
 
 	public Health health = null;

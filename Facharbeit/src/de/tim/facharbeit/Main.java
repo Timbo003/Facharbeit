@@ -288,7 +288,6 @@ public class Main {
 		int Streets = 0;
 		for (Structure structure : structures) {
 			if (structure instanceof Street) {
-//				System.out.println(structure);
 				Streets++;
 
 			}
