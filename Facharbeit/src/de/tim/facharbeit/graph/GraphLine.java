@@ -23,9 +23,6 @@ public class GraphLine extends GraphStructure {
 	public void draw(Graphics graphics) {
 		double difference = 1500D / points.size();
 		int iterator = 1;
-//		if (difference < GraphManager.minX) {
-//			iterator = (int) (GraphManager.minX / difference) + 1;
-//		}
 		
 		graphics.setColor(color);
 		for (int i = 1; i < points.size(); i += iterator) {

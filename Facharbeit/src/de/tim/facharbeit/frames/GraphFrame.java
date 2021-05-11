@@ -5,16 +5,19 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import de.tim.facharbeit.Main;
+import de.tim.facharbeit.graph.GraphManager;
 import de.tim.facharbeit.graph.GraphStructure;
 
 public class GraphFrame extends JPanel {
 
-	private JFrame frame;
+	private static JFrame frame;
 	public static GraphFrame instance;
 	
 	public GraphFrame() {
@@ -25,15 +28,15 @@ public class GraphFrame extends JPanel {
 		frame.getContentPane().setPreferredSize(new Dimension(1500,750));	
 		super.setBackground(Color.WHITE);
 		super.setLayout(null);
-		frame.add(this);
-			
+		frame.add(this);	
+		
 		frame.pack();						
 		frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         
         
     }
-
+	
 	public void update() {
 		super.repaint();
 	}
@@ -54,6 +57,8 @@ public class GraphFrame extends JPanel {
 		for (GraphStructure graphStructure : Main.graphStructures) {
 			graphStructure.draw(graphics);
 		}
+		
+		GraphManager.setUpNaming((Graphics2D) graphics);
 		
 	}
 }

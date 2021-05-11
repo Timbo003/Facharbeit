@@ -1,6 +1,7 @@
 package de.tim.facharbeit;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ public class Variables {
 	public static List<Timer> activeTimers = new ArrayList<>();
 
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
+	public static Font defaultFont  = new Font("TimesRoman", Font.PLAIN, 20);
 	
 	public static int streetCount = 10;
 	
@@ -32,7 +35,7 @@ public class Variables {
 	public static int animationSpeed = 7;
 	
 	
-	public static int maxTimeSick = 1;
+	public static int maxTimeSick = 4;
 	public static int infectionDistance = 10;
 	public static int allowedDistance = 200;
 	public static int infectionRisk = 2000;			// 1/infectionRisk = %
