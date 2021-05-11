@@ -58,7 +58,8 @@ public class GraphFrame extends JPanel {
 			graphStructure.draw(graphics);
 		}
 		
-		GraphManager.setUpNaming((Graphics2D) graphics);
+		GraphManager.setUpNamingOnX((Graphics2D) graphics);
+		GraphManager.setUpNamingOnY((Graphics2D) graphics);
 		
 	}
 }

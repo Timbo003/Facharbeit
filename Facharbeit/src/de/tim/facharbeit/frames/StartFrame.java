@@ -112,7 +112,7 @@ public class StartFrame {
 		humanCountSliderText.setVisible(true);
 		humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
 
-		JSlider humanCountSlider = new JSlider(1, 300, Variables.totalHumanCounter);
+		JSlider humanCountSlider = new JSlider(1, 400, Variables.totalHumanCounter);
 		humanCountSlider.addChangeListener((e) -> {
 			Variables.totalHumanCounter = humanCountSlider.getValue();
 			humanCountSliderText.setText("Humans: " + humanCountSlider.getValue());

@@ -17,11 +17,11 @@ public class Variables {
 	
 	public static int streetCount = 10;
 	
-	public static int infectedCount = 5;
-	public static int imuneCount = 5;
+	public static int infectedCount = 50;
+	public static int imuneCount = 25;
 	
-	public static int totalHumanCounter = 150;
-	public static int maxHumansInHome = 3;
+	public static int totalHumanCounter = 200;
+	public static int maxHumansInHome = 4;
 	
 	public static int bedachtCount = 1;
 	public static int verweigererCount = 1;
