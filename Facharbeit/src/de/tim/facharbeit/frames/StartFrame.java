@@ -36,6 +36,11 @@ public class StartFrame {
 	public static JLabel infectionRiskText;
 	public static JLabel mortalityText;
 	
+	public static int SliderX = 5;
+	public static int SliderY = 5;
+	public static int SliderW = 300;
+	public static int SliderH = 20;
+	
 	public StartFrame() {
 		frame = new JFrame("StartScreen");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,27 +83,16 @@ public class StartFrame {
 //		PresetLable.setBackground(Color.white);
 		PresetLable.setLayout(null);
 
-		JButton p1 = new JButton("P1");
+		JButton p1 = new JButton("Preset 1");
 		p1.addActionListener((e) -> {
 			System.out.println("p1");
-			streetSliderText.setText("a");
-			streetSliderText.setText("a");
-			infectedSliderText.setText("a");
-			imuneSliderText.setText("a");
-			humanCountSliderText.setText("a");
-			maxHumansInHomeSliderText.setText("a");
-			bedachtSliderText.setText("a");
-			verweigererSliderText.setText("a");
-			maxTimeSickSliderText.setText("a");
-			infectionDistanceSliderText.setText("a");
-			infectionRiskText.setText("a");
-			mortalityText.setText("a");
+			Variables.streetCount = 30;
 		});
 		p1.setBounds(0, 25, 115, 83);
 		p1.setVisible(true);
 		PresetLable.add(p1);
 
-		JButton p2 = new JButton("P2");
+		JButton p2 = new JButton("Preset 2");
 		p2.addActionListener((e) -> {
 			System.out.println("P2");
 			streetSliderText.setText("b");
@@ -118,7 +112,7 @@ public class StartFrame {
 		p2.setVisible(true);
 		PresetLable.add(p2);
 
-		JButton p3 = new JButton("P3");
+		JButton p3 = new JButton("Preset 3");
 		p3.addActionListener((e) -> {
 			System.out.println("P3");
 		});
@@ -134,16 +128,18 @@ public class StartFrame {
 		JPanel SliderLable = new JPanel();
 		SliderLable.setVisible(true);
 		SliderLable.setBounds(25, 25, 550, 350);
-		SliderLable.setBackground(Color.LIGHT_GRAY);
+//		SliderLable.setBackground(Color.LIGHT_GRAY);
+		SliderLable.setLayout(null);
 
 		// slider & text for Streets
 		JPanel streetPanel = new JPanel();
 		streetPanel.setVisible(true);
-		streetPanel.setBounds(0, 0, 0, 0);
-		streetPanel.setBackground(Color.red);
+		streetPanel.setBounds(50, 10, 450, 30);
+//		streetPanel.setBackground(Color.red);
+		streetPanel.setLayout(null);
 		
 		streetSliderText = new JLabel();
-		streetSliderText.setBounds(0, 0, 100, 100);
+		streetSliderText.setBounds(310,0, 200, 30);
 		streetSliderText.setVisible(true);
 		streetSliderText.setText("Streets: " + Variables.streetCount);
 
@@ -152,7 +148,7 @@ public class StartFrame {
 			Variables.streetCount = streetSlider.getValue();
 			streetSliderText.setText("Streets: " + streetSlider.getValue());
 		});
-		streetSlider.setBounds(0, 20, SliderLable.getWidth(), 200);
+		streetSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		streetSlider.setVisible(true);
 		
 		streetPanel.add(streetSlider);
@@ -163,11 +159,12 @@ public class StartFrame {
 		// slider & text for Infected
 		JPanel infectedPanel = new JPanel();
 		infectedPanel.setVisible(true);
-		infectedPanel.setBounds(0, 0, 0, 0);
-		infectedPanel.setBackground(Color.blue);
+		infectedPanel.setBounds(50, 40, 450, 30);
+//		infectedPanel.setBackground(Color.blue);
+		infectedPanel.setLayout(null);
 		
 		infectedSliderText = new JLabel();
-		infectedSliderText.setBounds(0, 0, 100, 100);
+		infectedSliderText.setBounds(310,0, 200, 30);
 		infectedSliderText.setVisible(true);
 		infectedSliderText.setText("Infected: " + Variables.infectedCount);
 
@@ -176,7 +173,7 @@ public class StartFrame {
 			Variables.infectedCount = infectedSlider.getValue();
 			infectedSliderText.setText("Infected: " + infectedSlider.getValue());
 		});
-		infectedSlider.setBounds(0, 20, 100, 100);
+		infectedSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		infectedSlider.setVisible(true);
 		
 		infectedPanel.add(infectedSlider);
@@ -187,11 +184,12 @@ public class StartFrame {
 		// slider & text for Imune
 		JPanel imunePanel = new JPanel();
 		imunePanel.setVisible(true);
-		imunePanel.setBounds(0, 0, 0, 0);
-		imunePanel.setBackground(Color.green);
+		imunePanel.setBounds(50, 70, 450, 30);
+//		imunePanel.setBackground(Color.green);
+		imunePanel.setLayout(null);
 		
 		imuneSliderText = new JLabel();
-		imuneSliderText.setBounds(0, 0, 100, 100);
+		imuneSliderText.setBounds(310,0, 200, 30);
 		imuneSliderText.setVisible(true);
 		imuneSliderText.setText("Imune: " + Variables.imuneCount);
 
@@ -200,7 +198,7 @@ public class StartFrame {
 			Variables.imuneCount = imuneSlider.getValue();
 			imuneSliderText.setText("Imune: " + imuneSlider.getValue());
 		});
-		imuneSlider.setBounds(0, 20, 100, 100);
+		imuneSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		imuneSlider.setVisible(true);
 		imunePanel.add(imuneSlider);
 		imunePanel.add(imuneSliderText);
@@ -209,11 +207,12 @@ public class StartFrame {
 		// slider & text for humanCount
 		JPanel humanCountPanel = new JPanel();
 		humanCountPanel.setVisible(true);
-		humanCountPanel.setBounds(0, 0, 0, 0);
-		humanCountPanel.setBackground(Color.orange);
+		humanCountPanel.setBounds(50, 100, 450, 30);
+//		humanCountPanel.setBackground(Color.orange);
+		humanCountPanel.setLayout(null);
 		
 		humanCountSliderText = new JLabel();
-		humanCountSliderText.setBounds(0, 0, 100, 100);
+		humanCountSliderText.setBounds(310,0, 200, 30);
 		humanCountSliderText.setVisible(true);
 		humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
 
@@ -222,7 +221,7 @@ public class StartFrame {
 			Variables.totalHumanCounter = humanCountSlider.getValue();
 			humanCountSliderText.setText("Humans: " + humanCountSlider.getValue());
 		});
-		humanCountSlider.setBounds(0, 20, 100, 100);
+		humanCountSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		humanCountSlider.setVisible(true);
 		
 		humanCountPanel.add(humanCountSlider);
@@ -233,11 +232,12 @@ public class StartFrame {
 		// slider & text for maxHumansInHome
 		JPanel maxHumansInHomePanel = new JPanel();
 		maxHumansInHomePanel.setVisible(true);
-		maxHumansInHomePanel.setBounds(0, 0, 0, 0);
-		maxHumansInHomePanel.setBackground(Color.pink);
+		maxHumansInHomePanel.setBounds(50, 130, 450, 30);
+//		maxHumansInHomePanel.setBackground(Color.pink);
+		maxHumansInHomePanel.setLayout(null);
 		
 		maxHumansInHomeSliderText = new JLabel();
-		maxHumansInHomeSliderText.setBounds(0, 0, 100, 100);
+		maxHumansInHomeSliderText.setBounds(310,0, 200, 30);
 		maxHumansInHomeSliderText.setVisible(true);
 		maxHumansInHomeSliderText.setText("Fam. größe: " + Variables.maxHumansInHome);
 
@@ -246,7 +246,7 @@ public class StartFrame {
 			Variables.maxHumansInHome = maxHumansInHomeSlider.getValue();
 			maxHumansInHomeSliderText.setText("Fam. größe: " + maxHumansInHomeSlider.getValue());
 		});
-		maxHumansInHomeSlider.setBounds(0, 20, 100, 100);
+		maxHumansInHomeSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		maxHumansInHomeSlider.setVisible(true);
 		
 		maxHumansInHomePanel.add(maxHumansInHomeSlider);
@@ -257,11 +257,12 @@ public class StartFrame {
 		// slider & text for bedacht
 		JPanel bedachtPanel = new JPanel();
 		bedachtPanel.setVisible(true);
-		bedachtPanel.setBounds(0, 0, 0, 0);
-		bedachtPanel.setBackground(Color.cyan);
+		bedachtPanel.setBounds(50, 160, 450, 30);
+//		bedachtPanel.setBackground(Color.cyan);
+		bedachtPanel.setLayout(null);
 		
 		bedachtSliderText = new JLabel();
-		bedachtSliderText.setBounds(0, 0, 100, 100);
+		bedachtSliderText.setBounds(310,0, 200, 30);
 		bedachtSliderText.setVisible(true);
 		bedachtSliderText.setText("bedacht: " + Variables.bedachtCount);
 
@@ -270,7 +271,7 @@ public class StartFrame {
 			Variables.bedachtCount = bedachtSlider.getValue();
 			bedachtSliderText.setText("bedacht: " + bedachtSlider.getValue());
 		});
-		bedachtSlider.setBounds(0, 20, 100, 100);
+		bedachtSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		bedachtSlider.setVisible(true);
 		
 		bedachtPanel.add(bedachtSlider);
@@ -281,11 +282,12 @@ public class StartFrame {
 		// slider & text for bedacht
 		JPanel verweigererPanel = new JPanel();
 		verweigererPanel.setVisible(true);
-		verweigererPanel.setBounds(0, 0, 0, 0);
-		verweigererPanel.setBackground(Color.MAGENTA);
+		verweigererPanel.setBounds(50, 190, 450, 30);
+//		verweigererPanel.setBackground(Color.MAGENTA);
+		verweigererPanel.setLayout(null);
 		
 		verweigererSliderText = new JLabel();
-		verweigererSliderText.setBounds(1, 0, 100, 100);
+		verweigererSliderText.setBounds(310,0, 200, 30);
 		verweigererSliderText.setVisible(true);
 		verweigererSliderText.setText("verweigerer: " + Variables.verweigererCount);
 
@@ -294,7 +296,7 @@ public class StartFrame {
 			Variables.verweigererCount = verweigererSlider.getValue();
 			verweigererSliderText.setText("verweigerer: " + verweigererSlider.getValue());
 		});
-		verweigererSlider.setBounds(0, 20, 100, 100);
+		verweigererSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		verweigererSlider.setVisible(true);
 		
 		verweigererPanel.add(verweigererSlider);
@@ -305,11 +307,12 @@ public class StartFrame {
 		// slider & text for maxTimeSick
 		JPanel maxTimeSickPanel = new JPanel();
 		maxTimeSickPanel.setVisible(true);
-		maxTimeSickPanel.setBounds(0, 0, 0, 0);
-		maxTimeSickPanel.setBackground(Color.gray);
+		maxTimeSickPanel.setBounds(50, 220, 450, 30);
+//		maxTimeSickPanel.setBackground(Color.gray);
+		maxTimeSickPanel.setLayout(null);
 		
 		maxTimeSickSliderText = new JLabel();
-		maxTimeSickSliderText.setBounds(1, 0, 100, 100);
+		maxTimeSickSliderText.setBounds(310,0, 200, 30);
 		maxTimeSickSliderText.setVisible(true);
 		maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
 
@@ -318,7 +321,7 @@ public class StartFrame {
 			Variables.maxTimeSick = maxTimeSickSlider.getValue();
 			maxTimeSickSliderText.setText("maxTimeSick: " + maxTimeSickSlider.getValue());
 		});
-		maxTimeSickSlider.setBounds(0, 20, 100, 100);
+		maxTimeSickSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		maxTimeSickSlider.setVisible(true);
 		
 		maxTimeSickPanel.add(maxTimeSickSlider);
@@ -329,11 +332,12 @@ public class StartFrame {
 		// slider & text for infectionDistance
 		JPanel infectionDistancePanel = new JPanel();
 		infectionDistancePanel.setVisible(true);
-		infectionDistancePanel.setBounds(0, 0, 0, 0);
-		infectionDistancePanel.setBackground(Color.white);
+		infectionDistancePanel.setBounds(50, 250, 450, 30);
+//		infectionDistancePanel.setBackground(Color.white);
+		infectionDistancePanel.setLayout(null);
 		
 		infectionDistanceSliderText = new JLabel();
-		infectionDistanceSliderText.setBounds(1, 0, 100, 100);
+		infectionDistanceSliderText.setBounds(310,0, 200, 30);
 		infectionDistanceSliderText.setVisible(true);
 		infectionDistanceSliderText.setText("infectionDistance: " + Variables.infectionDistance);
 
@@ -342,7 +346,7 @@ public class StartFrame {
 			Variables.infectionDistance = infectionDistanceSlider.getValue();
 			infectionDistanceSliderText.setText("infectionDistance: " + infectionDistanceSlider.getValue());
 		});
-		infectionDistanceSlider.setBounds(0, 20, 100, 100);
+		infectionDistanceSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		infectionDistanceSlider.setVisible(true);
 		
 		infectionDistancePanel.add(infectionDistanceSlider);
@@ -353,13 +357,14 @@ public class StartFrame {
 		// TextInput for infectionRisk
 		JPanel infectionRiskPanel = new JPanel();
 		infectionRiskPanel.setVisible(true);
-		infectionRiskPanel.setBounds(0, 0, 0, 0);
-		infectionRiskPanel.setBackground(Color.green);
+		infectionRiskPanel.setBounds(50, 280, 450, 30);
+//		infectionRiskPanel.setBackground(Color.green);
+		infectionRiskPanel.setLayout(null);
 		
 		infectionRiskText = new JLabel();
-		infectionRiskText.setBounds(1, 0, 100, 100);
+		infectionRiskText.setBounds(310,0, 200, 30);
 		infectionRiskText.setVisible(true);
-		infectionRiskText.setText("infectionRisk in %: " + Variables.infectionRisk);
+		infectionRiskText.setText("infectionRisk: " + Variables.infectionRisk+ "%");
 		
 
 		JTextField infectionRiskInput = new JTextField(6);
@@ -372,6 +377,8 @@ public class StartFrame {
 			}
 		});
 		infectionRiskInput.setVisible(true);
+		infectionRiskInput.setBounds(SliderX, SliderY, SliderW, SliderH);
+		infectionRiskInput.setHorizontalAlignment(JTextField.CENTER);
 		
 		infectionRiskPanel.add(infectionRiskText);
 		infectionRiskPanel.add(infectionRiskInput);
@@ -381,13 +388,14 @@ public class StartFrame {
 		// TextInput for mortality
 		JPanel mortalityPanel = new JPanel();
 		mortalityPanel.setVisible(true);
-		mortalityPanel.setBounds(0, 0, 0, 0);
-		mortalityPanel.setBackground(Color.orange);
+		mortalityPanel.setBounds(50, 310, 450, 30);
+//		mortalityPanel.setBackground(Color.orange);
+		mortalityPanel.setLayout(null);
 		
 		mortalityText = new JLabel();
-		mortalityText.setBounds(1, 0, 100, 100);
+		mortalityText.setBounds(310,0, 200, 30);
 		mortalityText.setVisible(true);
-		mortalityText.setText("mortality in %: " + Variables.mortality);
+		mortalityText.setText("mortality: " + Variables.mortality + "%");
 		
 
 		JTextField mortalityInput = new JTextField(6);
@@ -401,6 +409,9 @@ public class StartFrame {
 			}
 		});
 		mortalityInput.setVisible(true);
+		mortalityInput.setBounds(SliderX, SliderY, SliderW, SliderH);
+		mortalityInput.setHorizontalAlignment(JTextField.CENTER);
+		
 		mortalityPanel.add(mortalityText);
 		mortalityPanel.add(mortalityInput);
 		SliderLable.add(mortalityPanel);
