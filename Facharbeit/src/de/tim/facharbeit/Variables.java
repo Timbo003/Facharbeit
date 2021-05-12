@@ -17,8 +17,8 @@ public class Variables {
 	
 	public static int streetCount = 10;
 	
-	public static int infectedCount = 50;
-	public static int imuneCount = 25;
+	public static int infectedCount = 10;
+	public static int imuneCount = 5;
 	
 	public static int totalHumanCounter = 200;
 	public static int maxHumansInHome = 4;
@@ -38,7 +38,7 @@ public class Variables {
 	public static int maxTimeSick = 4;
 	public static int infectionDistance = 10;
 	public static int allowedDistance = 200;
-	public static int infectionRisk = 2000;			// 1/infectionRisk = %
+	public static double infectionRisk = 0.005;			// 1/infectionRisk = %
 	public static boolean stop = false;
 
 	public static double mortality = 20;

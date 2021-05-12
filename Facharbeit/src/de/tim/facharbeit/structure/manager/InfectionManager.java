@@ -53,7 +53,7 @@ public class InfectionManager {
 					if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0) {// animationSpeed
 						animationCounter = 0;
 						for (Human human : HumanManager.getHealthyHumans()) {
-							if (isHumanNearInfected(human) && random.nextInt(Variables.infectionRisk) == 1) {
+							if (isHumanNearInfected(human) && random.nextInt(10000) <= (Variables.infectionRisk * 100)){
 								Human sick = nearWhichInfected(human);
 								if (!(human.infectionChecked.contains(sick))) {
 									human.infectionChecked.add(sick);
