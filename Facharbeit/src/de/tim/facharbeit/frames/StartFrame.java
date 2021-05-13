@@ -43,6 +43,8 @@ public class StartFrame {
 	public static int SliderW = 300;
 	public static int SliderH = 20;
 	
+	public static Color buttonColor = new Color(230,239,244);
+	
 	public StartFrame() {
 		frame = new JFrame("StartScreen");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,8 +62,8 @@ public class StartFrame {
 
 	public static void setupStartFrame() {
 		startButtonSetup();
-		presetSetup();
 		sliderSetup();
+		presetSetup();
 	}
 
 	private static void startButtonSetup() {
@@ -74,6 +76,7 @@ public class StartFrame {
 		});
 		startSimButton.setBounds(25, frame.getHeight() - 150, frame.getWidth() - 65, 100);
 		startSimButton.setVisible(true);
+		startSimButton.setBackground(buttonColor);
 		frame.add(startSimButton);
 	}
 
@@ -90,7 +93,7 @@ public class StartFrame {
 			System.out.println("p1");
 			Variables.streetCount = 12;
 			streetSliderText.setText("Streets: " + Variables.streetCount);
-//			streetSlider.setValue(Variables.streetCount);
+			streetSlider.setValue(Variables.streetCount);
 			
 			Variables.infectedCount = 10;
 			infectedSliderText.setText("Infected: " + Variables.infectedCount);
@@ -123,6 +126,9 @@ public class StartFrame {
 			mortalityText.setText("mortality: " + Variables.mortality + "%");
 		});
 		p1.setBounds(0, 25, 115, 83);
+		
+		p1.setBackground(buttonColor);
+		
 		p1.setVisible(true);
 		PresetLable.add(p1);
 
@@ -142,6 +148,7 @@ public class StartFrame {
 		});
 		p2.setBounds(0, 133, 115, 83);
 		p2.setVisible(true);
+		p2.setBackground(buttonColor);
 		PresetLable.add(p2);
 
 		JButton p3 = new JButton("Preset 3");
@@ -150,6 +157,7 @@ public class StartFrame {
 		});
 		p3.setBounds(0, 241, 115, 83);
 		p3.setVisible(true);
+		p3.setBackground(buttonColor);
 		PresetLable.add(p3);
 
 		frame.add(PresetLable);
@@ -178,8 +186,11 @@ public class StartFrame {
 
 		streetSlider = new JSlider(0, 50, Variables.streetCount);
 		streetSlider.addChangeListener((e) -> {
-			Variables.streetCount = streetSlider.getValue();
-			streetSliderText.setText("Streets: " + streetSlider.getValue());
+			int value = ((JSlider)e.getSource()).getValue();
+//			int value = streetSlider.getValue();
+			System.out.println(value);
+			Variables.streetCount = value;
+			streetSliderText.setText("Streets: " + value);
 		});
 		streetSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		streetSlider.setVisible(true);
@@ -209,6 +220,7 @@ public class StartFrame {
 		});
 		infectedSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		infectedSlider.setVisible(true);
+		
 		
 		infectedPanel.add(infectedSlider);
 		infectedPanel.add(infectedSliderText);

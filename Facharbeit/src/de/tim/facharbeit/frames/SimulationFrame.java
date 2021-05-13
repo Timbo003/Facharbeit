@@ -28,6 +28,8 @@ public class SimulationFrame extends JPanel {
 	private JFrame frame;
 	private static JPanel controllPanel;
 	private static JPanel varPanel;
+	private static JPanel sliderPanel;
+	private static JPanel buttonPanel;
 
 	private static JLabel infectedLable = new JLabel();
 	private static JLabel imuneLable = new JLabel();
@@ -38,6 +40,7 @@ public class SimulationFrame extends JPanel {
 	private static JLabel animationSpeedSliderText = new JLabel();
 
 	public static SimulationFrame instance;
+	public static Color buttonColor = new Color(230,239,244);
 
 	public SimulationFrame() {
 		instance = this;
@@ -61,14 +64,25 @@ public class SimulationFrame extends JPanel {
 
 	private void setupSimulationFrame() { // Panel for Buttens etc.
 		controllPanel = new JPanel();
-		controllPanel.setBounds(20, Variables.screenSize.height - 230, Variables.screenSize.width - 40, 190);
+		controllPanel.setBounds(250, Variables.screenSize.height - 230, Variables.screenSize.width - 500, 190);
 		controllPanel.setBackground(new Color(114, 118, 125));
 		controllPanel.setVisible(true);
-		setupControllPanel();
+		controllPanel.setLayout(null);
+		
+		setupButtonPanel();
+		setupSliderPanel();
+		setupVarPanel();
+		frame.add(controllPanel);
 	}
 
-	private void setupControllPanel() {
+	private void setupButtonPanel() {
 		// Stop Button
+		buttonPanel = new JPanel();
+		buttonPanel.setBounds(controllPanel.getWidth()/2-150, 0, 300, controllPanel.getHeight());
+		buttonPanel.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.setVisible(true);
+		buttonPanel.setLayout(null);
+		
 		JButton stopButton = new JButton("Halt Stop");
 		stopButton.addActionListener((e) -> {
 			if (Variables.stop) {
@@ -79,9 +93,10 @@ public class SimulationFrame extends JPanel {
 				Variables.stop = true;
 			}
 		});
-		stopButton.setBounds(50, frame.getHeight() - 150, 175, 100);
+		stopButton.setBounds(0, 0, buttonPanel.getWidth(), buttonPanel.getHeight()/2-10);
 		stopButton.setVisible(true);
-		controllPanel.add(stopButton);
+		stopButton.setBackground(buttonColor);
+		
 
 		// Graph Button
 		JButton showGraphButton = new JButton("Show Graph");
@@ -89,21 +104,45 @@ public class SimulationFrame extends JPanel {
 			Main.switchToGraph();
 			System.out.println("Graph");
 		});
-		showGraphButton.setBounds(275, frame.getHeight() - 150, 175, 100);
+		showGraphButton.setBounds(0, buttonPanel.getHeight()/2, buttonPanel.getWidth(), buttonPanel.getHeight()/2-10);
 		showGraphButton.setVisible(true);
-		controllPanel.add(showGraphButton);
-
+		showGraphButton.setBackground(buttonColor);
+		
+		buttonPanel.add(showGraphButton);
+		buttonPanel.add(stopButton);
+		controllPanel.add(buttonPanel);
 		HumanManager.refrechHumanHealthVar();
+	}
+
+	private void setupSliderPanel() {
+		sliderPanel = new JPanel();
+		sliderPanel.setBounds(controllPanel.getWidth() - 450, 10, 400, controllPanel.getHeight() - 20);
+		sliderPanel.setBackground(Color.LIGHT_GRAY);
+		sliderPanel.setVisible(true);
+//		sliderPanel.setLayout(null);
 		
-		setupVarPanel();
+		// slider & text for animationSpeed
+		animationSpeedSliderText.setBounds(0, 0, 100, 100);
+		animationSpeedSliderText.setVisible(true);
+		animationSpeedSliderText.setText("Animation Speed: " + Variables.animationSpeed);
+
+		animationSpeedSlider.addChangeListener((e) -> {
+			Variables.animationSpeed = animationSpeedSlider.getValue();
+			animationSpeedSliderText.setText("Animation Speed: " + animationSpeedSlider.getValue());
+		});
+		animationSpeedSlider.setBounds(0, 20, controllPanel.getWidth(), 200);
+		animationSpeedSlider.setVisible(true);
 		
+		sliderPanel.add(animationSpeedSlider);
+		controllPanel.add(sliderPanel);
 	}
 
 	private void setupVarPanel() {
 		varPanel = new JPanel();
-		varPanel.setBounds(20,20, 200, 200);
+		varPanel.setBounds(50, 10, 400, controllPanel.getHeight() - 20);
 		varPanel.setBackground(Color.LIGHT_GRAY);
 		varPanel.setVisible(true);
+//		varPanel.setLayout(null);
 
 		// infected
 		infectedLable.setBounds(0, 0, 100, 100);
@@ -134,23 +173,8 @@ public class SimulationFrame extends JPanel {
 		dateLable.setVisible(true);
 		dateLable.setText("date: " + (Variables.days.size()));
 		varPanel.add(dateLable);
-
-		// slider & text for animationSpeed
-		animationSpeedSliderText.setBounds(0, 0, 100, 100);
-		animationSpeedSliderText.setVisible(true);
-		animationSpeedSliderText.setText("Animation Speed: " + Variables.animationSpeed);
-
-		animationSpeedSlider.addChangeListener((e) -> {
-			Variables.animationSpeed = animationSpeedSlider.getValue();
-			animationSpeedSliderText.setText("Animation Speed: " + animationSpeedSlider.getValue());
-		});
-		animationSpeedSlider.setBounds(0, 20, controllPanel.getWidth(), 200);
-		animationSpeedSlider.setVisible(true);
-		varPanel.add(animationSpeedSlider);
-		varPanel.add(animationSpeedSliderText);
-
+		
 		controllPanel.add(varPanel);
-		frame.add(controllPanel);
 	}
 
 	public static void updateDate() {

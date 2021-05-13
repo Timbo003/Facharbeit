@@ -37,10 +37,10 @@ public class Variables {
 	
 	public static int maxTimeSick = 4;
 	public static int infectionDistance = 10;
-	public static int allowedDistance = 200;
-	public static double infectionRisk = 0.005;			// 1/infectionRisk = %
+	public static int allowedDistance = 200;	
 	public static boolean stop = false;
-
-	public static double mortality = 20;
-	//public static double mortality = 2.57;	
+	
+	public static double infectionRisk = 0.005;		//in %
+	public static double mortality = 20;			//in %
+	public static double maskEffectivity = 0;		//in %
 }

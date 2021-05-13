@@ -53,18 +53,42 @@ public class InfectionManager {
 					if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0) {// animationSpeed
 						animationCounter = 0;
 						for (Human human : HumanManager.getHealthyHumans()) {
-							if (isHumanNearInfected(human) && random.nextInt(10000) <= (Variables.infectionRisk * 100)){
-								Human sick = nearWhichInfected(human);
-								if (!(human.infectionChecked.contains(sick))) {
-									human.infectionChecked.add(sick);
-									human.setHealth(Health.INFECTED);
-								}
+							if (!(human.currentHouse == null)) { // in einem Huas Trägt man keine Masken
+								if (isHumanNearInfected(human)
+										&& random.nextInt(10000) < (Variables.infectionRisk * 0)) { // TODO mach das
+																										// wieder zu 100
+									Human sick = nearWhichInfected(human);
+									if (!(human.infectionChecked.contains(sick))) {
+										human.infectionChecked.add(sick);
+										human.setHealth(Health.INFECTED);
+									}
 
+								}
+							} else { // auf der Straße trägt man vielleicht eine Masken
+								if (isHumanNearInfected(human)
+										&& random.nextInt(10000) <= (Variables.infectionRisk * 100)) {
+									Human sick = nearWhichInfected(human);
+									if (sick.isWearingMask && random.nextInt(100) > Variables.maskEffectivity) {// trägt
+																														// der
+																														// kranke
+																														// eine
+																														// Maske?
+										if (human.isWearingMask
+												&& random.nextInt(100) > Variables.maskEffectivity) {
+											if (!(human.infectionChecked.contains(sick))) {
+												human.infectionChecked.add(sick);
+												human.setHealth(Health.INFECTED);
+											}
+
+										}
+									}
+
+								}
 							}
 						}
 					}
-				}
 
+				}
 			}
 		}, 100, 1);
 	}

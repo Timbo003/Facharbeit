@@ -29,6 +29,7 @@ public class Human extends Structure {
 	public int allowedVisits;
 	public int daysInfected = 0;
 	public boolean deathCheck;
+	public boolean isWearingMask = false;
 
 	public Health health = null;
 	public Personality personality;
