@@ -2,6 +2,7 @@ package de.tim.facharbeit.frames;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -30,17 +31,24 @@ public class SimulationFrame extends JPanel {
 	private static JPanel varPanel;
 	private static JPanel sliderPanel;
 	private static JPanel buttonPanel;
+	private static JPanel animationSpeedPanel;
+	private static JPanel p1;
+	private static JPanel p2;
+
+	private static Font varFont = new Font("Arial", Font.PLAIN, 20);
 
 	private static JLabel infectedLable = new JLabel();
 	private static JLabel imuneLable = new JLabel();
 	private static JLabel healthyLable = new JLabel();
 	private static JLabel deadLable = new JLabel();
 	private static JLabel dateLable = new JLabel();
+	private static JLabel notDead = new JLabel();
+
 	private static JSlider animationSpeedSlider = new JSlider(1, 10, Variables.animationSpeed);
 	private static JLabel animationSpeedSliderText = new JLabel();
 
 	public static SimulationFrame instance;
-	public static Color buttonColor = new Color(230,239,244);
+	public static Color buttonColor = new Color(230, 239, 244);
 
 	public SimulationFrame() {
 		instance = this;
@@ -65,10 +73,10 @@ public class SimulationFrame extends JPanel {
 	private void setupSimulationFrame() { // Panel for Buttens etc.
 		controllPanel = new JPanel();
 		controllPanel.setBounds(250, Variables.screenSize.height - 230, Variables.screenSize.width - 500, 190);
-		controllPanel.setBackground(new Color(114, 118, 125));
+//		controllPanel.setBackground(new Color(114, 118, 125));
 		controllPanel.setVisible(true);
 		controllPanel.setLayout(null);
-		
+
 		setupButtonPanel();
 		setupSliderPanel();
 		setupVarPanel();
@@ -78,11 +86,11 @@ public class SimulationFrame extends JPanel {
 	private void setupButtonPanel() {
 		// Stop Button
 		buttonPanel = new JPanel();
-		buttonPanel.setBounds(controllPanel.getWidth()/2-150, 0, 300, controllPanel.getHeight());
-		buttonPanel.setBackground(Color.LIGHT_GRAY);
+		buttonPanel.setBounds(controllPanel.getWidth() / 2 - 150, 0, 300, controllPanel.getHeight());
+//		buttonPanel.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.setVisible(true);
 		buttonPanel.setLayout(null);
-		
+
 		JButton stopButton = new JButton("Halt Stop");
 		stopButton.addActionListener((e) -> {
 			if (Variables.stop) {
@@ -93,10 +101,9 @@ public class SimulationFrame extends JPanel {
 				Variables.stop = true;
 			}
 		});
-		stopButton.setBounds(0, 0, buttonPanel.getWidth(), buttonPanel.getHeight()/2-10);
+		stopButton.setBounds(0, 0, buttonPanel.getWidth(), buttonPanel.getHeight() / 2 - 10);
 		stopButton.setVisible(true);
 		stopButton.setBackground(buttonColor);
-		
 
 		// Graph Button
 		JButton showGraphButton = new JButton("Show Graph");
@@ -104,10 +111,11 @@ public class SimulationFrame extends JPanel {
 			Main.switchToGraph();
 			System.out.println("Graph");
 		});
-		showGraphButton.setBounds(0, buttonPanel.getHeight()/2, buttonPanel.getWidth(), buttonPanel.getHeight()/2-10);
+		showGraphButton.setBounds(0, buttonPanel.getHeight() / 2, buttonPanel.getWidth(),
+				buttonPanel.getHeight() / 2 - 10);
 		showGraphButton.setVisible(true);
 		showGraphButton.setBackground(buttonColor);
-		
+
 		buttonPanel.add(showGraphButton);
 		buttonPanel.add(stopButton);
 		controllPanel.add(buttonPanel);
@@ -116,64 +124,101 @@ public class SimulationFrame extends JPanel {
 
 	private void setupSliderPanel() {
 		sliderPanel = new JPanel();
-		sliderPanel.setBounds(controllPanel.getWidth() - 450, 10, 400, controllPanel.getHeight() - 20);
-		sliderPanel.setBackground(Color.LIGHT_GRAY);
+		sliderPanel.setBounds(controllPanel.getWidth() - 520, 10, 500, controllPanel.getHeight() - 20);
+//		sliderPanel.setBackground(Color.LIGHT_GRAY);
 		sliderPanel.setVisible(true);
-//		sliderPanel.setLayout(null);
-		
+		sliderPanel.setLayout(null);
+
 		// slider & text for animationSpeed
-		animationSpeedSliderText.setBounds(0, 0, 100, 100);
+		animationSpeedPanel = new JPanel();
+		animationSpeedPanel.setBounds(5, 10, sliderPanel.getWidth() - 10, 30);
+//		animationSpeedPanel.setBackground(Color.red);
+		animationSpeedPanel.setVisible(true);
+		animationSpeedPanel.setLayout(null);
+
+		animationSpeedSliderText.setBounds(animationSpeedPanel.getWidth() - 190,
+				animationSpeedPanel.getHeight() / 2 - 10, 200, 20);
 		animationSpeedSliderText.setVisible(true);
 		animationSpeedSliderText.setText("Animation Speed: " + Variables.animationSpeed);
+		animationSpeedSliderText.setFont(varFont);
 
 		animationSpeedSlider.addChangeListener((e) -> {
 			Variables.animationSpeed = animationSpeedSlider.getValue();
 			animationSpeedSliderText.setText("Animation Speed: " + animationSpeedSlider.getValue());
 		});
-		animationSpeedSlider.setBounds(0, 20, controllPanel.getWidth(), 200);
+		animationSpeedSlider.setBounds(0, -5,
+				animationSpeedPanel.getWidth() - 200, 40);
 		animationSpeedSlider.setVisible(true);
-		
-		sliderPanel.add(animationSpeedSlider);
+
+		animationSpeedPanel.add(animationSpeedSliderText);
+		animationSpeedPanel.add(animationSpeedSlider);
+		sliderPanel.add(animationSpeedPanel);
 		controllPanel.add(sliderPanel);
 	}
 
 	private void setupVarPanel() {
 		varPanel = new JPanel();
-		varPanel.setBounds(50, 10, 400, controllPanel.getHeight() - 20);
-		varPanel.setBackground(Color.LIGHT_GRAY);
+		varPanel.setBounds(20, 10, 500, controllPanel.getHeight() - 20);
+//		varPanel.setBackground(Color.LIGHT_GRAY);
 		varPanel.setVisible(true);
-//		varPanel.setLayout(null);
+		varPanel.setLayout(null);
+
+		p1 = new JPanel();
+		p1.setBounds(0, 10, varPanel.getWidth(), varPanel.getHeight() / 2 - 20);
+//		p1.setBackground(Color.blue);
+		p1.setVisible(true);
+		p1.setLayout(null);
 
 		// infected
-		infectedLable.setBounds(0, 0, 100, 100);
+		infectedLable.setBounds(10 + p1.getWidth() / 3 * 0, -20, 200, 100);
 		infectedLable.setVisible(true);
 		infectedLable.setText("infected: " + Variables.infected);
-		varPanel.add(infectedLable);
+		infectedLable.setFont(varFont);
+		p1.add(infectedLable);
 
 		// imune
-		imuneLable.setBounds(0, 0, 100, 100);
+		imuneLable.setBounds(10 + p1.getWidth() / 3 * 1, -20, 200, 100);
 		imuneLable.setVisible(true);
 		imuneLable.setText("imune: " + Variables.imune);
-		varPanel.add(imuneLable);
+		imuneLable.setFont(varFont);
+		p1.add(imuneLable);
 
-		// imune
-		healthyLable.setBounds(0, 0, 100, 100);
+		// healthy
+		healthyLable.setBounds(10 + p1.getWidth() / 3 * 2, -20, 200, 100);
 		healthyLable.setVisible(true);
 		healthyLable.setText("healthy: " + Variables.healthy);
-		varPanel.add(healthyLable);
+		healthyLable.setFont(varFont);
+		p1.add(healthyLable);
 
-		// imune
-		deadLable.setBounds(0, 0, 100, 100);
+		p2 = new JPanel();
+		p2.setBounds(0, varPanel.getHeight() / 2, varPanel.getWidth(), varPanel.getHeight() / 2 - 20);
+//		p2.setBackground(Color.cyan);
+		p2.setVisible(true);
+		p2.setLayout(null);
+
+		// dead
+		deadLable.setBounds(10 + p2.getWidth() / 3 * 0, -20, 200, 100);
 		deadLable.setVisible(true);
 		deadLable.setText("dead: " + Variables.dead);
-		varPanel.add(deadLable);
+		deadLable.setFont(varFont);
+		p2.add(deadLable);
 
-		// imune
-		dateLable.setBounds(0, 0, 100, 100);
+		// gesHumans
+		notDead.setBounds(10 + p2.getWidth() / 3 * 1, -20, 200, 100);
+		notDead.setVisible(true);
+		notDead.setText("alive: " + Main.getAllLifingHumans().size());
+		notDead.setFont(varFont);
+		p2.add(notDead);
+
+		// date
+		dateLable.setBounds(10 + p2.getWidth() / 3 * 2, -20, 200, 100);
 		dateLable.setVisible(true);
 		dateLable.setText("date: " + (Variables.days.size()));
-		varPanel.add(dateLable);
-		
+		dateLable.setFont(varFont);
+		p2.add(dateLable);
+
+		varPanel.add(p1);
+		varPanel.add(p2);
 		controllPanel.add(varPanel);
 	}
 
@@ -184,6 +229,7 @@ public class SimulationFrame extends JPanel {
 	public static void updateText() {
 		HumanManager.refrechHumanHealthVar();
 
+		notDead.setText("alive: " + Main.getAllLifingHumans().size());
 		infectedLable.setText("infected: " + Variables.infected);
 		imuneLable.setText("imune: " + Variables.imune);
 		healthyLable.setText("healthy: " + Variables.healthy);

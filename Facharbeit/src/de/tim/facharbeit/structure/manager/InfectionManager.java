@@ -53,36 +53,51 @@ public class InfectionManager {
 					if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0) {// animationSpeed
 						animationCounter = 0;
 						for (Human human : HumanManager.getHealthyHumans()) {
-							if (!(human.currentHouse == null)) { // in einem Huas Tr‰gt man keine Masken
-								if (isHumanNearInfected(human)
-										&& random.nextInt(10000) < (Variables.infectionRisk * 0)) { // TODO mach das
-																										// wieder zu 100
-									Human sick = nearWhichInfected(human);
-									if (!(human.infectionChecked.contains(sick))) {
-										human.infectionChecked.add(sick);
-										human.setHealth(Health.INFECTED);
+							if (isHumanNearInfected(human)) {
+								Human sick = nearWhichInfected(human);
+								if (!(human.currentHouse == null)) { // in einem Huas Tr‰gt man keine Masken
+									if (random.nextInt(10000) < (Variables.infectionRisk * 100)) { // TODO mach das
+																									// wieder zu 100
+										if (!(human.infectionChecked.contains(sick))) {
+											human.infectionChecked.add(sick);
+											human.setHealth(Health.INFECTED);
+										}
 									}
+								} else { // auf der Straﬂe tr‰gt man vielleicht eine Masken
+									sick = nearWhichInfected(human);
+									if (random.nextInt(10000) <= (Variables.infectionRisk * 100)) {
+										if (sick.isWearingMask == false && human.isWearingMask == false) {
+											if (random.nextInt(10000) < (Variables.infectionRisk * 100)) {
+												if (!(human.infectionChecked.contains(sick))) {
+													human.infectionChecked.add(sick);
+													human.setHealth(Health.INFECTED);
+												}
+											}
+										} else if ((sick.isWearingMask == true && human.isWearingMask == false)
+												|| (sick.isWearingMask == false && human.isWearingMask == true)) {
+											if (random.nextInt(10000) < (Variables.infectionRisk * 100)) {
+												if (random.nextInt(100) > Variables.maskEffectivity) {
+													if (!(human.infectionChecked.contains(sick))) {
+														human.infectionChecked.add(sick);
+														human.setHealth(Health.INFECTED);
+													}
+												}
 
-								}
-							} else { // auf der Straﬂe tr‰gt man vielleicht eine Masken
-								if (isHumanNearInfected(human)
-										&& random.nextInt(10000) <= (Variables.infectionRisk * 100)) {
-									Human sick = nearWhichInfected(human);
-									if (sick.isWearingMask && random.nextInt(100) > Variables.maskEffectivity) {// tr‰gt
-																														// der
-																														// kranke
-																														// eine
-																														// Maske?
-										if (human.isWearingMask
-												&& random.nextInt(100) > Variables.maskEffectivity) {
-											if (!(human.infectionChecked.contains(sick))) {
-												human.infectionChecked.add(sick);
-												human.setHealth(Health.INFECTED);
+											}
+										} else if (sick.isWearingMask == true && human.isWearingMask == true) {
+											if (random.nextInt(10000) < (Variables.infectionRisk * 100)) {
+												if (random.nextInt(100) > Variables.maskEffectivity) {
+													if (random.nextInt(100) > Variables.maskEffectivity) {
+														if (!(human.infectionChecked.contains(sick))) {
+															human.infectionChecked.add(sick);
+															human.setHealth(Health.INFECTED);
+														}
+													}
+												}
 											}
 
 										}
 									}
-
 								}
 							}
 						}

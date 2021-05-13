@@ -142,7 +142,8 @@ public class HumanManager {
 
 	public static boolean areAllHumansFinished() {
 		for (Human human : Main.getAllLifingHumans()) {
-			if (human.currentHouse == null || human.currentHouse != human.getHome() || human.isHumanAllowdToWalk() || human.minMovesInHouse > human.timeInHouse) {
+			if (human.currentHouse == null || human.currentHouse != human.getHome() || human.isHumanAllowdToWalk()
+					|| human.minMovesInHouse > human.timeInHouse) {
 				return false;
 			}
 		}
@@ -175,8 +176,8 @@ public class HumanManager {
 		}
 		return healthArr;
 	}
-	
-	public static List<Human> getInfectedHumans(){
+
+	public static List<Human> getInfectedHumans() {
 		List<Human> infected = new ArrayList<>();
 		for (Human human : Main.getAllHumans()) {
 			if (human.health.equals(Health.INFECTED)) {
@@ -185,8 +186,8 @@ public class HumanManager {
 		}
 		return infected;
 	}
-	
-	public static List<Human> getImuneHumans(){
+
+	public static List<Human> getImuneHumans() {
 		List<Human> imune = new ArrayList<>();
 		for (Human human : Main.getAllHumans()) {
 			if (human.health.equals(Health.IMUNE)) {
@@ -195,8 +196,8 @@ public class HumanManager {
 		}
 		return imune;
 	}
-	
-	public static List<Human> getHealthyHumans(){
+
+	public static List<Human> getHealthyHumans() {
 		List<Human> healthy = new ArrayList<>();
 		for (Human human : Main.getAllLifingHumans()) {
 			if (human.health.equals(Health.HEALTHY)) {
