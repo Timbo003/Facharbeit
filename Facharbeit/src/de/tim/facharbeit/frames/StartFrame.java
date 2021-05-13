@@ -3,6 +3,7 @@ package de.tim.facharbeit.frames;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
@@ -36,6 +37,8 @@ public class StartFrame {
 	public static JLabel infectionRiskText;
 	public static JLabel mortalityText;
 	public static JLabel maskEffectivityText;
+	
+	public static Font textFont = new Font("Arial", Font.PLAIN, 13);
 
 	public static JSlider streetSlider;
 
@@ -70,6 +73,7 @@ public class StartFrame {
 	private static void startButtonSetup() {
 		// Start Button
 		JButton startSimButton = new JButton("Start Sim");
+		startSimButton.setFont(Variables.defaultFont);
 		startSimButton.addActionListener((e) -> {
 			Main.switchToSim();
 			frame.dispose();
@@ -90,6 +94,7 @@ public class StartFrame {
 		PresetLable.setLayout(null);
 
 		JButton p1 = new JButton("Preset 1");
+		p1.setFont(Variables.defaultFont);
 		p1.addActionListener((e) -> {
 			System.out.println("p1");
 			Variables.streetCount = 12;
@@ -134,6 +139,7 @@ public class StartFrame {
 		PresetLable.add(p1);
 
 		JButton p2 = new JButton("Preset 2");
+		p2.setFont(Variables.defaultFont);
 		p2.addActionListener((e) -> {
 			System.out.println("P2");
 
@@ -153,6 +159,7 @@ public class StartFrame {
 		PresetLable.add(p2);
 
 		JButton p3 = new JButton("Preset 3");
+		p3.setFont(Variables.defaultFont);
 		p3.addActionListener((e) -> {
 			System.out.println("P3");
 		});
@@ -175,11 +182,12 @@ public class StartFrame {
 		// slider & text for Streets
 		JPanel streetPanel = new JPanel();
 		streetPanel.setVisible(true);
-		streetPanel.setBounds(50, 0, 450, 30);
-//		streetPanel.setBackground(Color.red);
+		streetPanel.setBounds(50, 0, 500, 30);
+		streetPanel.setBackground(Color.red);
 		streetPanel.setLayout(null);
 
 		streetSliderText = new JLabel();
+		streetSliderText.setFont(textFont);
 		streetSliderText.setBounds(310, 0, 200, 30);
 		streetSliderText.setVisible(true);
 		streetSliderText.setText("Streets: " + Variables.streetCount);
@@ -208,6 +216,7 @@ public class StartFrame {
 		infectedPanel.setLayout(null);
 
 		infectedSliderText = new JLabel();
+		infectedSliderText.setFont(textFont);
 		infectedSliderText.setBounds(310, 0, 200, 30);
 		infectedSliderText.setVisible(true);
 		infectedSliderText.setText("Infected: " + Variables.infectedCount);
@@ -232,6 +241,7 @@ public class StartFrame {
 		imunePanel.setLayout(null);
 
 		imuneSliderText = new JLabel();
+		imuneSliderText.setFont(textFont);
 		imuneSliderText.setBounds(310, 0, 200, 30);
 		imuneSliderText.setVisible(true);
 		imuneSliderText.setText("Imune: " + Variables.imuneCount);
@@ -255,6 +265,7 @@ public class StartFrame {
 		humanCountPanel.setLayout(null);
 
 		humanCountSliderText = new JLabel();
+		humanCountSliderText.setFont(textFont);
 		humanCountSliderText.setBounds(310, 0, 200, 30);
 		humanCountSliderText.setVisible(true);
 		humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
@@ -279,6 +290,7 @@ public class StartFrame {
 		maxHumansInHomePanel.setLayout(null);
 
 		maxHumansInHomeSliderText = new JLabel();
+		maxHumansInHomeSliderText.setFont(textFont);
 		maxHumansInHomeSliderText.setBounds(310, 0, 200, 30);
 		maxHumansInHomeSliderText.setVisible(true);
 		maxHumansInHomeSliderText.setText("Fam. größe: " + Variables.maxHumansInHome);
@@ -303,6 +315,7 @@ public class StartFrame {
 		bedachtPanel.setLayout(null);
 
 		bedachtSliderText = new JLabel();
+		bedachtSliderText.setFont(textFont);
 		bedachtSliderText.setBounds(310, 0, 200, 30);
 		bedachtSliderText.setVisible(true);
 		bedachtSliderText.setText("bedacht: " + Variables.bedachtCount);
@@ -327,6 +340,7 @@ public class StartFrame {
 		verweigererPanel.setLayout(null);
 
 		verweigererSliderText = new JLabel();
+		verweigererSliderText.setFont(textFont);
 		verweigererSliderText.setBounds(310, 0, 200, 30);
 		verweigererSliderText.setVisible(true);
 		verweigererSliderText.setText("verweigerer: " + Variables.verweigererCount);
@@ -351,6 +365,7 @@ public class StartFrame {
 		maxTimeSickPanel.setLayout(null);
 
 		maxTimeSickSliderText = new JLabel();
+		maxTimeSickSliderText.setFont(textFont);
 		maxTimeSickSliderText.setBounds(310, 0, 200, 30);
 		maxTimeSickSliderText.setVisible(true);
 		maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
@@ -375,6 +390,7 @@ public class StartFrame {
 		infectionDistancePanel.setLayout(null);
 
 		infectionDistanceSliderText = new JLabel();
+		infectionDistanceSliderText.setFont(textFont);
 		infectionDistanceSliderText.setBounds(310, 0, 200, 30);
 		infectionDistanceSliderText.setVisible(true);
 		infectionDistanceSliderText.setText("infectionDistance: " + Variables.infectionDistance);
@@ -399,6 +415,7 @@ public class StartFrame {
 		infectionRiskPanel.setLayout(null);
 
 		infectionRiskText = new JLabel();
+		infectionRiskText.setFont(textFont);
 		infectionRiskText.setBounds(310, 0, 200, 30);
 		infectionRiskText.setVisible(true);
 		infectionRiskText.setText("infectionRisk: " + Variables.infectionRisk + "%");
@@ -428,6 +445,7 @@ public class StartFrame {
 		mortalityPanel.setLayout(null);
 
 		mortalityText = new JLabel();
+		mortalityText.setFont(textFont);
 		mortalityText.setBounds(310, 0, 200, 30);
 		mortalityText.setVisible(true);
 		mortalityText.setText("mortality: " + Variables.mortality + "%");
@@ -458,6 +476,7 @@ public class StartFrame {
 		maskEffectivityPanel.setLayout(null);
 
 		maskEffectivityText = new JLabel();
+		maskEffectivityText.setFont(textFont);
 		maskEffectivityText.setBounds(310, 0, 200, 30);
 		maskEffectivityText.setVisible(true);
 		maskEffectivityText.setText("maskEffectivity: " + Variables.maskEffectivity + "%");

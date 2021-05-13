@@ -92,6 +92,7 @@ public class SimulationFrame extends JPanel {
 		buttonPanel.setLayout(null);
 
 		JButton stopButton = new JButton("Halt Stop");
+		stopButton.setFont(varFont);
 		stopButton.addActionListener((e) -> {
 			if (Variables.stop) {
 				stopButton.setText("Stop");
@@ -107,6 +108,7 @@ public class SimulationFrame extends JPanel {
 
 		// Graph Button
 		JButton showGraphButton = new JButton("Show Graph");
+		showGraphButton.setFont(varFont);
 		showGraphButton.addActionListener((e) -> {
 			Main.switchToGraph();
 			System.out.println("Graph");
