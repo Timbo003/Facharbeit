@@ -39,8 +39,6 @@ public class Main {
 
 	public static List<Structure> structures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
 	public static List<GraphStructure> graphStructures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
-
-	public static List<Day> testDays = new ArrayList<>();
 	
 	// it works now
 	private static SimulationFrame SimulationFrame;
@@ -54,15 +52,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		System.out.println("start");
-
 		StartFrame = new StartFrame();
 		StartFrame.setupStartFrame();
 	}
 
-	public static void switchToSim() {
-//		ScoreFrame = new ScoreFrame();
-//		ScoreFrame.setupScoreFrame();
-		
+	public static void switchToSim() {		
 		SimulationFrame = new SimulationFrame();
 
 		createStreets();

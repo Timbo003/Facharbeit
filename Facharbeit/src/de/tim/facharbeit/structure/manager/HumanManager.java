@@ -59,6 +59,8 @@ public class HumanManager {
 		Variables.imune = 0;
 		Variables.dead = 0;
 		Variables.healthy = 0;
+		Variables.alive = Main.getAllLifingHumans().size();
+		
 
 		for (Human human : Main.getAllHumans()) {
 			switch (human.health) {

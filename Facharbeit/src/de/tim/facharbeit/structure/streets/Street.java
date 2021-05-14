@@ -223,7 +223,10 @@ public class Street extends Structure {
 	public void draw(Graphics graphics) {
 		if (color == null) {
 			Random random = new Random();
-			color = new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
+//			color = new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
+			color = new Color(	
+					89,89,89);
+
 		}
 		graphics.setColor(color);
 		graphics.fillRect(this.point.getX() - (size / 2), this.point.getY() - (size / 2), width, height);

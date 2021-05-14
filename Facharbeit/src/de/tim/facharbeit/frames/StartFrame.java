@@ -8,6 +8,8 @@ import java.awt.Graphics;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -37,9 +39,9 @@ public class StartFrame {
 	public static JLabel infectionRiskText;
 	public static JLabel mortalityText;
 	public static JLabel maskEffectivityText;
-	
-	public static Font textFont = new Font("Arial", Font.PLAIN, 13);
 
+	public static Font textFont = new Font("Arial", Font.PLAIN, 13);
+	
 	public static JSlider streetSlider;
 
 	public static int SliderX = 5;
@@ -74,10 +76,15 @@ public class StartFrame {
 		// Start Button
 		JButton startSimButton = new JButton("Start Sim");
 		startSimButton.setFont(Variables.defaultFont);
-		startSimButton.addActionListener((e) -> {
-			Main.switchToSim();
-			frame.dispose();
-			System.out.println("press");
+		startSimButton.addActionListener((e) -> {		
+			if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true && Variables.maskEffectivityInputOk == true ) {
+				Main.switchToSim();
+				frame.dispose();
+				System.out.println("press");
+			}else {
+				startSimButton.setBackground(Color.red);
+			}
+			
 		});
 		startSimButton.setBounds(25, frame.getHeight() - 150, frame.getWidth() - 65, 100);
 		startSimButton.setVisible(true);
@@ -107,7 +114,7 @@ public class StartFrame {
 			Variables.imuneCount = 5;
 			imuneSliderText.setText("Imune: " + Variables.imuneCount);
 
-			Variables.totalHumanCounter = 200;
+			Variables.totalHumanCounter = 250;
 			humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
 
 			Variables.maxHumansInHome = 4;
@@ -183,7 +190,7 @@ public class StartFrame {
 		JPanel streetPanel = new JPanel();
 		streetPanel.setVisible(true);
 		streetPanel.setBounds(50, 0, 500, 30);
-		streetPanel.setBackground(Color.red);
+//		streetPanel.setBackground(Color.red);
 		streetPanel.setLayout(null);
 
 		streetSliderText = new JLabel();
@@ -195,7 +202,6 @@ public class StartFrame {
 		streetSlider = new JSlider(0, 50, Variables.streetCount);
 		streetSlider.addChangeListener((e) -> {
 			int value = ((JSlider) e.getSource()).getValue();
-//			int value = streetSlider.getValue();
 			System.out.println(value);
 			Variables.streetCount = value;
 			streetSliderText.setText("Streets: " + value);
@@ -424,9 +430,15 @@ public class StartFrame {
 		infectionRiskInput.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("enter pressed");
-				infectionRiskText.setText("infectionRisk: " + infectionRiskInput.getText() + "%");
-				Variables.infectionRisk = Double.parseDouble(infectionRiskInput.getText());
+				try {
+					System.out.println("enter pressed");
+					infectionRiskText.setText("infectionRisk: " + infectionRiskInput.getText() + "%");
+					Variables.infectionRisk = Double.parseDouble(infectionRiskInput.getText());
+					Variables.infectionRiskInputOk = true;
+				} catch (Exception e2) {
+					infectionRiskText.setText("eine Nummer");
+					Variables.infectionRiskInputOk = false;
+				}
 			}
 		});
 		infectionRiskInput.setVisible(true);
@@ -454,10 +466,15 @@ public class StartFrame {
 		mortalityInput.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("enter pressed");
-				mortalityText.setText("mortality: " + mortalityInput.getText() + "%");
-				Variables.mortality = Double.parseDouble(mortalityInput.getText());
-
+				try {
+					System.out.println("enter pressed");
+					mortalityText.setText("mortality: " + mortalityInput.getText() + "%");
+					Variables.mortality = Double.parseDouble(mortalityInput.getText());
+					Variables.mortalityInputOk = true;
+				} catch (Exception e2) {
+					mortalityText.setText("eine Nummer");
+					Variables.mortalityInputOk = false;
+				}
 			}
 		});
 		mortalityInput.setVisible(true);
@@ -486,9 +503,14 @@ public class StartFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("enter pressed");
-				maskEffectivityText.setText("maskEffectivity: " + maskEffectivityInput.getText() + "%");
-				Variables.maskEffectivity = Double.parseDouble(maskEffectivityInput.getText());
-
+				try {
+					Variables.maskEffectivity = Double.parseDouble(maskEffectivityInput.getText());
+					maskEffectivityText.setText("maskEffectivity: " + maskEffectivityInput.getText() + "%");
+					Variables.maskEffectivityInputOk = true;
+				} catch (Exception e2) {
+					maskEffectivityText.setText("eine Nummer");
+					Variables.maskEffectivityInputOk = false;
+				}
 			}
 		});
 		maskEffectivityInput.setVisible(true);

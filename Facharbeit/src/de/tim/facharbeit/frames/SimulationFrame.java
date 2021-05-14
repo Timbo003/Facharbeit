@@ -32,6 +32,7 @@ public class SimulationFrame extends JPanel {
 	private static JPanel sliderPanel;
 	private static JPanel buttonPanel;
 	private static JPanel animationSpeedPanel;
+	private static JPanel maskPanel;
 	private static JPanel p1;
 	private static JPanel p2;
 
@@ -44,8 +45,13 @@ public class SimulationFrame extends JPanel {
 	private static JLabel dateLable = new JLabel();
 	private static JLabel notDead = new JLabel();
 
+	private static JButton maskButton = new JButton();
+
 	private static JSlider animationSpeedSlider = new JSlider(1, 10, Variables.animationSpeed);
 	private static JLabel animationSpeedSliderText = new JLabel();
+
+	private static JSlider maskSlider = new JSlider(0, 100, Variables.wearingMask);
+	private static JLabel maskSliderText = new JLabel();
 
 	public static SimulationFrame instance;
 	public static Color buttonColor = new Color(230, 239, 244);
@@ -126,7 +132,7 @@ public class SimulationFrame extends JPanel {
 
 	private void setupSliderPanel() {
 		sliderPanel = new JPanel();
-		sliderPanel.setBounds(controllPanel.getWidth() - 520, 10, 500, controllPanel.getHeight() - 20);
+		sliderPanel.setBounds(controllPanel.getWidth() - 520, 0, 500, controllPanel.getHeight() - 10);
 //		sliderPanel.setBackground(Color.LIGHT_GRAY);
 		sliderPanel.setVisible(true);
 		sliderPanel.setLayout(null);
@@ -148,14 +154,71 @@ public class SimulationFrame extends JPanel {
 			Variables.animationSpeed = animationSpeedSlider.getValue();
 			animationSpeedSliderText.setText("Animation Speed: " + animationSpeedSlider.getValue());
 		});
-		animationSpeedSlider.setBounds(0, -5,
-				animationSpeedPanel.getWidth() - 200, 40);
+		animationSpeedSlider.setBounds(0, -5, animationSpeedPanel.getWidth() - 200, 40);
 		animationSpeedSlider.setVisible(true);
 
 		animationSpeedPanel.add(animationSpeedSliderText);
 		animationSpeedPanel.add(animationSpeedSlider);
 		sliderPanel.add(animationSpeedPanel);
 		controllPanel.add(sliderPanel);
+
+		// Slider & Text & Button for Masks
+		maskPanel = new JPanel();
+		maskPanel.setBounds(5, 50, sliderPanel.getWidth() - 10, 130);
+//		maskPanel.setBackground(Color.orange);
+		maskPanel.setLayout(null);
+		maskPanel.setVisible(true);
+
+		maskSliderText.setBounds(maskPanel.getWidth() - 190, 5, 200, 20);
+		maskSliderText.setVisible(true);
+		maskSliderText.setText(maskSlider.getValue() + "% wearing masks");
+		maskSliderText.setFont(varFont);
+
+		maskSlider.addChangeListener((e) -> {
+			if (Variables.maskButtonPressed == false) {
+				Variables.wearingMask = maskSlider.getValue();
+				maskSliderText.setText(maskSlider.getValue() + "% wearing a mask");
+				Variables.howManyAreWearingMasks = (int) ((Variables.wearingMask * 0.01) * Variables.alive);
+				maskButton.setText(Variables.howManyAreWearingMasks + " will wear a mask");
+			}
+		});
+		maskSlider.setBounds(0, -5, maskPanel.getWidth() - 200, 40);
+		maskSlider.setVisible(true);
+
+		maskPanel.add(maskSlider);
+		maskPanel.add(maskSliderText);
+
+		maskButton = new JButton(Variables.howManyAreWearingMasks + " will wear a mask");
+		maskButton.setFont(varFont);
+		maskButton.addActionListener((e) -> {
+			if (Variables.maskButtonPressed) {
+				Variables.maskButtonPressed = false;
+				maskButton.setText(Variables.howManyAreWearingMasks + " will wear a mask");
+				maskSliderText.setText(Variables.howManyAreWearingMasks + " will wear  a mask");
+				for (Human human : Main.getAllLifingHumans()) {
+					human.isWearingMask = false;
+				}
+				
+			} else {
+				maskSliderText.setText("locked");
+				maskButton.setText("off");
+				Variables.maskButtonPressed = true;
+				maskButton.setText(Variables.howManyAreWearingMasks + " are wearing a mask");
+				
+				for (int i = 0; i < Variables.howManyAreWearingMasks; i++) {
+					Main.getAllLifingHumans().get(i).isWearingMask = true;
+				}
+			}
+		});
+		maskButton.setBounds(5, maskPanel.getHeight() - 85, maskPanel.getWidth() - 10, 85);
+		maskButton.setVisible(true);
+		maskButton.setBackground(buttonColor);
+
+		maskPanel.add(maskButton);
+
+		sliderPanel.add(maskPanel);
+		controllPanel.add(sliderPanel);
+
 	}
 
 	private void setupVarPanel() {
@@ -231,7 +294,7 @@ public class SimulationFrame extends JPanel {
 	public static void updateText() {
 		HumanManager.refrechHumanHealthVar();
 
-		notDead.setText("alive: " + Main.getAllLifingHumans().size());
+		notDead.setText("alive: " + Variables.alive);
 		infectedLable.setText("infected: " + Variables.infected);
 		imuneLable.setText("imune: " + Variables.imune);
 		healthyLable.setText("healthy: " + Variables.healthy);

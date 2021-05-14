@@ -29,7 +29,7 @@ public class Human extends Structure {
 	public int allowedVisits;
 	public int daysInfected = 0;
 	public boolean deathCheck;
-	public boolean isWearingMask = true;
+	public boolean isWearingMask = false;
 
 	public Health health = null;
 	public Personality personality;
@@ -215,9 +215,15 @@ public class Human extends Structure {
 	// draw & toString//
 	@Override
 	public void draw(Graphics graphics) {
-		graphics.setColor(blobColor);
-		graphics.fillOval(point.getX() - 5, point.getY() - 5, width, height);
-
+		if (this.isWearingMask) {
+			graphics.setColor(blobColor);
+			graphics.fillOval(point.getX() - 5, point.getY() - 5, width, height);
+			graphics.setColor(Color.black);
+			graphics.fillOval(point.getX()-3 , point.getY()-3 , 5, 5);
+		}else {
+			graphics.setColor(blobColor);
+			graphics.fillOval(point.getX() - 5, point.getY() - 5, width, height);
+		}
 	}
 
 }

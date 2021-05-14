@@ -38,7 +38,6 @@ public class InfectionManager {
 	}
 
 	private static int animationCounter = 0;
-
 	public static void start() {
 		System.out.println("--------------------- Infection Manager started ----------------------------------");
 
@@ -56,8 +55,7 @@ public class InfectionManager {
 							if (isHumanNearInfected(human)) {
 								Human sick = nearWhichInfected(human);
 								if (!(human.currentHouse == null)) { // in einem Huas Trägt man keine Masken
-									if (random.nextInt(10000) < (Variables.infectionRisk * 100)) { // TODO mach das
-																									// wieder zu 100
+									if (random.nextInt(10000) < (Variables.infectionRisk * 100)) {
 										if (!(human.infectionChecked.contains(sick))) {
 											human.infectionChecked.add(sick);
 											human.setHealth(Health.INFECTED);
@@ -95,7 +93,6 @@ public class InfectionManager {
 													}
 												}
 											}
-
 										}
 									}
 								}

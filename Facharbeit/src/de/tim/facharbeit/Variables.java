@@ -26,22 +26,28 @@ public class Variables {
 	public static int bedachtCount = 1;
 	public static int verweigererCount = 1;
 	
+	public static boolean infectionRiskInputOk = true;
+	public static boolean mortalityInputOk = true;
+	public static boolean maskEffectivityInputOk = true;
 	
 	public static int infected = 0;
 	public static int imune = 0;
 	public static int dead = 0;
 	public static int healthy = 0;
+	public static int alive = 0;
 	
 	public static int animationSpeed = 7;
-	
+	public static boolean stop = false;
+	public static int wearingMask = 0; 			//in %
+	public static int howManyAreWearingMasks = 0;
+	public static boolean maskButtonPressed = false;		
 	
 	public static int maxTimeSick = 4;
 	public static int infectionDistance = 10;
-	public static int allowedDistance = 200;	
-	public static boolean stop = false;
+	public static int allowedDistance = 200;
 	
 //	public static double infectionRisk = 100;
 	public static double infectionRisk = 0.005;		//in %
 	public static double mortality = 20;			//in %
-	public static double maskEffectivity = 10;		//in %
+	public static double maskEffectivity = 20;		//in %
 }
