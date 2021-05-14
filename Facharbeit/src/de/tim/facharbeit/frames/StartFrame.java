@@ -436,8 +436,8 @@ public class StartFrame {
 				try {
 					System.out.println("enter pressed");
 					Variables.infectionRisk = Double.parseDouble(infectionRiskInput.getText());
-					if (Variables.infectionRisk <= 0) {
-						infectionRiskText.setText("keine Negative Nummer");
+					if (Variables.infectionRisk < 0  || Variables.infectionRisk > 100) {
+						infectionRiskText.setText("ungültiger Wert");
 						infectionRiskText.setForeground(Color.red);
 						Variables.infectionRiskInputOk = false;
 					} else {
@@ -450,7 +450,7 @@ public class StartFrame {
 						}
 					}
 				} catch (Exception e2) {
-					infectionRiskText.setText("eine Nummer");
+					infectionRiskText.setText("ungültiger Wert");
 					Variables.infectionRiskInputOk = false;
 					infectionRiskText.setForeground(Color.red);
 
@@ -485,8 +485,8 @@ public class StartFrame {
 				try {
 					System.out.println("enter pressed");
 					Variables.mortality = Double.parseDouble(mortalityInput.getText());
-					if (Variables.mortality <= 0) {
-						mortalityText.setText("keine Negative Nummer");
+					if (Variables.mortality < 0 || Variables.mortality > 100) {
+						mortalityText.setText("ungültiger Wert");
 						mortalityText.setForeground(Color.red);
 						Variables.mortalityInputOk = false;
 					} else {
@@ -500,7 +500,7 @@ public class StartFrame {
 					}
 				} catch (Exception e2) {
 					mortalityText.setForeground(Color.red);
-					mortalityText.setText("eine Nummer");
+					mortalityText.setText("ungültiger Wert");
 					Variables.mortalityInputOk = false;
 				}
 			}
@@ -533,8 +533,8 @@ public class StartFrame {
 				System.out.println("enter pressed");
 				try {
 					Variables.maskEffectivity = Double.parseDouble(maskEffectivityInput.getText());
-					if (Variables.maskEffectivity <= 0) {
-						maskEffectivityText.setText("keine Negative Nummer");
+					if (Variables.maskEffectivity < 0 || Variables.maskEffectivity > 100) {
+						maskEffectivityText.setText("ungültiger Wert");
 						maskEffectivityText.setForeground(Color.red);
 						Variables.maskEffectivityInputOk = false;
 					} else {
@@ -548,7 +548,7 @@ public class StartFrame {
 					}
 
 				} catch (Exception e2) {
-					maskEffectivityText.setText("eine Nummer");
+					maskEffectivityText.setText("ungültiger Wert");
 					maskEffectivityText.setForeground(Color.red);
 					Variables.maskEffectivityInputOk = false;
 				}

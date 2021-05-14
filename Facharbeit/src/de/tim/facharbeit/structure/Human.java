@@ -215,10 +215,10 @@ public class Human extends Structure {
 	// draw & toString//
 	@Override
 	public void draw(Graphics graphics) {
-		if (this.isWearingMask) {
+		if (this.isWearingMask && this.currentHouse == null) {
 			graphics.setColor(blobColor);
 			graphics.fillOval(point.getX() - 5, point.getY() - 5, width, height);
-			graphics.setColor(Color.black);
+			graphics.setColor(Color.gray);
 			graphics.fillOval(point.getX()-3 , point.getY()-3 , 5, 5);
 		}else {
 			graphics.setColor(blobColor);
