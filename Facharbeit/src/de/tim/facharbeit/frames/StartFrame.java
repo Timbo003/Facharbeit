@@ -41,9 +41,9 @@ public class StartFrame {
 	public static JLabel maskEffectivityText;
 
 	public static Font textFont = new Font("Arial", Font.PLAIN, 13);
-	
+
 	public static JSlider streetSlider;
-	
+
 	public static JButton startSimButton;
 
 	public static int SliderX = 5;
@@ -78,15 +78,16 @@ public class StartFrame {
 		// Start Button
 		startSimButton = new JButton("Start Sim");
 		startSimButton.setFont(Variables.defaultFont);
-		startSimButton.addActionListener((e) -> {		
-			if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true && Variables.maskEffectivityInputOk == true ) {
+		startSimButton.addActionListener((e) -> {
+			if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true
+					&& Variables.maskEffectivityInputOk == true) {
 				Main.switchToSim();
 				frame.dispose();
 				System.out.println("press");
-			}else {
+			} else {
 				startSimButton.setBackground(Color.red);
 			}
-			
+
 		});
 		startSimButton.setBounds(25, frame.getHeight() - 150, frame.getWidth() - 65, 100);
 		startSimButton.setVisible(true);
@@ -434,12 +435,19 @@ public class StartFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					System.out.println("enter pressed");
-					infectionRiskText.setText("infectionRisk: " + infectionRiskInput.getText() + "%");
 					Variables.infectionRisk = Double.parseDouble(infectionRiskInput.getText());
-					Variables.infectionRiskInputOk = true;
-					infectionRiskText.setForeground(Color.black);
-					if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true && Variables.maskEffectivityInputOk == true ) {
-						startSimButton.setBackground(buttonColor);
+					if (Variables.infectionRisk <= 0) {
+						infectionRiskText.setText("keine Negative Nummer");
+						infectionRiskText.setForeground(Color.red);
+						Variables.infectionRiskInputOk = false;
+					} else {
+						infectionRiskText.setText("infectionRisk: " + infectionRiskInput.getText() + "%");
+						Variables.infectionRiskInputOk = true;
+						infectionRiskText.setForeground(Color.black);
+						if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true
+								&& Variables.maskEffectivityInputOk == true) {
+							startSimButton.setBackground(buttonColor);
+						}
 					}
 				} catch (Exception e2) {
 					infectionRiskText.setText("eine Nummer");
@@ -476,12 +484,19 @@ public class StartFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					System.out.println("enter pressed");
-					mortalityText.setText("mortality: " + mortalityInput.getText() + "%");
 					Variables.mortality = Double.parseDouble(mortalityInput.getText());
-					Variables.mortalityInputOk = true;
-					mortalityText.setForeground(Color.black);
-					if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true && Variables.maskEffectivityInputOk == true ) {
-						startSimButton.setBackground(buttonColor);
+					if (Variables.mortality <= 0) {
+						mortalityText.setText("keine Negative Nummer");
+						mortalityText.setForeground(Color.red);
+						Variables.mortalityInputOk = false;
+					} else {
+						mortalityText.setText("mortality: " + mortalityInput.getText() + "%");
+						Variables.mortalityInputOk = true;
+						mortalityText.setForeground(Color.black);
+						if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true
+								&& Variables.maskEffectivityInputOk == true) {
+							startSimButton.setBackground(buttonColor);
+						}
 					}
 				} catch (Exception e2) {
 					mortalityText.setForeground(Color.red);
@@ -518,12 +533,20 @@ public class StartFrame {
 				System.out.println("enter pressed");
 				try {
 					Variables.maskEffectivity = Double.parseDouble(maskEffectivityInput.getText());
-					maskEffectivityText.setText("maskEffectivity: " + maskEffectivityInput.getText() + "%");
-					Variables.maskEffectivityInputOk = true;
-					maskEffectivityText.setForeground(Color.black);
-					if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true && Variables.maskEffectivityInputOk == true ) {
-						startSimButton.setBackground(buttonColor);
+					if (Variables.maskEffectivity <= 0) {
+						maskEffectivityText.setText("keine Negative Nummer");
+						maskEffectivityText.setForeground(Color.red);
+						Variables.maskEffectivityInputOk = false;
+					} else {
+						maskEffectivityText.setText("maskEffectivity: " + maskEffectivityInput.getText() + "%");
+						Variables.maskEffectivityInputOk = true;
+						maskEffectivityText.setForeground(Color.black);
+						if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true
+								&& Variables.maskEffectivityInputOk == true) {
+							startSimButton.setBackground(buttonColor);
+						}
 					}
+
 				} catch (Exception e2) {
 					maskEffectivityText.setText("eine Nummer");
 					maskEffectivityText.setForeground(Color.red);
