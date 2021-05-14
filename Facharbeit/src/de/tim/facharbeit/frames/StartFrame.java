@@ -43,6 +43,8 @@ public class StartFrame {
 	public static Font textFont = new Font("Arial", Font.PLAIN, 13);
 	
 	public static JSlider streetSlider;
+	
+	public static JButton startSimButton;
 
 	public static int SliderX = 5;
 	public static int SliderY = 5;
@@ -74,7 +76,7 @@ public class StartFrame {
 
 	private static void startButtonSetup() {
 		// Start Button
-		JButton startSimButton = new JButton("Start Sim");
+		startSimButton = new JButton("Start Sim");
 		startSimButton.setFont(Variables.defaultFont);
 		startSimButton.addActionListener((e) -> {		
 			if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true && Variables.maskEffectivityInputOk == true ) {
@@ -435,9 +437,15 @@ public class StartFrame {
 					infectionRiskText.setText("infectionRisk: " + infectionRiskInput.getText() + "%");
 					Variables.infectionRisk = Double.parseDouble(infectionRiskInput.getText());
 					Variables.infectionRiskInputOk = true;
+					infectionRiskText.setForeground(Color.black);
+					if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true && Variables.maskEffectivityInputOk == true ) {
+						startSimButton.setBackground(buttonColor);
+					}
 				} catch (Exception e2) {
 					infectionRiskText.setText("eine Nummer");
 					Variables.infectionRiskInputOk = false;
+					infectionRiskText.setForeground(Color.red);
+
 				}
 			}
 		});
@@ -471,7 +479,12 @@ public class StartFrame {
 					mortalityText.setText("mortality: " + mortalityInput.getText() + "%");
 					Variables.mortality = Double.parseDouble(mortalityInput.getText());
 					Variables.mortalityInputOk = true;
+					mortalityText.setForeground(Color.black);
+					if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true && Variables.maskEffectivityInputOk == true ) {
+						startSimButton.setBackground(buttonColor);
+					}
 				} catch (Exception e2) {
+					mortalityText.setForeground(Color.red);
 					mortalityText.setText("eine Nummer");
 					Variables.mortalityInputOk = false;
 				}
@@ -507,8 +520,13 @@ public class StartFrame {
 					Variables.maskEffectivity = Double.parseDouble(maskEffectivityInput.getText());
 					maskEffectivityText.setText("maskEffectivity: " + maskEffectivityInput.getText() + "%");
 					Variables.maskEffectivityInputOk = true;
+					maskEffectivityText.setForeground(Color.black);
+					if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true && Variables.maskEffectivityInputOk == true ) {
+						startSimButton.setBackground(buttonColor);
+					}
 				} catch (Exception e2) {
 					maskEffectivityText.setText("eine Nummer");
+					maskEffectivityText.setForeground(Color.red);
 					Variables.maskEffectivityInputOk = false;
 				}
 			}
