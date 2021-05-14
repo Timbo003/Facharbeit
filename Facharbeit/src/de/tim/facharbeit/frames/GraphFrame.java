@@ -51,8 +51,8 @@ public class GraphFrame extends JPanel {
 		Graphics2D g2 = (Graphics2D) graphics;
 		g2.setStroke(new BasicStroke(4));
 		
-		g2.drawLine(100,  50, 100, 650);
-		g2.drawLine(100,  650, 1400, 650);
+		g2.drawLine(100,  50, 100, 650);			//Y Achse
+		g2.drawLine(100,  650, 1400, 650);			//X Achse
 		
 		for (GraphStructure graphStructure : Main.graphStructures) {
 			graphStructure.draw(graphics);

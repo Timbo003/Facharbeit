@@ -24,6 +24,7 @@ public class GraphManager {
 	private static List<Integer> dead = new ArrayList<>();
 	private static List<Integer> imune = new ArrayList<>();
 	private static List<Integer> healthy = new ArrayList<>();
+	
 	private static GraphFrame graphFrame;
 
 	public static void setupNewGraph() {
@@ -78,12 +79,26 @@ public class GraphManager {
 		List<GraphPoint> InfectedList = fillListWithGraphPoints(infected, Color.red);
 		GraphLine InfectedLine = new GraphLine(InfectedList, Color.red);
 		Main.graphStructures.add(InfectedLine);
-
 	}
 
 	public static void setUpNamingOnX(Graphics2D graphics) {
 		graphics.setColor(Color.black);
 		graphics.setFont(Variables.defaultFont); 
+		
+		String day = "x in Tagen";
+		graphics.drawString(day,1405, 657);	
+		
+		String human = "y in Menschen";
+		graphics.drawString(human,60,  35);	
+		
+		String distance = "Radius: ";
+		graphics.drawString(distance,2,  700);
+		
+		String mask = "Träger: ";
+		graphics.drawString(mask,2,  725);
+		
+		
+		
 		for (int i = 0; i < infected.size(); i++) {
 			String text = ""+(i+1);
 			int xOffset = new Canvas().getFontMetrics(Variables.defaultFont).stringWidth(text) / 2;
@@ -94,7 +109,14 @@ public class GraphManager {
 			xOffset = new Canvas().getFontMetrics(Variables.defaultFont).stringWidth(text) / 2;
 			x = xShift * i + minX - xOffset;
 			graphics.drawString(text, x, 700);
+			//wearing Masks
+			text = "" + Variables.days.get(i).getWearingMasks();
+			xOffset = new Canvas().getFontMetrics(Variables.defaultFont).stringWidth(text) / 2;
+			x = xShift * i + minX - xOffset;
+			graphics.drawString(text, x, 725);
 		}
+		
+		
 	}
 	
 	public static void setUpNamingOnY(Graphics2D graphics) {

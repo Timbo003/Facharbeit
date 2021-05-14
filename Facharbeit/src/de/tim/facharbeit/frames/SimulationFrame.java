@@ -35,6 +35,7 @@ public class SimulationFrame extends JPanel {
 	private static JPanel maskPanel;
 	private static JPanel p1;
 	private static JPanel p2;
+	private static JPanel p3;
 
 	private static Font varFont = new Font("Arial", Font.PLAIN, 20);
 
@@ -44,6 +45,7 @@ public class SimulationFrame extends JPanel {
 	private static JLabel deadLable = new JLabel();
 	private static JLabel dateLable = new JLabel();
 	private static JLabel notDead = new JLabel();
+	
 
 	private static JButton maskButton = new JButton();
 
@@ -52,6 +54,9 @@ public class SimulationFrame extends JPanel {
 
 	private static JSlider maskSlider = new JSlider(0, 100, Variables.wearingMask);
 	private static JLabel maskSliderText = new JLabel();
+	
+	private static JSlider allowedDistanceSlider = new JSlider(50, 1000, Variables.allowedDistance);
+	private static JLabel allowedDistanceSliderText = new JLabel();
 
 	public static SimulationFrame instance;
 	public static Color buttonColor = new Color(230, 239, 244);
@@ -223,13 +228,13 @@ public class SimulationFrame extends JPanel {
 
 	private void setupVarPanel() {
 		varPanel = new JPanel();
-		varPanel.setBounds(20, 10, 500, controllPanel.getHeight() - 20);
+		varPanel.setBounds(20, 0, 500, controllPanel.getHeight());
 //		varPanel.setBackground(Color.LIGHT_GRAY);
 		varPanel.setVisible(true);
 		varPanel.setLayout(null);
 
 		p1 = new JPanel();
-		p1.setBounds(0, 10, varPanel.getWidth(), varPanel.getHeight() / 2 - 20);
+		p1.setBounds(0, 0, varPanel.getWidth(), varPanel.getHeight() / 2 - 20);
 //		p1.setBackground(Color.blue);
 		p1.setVisible(true);
 		p1.setLayout(null);
@@ -256,7 +261,7 @@ public class SimulationFrame extends JPanel {
 		p1.add(healthyLable);
 
 		p2 = new JPanel();
-		p2.setBounds(0, varPanel.getHeight() / 2, varPanel.getWidth(), varPanel.getHeight() / 2 - 20);
+		p2.setBounds(0, varPanel.getHeight() / 2-20, varPanel.getWidth(), varPanel.getHeight() / 2 - 20);
 //		p2.setBackground(Color.cyan);
 		p2.setVisible(true);
 		p2.setLayout(null);
@@ -281,9 +286,32 @@ public class SimulationFrame extends JPanel {
 		dateLable.setText("date: " + (Variables.days.size()));
 		dateLable.setFont(varFont);
 		p2.add(dateLable);
+		
+		p3 = new JPanel();
+		p3.setBounds(0, varPanel.getHeight() / 2-20 + varPanel.getHeight() / 2 - 20, varPanel.getWidth(), 40);
+//		p3.setBackground(Color.orange);
+		p3.setVisible(true);
+		p3.setLayout(null);
+		
+		allowedDistanceSliderText.setBounds(animationSpeedPanel.getWidth() - 200,
+				animationSpeedPanel.getHeight() / 2 - 10, 210, 20);
+		allowedDistanceSliderText.setVisible(true);
+		allowedDistanceSliderText.setText("allowed Distance: " + Variables.allowedDistance);
+		allowedDistanceSliderText.setFont(varFont);
+
+		allowedDistanceSlider.addChangeListener((e) -> {
+			Variables.allowedDistance = allowedDistanceSlider.getValue();
+			allowedDistanceSliderText.setText("allowed Distance: " + Variables.allowedDistance);
+		});
+		allowedDistanceSlider.setBounds(0, -5, p3.getWidth() - 220, 40);
+		allowedDistanceSlider.setVisible(true);
+		
+		p3.add(allowedDistanceSlider);
+		p3.add(allowedDistanceSliderText);
 
 		varPanel.add(p1);
 		varPanel.add(p2);
+		varPanel.add(p3);
 		controllPanel.add(varPanel);
 	}
 

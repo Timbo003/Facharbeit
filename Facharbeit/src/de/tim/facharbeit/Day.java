@@ -9,12 +9,21 @@ public class Day {
 	int healthy;
 	int dead;
 	int maxAllowedDistance;
+	int wearingMasks;
 	
 	public Day(int date) {
 		this.date = date;
 		Variables.days.add(this);
     }
 	
+	public int getWearingMasks() {
+		return wearingMasks;
+	}
+
+	public void setWearingMasks(int wearingMasks) {
+		this.wearingMasks = wearingMasks;
+	}
+
 	public int getMaxAllowedDistance() {
 		return maxAllowedDistance;
 	}
