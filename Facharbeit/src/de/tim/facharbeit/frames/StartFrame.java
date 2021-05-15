@@ -43,8 +43,17 @@ public class StartFrame {
 	public static Font textFont = new Font("Arial", Font.PLAIN, 13);
 
 	public static JSlider streetSlider;
+	public static JSlider infectedSlider;
+	public static JSlider imuneSlider;
+	public static JSlider humanCountSlider;
+	public static JSlider maxHumansInHomeSlider;
+	public static JSlider bedachtSlider;
+	public static JSlider verweigererSlider;
+	public static JSlider maxTimeSickSlider;
+	public static JSlider infectionDistanceSlider;
 
 	public static JButton startSimButton;
+
 
 	public static int SliderX = 5;
 	public static int SliderY = 5;
@@ -113,33 +122,44 @@ public class StartFrame {
 
 			Variables.infectedCount = 10;
 			infectedSliderText.setText("Infected: " + Variables.infectedCount);
+			infectedSlider.setValue(Variables.infectedCount);
 
 			Variables.imuneCount = 5;
 			imuneSliderText.setText("Imune: " + Variables.imuneCount);
+			imuneSlider.setValue(Variables.imuneCount);
 
 			Variables.totalHumanCounter = 250;
 			humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
+			humanCountSlider.setValue(Variables.totalHumanCounter);
 
 			Variables.maxHumansInHome = 4;
 			maxHumansInHomeSliderText.setText("Fam. größe: " + Variables.maxHumansInHome);
+			maxHumansInHomeSlider.setValue(Variables.maxHumansInHome);
 
 			Variables.bedachtCount = 20;
 			bedachtSliderText.setText("Bedachte: " + Variables.bedachtCount);
+			bedachtSlider.setValue(Variables.bedachtCount);
 
 			Variables.verweigererCount = 20;
 			verweigererSliderText.setText("Verweigerer: " + Variables.verweigererCount);
+			verweigererSlider.setValue(Variables.verweigererCount);
 
 			Variables.maxTimeSick = 5;
 			maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
+			maxTimeSickSlider.setValue(Variables.maxTimeSick);
 
 			Variables.infectionDistance = 10;
 			infectionDistanceSliderText.setText("infectionDistance: " + Variables.infectionDistance);
+			infectionDistanceSlider.setValue(Variables.infectionDistance);
 
 			Variables.infectionRisk = 0.005;
 			infectionRiskText.setText("infectionRisk: " + Variables.infectionRisk + "%");
 
 			Variables.mortality = 2.57;
 			mortalityText.setText("mortality: " + Variables.mortality + "%");
+			
+			Variables.maskEffectivity = 90;
+			maskEffectivityText.setText("maskEffectivity: " + Variables.maskEffectivity + "%");
 		});
 		p1.setBounds(0, 25, 115, 83);
 
@@ -175,30 +195,45 @@ public class StartFrame {
 			Variables.streetCount = 15;
 			streetSliderText.setText("Streets: " + Variables.streetCount);
 			streetSlider.setValue(Variables.streetCount);
+			
 
 			Variables.infectedCount = 1;
 			infectedSliderText.setText("Infected: " + Variables.infectedCount);
+			infectedSlider.setValue(Variables.infectedCount);
 
 			Variables.imuneCount = 0;
 			imuneSliderText.setText("Imune: " + Variables.imuneCount);
+			imuneSlider.setValue(Variables.imuneCount);
 
 			Variables.totalHumanCounter = 1;
 			humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
+			humanCountSlider.setValue(Variables.totalHumanCounter);
 
 			Variables.maxHumansInHome = 1;
 			maxHumansInHomeSliderText.setText("Fam. größe: " + Variables.maxHumansInHome);
+			maxHumansInHomeSlider.setValue(Variables.maxHumansInHome);
 
 			Variables.bedachtCount = 1;
 			bedachtSliderText.setText("Bedachte: " + Variables.bedachtCount);
+			bedachtSlider.setValue(Variables.bedachtCount);
 
 			Variables.verweigererCount = 0;
 			verweigererSliderText.setText("Verweigerer: " + Variables.verweigererCount);
+			verweigererSlider.setValue(Variables.verweigererCount);
 
 			Variables.maxTimeSick = 1;
 			maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
-			
-			Variables.mortality = 0;
+			maxTimeSickSlider.setValue(Variables.maxTimeSick);
+
+
+			Variables.infectionRisk = 0.005;
+			infectionRiskText.setText("infectionRisk: " + Variables.infectionRisk + "%");
+
+			Variables.mortality = 2.57;
 			mortalityText.setText("mortality: " + Variables.mortality + "%");
+			
+			Variables.maskEffectivity = 90;
+			maskEffectivityText.setText("maskEffectivity: " + Variables.maskEffectivity + "%");
 		});
 		p3.setBounds(0, 241, 115, 83);
 		p3.setVisible(true);
@@ -257,10 +292,10 @@ public class StartFrame {
 		infectedSliderText.setVisible(true);
 		infectedSliderText.setText("Infected: " + Variables.infectedCount);
 
-		JSlider infectedSlider = new JSlider(1, 100, Variables.infectedCount);
+		infectedSlider = new JSlider(1, 100, Variables.infectedCount);
 		infectedSlider.addChangeListener((e) -> {
-			Variables.infectedCount = infectedSlider.getValue();
-			infectedSliderText.setText("Infected: " + infectedSlider.getValue());
+			Variables.infectedCount = ((JSlider) e.getSource()).getValue();
+			infectedSliderText.setText("Infected: " + Variables.infectedCount);
 		});
 		infectedSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		infectedSlider.setVisible(true);
@@ -282,10 +317,10 @@ public class StartFrame {
 		imuneSliderText.setVisible(true);
 		imuneSliderText.setText("Imune: " + Variables.imuneCount);
 
-		JSlider imuneSlider = new JSlider(0, 100, Variables.imuneCount);
-		imuneSlider.addChangeListener((e) -> {
-			Variables.imuneCount = imuneSlider.getValue();
-			imuneSliderText.setText("Imune: " + imuneSlider.getValue());
+		imuneSlider = new JSlider(0, 100, Variables.imuneCount);
+		imuneSlider.addChangeListener((e1) -> {
+			Variables.imuneCount = ((JSlider) e1.getSource()).getValue();
+			imuneSliderText.setText("Imune: " + Variables.imuneCount);
 		});
 		imuneSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		imuneSlider.setVisible(true);
@@ -306,10 +341,10 @@ public class StartFrame {
 		humanCountSliderText.setVisible(true);
 		humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
 
-		JSlider humanCountSlider = new JSlider(1, 400, Variables.totalHumanCounter);
+		humanCountSlider = new JSlider(1, 400, Variables.totalHumanCounter);
 		humanCountSlider.addChangeListener((e) -> {
-			Variables.totalHumanCounter = humanCountSlider.getValue();
-			humanCountSliderText.setText("Humans: " + humanCountSlider.getValue());
+			Variables.totalHumanCounter = ((JSlider) e.getSource()).getValue();
+			humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
 		});
 		humanCountSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		humanCountSlider.setVisible(true);
@@ -331,10 +366,10 @@ public class StartFrame {
 		maxHumansInHomeSliderText.setVisible(true);
 		maxHumansInHomeSliderText.setText("Fam. größe: " + Variables.maxHumansInHome);
 
-		JSlider maxHumansInHomeSlider = new JSlider(1, 10, Variables.maxHumansInHome);
+		maxHumansInHomeSlider = new JSlider(1, 10, Variables.maxHumansInHome);
 		maxHumansInHomeSlider.addChangeListener((e) -> {
-			Variables.maxHumansInHome = maxHumansInHomeSlider.getValue();
-			maxHumansInHomeSliderText.setText("Fam. größe: " + maxHumansInHomeSlider.getValue());
+			Variables.maxHumansInHome = ((JSlider) e.getSource()).getValue();
+			maxHumansInHomeSliderText.setText("Fam. größe: " + Variables.maxHumansInHome);
 		});
 		maxHumansInHomeSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		maxHumansInHomeSlider.setVisible(true);
@@ -356,10 +391,10 @@ public class StartFrame {
 		bedachtSliderText.setVisible(true);
 		bedachtSliderText.setText("bedacht: " + Variables.bedachtCount);
 
-		JSlider bedachtSlider = new JSlider(0, 100, Variables.bedachtCount);
+		bedachtSlider = new JSlider(0, 100, Variables.bedachtCount);
 		bedachtSlider.addChangeListener((e) -> {
-			Variables.bedachtCount = bedachtSlider.getValue();
-			bedachtSliderText.setText("Bedachte: " + bedachtSlider.getValue());
+			Variables.bedachtCount = ((JSlider) e.getSource()).getValue();
+			bedachtSliderText.setText("Bedachte: " + Variables.bedachtCount);
 		});
 		bedachtSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		bedachtSlider.setVisible(true);
@@ -381,10 +416,10 @@ public class StartFrame {
 		verweigererSliderText.setVisible(true);
 		verweigererSliderText.setText("verweigerer: " + Variables.verweigererCount);
 
-		JSlider verweigererSlider = new JSlider(0, 100, Variables.verweigererCount);
+		verweigererSlider = new JSlider(0, 100, Variables.verweigererCount);
 		verweigererSlider.addChangeListener((e) -> {
-			Variables.verweigererCount = verweigererSlider.getValue();
-			verweigererSliderText.setText("Verweigerer: " + verweigererSlider.getValue());
+			Variables.verweigererCount = ((JSlider) e.getSource()).getValue();
+			verweigererSliderText.setText("Verweigerer: " + Variables.verweigererCount);
 		});
 		verweigererSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		verweigererSlider.setVisible(true);
@@ -406,10 +441,10 @@ public class StartFrame {
 		maxTimeSickSliderText.setVisible(true);
 		maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
 
-		JSlider maxTimeSickSlider = new JSlider(0, 30, Variables.maxTimeSick);
+		maxTimeSickSlider = new JSlider(0, 30, Variables.maxTimeSick);
 		maxTimeSickSlider.addChangeListener((e) -> {
-			Variables.maxTimeSick = maxTimeSickSlider.getValue();
-			maxTimeSickSliderText.setText("maxTimeSick: " + maxTimeSickSlider.getValue());
+			Variables.maxTimeSick = ((JSlider) e.getSource()).getValue();
+			maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
 		});
 		maxTimeSickSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		maxTimeSickSlider.setVisible(true);
@@ -431,10 +466,10 @@ public class StartFrame {
 		infectionDistanceSliderText.setVisible(true);
 		infectionDistanceSliderText.setText("infectionDistance: " + Variables.infectionDistance);
 
-		JSlider infectionDistanceSlider = new JSlider(0, 30, Variables.infectionDistance);
+		infectionDistanceSlider = new JSlider(0, 30, Variables.infectionDistance);
 		infectionDistanceSlider.addChangeListener((e) -> {
-			Variables.infectionDistance = infectionDistanceSlider.getValue();
-			infectionDistanceSliderText.setText("infectionDistance: " + infectionDistanceSlider.getValue());
+			Variables.infectionDistance = ((JSlider) e.getSource()).getValue();
+			infectionDistanceSliderText.setText("infectionDistance: " + Variables.infectionDistance);
 		});
 		infectionDistanceSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		infectionDistanceSlider.setVisible(true);
