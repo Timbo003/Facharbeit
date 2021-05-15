@@ -27,11 +27,50 @@ public class AnimationManager {
 
 		House house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
 
-		while (house.entrance.getPoint()
-				.distanceToPoint(human.getHome().entrance.getPoint()) >= Variables.allowedDistance) {
+		
+		int counter = 0 ;
+		boolean usable = true;
+		
+		while (!(isHouseOk(house, human))) {
+			counter++;
 			house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
+			if (counter >= Main.totalHouses().size()) {
+				usable = false;
+				break;
+			}
 		}
-		prepairAnimation(human, house);
+		if (usable) {
+			prepairAnimation(human, house);
+		}
+		
+	}
+
+	public static boolean isHouseOk(House house, Human human) {
+		if (house.entrance.getPoint()
+				.distanceToPoint(human.getHome().entrance.getPoint()) >= Variables.allowedDistance) {
+			return false;
+		}
+		int humansInThisHouse = 0;
+		for (Human h : Main.getAllLifingHumans()) {
+			if (h.currentHouse == null) {
+			} else {
+				if (h.currentHouse.equals(house) && !(h.currentHouse.equals(h.getHome()))) {
+					humansInThisHouse++;
+				}
+			}
+		}
+		for (Human h : Main.getAllLifingHumans()) {
+			if (h.targetHouse == null) {
+			} else {
+				if (h.targetHouse.equals(house)&& !(h.targetHouse.equals(h.getHome()))) {
+					humansInThisHouse++;
+				}
+			}
+		}
+		if (humansInThisHouse >= Variables.maxHumansInHouse) {
+			return false;
+		}
+		return true;
 	}
 
 	public static void prepairAnimation(Human human, House house) {

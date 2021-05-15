@@ -43,6 +43,7 @@ public class SimulationFrame extends JPanel {
 	private static JPanel p1;
 	private static JPanel p2;
 	private static JPanel p3;
+	private static JPanel p4;
 	private static JPanel savePanel;
 
 	private static Font varFont = new Font("Arial", Font.PLAIN, 20);
@@ -62,6 +63,9 @@ public class SimulationFrame extends JPanel {
 
 	private static JSlider maskSlider = new JSlider(0, 100, Variables.wearingMask);
 	private static JLabel maskSliderText = new JLabel();
+	
+	private static JSlider maxPpInHouseSlider = new JSlider(1, 25, Variables.maxHumansInHouse);
+	private static JLabel maxPpInHouseSliderText = new JLabel();
 
 	private static JSlider allowedDistanceSlider = new JSlider(50, 1000, Variables.allowedDistance);
 	private static JLabel allowedDistanceSliderText = new JLabel();
@@ -308,12 +312,12 @@ public class SimulationFrame extends JPanel {
 	private void setupVarPanel() {
 		varPanel = new JPanel();
 		varPanel.setBounds(20, 0, 500, controllPanel.getHeight());
-//		varPanel.setBackground(Color.LIGHT_GRAY);
+		varPanel.setBackground(Color.LIGHT_GRAY);
 		varPanel.setVisible(true);
 		varPanel.setLayout(null);
 
 		p1 = new JPanel();
-		p1.setBounds(0, 0, varPanel.getWidth(), varPanel.getHeight() / 2 - 20);
+		p1.setBounds(0, 0, varPanel.getWidth(), 50);
 //		p1.setBackground(Color.blue);
 		p1.setVisible(true);
 		p1.setLayout(null);
@@ -321,6 +325,7 @@ public class SimulationFrame extends JPanel {
 		// infected
 		infectedLable.setBounds(10 + p1.getWidth() / 3 * 0, -20, 200, 100);
 		infectedLable.setVisible(true);
+		infectedLable.setForeground(Color.red);
 		infectedLable.setText("infected: " + Variables.infected);
 		infectedLable.setFont(varFont);
 		p1.add(infectedLable);
@@ -328,19 +333,21 @@ public class SimulationFrame extends JPanel {
 		// imune
 		imuneLable.setBounds(10 + p1.getWidth() / 3 * 1, -20, 200, 100);
 		imuneLable.setVisible(true);
+		imuneLable.setForeground(Color.blue);
 		imuneLable.setText("imune: " + Variables.imune);
 		imuneLable.setFont(varFont);
 		p1.add(imuneLable);
 
 		// healthy
 		healthyLable.setBounds(10 + p1.getWidth() / 3 * 2, -20, 200, 100);
+		healthyLable.setForeground(new Color(0,205,0));
 		healthyLable.setVisible(true);
 		healthyLable.setText("healthy: " + Variables.healthy);
 		healthyLable.setFont(varFont);
 		p1.add(healthyLable);
 
 		p2 = new JPanel();
-		p2.setBounds(0, varPanel.getHeight() / 2 - 20, varPanel.getWidth(), varPanel.getHeight() / 2 - 20);
+		p2.setBounds(0, 50, varPanel.getWidth(), 50);
 //		p2.setBackground(Color.cyan);
 		p2.setVisible(true);
 		p2.setLayout(null);
@@ -348,6 +355,7 @@ public class SimulationFrame extends JPanel {
 		// dead
 		deadLable.setBounds(10 + p2.getWidth() / 3 * 0, -20, 200, 100);
 		deadLable.setVisible(true);
+		deadLable.setForeground(Color.gray);
 		deadLable.setText("dead: " + Variables.dead);
 		deadLable.setFont(varFont);
 		p2.add(deadLable);
@@ -367,13 +375,35 @@ public class SimulationFrame extends JPanel {
 		p2.add(dateLable);
 
 		p3 = new JPanel();
-		p3.setBounds(0, varPanel.getHeight() / 2 - 20 + varPanel.getHeight() / 2 - 20, varPanel.getWidth(), 40);
+		p3.setBounds(0, 100, varPanel.getWidth(), 40);
 //		p3.setBackground(Color.orange);
 		p3.setVisible(true);
 		p3.setLayout(null);
 
+		maxPpInHouseSliderText.setBounds(animationSpeedPanel.getWidth() - 200,
+				15, 210, 20);
+		maxPpInHouseSliderText.setVisible(true);
+		maxPpInHouseSliderText.setText("max Besucher: " + Variables.maxHumansInHouse);
+		maxPpInHouseSliderText.setFont(varFont);
+
+		maxPpInHouseSlider.addChangeListener((e) -> {
+			Variables.maxHumansInHouse = maxPpInHouseSlider.getValue();
+			maxPpInHouseSliderText.setText("max Besucher: " + Variables.maxHumansInHouse);
+		});
+		maxPpInHouseSlider.setBounds(0, 5, p3.getWidth() - 220, 40);
+		maxPpInHouseSlider.setVisible(true);
+
+		p3.add(maxPpInHouseSlider);
+		p3.add(maxPpInHouseSliderText);
+		
+		p4 = new JPanel();
+		p4.setBounds(0, 140, varPanel.getWidth(), 50);
+//		p4.setBackground(Color.pink);
+		p4.setVisible(true);
+		p4.setLayout(null);
+
 		allowedDistanceSliderText.setBounds(animationSpeedPanel.getWidth() - 200,
-				animationSpeedPanel.getHeight() / 2 - 10, 210, 20);
+				15, 210, 20);
 		allowedDistanceSliderText.setVisible(true);
 		allowedDistanceSliderText.setText("allowed Distance: " + Variables.allowedDistance);
 		allowedDistanceSliderText.setFont(varFont);
@@ -382,15 +412,16 @@ public class SimulationFrame extends JPanel {
 			Variables.allowedDistance = allowedDistanceSlider.getValue();
 			allowedDistanceSliderText.setText("allowed Distance: " + Variables.allowedDistance);
 		});
-		allowedDistanceSlider.setBounds(0, -5, p3.getWidth() - 220, 40);
+		allowedDistanceSlider.setBounds(0, 5, p4.getWidth() - 220, 40);
 		allowedDistanceSlider.setVisible(true);
 
-		p3.add(allowedDistanceSlider);
-		p3.add(allowedDistanceSliderText);
+		p4.add(allowedDistanceSlider);
+		p4.add(allowedDistanceSliderText);
 
 		varPanel.add(p1);
 		varPanel.add(p2);
 		varPanel.add(p3);
+		varPanel.add(p4);
 		controllPanel.add(varPanel);
 	}
 

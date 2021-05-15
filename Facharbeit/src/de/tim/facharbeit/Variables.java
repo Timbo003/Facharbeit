@@ -25,6 +25,7 @@ public class Variables {
 	
 	public static int totalHumanCounter = 200;
 	public static int maxHumansInHome = 4;
+	public static int maxHumansInHouse = 1;
 	
 	public static int bedachtCount = 1;
 	public static int verweigererCount = 1;
@@ -48,7 +49,7 @@ public class Variables {
 	
 	public static int maxTimeSick = 4;
 	public static int infectionDistance = 10;
-	public static int allowedDistance = 200;
+	public static int allowedDistance = 300;
 	
 //	public static double infectionRisk = 100;
 	public static double infectionRisk = 0.005;		//in %
