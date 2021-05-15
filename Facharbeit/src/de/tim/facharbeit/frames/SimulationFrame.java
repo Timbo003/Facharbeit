@@ -1,13 +1,19 @@
 package de.tim.facharbeit.frames;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Iterator;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,6 +22,7 @@ import javax.swing.JSlider;
 
 import de.tim.facharbeit.Main;
 import de.tim.facharbeit.Variables;
+import de.tim.facharbeit.graph.GraphManager;
 import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Garden;
 import de.tim.facharbeit.structure.House;
@@ -36,6 +43,7 @@ public class SimulationFrame extends JPanel {
 	private static JPanel p1;
 	private static JPanel p2;
 	private static JPanel p3;
+	private static JPanel savePanel;
 
 	private static Font varFont = new Font("Arial", Font.PLAIN, 20);
 
@@ -45,21 +53,24 @@ public class SimulationFrame extends JPanel {
 	private static JLabel deadLable = new JLabel();
 	private static JLabel dateLable = new JLabel();
 	private static JLabel notDead = new JLabel();
-	
 
 	private static JButton maskButton = new JButton();
+	public static JButton stopButton = new JButton();
 
 	private static JSlider animationSpeedSlider = new JSlider(1, 10, Variables.animationSpeed);
 	private static JLabel animationSpeedSliderText = new JLabel();
 
 	private static JSlider maskSlider = new JSlider(0, 100, Variables.wearingMask);
 	private static JLabel maskSliderText = new JLabel();
-	
+
 	private static JSlider allowedDistanceSlider = new JSlider(50, 1000, Variables.allowedDistance);
 	private static JLabel allowedDistanceSliderText = new JLabel();
 
 	public static SimulationFrame instance;
 	public static Color buttonColor = new Color(230, 239, 244);
+	
+	public static JButton saveGraphButton;
+	public static JButton saveSimButton;
 
 	public SimulationFrame() {
 		instance = this;
@@ -91,6 +102,7 @@ public class SimulationFrame extends JPanel {
 		setupButtonPanel();
 		setupSliderPanel();
 		setupVarPanel();
+		setupSavePanel();
 		frame.add(controllPanel);
 	}
 
@@ -102,16 +114,21 @@ public class SimulationFrame extends JPanel {
 		buttonPanel.setVisible(true);
 		buttonPanel.setLayout(null);
 
-		JButton stopButton = new JButton("Halt Stop");
+		stopButton = new JButton("Halt Stop");
 		stopButton.setFont(varFont);
 		stopButton.addActionListener((e) -> {
-			if (Variables.stop) {
-				stopButton.setText("Stop");
-				Variables.stop = false;
-			} else {
-				stopButton.setText("Resume");
-				Variables.stop = true;
+			if (Variables.stopLock == false) {
+				if (Variables.stop) {
+					stopButton.setText("Stop");
+					Variables.stop = false;
+				} else {
+					stopButton.setText("Resume");
+					Variables.stop = true;
+				}
+			}else {
+				stopButton.setText("Simulation zu Ende");
 			}
+
 		});
 		stopButton.setBounds(0, 0, buttonPanel.getWidth(), buttonPanel.getHeight() / 2 - 10);
 		stopButton.setVisible(true);
@@ -134,6 +151,68 @@ public class SimulationFrame extends JPanel {
 		controllPanel.add(buttonPanel);
 		HumanManager.refrechHumanHealthVar();
 	}
+	
+	private void setupSavePanel() {
+		savePanel = new JPanel();
+		savePanel.setBounds((int) (Variables.screenSize.getWidth() - 200), Variables.screenSize.height - 230,150, controllPanel.getHeight());
+//		savePanel.setBackground(Color.red);
+		savePanel.setVisible(true);
+		savePanel.setLayout(null);
+		
+		saveSimButton = new JButton();
+		saveSimButton.setText("save Sim");
+		saveSimButton.setBackground(buttonColor);
+		saveSimButton.setFont(varFont);
+		saveSimButton.setBounds(0, 0, savePanel.getWidth(), buttonPanel.getHeight() / 2 - 10);
+		saveSimButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 try {
+					 getSaveSnapShot(frame, Variables.pathSim);
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+		});
+		savePanel.add(saveSimButton);
+		
+		saveGraphButton = new JButton();
+		saveGraphButton.setText("save Graph");
+		saveGraphButton.setFont(varFont);
+		saveGraphButton.setBackground(buttonColor);
+		saveGraphButton.setBounds(0, buttonPanel.getHeight() / 2, savePanel.getWidth(),
+				buttonPanel.getHeight() / 2 - 10);
+		saveGraphButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Main.switchToGraph();
+				 try {
+					 getSaveSnapShot(GraphManager.graphFrame, Variables.pathGraph);
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+		});
+		savePanel.add(saveGraphButton);
+		
+		frame.add(savePanel);
+	}
+	
+
+	public static BufferedImage getScreenShot(Component component) {
+
+        BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TYPE_INT_RGB);
+        // paints into image's Graphics
+        component.paint(image.getGraphics());
+        return image;
+    }
+
+    public static void getSaveSnapShot(Component component, String fileName) throws Exception {
+        BufferedImage img = getScreenShot(component);
+        // write the captured image as a PNG
+        ImageIO.write(img, "png", new File(fileName));
+    }
 
 	private void setupSliderPanel() {
 		sliderPanel = new JPanel();
@@ -203,13 +282,13 @@ public class SimulationFrame extends JPanel {
 				for (Human human : Main.getAllLifingHumans()) {
 					human.isWearingMask = false;
 				}
-				
+
 			} else {
 				maskSliderText.setText("locked");
 				maskButton.setText("off");
 				Variables.maskButtonPressed = true;
 				maskButton.setText(Variables.howManyAreWearingMasks + " are wearing a mask");
-				
+
 				for (int i = 0; i < Variables.howManyAreWearingMasks; i++) {
 					Main.getAllLifingHumans().get(i).isWearingMask = true;
 				}
@@ -261,7 +340,7 @@ public class SimulationFrame extends JPanel {
 		p1.add(healthyLable);
 
 		p2 = new JPanel();
-		p2.setBounds(0, varPanel.getHeight() / 2-20, varPanel.getWidth(), varPanel.getHeight() / 2 - 20);
+		p2.setBounds(0, varPanel.getHeight() / 2 - 20, varPanel.getWidth(), varPanel.getHeight() / 2 - 20);
 //		p2.setBackground(Color.cyan);
 		p2.setVisible(true);
 		p2.setLayout(null);
@@ -286,13 +365,13 @@ public class SimulationFrame extends JPanel {
 		dateLable.setText("date: " + (Variables.days.size()));
 		dateLable.setFont(varFont);
 		p2.add(dateLable);
-		
+
 		p3 = new JPanel();
-		p3.setBounds(0, varPanel.getHeight() / 2-20 + varPanel.getHeight() / 2 - 20, varPanel.getWidth(), 40);
+		p3.setBounds(0, varPanel.getHeight() / 2 - 20 + varPanel.getHeight() / 2 - 20, varPanel.getWidth(), 40);
 //		p3.setBackground(Color.orange);
 		p3.setVisible(true);
 		p3.setLayout(null);
-		
+
 		allowedDistanceSliderText.setBounds(animationSpeedPanel.getWidth() - 200,
 				animationSpeedPanel.getHeight() / 2 - 10, 210, 20);
 		allowedDistanceSliderText.setVisible(true);
@@ -305,7 +384,7 @@ public class SimulationFrame extends JPanel {
 		});
 		allowedDistanceSlider.setBounds(0, -5, p3.getWidth() - 220, 40);
 		allowedDistanceSlider.setVisible(true);
-		
+
 		p3.add(allowedDistanceSlider);
 		p3.add(allowedDistanceSliderText);
 

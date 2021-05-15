@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Timer;
 
 public class Variables {
+	public static String pathGraph = "C:\\Users\\Tim\\Desktop\\GraphExport.png";
+	public static String pathSim = "C:\\Users\\Tim\\Desktop\\SimExport.png";
+	
 	public static List<Day> days = new ArrayList<>();
 	public static List<Timer> activeTimers = new ArrayList<>();
 
@@ -38,6 +41,7 @@ public class Variables {
 	
 	public static int animationSpeed = 7;
 	public static boolean stop = false;
+	public static boolean stopLock = false;
 	public static int wearingMask = 0; 			//in %
 	public static int howManyAreWearingMasks = 0;
 	public static boolean maskButtonPressed = false;		

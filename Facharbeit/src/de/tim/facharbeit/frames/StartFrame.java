@@ -172,6 +172,33 @@ public class StartFrame {
 		p3.setFont(Variables.defaultFont);
 		p3.addActionListener((e) -> {
 			System.out.println("P3");
+			Variables.streetCount = 15;
+			streetSliderText.setText("Streets: " + Variables.streetCount);
+			streetSlider.setValue(Variables.streetCount);
+
+			Variables.infectedCount = 1;
+			infectedSliderText.setText("Infected: " + Variables.infectedCount);
+
+			Variables.imuneCount = 0;
+			imuneSliderText.setText("Imune: " + Variables.imuneCount);
+
+			Variables.totalHumanCounter = 1;
+			humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
+
+			Variables.maxHumansInHome = 1;
+			maxHumansInHomeSliderText.setText("Fam. größe: " + Variables.maxHumansInHome);
+
+			Variables.bedachtCount = 1;
+			bedachtSliderText.setText("Bedachte: " + Variables.bedachtCount);
+
+			Variables.verweigererCount = 0;
+			verweigererSliderText.setText("Verweigerer: " + Variables.verweigererCount);
+
+			Variables.maxTimeSick = 1;
+			maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
+			
+			Variables.mortality = 0;
+			mortalityText.setText("mortality: " + Variables.mortality + "%");
 		});
 		p3.setBounds(0, 241, 115, 83);
 		p3.setVisible(true);

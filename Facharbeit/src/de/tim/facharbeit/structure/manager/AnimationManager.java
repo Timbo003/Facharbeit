@@ -31,10 +31,6 @@ public class AnimationManager {
 				.distanceToPoint(human.getHome().entrance.getPoint()) >= Variables.allowedDistance) {
 			house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
 		}
-//		while () {
-//			house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
-//		}
-
 		prepairAnimation(human, house);
 	}
 
@@ -69,6 +65,14 @@ public class AnimationManager {
 		human.path.add(0, midPoint);
 		human.path.add(1, entrancePoint);
 
+		Point a = human.currentHouse.pointOnStreet; // Eingang
+		Point b = human.path.get(1).getPoint(); // Letzte Kreuzung
+		Point c = human.path.get(2).getPoint(); // Vorletzte kreuzung
+		if (a.pointDistance(c) < a.pointDistance(b)) {
+			System.out.println("beginning");
+			human.path.remove(1);
+		}
+
 		DijkstraPoint targetEntrance = new DijkstraPoint(human.targetHouse.pointOnStreet);
 		human.path.add(targetEntrance);
 
@@ -85,6 +89,14 @@ public class AnimationManager {
 		DijkstraPoint targetInside = new DijkstraPoint(p);
 		human.path.add(targetInside);
 		human.currentHouse = null;
+
+		a = human.targetHouse.pointOnStreet; // Eingang
+		b = human.path.get(human.path.size() - 3).getPoint(); // Letzte Kreuzung
+		c = human.path.get(human.path.size() - 4).getPoint(); // Vorletzte kreuzung
+		if (a.pointDistance(c) < a.pointDistance(b)) {
+			human.path.remove(human.path.get(human.path.size() - 3));
+		}
+
 	}
 
 	public static Human getRandomHuman() {
@@ -137,7 +149,7 @@ public class AnimationManager {
 								if (!(human.health.equals(Health.DEAD))) {
 									human.moveInHouse();
 								}
-								
+
 							}
 						}
 						if (HumanManager.areAllHumansFinished()) {
@@ -146,11 +158,15 @@ public class AnimationManager {
 							cancel();
 							System.out.println("finished");
 							System.out.println(Variables.days);
-//							for (Human human : Main.getAllHumans()) {
-//								human.setHealth(Health.DEAD);
-//								break;
-//							}
-							DayManager.nextDay();
+							if (StopSim() != true) {
+								DayManager.nextDay();
+
+							} else {
+								Variables.stop = true;
+								Variables.stopLock = true;
+								System.out.println("simulation stopped");
+							}
+
 						}
 						SimulationFrame.instance.update();
 					}
@@ -160,4 +176,14 @@ public class AnimationManager {
 		}, 100, 1);
 	}
 
+	private static boolean StopSim() {
+		if (Variables.days.size() > 3) {
+			if (Variables.days.get(Variables.days.size() - 1).getInfected() == 0) {
+				SimulationFrame.stopButton.setText("Simulation zu Ende");
+				SimulationFrame.stopButton.setBackground(new Color(97, 255, 181));
+				return true;
+			}
+		}
+		return false;
+	}
 }

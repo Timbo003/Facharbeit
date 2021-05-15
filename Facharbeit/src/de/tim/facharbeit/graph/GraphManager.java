@@ -25,7 +25,7 @@ public class GraphManager {
 	private static List<Integer> imune = new ArrayList<>();
 	private static List<Integer> healthy = new ArrayList<>();
 	
-	private static GraphFrame graphFrame;
+	public static GraphFrame graphFrame;
 
 	public static void setupNewGraph() {
 		graphFrame = new GraphFrame();

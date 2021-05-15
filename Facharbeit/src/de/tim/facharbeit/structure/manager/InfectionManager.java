@@ -10,6 +10,8 @@ import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.Human;
 
 public class InfectionManager {
+	
+	public static Timer timer = new Timer();
 
 	private static boolean isHumanNearInfected(Human human) {
 		Random random = new Random();
@@ -41,7 +43,7 @@ public class InfectionManager {
 	public static void start() {
 		System.out.println("--------------------- Infection Manager started ----------------------------------");
 
-		Timer timer = new Timer();
+		timer = new Timer();
 		Random random = new Random();
 
 		timer.scheduleAtFixedRate(new TimerTask() {

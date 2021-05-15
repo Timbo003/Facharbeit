@@ -33,7 +33,7 @@ public class Point {
 			return Math.abs(point.x - this.x);
 		}
 		System.err.println("pointDistance not working");
-		return 0;
+		return Integer.MAX_VALUE;
 	}
 
 	public int distanceToPoint(Point point) {

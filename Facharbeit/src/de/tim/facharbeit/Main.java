@@ -41,11 +41,10 @@ public class Main {
 	public static List<GraphStructure> graphStructures = new ArrayList<>(); // alle sachen, welche auf der map gezeigt werden
 	
 	// it works now
-	private static SimulationFrame SimulationFrame;
-	private static StartFrame StartFrame;
+	public static SimulationFrame SimulationFrame;
+	private static StartFrame StartFrame;	
 	
 	
-
 	public static int minimumDistance = 100;
 
 	static Random random = new Random();

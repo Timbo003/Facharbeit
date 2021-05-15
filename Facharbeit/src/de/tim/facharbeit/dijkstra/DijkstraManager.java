@@ -20,16 +20,10 @@ public class DijkstraManager {
 	public static List<DijkstraPoint> startDijkstra(DijkstraPoint start, DijkstraPoint ziel) {
 		target = ziel;
 		start.distanceFromStart = 0;
-//		System.out.println("start " + start + "  ziel " + ziel);
 		dijkstraAlgorythmus(start);
 		while (!dijkstraAlgorythmus(getNext())) {
 		}
 		buildPath();
-
-//		System.out.println("path: ");
-		for (DijkstraPoint point : path) {
-//			System.out.println(point);
-		}
 		return path;
 	}
 
