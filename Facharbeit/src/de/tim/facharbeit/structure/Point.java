@@ -32,7 +32,7 @@ public class Point {
 		} else if (this.y == point.y) {
 			return Math.abs(point.x - this.x);
 		}
-		System.err.println("pointDistance not working");
+		//System.err.println("pointDistance not working");
 		return Integer.MAX_VALUE;
 	}
 

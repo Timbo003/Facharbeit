@@ -27,10 +27,9 @@ public class AnimationManager {
 
 		House house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
 
-		
-		int counter = 0 ;
+		int counter = 0;
 		boolean usable = true;
-		
+
 		while (!(isHouseOk(house, human))) {
 			counter++;
 			house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
@@ -42,10 +41,13 @@ public class AnimationManager {
 		if (usable) {
 			prepairAnimation(human, house);
 		}
-		
+
 	}
 
 	public static boolean isHouseOk(House house, Human human) {
+		if (house.equals(human.getHome())) {
+			return false;
+		}
 		if (house.entrance.getPoint()
 				.distanceToPoint(human.getHome().entrance.getPoint()) >= Variables.allowedDistance) {
 			return false;
@@ -62,7 +64,7 @@ public class AnimationManager {
 		for (Human h : Main.getAllLifingHumans()) {
 			if (h.targetHouse == null) {
 			} else {
-				if (h.targetHouse.equals(house)&& !(h.targetHouse.equals(h.getHome()))) {
+				if (h.targetHouse.equals(house) && !(h.targetHouse.equals(h.getHome()))) {
 					humansInThisHouse++;
 				}
 			}
@@ -81,6 +83,7 @@ public class AnimationManager {
 		DijkstraPoint start = human.currentHouse.nearestDijkstra;
 		DijkstraPoint end = human.targetHouse.nearestDijkstra;
 
+		
 		if (start.equals(end)) {
 			human.path = new ArrayList<>();
 			human.path.add(human.currentHouse.nearestDijkstra);
@@ -104,14 +107,6 @@ public class AnimationManager {
 		human.path.add(0, midPoint);
 		human.path.add(1, entrancePoint);
 
-		Point a = human.currentHouse.pointOnStreet; // Eingang
-		Point b = human.path.get(1).getPoint(); // Letzte Kreuzung
-		Point c = human.path.get(2).getPoint(); // Vorletzte kreuzung
-		if (a.pointDistance(c) < a.pointDistance(b)) {
-			System.out.println("beginning");
-			human.path.remove(1);
-		}
-
 		DijkstraPoint targetEntrance = new DijkstraPoint(human.targetHouse.pointOnStreet);
 		human.path.add(targetEntrance);
 
@@ -127,21 +122,38 @@ public class AnimationManager {
 
 		DijkstraPoint targetInside = new DijkstraPoint(p);
 		human.path.add(targetInside);
-		human.currentHouse = null;
+
+		// start filter
+
+		Point a = human.currentHouse.pointOnStreet; // Eingang
+		Point b = human.path.get(2).getPoint(); // Letzte Kreuzung
+		Point c = human.path.get(3).getPoint(); // Vorletzte kreuzung
+		if (a.pointDistance(c) < a.pointDistance(b) + b.pointDistance(c)) {
+//			System.out.println("beginning");
+			human.path.remove(2);
+		}
+
+		// end filter
 
 		a = human.targetHouse.pointOnStreet; // Eingang
-		b = human.path.get(human.path.size() - 3).getPoint(); // Letzte Kreuzung
-		c = human.path.get(human.path.size() - 4).getPoint(); // Vorletzte kreuzung
-		if (a.pointDistance(c) < a.pointDistance(b)) {
-			human.path.remove(human.path.get(human.path.size() - 3));
+		b = human.path.get(human.path.size()-3).getPoint(); // Letzte Kreuzung
+		c = human.path.get(human.path.size()-4).getPoint(); // Vorletzte kreuzung
+		if (a.pointDistance(c) < a.pointDistance(b) + b.pointDistance(c)) {
+//			System.out.println("end");
+			human.path.remove(human.path.size()-3);
 		}
+
+		human.currentHouse = null;
 
 	}
 
 	public static Human getRandomHuman() {
 		Random random = new Random();
-		Human human = WalkManager.getHumansWhoMovedEnought()
-				.get(random.nextInt(WalkManager.getHumansWhoMovedEnought().size()));
+		ArrayList<Human> movedEnought = WalkManager.getHumansWhoMovedEnought();
+		Human human = movedEnought.get(random.nextInt(movedEnought.size()));
+		
+//		Human human = WalkManager.getHumansWhoMovedEnought()
+//				.get(random.nextInt(WalkManager.getHumansWhoMovedEnought().size()));
 		if (human.isHumanAllowdToWalk() && human.currentHouse != null && human.timeInHouse > human.minMovesInHouse) {
 			human.timeInHouse = 0;
 			return human;
