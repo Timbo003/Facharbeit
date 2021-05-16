@@ -46,7 +46,7 @@ public class SimulationFrame extends JPanel {
 	private static JPanel p4;
 	private static JPanel savePanel;
 
-	private static Font varFont = new Font("Arial", Font.PLAIN, 20);
+	private static Font varFont = new Font("Arial", Font.PLAIN, (int) (Variables.screenSize.getWidth() / 96));
 
 	private static JLabel infectedLable = new JLabel();
 	private static JLabel imuneLable = new JLabel();

@@ -16,7 +16,7 @@ public class Variables {
 
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	public static Font defaultFont  = new Font("Arial", Font.PLAIN, 22);
+	public static Font defaultFont  = new Font("Arial", Font.PLAIN, (int) (Variables.screenSize.getWidth() / 87));
 	
 	public static int streetCount = 10;
 	

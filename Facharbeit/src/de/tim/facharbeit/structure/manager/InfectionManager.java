@@ -51,7 +51,7 @@ public class InfectionManager {
 			public void run() {
 				if (!(Variables.stop)) {
 					animationCounter++;
-					if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0) {// animationSpeed
+					if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0 || Variables.animationSpeed == 10) {// animationSpeed
 						animationCounter = 0;
 						for (Human human : HumanManager.getHealthyHumans()) {
 							if (isHumanNearInfected(human)) {

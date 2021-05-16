@@ -182,7 +182,7 @@ public class AnimationManager {
 			public void run() {
 				if (!(Variables.stop)) {
 					animationCounter++;
-					if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0) { // animationSpeed
+					if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0 || Variables.animationSpeed == 10) { // animationSpeed
 						animationCounter = 0;
 						counter++;
 						for (Human human : humans) {
