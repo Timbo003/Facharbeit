@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Random;
 
 import de.tim.facharbeit.Main;
+import de.tim.facharbeit.dijkstra.DijkstraManager;
+import de.tim.facharbeit.dijkstra.DijkstraPoint;
 import de.tim.facharbeit.frames.SimulationFrame;
 import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Point;
@@ -241,5 +243,43 @@ public class Street extends Structure {
 	public String toString() {
 		return "street index: " + streets.indexOf(this) + " Orientation: " + orientation + " x: " + this.getX() + " y: "
 				+ this.getY() + " l: " + this.length + " color: " + color + " neighbors: " + neighbors.size();
+	}
+	
+	public Point getNextCrossing(DijkstraPoint point) {
+		if (this.orientation == StreetOrientation.HORIZONTAL) {
+			for (Street neigbor : neighbors) {
+				if (neigbor.startPoint.getX() > point.getX()) {
+					return neigbor.getPoint();
+				}
+			}
+			return this.endPoint;
+		} else {
+			for (Street neigbor : neighbors) {
+				if (neigbor.startPoint.getY() > point.getY()) {
+					return neigbor.getPoint();
+				}
+			}
+			return this.endPoint;
+		}
+	}
+	
+	public Point getPreviousCrossing(DijkstraPoint point) {
+		if (this.orientation == StreetOrientation.HORIZONTAL) {
+			for (int i = neighbors.size() - 1; i >= 0; i--) {
+				Street neigbor = neighbors.get(i);
+				if (neigbor.startPoint.getX() < point.getX()) {
+					return neigbor.getPoint();
+				}
+			}
+			return this.startPoint;
+		} else {
+			for (int i = neighbors.size() - 1; i >= 0; i--) {
+				Street neigbor = neighbors.get(i);
+				if (neigbor.startPoint.getY() < point.getY()) {
+					return neigbor.getPoint();
+				}
+			}
+			return this.endPoint;
+		}
 	}
 }

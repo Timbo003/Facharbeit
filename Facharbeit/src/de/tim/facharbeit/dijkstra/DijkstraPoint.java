@@ -39,22 +39,22 @@ public class DijkstraPoint extends Structure {
 		if (up != null) {
 			distanceToUp = point.getY() - up.point.getY();
 		} else {
-			distanceToUp = -1;
+			distanceToUp = Integer.MAX_VALUE;
 		}
 		if (down != null) {
 			distanceToDown = down.point.getY() - point.getY();
 		} else {
-			distanceToDown = -1;
+			distanceToDown = Integer.MAX_VALUE;
 		}
 		if (left != null) {
 			distanceToLeft = point.getX() - left.point.getX();
 		} else {
-			distanceToLeft = -1;
+			distanceToLeft = Integer.MAX_VALUE;
 		}
 		if (right != null) {
 			distanceToRight = right.point.getX() - point.getX();
 		} else {
-			distanceToRight = -1;
+			distanceToRight = Integer.MAX_VALUE;
 		}
 	}
 

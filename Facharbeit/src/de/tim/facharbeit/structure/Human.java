@@ -208,7 +208,6 @@ public class Human extends Structure {
 	}
 
 	public void moveHome() {
-		DijkstraManager.resetPoints();
 		this.reset();
 	}
 

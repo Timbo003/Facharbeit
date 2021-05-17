@@ -76,9 +76,7 @@ public class Main {
 		HumanManager.characterStartup();
 
 		DijkstraManager.createDijkstraPoints();
-		for (House house : totalHouses()) {
-			house.getDijkstraPoint();
-		}
+
 		InfectionManager.start();
 		
 		DayManager.nextDay();

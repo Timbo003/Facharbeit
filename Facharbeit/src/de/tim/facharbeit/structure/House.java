@@ -23,6 +23,7 @@ public class House extends Structure {
 	public HouseOrientation orientation;
 	public Point pointOnStreet;
 	public DijkstraPoint nearestDijkstra;
+	public Street street;
 	
 
 	// constructor//
@@ -31,9 +32,20 @@ public class House extends Structure {
 		this.block = block;
 		this.orientation = orientation;
 		createEntrance();
+		this.getDijkstraPoint();
+		setStreet();
+		
 	}
 
 	// others//
+	public void setStreet() {
+		for (Street street : Street.streets) {
+			if (street.isPointOnStreet(this.pointOnStreet)) {
+				this.street = street;
+			}
+		}
+	}
+	
 	public DijkstraPoint getDijkstraPoint() {
 		boolean found = false;
 		Point pointToCheck = null;

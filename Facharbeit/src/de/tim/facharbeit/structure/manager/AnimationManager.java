@@ -41,7 +41,6 @@ public class AnimationManager {
 		if (usable) {
 			prepairAnimation(human, house);
 		}
-
 	}
 
 	public static boolean isHouseOk(House house, Human human) {
@@ -80,17 +79,15 @@ public class AnimationManager {
 
 		human.targetHouse = house;
 
-		DijkstraPoint start = human.currentHouse.nearestDijkstra;
-		DijkstraPoint end = human.targetHouse.nearestDijkstra;
+		House start = human.currentHouse;
+		House end = human.targetHouse;
 
 		
 		if (start.equals(end)) {
 			human.path = new ArrayList<>();
 			human.path.add(human.currentHouse.nearestDijkstra);
-			DijkstraManager.resetPoints();
 		} else {
 			human.path = DijkstraManager.startDijkstra(start, end);
-			DijkstraManager.resetPoints();
 		}
 
 		for (int i = 0; i < human.path.size() - 1; i++) { // wenn die allowedDistance klein ist kann der nearest
@@ -125,23 +122,23 @@ public class AnimationManager {
 
 		// start filter
 
-		Point a = human.currentHouse.pointOnStreet; // Eingang
-		Point b = human.path.get(2).getPoint(); // Letzte Kreuzung
-		Point c = human.path.get(3).getPoint(); // Vorletzte kreuzung
-		if (a.pointDistance(c) < a.pointDistance(b) + b.pointDistance(c)) {
-//			System.out.println("beginning");
-			human.path.remove(2);
-		}
+//		Point a = human.currentHouse.pointOnStreet; // Eingang
+//		Point b = human.path.get(2).getPoint(); // Letzte Kreuzung
+//		Point c = human.path.get(3).getPoint(); // Vorletzte kreuzung
+//		if (a.pointDistance(c) < a.pointDistance(b) + b.pointDistance(c)) {
+////			System.out.println("beginning");
+//			human.path.remove(2);
+//		}
 
 		// end filter
 
-		a = human.targetHouse.pointOnStreet; // Eingang
-		b = human.path.get(human.path.size()-3).getPoint(); // Letzte Kreuzung
-		c = human.path.get(human.path.size()-4).getPoint(); // Vorletzte kreuzung
-		if (a.pointDistance(c) < a.pointDistance(b) + b.pointDistance(c)) {
-//			System.out.println("end");
-			human.path.remove(human.path.size()-3);
-		}
+//		a = human.targetHouse.pointOnStreet; // Eingang
+//		b = human.path.get(human.path.size()-3).getPoint(); // Letzte Kreuzung
+//		c = human.path.get(human.path.size()-4).getPoint(); // Vorletzte kreuzung
+//		if (a.pointDistance(c) < a.pointDistance(b) + b.pointDistance(c)) {
+////			System.out.println("end");
+//			human.path.remove(human.path.size()-3);
+//		}
 
 		human.currentHouse = null;
 
@@ -167,7 +164,6 @@ public class AnimationManager {
 
 	public static void walkAnimation() {
 		System.out.println("--------------------- walkAnimation ----------------------------------");
-		DijkstraManager.resetPoints();
 
 		Timer timer = new Timer();
 		Random random = new Random();

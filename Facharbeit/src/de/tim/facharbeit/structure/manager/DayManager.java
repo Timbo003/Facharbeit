@@ -41,7 +41,6 @@ public class DayManager {
 		for (Human human : Main.getAllHumans()) {
 			human.visited = 0;
 		}
-		DijkstraManager.resetPoints();
 
 		if (Variables.days.size() > 0) {
 			Day formerDay = Variables.days.get(Variables.days.size() - 1);
