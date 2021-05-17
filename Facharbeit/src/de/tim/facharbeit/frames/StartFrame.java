@@ -40,7 +40,7 @@ public class StartFrame {
 	public static JLabel mortalityText;
 	public static JLabel maskEffectivityText;
 
-	public static Font textFont = new Font("Arial", Font.PLAIN, 13);
+	public static Font textFont = new Font("Arial", Font.PLAIN, (int) (Variables.screenSize.getWidth() / 147));
 
 	public static JSlider streetSlider;
 	public static JSlider infectedSlider;

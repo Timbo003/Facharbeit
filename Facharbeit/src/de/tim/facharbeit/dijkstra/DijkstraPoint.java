@@ -105,21 +105,21 @@ public class DijkstraPoint extends Structure {
 
 	@Override
 	public void draw(Graphics graphics) {
-//		graphics.setColor(Color.RED);
-//		graphics.fillRect(getX() - 10, getY() - 10, 20, 20);
-//		graphics.setColor(Color.ORANGE);
-//		if (up != null) {
-//			graphics.fillRect(getX() - 5, getY() - 20, 10, 20);
-//		}
-//		if (down != null) {
-//			graphics.fillRect(getX() - 5, getY(), 10, 20);
-//		}
-//		if (left != null) {
-//			graphics.fillRect(getX() - 20, getY() - 5, 20, 10);
-//		}
-//		if (right != null) {
-//			graphics.fillRect(getX(), getY() - 5, 20, 10);
-//		}
+		graphics.setColor(Color.RED);
+		graphics.fillRect(getX() - 10, getY() - 10, 20, 20);
+		graphics.setColor(Color.ORANGE);
+		if (up != null) {
+			graphics.fillRect(getX() - 5, getY() - 20, 10, 20);
+		}
+		if (down != null) {
+			graphics.fillRect(getX() - 5, getY(), 10, 20);
+		}
+		if (left != null) {
+			graphics.fillRect(getX() - 20, getY() - 5, 20, 10);
+		}
+		if (right != null) {
+			graphics.fillRect(getX(), getY() - 5, 20, 10);
+		}
 	}
 
 	@Override
