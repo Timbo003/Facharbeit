@@ -42,7 +42,7 @@ public class GraphManager {
 		System.out.println("x: " + x + " size: " + infected.size());
 		xShift = (int) x;
 		
-		humanPixelSize = 600D / Variables.totalHumanCounter;				//länge der y Achse / Menschen
+		humanPixelSize = 570D / Variables.totalHumanCounter;				//länge der y Achse / Menschen
 		System.out.println("hps:" + humanPixelSize);
 	}
 
@@ -89,13 +89,16 @@ public class GraphManager {
 		graphics.drawString(day,1405, 657);	
 		
 		String human = "y in Menschen";
-		graphics.drawString(human,60,  35);	
+		graphics.drawString(human,60,  15);	
 		
 		String distance = "Radius: ";
-		graphics.drawString(distance,2,  700);
+		graphics.drawString(distance,2,  655);
 		
 		String mask = "Träger: ";
-		graphics.drawString(mask,2,  725);
+		graphics.drawString(mask,2,  680);
+		
+		String visitors = "Besucher: ";
+		graphics.drawString(visitors,2,  710);
 		
 		
 		
@@ -103,17 +106,22 @@ public class GraphManager {
 			String text = ""+(i+1);
 			int xOffset = new Canvas().getFontMetrics(Variables.defaultFont).stringWidth(text) / 2;
 			int x = xShift * i + minX - xOffset;
-			graphics.drawString(text, x, 675);	
+			graphics.drawString(text, x, 630);	
 			//moveDistance
 			text = "" + Variables.days.get(i).getMaxAllowedDistance();
 			xOffset = new Canvas().getFontMetrics(Variables.defaultFont).stringWidth(text) / 2;
 			x = xShift * i + minX - xOffset;
-			graphics.drawString(text, x, 700);
+			graphics.drawString(text, x, 655);
 			//wearing Masks
 			text = "" + Variables.days.get(i).getWearingMasks();
 			xOffset = new Canvas().getFontMetrics(Variables.defaultFont).stringWidth(text) / 2;
 			x = xShift * i + minX - xOffset;
-			graphics.drawString(text, x, 725);
+			graphics.drawString(text, x, 680);
+			//wearing Masks
+			text = "" + Variables.days.get(i).getvisitors();
+			xOffset = new Canvas().getFontMetrics(Variables.defaultFont).stringWidth(text) / 2;
+			x = xShift * i + minX - xOffset;
+			graphics.drawString(text, x, 710);
 		}
 		
 		
@@ -127,7 +135,7 @@ public class GraphManager {
 			String text = ""+(i*25);
 			int xOffset = new Canvas().getFontMetrics(Variables.defaultFont).stringWidth(text) / 2;
 			int x = 30 - xOffset;
-			int y = (int) ( 650 - humanPixelSize * 25D * i) + 5;
+			int y = (int) ( 620 - humanPixelSize * 25D * i) + 5;
 			
 			graphics.drawString(text, x, y);	
 		}
@@ -138,7 +146,7 @@ public class GraphManager {
 		
 		for (int i = 0; i < intList.size(); i++) {
 			int x = xShift * i + minX;
-			int y =  (int) (650 - (intList.get(i) * humanPixelSize));
+			int y =  (int) (620 - (intList.get(i) * humanPixelSize));
 
 			GraphPoint newPoint = new GraphPoint(x, y, color);
 			graphPointList.add(newPoint);

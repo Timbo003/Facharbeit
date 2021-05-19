@@ -328,6 +328,7 @@ public class Street extends Structure {
 	}
 	
 	public DijkstraPoint getPreviousCrossing(DijkstraPoint point) {
+
 		return points.get(points.indexOf(point) - 1); 
 	}
 }

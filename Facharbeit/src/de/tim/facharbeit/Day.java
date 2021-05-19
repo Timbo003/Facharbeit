@@ -8,9 +8,19 @@ public class Day {
 	int imune;
 	int healthy;
 	int dead;
+	
 	int maxAllowedDistance;
 	int wearingMasks;
+	int visitors;
 	
+	public int getvisitors() {
+		return visitors;
+	}
+
+	public void setvisitors(int visitors) {
+		this.visitors = visitors;
+	}
+
 	public Day(int date) {
 		this.date = date;
 		Variables.days.add(this);

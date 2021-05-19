@@ -50,6 +50,7 @@ public class DayManager {
 			formerDay.setImune(Variables.imune);
 			formerDay.setMaxAllowedDistance(Variables.allowedDistance);
 			formerDay.setWearingMasks(Variables.howManyAreWearingMasks);
+			formerDay.setvisitors(Variables.howManyAreWearingMasks);
 		}
 
 		for (Timer timer : Variables.activeTimers) {
