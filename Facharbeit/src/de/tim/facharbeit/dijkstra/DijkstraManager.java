@@ -1,5 +1,6 @@
 package de.tim.facharbeit.dijkstra;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,21 +21,30 @@ public class DijkstraManager {
 	public static List<DijkstraPoint> path = new ArrayList<>();
 	public static List<DijkstraPoint> toDelete = new ArrayList<>();
 
-	
+	public static void __init__() {
+		for (Street street : Street.streets) {
+			street.prepairPoints();
+		}
+		for (House house : Main.totalHouses()) {
+			crossings.add(prepairAlgorithm(house));
+		}
+	}
 
 	private static DijkstraPoint target;
 
 	
 	public static List<DijkstraPoint> startDijkstra(House start, House ziel) {
+		ziel.color = Color.BLACK;
 		resetPoints();
-		target = prepairAlgorithm(ziel);
-		DijkstraPoint startPoint = prepairAlgorithm(start);
+
+		DijkstraPoint startPoint = getByPoint(start.pointOnStreet);
+		DijkstraPoint endPoint = getByPoint(ziel.pointOnStreet);
+		
 		startPoint.distanceFromStart = 0;
-		if (dijkstraAlgorythmus(startPoint)) {
-			System.out.println("Dijkstra done");
-		} else {
-			System.out.println("Dijkstra error");
-		}
+		target = endPoint;
+		
+		dijkstraAlgorythmus(startPoint);
+		
 		buildPath();
 		return path;
 	}
@@ -42,10 +52,12 @@ public class DijkstraManager {
 	private static DijkstraPoint prepairAlgorithm(House house) {
 		DijkstraPoint dijkstraPoint = new DijkstraPoint(house.pointOnStreet);
 		Street street = house.street;
+		crossings.add(dijkstraPoint);
 		Main.structures.add(dijkstraPoint);
 
-		DijkstraPoint next = getByPoint(street.getNextCrossing(dijkstraPoint));
-		DijkstraPoint previous = getByPoint(street.getPreviousCrossing(dijkstraPoint));
+		street.addPoint(dijkstraPoint);
+		DijkstraPoint next = street.getNextCrossing(dijkstraPoint);
+		DijkstraPoint previous = street.getPreviousCrossing(dijkstraPoint);
 		toDelete.add(previous);
 		toDelete.add(next);
 		
@@ -62,6 +74,10 @@ public class DijkstraManager {
 			previous.down = dijkstraPoint;
 			dijkstraPoint.up = previous;	
 		}
+
+		dijkstraPoint.setupDistances();
+		next.setupDistances();
+		previous.setupDistances();
 		
 		return dijkstraPoint;
 	}
@@ -72,7 +88,8 @@ public class DijkstraManager {
 				return dijkstraPoint;
 			}
 		}
-		return null;
+		System.out.println("byPoint");
+		throw new Error("oops. I'm a kek.");
 	}
 	
 	private static void resetPoints() {
@@ -80,30 +97,21 @@ public class DijkstraManager {
 			point.setMarked(false);
 			point.distanceFromStart = Integer.MAX_VALUE;
 			point.last = null;
+			point.active = false;
 		}
-		for (DijkstraPoint del : toDelete) {
-			if (del.up != null && del.down != null) {
-				del.up.down = del.down;
-				del.down.up = del.up;
-			} else if (del.left != null && del.right != null) {
-				del.left.right = del.right;
-				del.right.left = del.left;
-			}
-		}
-		toDelete = new ArrayList<>();
 		path = new ArrayList<>();
 		checkedStreets = new ArrayList<>();
 	}
 
 	public static boolean dijkstraAlgorythmus(DijkstraPoint aktuell) {
-		if (aktuell == null) return false;
+		if (aktuell == null) 
+			return false;
 		if (!aktuell.isMarked()) {
 			aktuell.setMarked(true);
 			markedPoints.add(aktuell);
 		}
-		if (aktuell.equals(target)) {
+		if (aktuell.equals(target))
 			return true;
-		}
 		Map<DijkstraPoint, Integer> dijkstraMap = new HashMap<>();
 		dijkstraMap.put(aktuell.up, aktuell.distanceToUp);
 		dijkstraMap.put(aktuell.down, aktuell.distanceToDown);
@@ -117,7 +125,8 @@ public class DijkstraManager {
 				next.last = aktuell;
 			}
 		}
-		return dijkstraAlgorythmus(getNext());
+		DijkstraPoint next = getNext();
+		return dijkstraAlgorythmus(next);
 	}
 	
 	public static DijkstraPoint getNext() {
@@ -129,16 +138,18 @@ public class DijkstraManager {
 				returner = point;
 			}
 		}
+		//System.out.println("returner: " + returner);
 		return returner;
 	}
 
 	public static void buildPath() {
-		DijkstraPoint last = target.last;
-		path.add(target);
+		DijkstraPoint last = target;
 		path.add(last);
-		while (last != null && last.last != null) {
-			last = last.last;
+		while (last != null) { //TODO endless
+			//System.out.println("last");
 			path.add(last);
+			last.active = true;
+			last = last.last;
 		}
 
 //		System.out.println(path);

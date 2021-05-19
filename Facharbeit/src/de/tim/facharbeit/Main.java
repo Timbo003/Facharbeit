@@ -76,6 +76,7 @@ public class Main {
 		HumanManager.characterStartup();
 
 		DijkstraManager.createDijkstraPoints();
+		DijkstraManager.__init__();
 
 		InfectionManager.start();
 		

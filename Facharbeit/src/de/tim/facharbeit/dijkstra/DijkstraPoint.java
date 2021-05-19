@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import de.tim.facharbeit.Main;
 import de.tim.facharbeit.structure.Point;
@@ -29,6 +30,8 @@ public class DijkstraPoint extends Structure {
 	protected int distanceToRight;
 	protected int distanceToDown;
 
+	public boolean active;
+	
 	public DijkstraPoint(Point point) {
 		super(point, 10, 10);
 		this.point = point;
@@ -105,21 +108,37 @@ public class DijkstraPoint extends Structure {
 
 	@Override
 	public void draw(Graphics graphics) {
+		if (!active) return;
 		graphics.setColor(Color.RED);
 		graphics.fillRect(getX() - 10, getY() - 10, 20, 20);
 		graphics.setColor(Color.ORANGE);
 		if (up != null) {
+			if (up.equals(last)) graphics.setColor(Color.GREEN);
 			graphics.fillRect(getX() - 5, getY() - 20, 10, 20);
 		}
+		graphics.setColor(Color.ORANGE);
 		if (down != null) {
+			if (down.equals(last)) graphics.setColor(Color.GREEN);
 			graphics.fillRect(getX() - 5, getY(), 10, 20);
 		}
+		graphics.setColor(Color.ORANGE);
 		if (left != null) {
+			if (left.equals(last)) graphics.setColor(Color.GREEN);
 			graphics.fillRect(getX() - 20, getY() - 5, 20, 10);
 		}
+		graphics.setColor(Color.ORANGE);
 		if (right != null) {
+			if (right.equals(last)) graphics.setColor(Color.GREEN);
 			graphics.fillRect(getX(), getY() - 5, 20, 10);
 		}
+		Random random = new Random();
+		graphics.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+		int offset = random.nextInt(5) - 2;
+
+		if (right != null && right.active)
+			graphics.drawLine(getX() + offset, getY() + offset, right.getX() + offset, right.getY() + offset);	
+		if (down != null && down.active)
+			graphics.drawLine(getX() + offset, getY() + offset, down.getX() + offset, down.getY() + offset);		
 	}
 
 	@Override

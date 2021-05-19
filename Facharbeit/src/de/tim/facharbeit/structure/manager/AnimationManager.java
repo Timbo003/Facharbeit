@@ -90,13 +90,6 @@ public class AnimationManager {
 			human.path = DijkstraManager.startDijkstra(start, end);
 		}
 
-		for (int i = 0; i < human.path.size() - 1; i++) { // wenn die allowedDistance klein ist kann der nearest
-															// dijkstra 2 mal hintereinander im path sein, hier nehmen
-															// wir ihn wieder raus
-			if (human.path.get(i).equals(human.path.get(i + 1))) {
-				human.path.remove(i);
-			}
-		}
 
 		Point point = human.nextPointToEntrance();
 		DijkstraPoint midPoint = new DijkstraPoint(point);
