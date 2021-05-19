@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Random;
 
 import de.tim.facharbeit.Main;
+import de.tim.facharbeit.dijkstra.DijkstraManager;
+import de.tim.facharbeit.dijkstra.DijkstraPoint;
 import de.tim.facharbeit.frames.SimulationFrame;
 import de.tim.facharbeit.structure.Block;
 import de.tim.facharbeit.structure.Point;
@@ -31,6 +33,8 @@ public class Street extends Structure {
 	private int length;
 	public StreetOrientation orientation;
 
+	private List<DijkstraPoint> points = new ArrayList<>();
+	
 	public int getLength() {
 		return length;
 	}
@@ -224,9 +228,7 @@ public class Street extends Structure {
 		if (color == null) {
 			Random random = new Random();
 //			color = new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
-			color = new Color(	
-					89,89,89);
-
+			color = new Color(89,89,89);
 		}
 		graphics.setColor(color);
 		graphics.fillRect(this.point.getX() - (size / 2), this.point.getY() - (size / 2), width, height);
@@ -241,5 +243,91 @@ public class Street extends Structure {
 	public String toString() {
 		return "street index: " + streets.indexOf(this) + " Orientation: " + orientation + " x: " + this.getX() + " y: "
 				+ this.getY() + " l: " + this.length + " color: " + color + " neighbors: " + neighbors.size();
+	}
+	
+	public void prepairPoints() {
+		points.add(DijkstraManager.getByPoint(startPoint));
+		for (int i = 1; i < neighbors.size() - 1; i++) {
+			Street neigbor = neighbors.get(i);
+			if (isPointOnStreet(neigbor.startPoint)) { //hier ein kleines if und schon läuft alles...
+				points.add(DijkstraManager.getByPoint(neigbor.startPoint));
+			} else if (isPointOnStreet(neigbor.endPoint)) {
+				points.add(DijkstraManager.getByPoint(neigbor.endPoint));
+			} else {
+				System.out.println("   :#");
+			}
+		}
+		points.add(DijkstraManager.getByPoint(endPoint));
+		
+		
+		
+		for (int i = 1; i < points.size(); i++ ) {
+			Point a = points.get(i-1).getPoint();
+			Point b = points.get(i).getPoint();
+			if (this.orientation == StreetOrientation.HORIZONTAL) {
+				System.out.println(a.getX() < b.getX() ? ";D" : "   ;/");
+			} else {
+				System.out.println(a.getY() < b.getY() ? ";D" : "   ;/");
+			}
+			if (a.getY() != b.getY()) {
+				System.out.println("  :*"); //TODO DAS IST DER FEHLER
+				return;
+			}
+		}
+	}
+	
+	public void addPoint(DijkstraPoint point) { // 100 200
+		if (!this.isPointOnStreet(point.getPoint())) {
+			System.out.println("   :X");
+			return;
+		}
+		if (this.orientation == StreetOrientation.HORIZONTAL) {
+			for (int i = 0; i < points.size(); i++) {
+				DijkstraPoint p = points.get(i); // 50 200 | 120 200
+				if (point.getY() != p.getY()) {
+					System.out.println("  :o");
+					return;
+				}
+				if (p.getX() > point.getX()) {
+					points.add(i, point);
+					System.out.println(points.indexOf(p) + " - " + points.indexOf(point));
+					checkPoints();
+					return;
+				}
+			}
+		} else {
+			for (int i = 0; i < points.size(); i++) {
+				DijkstraPoint p = points.get(i);
+				if (point.getX() != p.getX()) {
+					System.out.println("  :O");
+					return;
+				}
+				if (p.getY() > point.getY()) {
+					points.add(i, point);
+					System.out.println(points.indexOf(p) + " - " + points.indexOf(point));
+					checkPoints();
+					return;
+				}
+			}
+		}
+	}
+	
+	private void checkPoints() {
+		System.out.println("checking...");
+		for (int i = 1; i < points.size(); i++) {
+			Point a = points.get(i-1).getPoint();
+			Point b = points.get(i).getPoint();
+			if (a.distanceToPoint(b) != a.pointDistance(b)) {
+				System.out.println("ouch ;\\");
+			}
+		}
+	}
+
+	public DijkstraPoint getNextCrossing(DijkstraPoint point) {
+		return points.get(points.indexOf(point) + 1); 
+	}
+	
+	public DijkstraPoint getPreviousCrossing(DijkstraPoint point) {
+		return points.get(points.indexOf(point) - 1); 
 	}
 }

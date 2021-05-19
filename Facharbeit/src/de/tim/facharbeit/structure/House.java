@@ -23,7 +23,9 @@ public class House extends Structure {
 	public HouseOrientation orientation;
 	public Point pointOnStreet;
 	public DijkstraPoint nearestDijkstra;
+	public Street street;
 	
+	public Color color;
 
 	// constructor//
 	public House(Point point, int width, int height, Block block, HouseOrientation orientation) {
@@ -31,9 +33,20 @@ public class House extends Structure {
 		this.block = block;
 		this.orientation = orientation;
 		createEntrance();
+		this.getDijkstraPoint();
+		setStreet();
+		
 	}
 
 	// others//
+	public void setStreet() {
+		for (Street street : Street.streets) {
+			if (street.isPointOnStreet(this.pointOnStreet)) {
+				this.street = street;
+			}
+		}
+	}
+	
 	public DijkstraPoint getDijkstraPoint() {
 		boolean found = false;
 		Point pointToCheck = null;
@@ -119,6 +132,7 @@ public class House extends Structure {
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(new Color(112, 146, 190));
+		if (color != null) graphics.setColor(Color.CYAN);
 		graphics.drawRect(point.getX(), point.getY(), width, height);
 	}
 }
