@@ -247,37 +247,41 @@ public class Street extends Structure {
 	}
 	
 	public void prepairPoints() {
-		points.add(DijkstraManager.getByPoint(startPoint));
-		for (int i = 1; i < neighbors.size() - 1; i++) {
-			Street neigbor = neighbors.get(i);
-			if (isPointOnStreet(neigbor.startPoint)) { //hier ein kleines if und schon läuft alles...
-				points.add(DijkstraManager.getByPoint(neigbor.startPoint));
-			} else if (isPointOnStreet(neigbor.endPoint)) {
-				points.add(DijkstraManager.getByPoint(neigbor.endPoint));
-			} else {
-				System.out.println("   :#");
-			}
-		}
-		points.add(DijkstraManager.getByPoint(endPoint));
-		
-		
-		
-		for (int i = 1; i < points.size(); i++ ) {
-			Point a = points.get(i-1).getPoint();
-			Point b = points.get(i).getPoint();
-			if (this.orientation == StreetOrientation.HORIZONTAL) {
-				System.out.println(a.getX() < b.getX() ? ";D" : "   ;/1");
-				if (a.getY() != b.getY()) {
-					System.out.println("  :*1");
-					return;
-				}
-			} else {
-				System.out.println(a.getY() < b.getY() ? ";D" : "   ;/2");
-				if (a.getX() != b.getX()) {
-					System.out.println("  :*2");
-					return;
+		try {
+			points.add(DijkstraManager.getByPoint(startPoint));
+			for (int i = 1; i < neighbors.size() - 1; i++) {
+				Street neigbor = neighbors.get(i);
+				if (isPointOnStreet(neigbor.startPoint)) { //hier ein kleines if und schon läuft alles...
+					points.add(DijkstraManager.getByPoint(neigbor.startPoint));
+				} else if (isPointOnStreet(neigbor.endPoint)) {
+					points.add(DijkstraManager.getByPoint(neigbor.endPoint));
+				} else {
+					System.out.println("   :#");
 				}
 			}
+			points.add(DijkstraManager.getByPoint(endPoint));
+			
+			
+			
+			for (int i = 1; i < points.size(); i++ ) {
+				Point a = points.get(i-1).getPoint();
+				Point b = points.get(i).getPoint();
+				if (this.orientation == StreetOrientation.HORIZONTAL) {
+					System.out.println(a.getX() < b.getX() ? ";D" : "   ;/1");
+					if (a.getY() != b.getY()) {
+						System.out.println("  :*1");
+						return;
+					}
+				} else {
+					System.out.println(a.getY() < b.getY() ? ";D" : "   ;/2");
+					if (a.getX() != b.getX()) {
+						System.out.println("  :*2");
+						return;
+					}
+				}
+			}
+		} catch (Exception e) {
+			System.err.println("Please restart your application. This should never happen");
 		}
 	}
 	

@@ -39,7 +39,11 @@ public class AnimationManager {
 			}
 		}
 		if (usable) {
-			prepairAnimation(human, house);
+			try {
+				prepairAnimation(human, house);
+			} catch (Exception e) {
+				System.err.println("this should not happen or is not suppoerted yet. AM");
+			}
 		}
 	}
 
@@ -74,7 +78,7 @@ public class AnimationManager {
 		return true;
 	}
 
-	public static void prepairAnimation(Human human, House house) {
+	public static void prepairAnimation(Human human, House house) throws Exception {
 		human.reset();
 
 		human.targetHouse = house;

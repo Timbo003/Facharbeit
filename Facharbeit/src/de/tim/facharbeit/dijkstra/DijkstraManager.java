@@ -40,7 +40,7 @@ public class DijkstraManager {
 	private static DijkstraPoint target;
 
 	
-	public static List<DijkstraPoint> startDijkstra(House start, House ziel) {
+	public static List<DijkstraPoint> startDijkstra(House start, House ziel) throws Exception {
 		ziel.color = Color.BLACK;
 		resetPoints();
 
@@ -97,14 +97,14 @@ public class DijkstraManager {
 		return dijkstraPoint;
 	}
 	
-	public static DijkstraPoint getByPoint(Point point) {
+	public static DijkstraPoint getByPoint(Point point) throws Exception {
 		for (DijkstraPoint dijkstraPoint : crossings) {
 			if (dijkstraPoint.getPoint().equals(point)) {
 				return dijkstraPoint;
 			}
 		}
 		System.out.println("byPoint");
-		throw new Error("oops. I'm a kek.");
+		throw new Exception("oops. I'm a kek.");
 	}
 	
 	private static void resetPoints() {

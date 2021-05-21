@@ -24,6 +24,7 @@ import de.tim.facharbeit.Main;
 import de.tim.facharbeit.Variables;
 import de.tim.facharbeit.graph.GraphManager;
 import de.tim.facharbeit.structure.Block;
+import de.tim.facharbeit.structure.Entrance;
 import de.tim.facharbeit.structure.Garden;
 import de.tim.facharbeit.structure.House;
 import de.tim.facharbeit.structure.Human;
@@ -448,30 +449,14 @@ public class SimulationFrame extends JPanel {
 		graphics.setColor(Color.WHITE);
 		graphics.fillRect(0, 0, Variables.screenSize.width, Variables.screenSize.height - 230);
 
-		for (Structure structure : Main.structures) {
-			if (structure instanceof Street) {
-				structure.draw(graphics);
-			}
-		}
-		for (Structure structure : Main.structures) {
-			if (structure instanceof Block) {
-				structure.draw(graphics);
-			}
-		}
-		for (Structure structure : Main.structures) {
-			if (structure instanceof House || structure instanceof Garden) {
-				structure.draw(graphics);
-			}
-		}
-		for (Structure structure : Main.structures) {
-			if (!(structure instanceof Block) || !(structure instanceof House) || !(structure instanceof Garden)
-					|| !(structure instanceof Street) || !(structure instanceof Human)) {
-				structure.draw(graphics);
-			}
-		}
-		for (Structure structure : Main.structures) {
-			if (structure instanceof Human) {
-				structure.draw(graphics);
+		final Class<?>[] structures = {Street.class, Block.class,Garden.class, House.class, Entrance.class, Human.class};
+		
+		for (Class<?> c  : structures) {
+			for (int i = 0; i < Main.structures.size(); i++) {
+				Structure structure = Main.structures.get(i);
+				if (structure.getClass().equals(c)) {
+					structure.draw(graphics);
+				}
 			}
 		}
 	}

@@ -35,7 +35,11 @@ public class WalkManager {
 					if (!(human.isHumanAllowdToWalk()) && human.currentHouse != null
 							&& human.timeInHouse > human.minMovesInHouse) {
 						if (!(human.currentHouse.equals(human.getHome()))) {
-							AnimationManager.prepairAnimation(human, human.getHome());
+							try {
+								AnimationManager.prepairAnimation(human, human.getHome());
+							} catch (Exception e) {
+								System.err.println("this should not happen or is not suppoerted yet. WM");
+							}
 							// human.blobColor = Color.cyan;
 						}
 					}
