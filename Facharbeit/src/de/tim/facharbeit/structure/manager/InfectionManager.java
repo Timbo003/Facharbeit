@@ -57,7 +57,7 @@ public class InfectionManager {
 							if (isHumanNearInfected(human)) {
 								Human sick = nearWhichInfected(human);
 								if (!(human.currentHouse == null)) { // in einem Huas Trägt man keine Masken
-									if (random.nextInt(10000) < (Variables.infectionRisk * 100)) {
+									if (random.nextInt(100000) < (Variables.infectionRisk * 1000)) {
 										if (!(human.infectionChecked.contains(sick))) {
 											human.infectionChecked.add(sick);
 											human.setHealth(Health.INFECTED);
@@ -65,7 +65,7 @@ public class InfectionManager {
 									}
 								} else { // auf der Straße trägt man vielleicht eine Masken
 									sick = nearWhichInfected(human);
-									if (random.nextInt(10000) <= (Variables.infectionRisk * 100)) {
+									if (random.nextInt(100000) <= (Variables.infectionRisk * 1000)) {
 										if (sick.isWearingMask == false && human.isWearingMask == false) {
 											if (random.nextInt(10000) < (Variables.infectionRisk * 100)) {
 												if (!(human.infectionChecked.contains(sick))) {
@@ -75,7 +75,7 @@ public class InfectionManager {
 											}
 										} else if ((sick.isWearingMask == true && human.isWearingMask == false)
 												|| (sick.isWearingMask == false && human.isWearingMask == true)) {
-											if (random.nextInt(10000) < (Variables.infectionRisk * 100)) {
+											if (random.nextInt(100000) < (Variables.infectionRisk * 1000)) {
 												if (random.nextInt(100) > Variables.maskEffectivity) {
 													if (!(human.infectionChecked.contains(sick))) {
 														human.infectionChecked.add(sick);
@@ -85,7 +85,7 @@ public class InfectionManager {
 
 											}
 										} else if (sick.isWearingMask == true && human.isWearingMask == true) {
-											if (random.nextInt(10000) < (Variables.infectionRisk * 100)) {
+											if (random.nextInt(100000) < (Variables.infectionRisk * 1000)) {
 												if (random.nextInt(100) > Variables.maskEffectivity) {
 													if (random.nextInt(100) > Variables.maskEffectivity) {
 														if (!(human.infectionChecked.contains(sick))) {

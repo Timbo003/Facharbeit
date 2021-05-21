@@ -112,27 +112,6 @@ public class AnimationManager {
 
 		DijkstraPoint targetInside = new DijkstraPoint(p);
 		human.path.add(targetInside);
-
-		// start filter
-
-//		Point a = human.currentHouse.pointOnStreet; // Eingang
-//		Point b = human.path.get(2).getPoint(); // Letzte Kreuzung
-//		Point c = human.path.get(3).getPoint(); // Vorletzte kreuzung
-//		if (a.pointDistance(c) < a.pointDistance(b) + b.pointDistance(c)) {
-////			System.out.println("beginning");
-//			human.path.remove(2);
-//		}
-
-		// end filter
-
-//		a = human.targetHouse.pointOnStreet; // Eingang
-//		b = human.path.get(human.path.size()-3).getPoint(); // Letzte Kreuzung
-//		c = human.path.get(human.path.size()-4).getPoint(); // Vorletzte kreuzung
-//		if (a.pointDistance(c) < a.pointDistance(b) + b.pointDistance(c)) {
-////			System.out.println("end");
-//			human.path.remove(human.path.size()-3);
-//		}
-
 		human.currentHouse = null;
 
 	}

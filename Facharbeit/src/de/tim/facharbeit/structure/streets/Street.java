@@ -61,6 +61,7 @@ public class Street extends Structure {
 		int y = orientation == StreetOrientation.HORIZONTAL ? this.startPoint.getY() : this.startPoint.getY() + length;
 		endPoint = new Point(x, y);
 	}
+	
 
 	public boolean isPointOnStreet(Point point) {
 		for (int i = 0; i <= length + size; i++) {
@@ -328,7 +329,6 @@ public class Street extends Structure {
 	}
 	
 	public DijkstraPoint getPreviousCrossing(DijkstraPoint point) {
-
 		return points.get(points.indexOf(point) - 1); 
 	}
 }

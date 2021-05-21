@@ -86,16 +86,16 @@ public class GraphManager {
 		graphics.setFont(Variables.defaultFont); 
 		
 		String day = "x in Tagen";
-		graphics.drawString(day,1405, 657);	
+		graphics.drawString(day,1405, 625);	
 		
 		String human = "y in Menschen";
 		graphics.drawString(human,60,  15);	
 		
 		String distance = "Radius: ";
-		graphics.drawString(distance,2,  655);
+		graphics.drawString(distance,2,  660);
 		
 		String mask = "Träger: ";
-		graphics.drawString(mask,2,  680);
+		graphics.drawString(mask,2,  685);
 		
 		String visitors = "Besucher: ";
 		graphics.drawString(visitors,2,  710);
@@ -106,17 +106,17 @@ public class GraphManager {
 			String text = ""+(i+1);
 			int xOffset = new Canvas().getFontMetrics(Variables.defaultFont).stringWidth(text) / 2;
 			int x = xShift * i + minX - xOffset;
-			graphics.drawString(text, x, 630);	
+			graphics.drawString(text, x, 640);	
 			//moveDistance
 			text = "" + Variables.days.get(i).getMaxAllowedDistance();
 			xOffset = new Canvas().getFontMetrics(Variables.defaultFont).stringWidth(text) / 2;
 			x = xShift * i + minX - xOffset;
-			graphics.drawString(text, x, 655);
+			graphics.drawString(text, x, 660);
 			//wearing Masks
 			text = "" + Variables.days.get(i).getWearingMasks();
 			xOffset = new Canvas().getFontMetrics(Variables.defaultFont).stringWidth(text) / 2;
 			x = xShift * i + minX - xOffset;
-			graphics.drawString(text, x, 680);
+			graphics.drawString(text, x, 685);
 			//wearing Masks
 			text = "" + Variables.days.get(i).getvisitors();
 			xOffset = new Canvas().getFontMetrics(Variables.defaultFont).stringWidth(text) / 2;

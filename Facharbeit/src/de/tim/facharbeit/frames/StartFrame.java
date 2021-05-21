@@ -282,7 +282,7 @@ public class StartFrame {
 		// slider & text for Infected
 		JPanel infectedPanel = new JPanel();
 		infectedPanel.setVisible(true);
-		infectedPanel.setBounds(50, 30, 450, 30);
+		infectedPanel.setBounds(50, 60, 450, 30);
 //		infectedPanel.setBackground(Color.blue);
 		infectedPanel.setLayout(null);
 
@@ -307,7 +307,7 @@ public class StartFrame {
 		// slider & text for Imune
 		JPanel imunePanel = new JPanel();
 		imunePanel.setVisible(true);
-		imunePanel.setBounds(50, 60, 450, 30);
+		imunePanel.setBounds(50, 90, 450, 30);
 //		imunePanel.setBackground(Color.green);
 		imunePanel.setLayout(null);
 
@@ -331,7 +331,7 @@ public class StartFrame {
 		// slider & text for humanCount
 		JPanel humanCountPanel = new JPanel();
 		humanCountPanel.setVisible(true);
-		humanCountPanel.setBounds(50, 90, 450, 30);
+		humanCountPanel.setBounds(50, 30, 450, 30);
 //		humanCountPanel.setBackground(Color.orange);
 		humanCountPanel.setLayout(null);
 
@@ -414,7 +414,7 @@ public class StartFrame {
 		verweigererSliderText.setFont(textFont);
 		verweigererSliderText.setBounds(310, 0, 200, 30);
 		verweigererSliderText.setVisible(true);
-		verweigererSliderText.setText("verweigerer: " + Variables.verweigererCount);
+		verweigererSliderText.setText("Verweigerer: " + Variables.verweigererCount);
 
 		verweigererSlider = new JSlider(0, 100, Variables.verweigererCount);
 		verweigererSlider.addChangeListener((e) -> {

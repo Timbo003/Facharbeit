@@ -81,12 +81,12 @@ public class Main {
 		InfectionManager.start();
 		
 		DayManager.nextDay();
-		
 		}
 	
 	public static void switchToGraph() {
 		GraphManager.setupNewGraph();
 	}
+
 	
 	public static List<Human> getAllHumans() {
 		List<Human> humans = new ArrayList<>();

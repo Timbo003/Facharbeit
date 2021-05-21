@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Timer;
 
 public class Variables {
+	
 	public static String pathGraph = "C:\\Users\\Tim\\Desktop\\GraphExport.png";
 	public static String pathSim = "C:\\Users\\Tim\\Desktop\\SimExport.png";
 	
