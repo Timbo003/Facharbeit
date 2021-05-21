@@ -25,6 +25,9 @@ public class House extends Structure {
 	public DijkstraPoint nearestDijkstra;
 	public Street street;
 	
+	@Deprecated
+	public boolean deactivated;
+	
 	public Color color;
 
 	// constructor//
@@ -123,6 +126,11 @@ public class House extends Structure {
 	public Block getBlock() {
 		return block;
 	}
+	
+	@Deprecated //debug
+	public void deactivate() {
+		deactivated = true;
+	}
 
 	public void setBlock(Block block) {
 		this.block = block;
@@ -134,5 +142,12 @@ public class House extends Structure {
 		graphics.setColor(new Color(112, 146, 190));
 		if (color != null) graphics.setColor(Color.CYAN);
 		graphics.drawRect(point.getX(), point.getY(), width, height);
+		
+		if (deactivated) {
+			graphics.setColor(Color.red);
+			graphics.drawRect(point.getX(), point.getY(), width, height);
+		}
 	}
+	
+	
 }

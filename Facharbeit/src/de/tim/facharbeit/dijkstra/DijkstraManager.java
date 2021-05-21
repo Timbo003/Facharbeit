@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import de.tim.facharbeit.Main;
 import de.tim.facharbeit.frames.SimulationFrame;
 import de.tim.facharbeit.structure.House;
@@ -26,7 +28,12 @@ public class DijkstraManager {
 			street.prepairPoints();
 		}
 		for (House house : Main.totalHouses()) {
-			crossings.add(prepairAlgorithm(house));
+			DijkstraPoint point = prepairAlgorithm(house);
+			if (point != null) {
+				crossings.add(point);
+			} else {
+				house.deactivate();
+			}
 		}
 	}
 
@@ -52,12 +59,20 @@ public class DijkstraManager {
 	private static DijkstraPoint prepairAlgorithm(House house) {
 		DijkstraPoint dijkstraPoint = new DijkstraPoint(house.pointOnStreet);
 		Street street = house.street;
+
+		DijkstraPoint next;
+		DijkstraPoint previous;
+		try {
+			street.addPoint(dijkstraPoint);
+			next = street.getNextCrossing(dijkstraPoint);
+			previous = street.getPreviousCrossing(dijkstraPoint);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showInputDialog(null, "This is the message", "This is the default text");
+			return null;
+		}
 		crossings.add(dijkstraPoint);
 		Main.structures.add(dijkstraPoint);
-
-		street.addPoint(dijkstraPoint);
-		DijkstraPoint next = street.getNextCrossing(dijkstraPoint);
-		DijkstraPoint previous = street.getPreviousCrossing(dijkstraPoint);
 		toDelete.add(previous);
 		toDelete.add(next);
 		

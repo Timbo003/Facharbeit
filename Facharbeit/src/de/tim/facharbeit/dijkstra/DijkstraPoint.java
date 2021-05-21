@@ -146,4 +146,7 @@ public class DijkstraPoint extends Structure {
 		return "x: " + point.getX() + " y: " + point.getY();
 	}
 
+	public boolean checkForDublicate(DijkstraPoint point) {
+		return this.getX() == point.getX() && this.getY() == point.getY();
+	}
 }

@@ -228,8 +228,8 @@ public class Street extends Structure {
 	public void draw(Graphics graphics) {
 		if (color == null) {
 			Random random = new Random();
-//			color = new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
-			color = new Color(89,89,89);
+			color = new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
+//			color = new Color(89,89,89);
 		}
 		graphics.setColor(color);
 		graphics.fillRect(this.point.getX() - (size / 2), this.point.getY() - (size / 2), width, height);
@@ -266,22 +266,32 @@ public class Street extends Structure {
 			Point a = points.get(i-1).getPoint();
 			Point b = points.get(i).getPoint();
 			if (this.orientation == StreetOrientation.HORIZONTAL) {
-				System.out.println(a.getX() < b.getX() ? ";D" : "   ;/");
+				System.out.println(a.getX() < b.getX() ? ";D" : "   ;/1");
+				if (a.getY() != b.getY()) {
+					System.out.println("  :*1");
+					return;
+				}
 			} else {
-				System.out.println(a.getY() < b.getY() ? ";D" : "   ;/");
-			}
-			if (a.getY() != b.getY()) {
-				System.out.println("  :*"); //TODO DAS IST DER FEHLER
-				return;
+				System.out.println(a.getY() < b.getY() ? ";D" : "   ;/2");
+				if (a.getX() != b.getX()) {
+					System.out.println("  :*2");
+					return;
+				}
 			}
 		}
 	}
 	
-	public void addPoint(DijkstraPoint point) { // 100 200
+	public void addPoint(DijkstraPoint point) throws Exception { // 100 200
 		if (!this.isPointOnStreet(point.getPoint())) {
 			System.out.println("   :X");
 			return;
 		}
+		for (DijkstraPoint p : points) {
+			if (p.checkForDublicate(point)) {
+				throw new Exception("Dijstra point dublicate.");
+			}
+		}
+		
 		if (this.orientation == StreetOrientation.HORIZONTAL) {
 			for (int i = 0; i < points.size(); i++) {
 				DijkstraPoint p = points.get(i); // 50 200 | 120 200
@@ -324,11 +334,21 @@ public class Street extends Structure {
 		}
 	}
 
-	public DijkstraPoint getNextCrossing(DijkstraPoint point) {
+	public DijkstraPoint getNextCrossing(DijkstraPoint point) throws Exception {
+		if (!points.contains(point)) {
+			System.err.println(":ooo");
+			System.out.println(this);
+			throw new Exception("That feature isn't supported yet.");
+		}
 		return points.get(points.indexOf(point) + 1); 
 	}
 	
-	public DijkstraPoint getPreviousCrossing(DijkstraPoint point) {
+	public DijkstraPoint getPreviousCrossing(DijkstraPoint point) throws Exception {
+		if (!points.contains(point)) {
+			System.err.println(":ooo");
+			System.out.println(this);
+			throw new Exception("That feature isn't supported yet.");
+		}
 		return points.get(points.indexOf(point) - 1); 
 	}
 }
