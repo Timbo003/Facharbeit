@@ -2,14 +2,14 @@ package de.tim.facharbeit.structure;
 
 import java.awt.Graphics;
 
-public abstract class Structure {
+public abstract class Structure {								//hiervon stammen die meisten klassen dieses Packets ab	
 
-	protected Point point;			//ist vererbbar	
-	protected int height;
-	protected int width;
+	protected Point point;										//x y Koordinate				
+	protected int height;										//Höhe
+	protected int width;										//Breite
 
 
-    public Structure(Point point, int width, int height) {
+    public Structure(Point point, int width, int height) {		//constructor
         this.point = point;
         this.width = width;
         this.height = height;

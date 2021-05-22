@@ -7,27 +7,28 @@ import java.util.Iterator;
 import java.util.List;
 
 import de.tim.facharbeit.Main;
+import de.tim.facharbeit.Variables;
 import de.tim.facharbeit.frames.SimulationFrame;
 import de.tim.facharbeit.structure.streets.Street;
+																						//TODO noch nicht fertig
+public class Block extends Structure { 													// House stammt von Structure ab
+	
+	public List<House> houses = new ArrayList<>();										//Häuser die in diesem Block liegen
+	private List<Garden> gardens = new ArrayList<>();									//Gärten die in diesem Block liegen
 
-public class Block extends Structure { // House stammt von Structure ab
+	public List<Street> surroundingStreets = new ArrayList<>();							//von welchen Straßen ist der Block umschlossen
 
-	public List<House> houses = new ArrayList<>();
-	private List<Garden> gardens = new ArrayList<>();
+	int standardDimensions = Variables.minimumDistance - 10;
 
-	public List<Street> surroundingStreets = new ArrayList<>();
-
-	int standardDimensions = Main.minimumDistance - 10;
-
-	public Block(Point point, int width, int height, List<Street> surroundingStreets) {
+	public Block(Point point, int width, int height, List<Street> surroundingStreets) {	//constructor
 		super(point, width, height);
 		this.surroundingStreets = surroundingStreets;
-		spawnHouses();
+		spawnHouses();																	//erzeugt die Häuser und Gärten
 	}
 
-	public void spawnHouses() {
-		int nW = this.width / standardDimensions;
-		int nH = this.height / standardDimensions;
+	public void spawnHouses() {															//erzeugt die Häuser und Gärten
+		int nW = this.width / standardDimensions;										//wieviele Häuser passen in die Breite
+		int nH = this.height / standardDimensions;										//wieviele Häuser passen in die Höhe
 
 		int houseWidth = 10;
 		int houseHeight = 10;

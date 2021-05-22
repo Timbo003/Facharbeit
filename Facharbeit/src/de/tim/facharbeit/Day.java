@@ -4,14 +4,19 @@ package de.tim.facharbeit;
 public class Day {
 	int date;
 	
-	int infected;
-	int imune;
-	int healthy;
-	int dead;
+	int infected;							//wie viele Infizierte gab es
+	int imune;								//wie viele Imune gab es
+	int healthy;							//wie viele Gesunde gab es
+	int dead;								//wie viele Tote gab es
 	
-	int maxAllowedDistance;
-	int wearingMasks;
-	int visitors;
+	int maxAllowedDistance;					//wie weit durfte man sich vom Haus entfernen
+	int wearingMasks;						//wie viele haben Masken getragen
+	int visitors;							//wie viele Besucher waren zugelassen
+	
+	public Day(int date) {					//constructor
+		this.date = date;
+		Variables.days.add(this);
+    }
 	
 	public int getvisitors() {
 		return visitors;
@@ -21,11 +26,6 @@ public class Day {
 		this.visitors = visitors;
 	}
 
-	public Day(int date) {
-		this.date = date;
-		Variables.days.add(this);
-    }
-	
 	public int getWearingMasks() {
 		return wearingMasks;
 	}
@@ -82,7 +82,7 @@ public class Day {
 		this.dead = dead;
 	}
 	
-	@Override
+	@Override							//damit man es einfach syso kann 
 	public String toString() {
 		return "date: " + date + "  infected: " + infected + "  healthy: " + healthy + "  imune: " + imune + "  dead: " + dead + " maxAllowedDistance: " + maxAllowedDistance+ " wearingMasks: " + wearingMasks + " visitors: " + visitors+ "\n";
 	}

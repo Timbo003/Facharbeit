@@ -45,9 +45,6 @@ public class Main {
 	public static SimulationFrame SimulationFrame;
 	private static StartFrame StartFrame;	
 	
-	
-	public static int minimumDistance = 100;
-
 	static Random random = new Random();
 
 	public static void main(String[] args) {
@@ -212,7 +209,7 @@ public class Main {
 		intersectionPoints.add(old.endPoint);
 
 		for (Point point2 : intersectionPoints) {
-			if (point2.pointDistance(point) < minimumDistance) {
+			if (point2.pointDistance(point) < Variables.minimumDistance) {
 //				System.err.println("Distance is to short");
 				addStreet();
 				return;

@@ -14,31 +14,31 @@ public class DijkstraPoint extends Structure {
 
 	private static List<DijkstraPoint> points = new ArrayList<>();
 
-	public Point point;
+	public Point point;												//x y koordinate
 
-	protected DijkstraPoint up;
-	protected DijkstraPoint left;
-	protected DijkstraPoint right;
-	protected DijkstraPoint down;
+	protected DijkstraPoint up;										//DijkstraPoint darüber
+	protected DijkstraPoint left;									//DijkstraPoint links
+	protected DijkstraPoint right;									//DijkstraPoint rechts
+	protected DijkstraPoint down;									//DijkstraPoint darunter
 
-	private boolean marked = false;
-	protected int distanceFromStart = Integer.MAX_VALUE;
-	protected DijkstraPoint last;
+	private boolean marked = false;									//Markierung für Dij Algorithmus
+	protected int distanceFromStart = Integer.MAX_VALUE;			
+	protected DijkstraPoint last;									//Punkt davor für Weg zurück
 
-	protected int distanceToUp;
-	protected int distanceToLeft;
-	protected int distanceToRight;
-	protected int distanceToDown;
+	protected int distanceToUp;										//distanz zum DijkstraPoint darüber
+	protected int distanceToLeft;									//distanz zum DijkstraPoint links
+	protected int distanceToRight;									//distanz zum DijkstraPoint rechts
+	protected int distanceToDown;									//distanz zum DijkstraPoint darunter
 
-	public boolean active;
+	public boolean active;											//sollen die DijkstraPoints gemalt werden?
 	
-	public DijkstraPoint(Point point) {
+	public DijkstraPoint(Point point) {								//constructor
 		super(point, 10, 10);
 		this.point = point;
 		points.add(this);
 	}
 
-	public void setupDistances() {
+	public void setupDistances() {									//funk um die distanz zu den Nachbarn zu bestimmen
 		if (up != null) {
 			distanceToUp = point.getY() - up.point.getY();
 		} else {
@@ -107,7 +107,7 @@ public class DijkstraPoint extends Structure {
 	}
 
 	@Override
-	public void draw(Graphics graphics) {
+	public void draw(Graphics graphics) {									//Dijkstra Punkte werden gemalt wenn active = true
 		if (!active) return;
 		graphics.setColor(Color.RED);
 		graphics.fillRect(getX() - 10, getY() - 10, 20, 20);

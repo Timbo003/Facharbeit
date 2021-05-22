@@ -32,40 +32,40 @@ public class GraphFrame extends JPanel {
 	
 	
 	public GraphFrame() {
-		instance = this;
-        frame = new JFrame("Graph");									
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setResizable(false);
-		frame.getContentPane().setPreferredSize(new Dimension(1500,750));	
-		super.setBackground(Color.WHITE);
-		super.setLayout(null);
+		instance = this;											
+        frame = new JFrame("Graph");										//Name des Fensters				
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);			//wird beendet wenn es geschlossen wird
+        frame.setResizable(false);											//man kann es nicht größer oder kleiner ziehen
+		frame.getContentPane().setPreferredSize(new Dimension(1500,750));	//die größe width & height
+		super.setBackground(Color.WHITE);									//Hintergrund Farbe
+		super.setLayout(null);												//eigenes Layout später
 		frame.add(this);	
 		
 		frame.pack();						
 		frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        frame.setVisible(true);												//man soll den Frame ja auch sehen
         
         
     }
 	
-	public void update() {
+	public void update() {												//Frame wir upgedated
 		super.repaint();
 	}
 	
 	@Override
 	public void paint(Graphics graphics) {
 		//System.out.println("drawing");
-		graphics.setColor(Color.WHITE);
-		graphics.fillRect(0, 0, 1500, 750);
-		graphics.setColor(Color.BLACK);
+		graphics.setColor(Color.WHITE);									//Hintergrund weiß
+		graphics.fillRect(0, 0, 1500, 750);								
+		graphics.setColor(Color.BLACK);									//alles ab jetzt schwarz
 		
 		Graphics2D g2 = (Graphics2D) graphics;
-		g2.setStroke(new BasicStroke(4));
+		g2.setStroke(new BasicStroke(4));								//größere Linien
 		
-		g2.drawLine(100,  50, 100, 620);			//Y Achse
-		g2.drawLine(100,  620, 1400, 620);			//X Achse
+		g2.drawLine(100,  50, 100, 620);								//Y Achse
+		g2.drawLine(100,  620, 1400, 620);								//X Achse
 		
-		for (GraphStructure graphStructure : Main.graphStructures) {
+		for (GraphStructure graphStructure : Main.graphStructures) {	//Alles GraphPoints und GraphLines werden gemalt
 			graphStructure.draw(graphics);
 		}
 		

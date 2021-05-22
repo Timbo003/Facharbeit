@@ -83,15 +83,15 @@ public class SimulationFrame extends JPanel {
 
 	public SimulationFrame() {
 		instance = this;
-		frame = new JFrame("Simulation");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.getContentPane().setPreferredSize(Variables.screenSize);
+		frame = new JFrame("Simulation");//Name des Fensters	
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//wird beendet wenn es geschlossen wird
+		frame.setResizable(false);//man kann es nicht größer oder kleiner ziehen
+		frame.getContentPane().setPreferredSize(Variables.screenSize);//die größe width & height vom screen
 		super.setBounds(0, 0, Variables.screenSize.width, Variables.screenSize.height - 230);
-		super.setBackground(Color.WHITE);
-		super.setLayout(null);
-		frame.setLayout(null);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		super.setBackground(Color.WHITE);//Hintergrund Farbe
+		super.setLayout(null);//eigenes Layout später
+		frame.setLayout(null);//eigenes Layout später
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);//soll maximiert werden wenn gestartet
 		frame.add(this);
 
 		setupSimulationFrame();

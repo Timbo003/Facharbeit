@@ -24,6 +24,8 @@ public class Variables {
 	
 	public static Font defaultFont  = new Font("Arial", Font.PLAIN, 19);
 	
+	public static int minimumDistance = 100;
+	
 	public static int streetCount = 10;
 	
 	public static int infectedCount = 10;
@@ -58,7 +60,6 @@ public class Variables {
 	public static int infectionDistance = 10;
 	public static int allowedDistance = 300;
 	
-//	public static double infectionRisk = 100;
 	public static double infectionRisk = 0.005;		//in %
 	public static double mortality = 20;			//in %
 	public static double maskEffectivity = 20;		//in %
