@@ -135,7 +135,7 @@ public class AnimationManager {
 		return getRandomHuman();
 	}
 
-	private static int counter = 0;
+	public static int counter = 0;
 	private static int animationCounter = 0;
 
 	public static void walkAnimation() {
@@ -176,20 +176,24 @@ public class AnimationManager {
 							}
 						}
 						if (HumanManager.areAllHumansFinished()) {
-							timer.cancel();
-							timer.purge();
-							cancel();
-							System.out.println("finished");
-							System.out.println(Variables.days);
-							if (StopSim() != true) {
-								DayManager.nextDay();
-
-							} else {
-								Variables.stop = true;
-								Variables.stopLock = true;
-								System.out.println("simulation stopped");
+							
+							if (!Variables.useFixedDayLength || (Variables.dayLength < counter)) {
+								timer.cancel();
+								timer.purge();
+								cancel();
+								
+								System.out.println("finished at time " + counter);
+								counter = 0;
+								System.out.println(Variables.days);
+								if (StopSim() != true) {
+									DayManager.nextDay();
+	
+								} else {
+									Variables.stop = true;
+									Variables.stopLock = true;
+									System.out.println("simulation stopped");
+								}
 							}
-
 						}
 						SimulationFrame.instance.update();
 					}

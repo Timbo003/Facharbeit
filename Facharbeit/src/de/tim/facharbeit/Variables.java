@@ -3,6 +3,7 @@ package de.tim.facharbeit;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -11,8 +12,10 @@ import de.tim.facharbeit.structure.Human;
 
 public class Variables {
 	
-	public static String pathGraph = "C:\\Users\\Tim\\Desktop\\GraphExport.png";
-	public static String pathSim = "C:\\Users\\Tim\\Desktop\\SimExport.png";
+	public static String pathGraph;
+	public static String pathSim;
+	public static String pathText;
+	public static File DataFile;
 	
 	public static List<Day> days = new ArrayList<>();
 	public static List<Timer> activeTimers = new ArrayList<>();
@@ -59,4 +62,7 @@ public class Variables {
 	public static double infectionRisk = 0.005;		//in %
 	public static double mortality = 20;			//in %
 	public static double maskEffectivity = 20;		//in %
+	
+	public static boolean useFixedDayLength = true;
+	public static int dayLength = 110000;
 }

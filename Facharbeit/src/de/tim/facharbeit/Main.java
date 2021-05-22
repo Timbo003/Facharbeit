@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import javax.swing.plaf.basic.BasicSplitPaneUI.BasicVerticalLayoutManager;
 
+import java.io.File;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -50,11 +51,10 @@ public class Main {
 	static Random random = new Random();
 
 	public static void main(String[] args) {
+		setupSavePaths();
 		System.out.println("start");
 		StartFrame = new StartFrame();
 		StartFrame.setupStartFrame();
-//		Variables.streetCount = 30;
-//		switchToSim();
 	}
 
 	public static void switchToSim() {		
@@ -84,6 +84,17 @@ public class Main {
 		
 		DayManager.nextDay();
 		}
+	
+	public static void setupSavePaths() {
+		String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
+		
+		new File(desktopPath + "\\SimulationData").mkdirs();
+		
+		Variables.pathGraph = desktopPath + "\\SimulationData\\GraphExport.png";
+		Variables.pathSim = desktopPath + "\\SimulationData\\SimExport.png";
+		Variables.pathText = desktopPath + "\\SimulationData\\DataExport.txt";
+		Variables.DataFile = new File(Variables.pathText);
+	}
 	
 	public static void switchToGraph() {
 		GraphManager.setupNewGraph();

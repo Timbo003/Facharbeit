@@ -10,7 +10,10 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 
 import javax.imageio.ImageIO;
@@ -20,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
+import de.tim.facharbeit.Day;
 import de.tim.facharbeit.Main;
 import de.tim.facharbeit.Variables;
 import de.tim.facharbeit.graph.GraphManager;
@@ -110,7 +114,7 @@ public class SimulationFrame extends JPanel {
 		setupSavePanel();
 		frame.add(controllPanel);
 	}
-
+	
 	private void setupButtonPanel() {
 		// Stop Button
 		buttonPanel = new JPanel();
@@ -175,6 +179,7 @@ public class SimulationFrame extends JPanel {
 				
 				 try {
 					 getSaveSnapShot(frame, Variables.pathSim);
+					 saveData(Variables.DataFile);
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
@@ -194,6 +199,7 @@ public class SimulationFrame extends JPanel {
 				Main.switchToGraph();
 				 try {
 					 getSaveSnapShot(GraphManager.graphFrame, Variables.pathGraph);
+					 saveData(Variables.DataFile);
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
@@ -204,9 +210,20 @@ public class SimulationFrame extends JPanel {
 		frame.add(savePanel);
 	}
 	
+	public static void saveData(File file) {
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		        for (Day day : Variables.days) {
+		        	 writer.write(""+day);
+				}
+		         writer.close();
+		}
+		catch (IOException e) {
+		e.printStackTrace();
+		}
+	}
 
 	public static BufferedImage getScreenShot(Component component) {
-
         BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TYPE_INT_RGB);
         // paints into image's Graphics
         component.paint(image.getGraphics());
