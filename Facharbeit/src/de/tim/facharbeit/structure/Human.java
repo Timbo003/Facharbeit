@@ -187,7 +187,6 @@ public class Human extends Structure {
 		if (newY < currentHouse.getY() + 10 || newY > currentHouse.getY() + currentHouse.height - 10) {
 			newY = getY() - y * 2;
 		}
-
 		setPoint(new Point(newX, newY));
 	}
 
@@ -212,6 +211,11 @@ public class Human extends Structure {
 	}
 
 	// draw & toString//
+	@Override
+	public String toString() {
+		return "personality: " + this.personality + "health: " + this.health;
+	}
+	
 	@Override
 	public void draw(Graphics graphics) {
 		if (this.isWearingMask && this.currentHouse == null) {

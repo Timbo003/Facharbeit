@@ -60,6 +60,7 @@ public class HumanManager {
 		Variables.dead = 0;
 		Variables.healthy = 0;
 		Variables.alive = Main.getAllLifingHumans().size();
+		Variables.aliveAndWilling = HumanManager.getMaskHumans();
 		
 
 		for (Human human : Main.getAllHumans()) {
@@ -214,6 +215,17 @@ public class HumanManager {
 			human.setHealth(healthArr.get(0));
 			healthArr.remove(0);
 		}
+	}
+	
+	public static List<Human> getMaskHumans(){
+		List<Human> maskHumans = new ArrayList<>();
+		for (Human human : Main.getAllLifingHumans()) {
+			if (!(human.personality == Personality.VERWEIGERER)) {
+				maskHumans.add(human);
+//				System.out.println(human);
+			}
+		}
+		return maskHumans;
 	}
 
 }

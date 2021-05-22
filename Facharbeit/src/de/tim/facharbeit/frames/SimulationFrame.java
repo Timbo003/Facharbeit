@@ -267,7 +267,8 @@ public class SimulationFrame extends JPanel {
 			if (Variables.maskButtonPressed == false) {
 				Variables.wearingMask = maskSlider.getValue();
 				maskSliderText.setText(maskSlider.getValue() + "% wearing a mask");
-				Variables.howManyAreWearingMasks = (int) ((Variables.wearingMask * 0.01) * Variables.alive);
+				
+				Variables.howManyAreWearingMasks = (int) ((Variables.wearingMask * 0.01) * Variables.aliveAndWilling.size());
 				maskButton.setText(Variables.howManyAreWearingMasks + " will wear a mask");
 			}
 		});
@@ -284,7 +285,7 @@ public class SimulationFrame extends JPanel {
 				Variables.maskButtonPressed = false;
 				maskButton.setText(Variables.howManyAreWearingMasks + " will wear a mask");
 				maskSliderText.setText(Variables.howManyAreWearingMasks + " will wear  a mask");
-				for (Human human : Main.getAllLifingHumans()) {
+				for (Human human : Variables.aliveAndWilling) {
 					human.isWearingMask = false;
 				}
 
@@ -295,7 +296,7 @@ public class SimulationFrame extends JPanel {
 				maskButton.setText(Variables.howManyAreWearingMasks + " are wearing a mask");
 
 				for (int i = 0; i < Variables.howManyAreWearingMasks; i++) {
-					Main.getAllLifingHumans().get(i).isWearingMask = true;
+					Variables.aliveAndWilling.get(i).isWearingMask = true;
 				}
 			}
 		});

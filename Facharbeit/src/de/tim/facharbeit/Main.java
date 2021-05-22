@@ -50,11 +50,11 @@ public class Main {
 	static Random random = new Random();
 
 	public static void main(String[] args) {
-//		System.out.println("start");
-//		StartFrame = new StartFrame();
-//		StartFrame.setupStartFrame();
-		Variables.streetCount = 30;
-		switchToSim();
+		System.out.println("start");
+		StartFrame = new StartFrame();
+		StartFrame.setupStartFrame();
+//		Variables.streetCount = 30;
+//		switchToSim();
 	}
 
 	public static void switchToSim() {		

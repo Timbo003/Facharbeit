@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
+import de.tim.facharbeit.structure.Human;
+
 public class Variables {
 	
 	public static String pathGraph = "C:\\Users\\Tim\\Desktop\\GraphExport.png";
@@ -46,6 +48,7 @@ public class Variables {
 	public static boolean stopLock = false;
 	public static int wearingMask = 0; 			//in %
 	public static int howManyAreWearingMasks = 0;
+	public static List<Human> aliveAndWilling;
 	public static boolean maskButtonPressed = false;		
 	
 	public static int maxTimeSick = 4;
