@@ -22,7 +22,7 @@ public class Variables {
 
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	public static Font defaultFont  = new Font("Arial", Font.PLAIN, 19);
+	public static Font defaultFont  = new Font("Arial", Font.PLAIN, 18);
 	
 	public static int minimumDistance = 100;
 	

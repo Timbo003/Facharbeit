@@ -171,7 +171,7 @@ public class SimulationFrame extends JPanel {
 		saveSimButton = new JButton();
 		saveSimButton.setText("save Sim");
 		saveSimButton.setBackground(buttonColor);
-		saveSimButton.setFont(varFont);
+		saveSimButton.setFont(new Font("Arial", Font.PLAIN, 15));
 		saveSimButton.setBounds(0, 0, savePanel.getWidth(), buttonPanel.getHeight() / 2 - 10);
 		saveSimButton.addActionListener(new ActionListener() {
 			@Override
@@ -189,7 +189,7 @@ public class SimulationFrame extends JPanel {
 		
 		saveGraphButton = new JButton();
 		saveGraphButton.setText("save Graph");
-		saveGraphButton.setFont(varFont);
+		saveGraphButton.setFont(new Font("Arial", Font.PLAIN, 15));
 		saveGraphButton.setBackground(buttonColor);
 		saveGraphButton.setBounds(0, buttonPanel.getHeight() / 2, savePanel.getWidth(),
 				buttonPanel.getHeight() / 2 - 10);
@@ -238,7 +238,7 @@ public class SimulationFrame extends JPanel {
 
 	private void setupSliderPanel() {
 		sliderPanel = new JPanel();
-		sliderPanel.setBounds(controllPanel.getWidth() - 520, 0, 500, controllPanel.getHeight() - 10);
+		sliderPanel.setBounds(controllPanel.getWidth()/3*2, 0, controllPanel.getWidth()/3, controllPanel.getHeight() - 10);
 //		sliderPanel.setBackground(Color.LIGHT_GRAY);
 		sliderPanel.setVisible(true);
 		sliderPanel.setLayout(null);
@@ -250,8 +250,8 @@ public class SimulationFrame extends JPanel {
 		animationSpeedPanel.setVisible(true);
 		animationSpeedPanel.setLayout(null);
 
-		animationSpeedSliderText.setBounds(animationSpeedPanel.getWidth() - 190,
-				animationSpeedPanel.getHeight() / 2 - 10, 200, 20);
+		animationSpeedSliderText.setBounds(animationSpeedPanel.getWidth()/2+5,
+				animationSpeedPanel.getHeight() / 2 - 10, animationSpeedPanel.getWidth()/2-5, 20);
 		animationSpeedSliderText.setVisible(true);
 		animationSpeedSliderText.setText("Animation Speed: " + Variables.animationSpeed);
 		animationSpeedSliderText.setFont(varFont);
@@ -260,7 +260,7 @@ public class SimulationFrame extends JPanel {
 			Variables.animationSpeed = animationSpeedSlider.getValue();
 			animationSpeedSliderText.setText("Animation Speed: " + animationSpeedSlider.getValue());
 		});
-		animationSpeedSlider.setBounds(0, -5, animationSpeedPanel.getWidth() - 200, 40);
+		animationSpeedSlider.setBounds(0, -5, animationSpeedPanel.getWidth() /2, 40);
 		animationSpeedSlider.setVisible(true);
 
 		animationSpeedPanel.add(animationSpeedSliderText);
@@ -275,7 +275,7 @@ public class SimulationFrame extends JPanel {
 		maskPanel.setLayout(null);
 		maskPanel.setVisible(true);
 
-		maskSliderText.setBounds(maskPanel.getWidth() - 190, 5, 200, 20);
+		maskSliderText.setBounds(maskPanel.getWidth()/2+5, 5, maskPanel.getWidth()/2-5, 20);
 		maskSliderText.setVisible(true);
 		maskSliderText.setText(maskSlider.getValue() + "% wearing masks");
 		maskSliderText.setFont(varFont);
@@ -289,7 +289,7 @@ public class SimulationFrame extends JPanel {
 				maskButton.setText(Variables.howManyAreWearingMasks + " will wear a mask");
 			}
 		});
-		maskSlider.setBounds(0, -5, maskPanel.getWidth() - 200, 40);
+		maskSlider.setBounds(0, -5, maskPanel.getWidth()/2, 40);
 		maskSlider.setVisible(true);
 
 		maskPanel.add(maskSlider);
@@ -330,8 +330,8 @@ public class SimulationFrame extends JPanel {
 
 	private void setupVarPanel() {
 		varPanel = new JPanel();
-		varPanel.setBounds(20, 0, 500, controllPanel.getHeight());
-		varPanel.setBackground(Color.LIGHT_GRAY);
+		varPanel.setBounds(20, 0, controllPanel.getWidth() / 3 , controllPanel.getHeight());
+//		varPanel.setBackground(Color.GRAY);
 		varPanel.setVisible(true);
 		varPanel.setLayout(null);
 
@@ -399,8 +399,8 @@ public class SimulationFrame extends JPanel {
 		p3.setVisible(true);
 		p3.setLayout(null);
 
-		maxPpInHouseSliderText.setBounds(animationSpeedPanel.getWidth() - 200,
-				15, 210, 20);
+		maxPpInHouseSliderText.setBounds(p3.getWidth()/2 + 5,
+				15, p3.getWidth()/2 + 10, 20);
 		maxPpInHouseSliderText.setVisible(true);
 		maxPpInHouseSliderText.setText("max Besucher: " + Variables.maxHumansInHouse);
 		maxPpInHouseSliderText.setFont(varFont);
@@ -409,7 +409,7 @@ public class SimulationFrame extends JPanel {
 			Variables.maxHumansInHouse = maxPpInHouseSlider.getValue();
 			maxPpInHouseSliderText.setText("max Besucher: " + Variables.maxHumansInHouse);
 		});
-		maxPpInHouseSlider.setBounds(0, 5, p3.getWidth() - 220, 40);
+		maxPpInHouseSlider.setBounds(0, 5, p3.getWidth()/2, 40);
 		maxPpInHouseSlider.setVisible(true);
 
 		p3.add(maxPpInHouseSlider);
@@ -421,8 +421,8 @@ public class SimulationFrame extends JPanel {
 		p4.setVisible(true);
 		p4.setLayout(null);
 
-		allowedDistanceSliderText.setBounds(animationSpeedPanel.getWidth() - 200,
-				15, 210, 20);
+		allowedDistanceSliderText.setBounds(p4.getWidth()/2 + 5 ,
+				15, p4.getWidth()/2-10, 20);
 		allowedDistanceSliderText.setVisible(true);
 		allowedDistanceSliderText.setText("allowed Distance: " + Variables.allowedDistance);
 		allowedDistanceSliderText.setFont(varFont);
@@ -431,7 +431,7 @@ public class SimulationFrame extends JPanel {
 			Variables.allowedDistance = allowedDistanceSlider.getValue();
 			allowedDistanceSliderText.setText("allowed Distance: " + Variables.allowedDistance);
 		});
-		allowedDistanceSlider.setBounds(0, 5, p4.getWidth() - 220, 40);
+		allowedDistanceSlider.setBounds(0, 5, p4.getWidth()/2, 40);
 		allowedDistanceSlider.setVisible(true);
 
 		p4.add(allowedDistanceSlider);

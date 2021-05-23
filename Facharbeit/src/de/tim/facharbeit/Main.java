@@ -83,6 +83,10 @@ public class Main {
 		System.out.println("totalHouses().size(): "+totalHouses().size());
 		}
 	
+	public static void setupFonts() {
+		
+	}
+	
 	public static void setupSavePaths() {
 		String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
 		
