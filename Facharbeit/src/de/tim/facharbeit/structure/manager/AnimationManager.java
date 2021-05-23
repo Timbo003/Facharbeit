@@ -59,7 +59,7 @@ public class AnimationManager {
 		for (Human h : Main.getAllLifingHumans()) {
 			if (h.currentHouse == null) {
 			} else {
-				if (h.currentHouse.equals(house) && !(h.currentHouse.equals(h.getHome()))) {
+				if (h.currentHouse.equals(house)) {			//wenn ein Mensch in dem Haus ist +1
 					humansInThisHouse++;
 				}
 			}
@@ -67,12 +67,12 @@ public class AnimationManager {
 		for (Human h : Main.getAllLifingHumans()) {
 			if (h.targetHouse == null) {
 			} else {
-				if (h.targetHouse.equals(house) && !(h.targetHouse.equals(h.getHome()))) {
+				if (h.targetHouse.equals(house)) {			//wenn ein Mensch auf dem weg dorthin ist +1
 					humansInThisHouse++;
 				}
 			}
 		}
-		if (humansInThisHouse >= Variables.maxHumansInHouse) {
+		if (humansInThisHouse >= Variables.maxHumansInHouse + Variables.maxHumansInHome) {
 			return false;
 		}
 		return true;
