@@ -120,19 +120,8 @@ public class AnimationManager {
 		
 		
 		if (human.path.contains(null)) {
-			//Variables.stop = true;
-//			System.out.println("midPoint: " +midPoint);
-//			System.out.println("entrancePoint: " +entrancePoint);
-//			System.out.println("targetEntrance: " +targetEntrance);
-//			System.out.println("targetInside: " +targetInside);
-
-			
-			
-			human.blobColor = Color.orange;
-			System.out.println(human.path);
-			
+//			human.blobColor = Color.orange;
 			human.path.remove(null);
-			System.out.println(human.path);
 		}
 		
 		human.currentHouse = null;
@@ -159,7 +148,6 @@ public class AnimationManager {
 
 	public static void walkAnimation() {
 		System.out.println("--------------------- walkAnimation ----------------------------------");
-		System.out.println("crossings: " + DijkstraManager.crossings);
 
 		Timer timer = new Timer();
 		Random random = new Random();

@@ -116,6 +116,62 @@ public class StartFrame {
 		p1.setFont(Variables.defaultFont);
 		p1.addActionListener((e) -> {
 			System.out.println("p1");
+			Variables.streetCount = 15;
+			streetSliderText.setText("Streets: " + Variables.streetCount);
+			streetSlider.setValue(Variables.streetCount);
+
+			Variables.infectedCount = 5;
+			infectedSliderText.setText("Infected: " + Variables.infectedCount);
+			infectedSlider.setValue(Variables.infectedCount);
+
+			Variables.imuneCount = 0;
+			imuneSliderText.setText("Imune: " + Variables.imuneCount);
+			imuneSlider.setValue(Variables.imuneCount);
+
+			Variables.totalHumanCounter = 223;
+			humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
+			humanCountSlider.setValue(Variables.totalHumanCounter);
+
+			Variables.maxHumansInHome = 4;
+			maxHumansInHomeSliderText.setText("Fam. größe: " + Variables.maxHumansInHome);
+			maxHumansInHomeSlider.setValue(Variables.maxHumansInHome);
+
+			Variables.bedachtCount = 45;
+			bedachtSliderText.setText("Bedachte: " + Variables.bedachtCount);
+			bedachtSlider.setValue(Variables.bedachtCount);
+
+			Variables.verweigererCount = 45;
+			verweigererSliderText.setText("Verweigerer: " + Variables.verweigererCount);
+			verweigererSlider.setValue(Variables.verweigererCount);
+
+			Variables.maxTimeSick = 14;
+			maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
+			maxTimeSickSlider.setValue(Variables.maxTimeSick);
+
+			Variables.infectionDistance = 3;
+			infectionDistanceSliderText.setText("infectionDistance: " + Variables.infectionDistance);
+			infectionDistanceSlider.setValue(Variables.infectionDistance);
+
+			Variables.infectionRisk = 0.044;
+			infectionRiskText.setText("infectionRisk: " + Variables.infectionRisk + "%");
+
+			Variables.mortality = 2.57;
+			mortalityText.setText("mortality: " + Variables.mortality + "%");
+			
+			Variables.maskEffectivity = 90;
+			maskEffectivityText.setText("maskEffectivity: " + Variables.maskEffectivity + "%");
+		});
+		p1.setBounds(0, 25, 115, 83);
+
+		p1.setBackground(buttonColor);
+
+		p1.setVisible(true);
+		PresetLable.add(p1);
+
+		JButton p2 = new JButton("Preset 2");
+		p2.setFont(Variables.defaultFont);
+		p2.addActionListener((e) -> {
+			System.out.println("P2");
 			Variables.streetCount = 12;
 			streetSliderText.setText("Streets: " + Variables.streetCount);
 			streetSlider.setValue(Variables.streetCount);
@@ -160,28 +216,6 @@ public class StartFrame {
 			
 			Variables.maskEffectivity = 90;
 			maskEffectivityText.setText("maskEffectivity: " + Variables.maskEffectivity + "%");
-		});
-		p1.setBounds(0, 25, 115, 83);
-
-		p1.setBackground(buttonColor);
-
-		p1.setVisible(true);
-		PresetLable.add(p1);
-
-		JButton p2 = new JButton("Preset 2");
-		p2.setFont(Variables.defaultFont);
-		p2.addActionListener((e) -> {
-			System.out.println("P2");
-
-			imuneSliderText.setText("b");
-			humanCountSliderText.setText("b");
-			maxHumansInHomeSliderText.setText("b");
-			bedachtSliderText.setText("b");
-			verweigererSliderText.setText("b");
-			maxTimeSickSliderText.setText("b");
-			infectionDistanceSliderText.setText("b");
-			infectionRiskText.setText("b");
-			mortalityText.setText("b");
 		});
 		p2.setBounds(0, 133, 115, 83);
 		p2.setVisible(true);

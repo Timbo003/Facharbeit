@@ -64,6 +64,6 @@ public class Variables {
 	public static double mortality = 20;			//in %
 	public static double maskEffectivity = 20;		//in %
 	
-	public static boolean useFixedDayLength = false;
+	public static boolean useFixedDayLength = true;
 	public static int dayLength = 110000;
 }

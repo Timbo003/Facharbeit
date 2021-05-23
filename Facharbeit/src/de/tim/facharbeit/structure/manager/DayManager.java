@@ -21,7 +21,7 @@ public class DayManager {
 		if (Variables.days.size() > 0) {
 			for (Human human : HumanManager.getInfectedHumans()) {
 				if (!(human.deathCheck)) {
-					if (random.nextInt(10000) <= (Variables.mortality * 100)) {
+					if (random.nextInt(100000) <= (Variables.mortality * 1000)) {
 						human.die();
 						human.deathCheck = true;
 					} else {
