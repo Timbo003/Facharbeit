@@ -117,25 +117,25 @@ public class SimulationFrame extends JPanel {
 	
 	private void setupButtonPanel() {
 		// Stop Button
-		buttonPanel = new JPanel();
+		buttonPanel = new JPanel();																						//Knopf Panel in der Mitte
 		buttonPanel.setBounds(controllPanel.getWidth() / 2 - 150, 0, 300, controllPanel.getHeight());
 //		buttonPanel.setBackground(Color.LIGHT_GRAY);
 		buttonPanel.setVisible(true);
 		buttonPanel.setLayout(null);
 
-		stopButton = new JButton("Halt Stop");
+		stopButton = new JButton("Stop");																				//Panel beinhaltet	Stop Knopf
 		stopButton.setFont(varFont);
 		stopButton.addActionListener((e) -> {
 			if (Variables.stopLock == false) {
-				if (Variables.stop) {
+				if (Variables.stop) {																					//stellt die Variabel stop auf false wenn der knopf schon gedrückt worden ist
 					stopButton.setText("Stop");
 					Variables.stop = false;
 				} else {
 					stopButton.setText("Resume");
-					Variables.stop = true;
+					Variables.stop = true;																				//stellt die Variable stop auf true, alles hält an
 				}
 			}else {
-				stopButton.setText("Simulation zu Ende");
+				stopButton.setText("Simulation zu Ende");																//am Ende einer Simulation wird der Text des Buttens auf "Simulation zu Ende" gesetzt
 			}
 
 		});
@@ -144,24 +144,24 @@ public class SimulationFrame extends JPanel {
 		stopButton.setBackground(buttonColor);
 
 		// Graph Button
-		JButton showGraphButton = new JButton("Show Graph");
-		showGraphButton.setFont(varFont);
-		showGraphButton.addActionListener((e) -> {
-			Main.switchToGraph();
+		JButton showGraphButton = new JButton("Show Graph");															//Knopf um den Graphen anzuzeigen
+		showGraphButton.setFont(varFont);																				//Font als Size Schriftart usw.
+		showGraphButton.addActionListener((e) -> {																		//der action listener der beim drücken ausgeführt wird
+			Main.switchToGraph();																						//Graph frame wird erzeugt
 			System.out.println("Graph");
 		});
 		showGraphButton.setBounds(0, buttonPanel.getHeight() / 2, buttonPanel.getWidth(),
 				buttonPanel.getHeight() / 2 - 10);
 		showGraphButton.setVisible(true);
-		showGraphButton.setBackground(buttonColor);
+		showGraphButton.setBackground(buttonColor);																		//Knopf Farbe
 
 		buttonPanel.add(showGraphButton);
 		buttonPanel.add(stopButton);
 		controllPanel.add(buttonPanel);
-		HumanManager.refrechHumanHealthVar();
+		HumanManager.refrechHumanHealthVar();																			
 	}
 	
-	private void setupSavePanel() {
+	private void setupSavePanel() {																												//Panel ganz rechts mit den 2 Knöpfen zu speichern
 		savePanel = new JPanel();
 		savePanel.setBounds((int) (Variables.screenSize.getWidth() - 200), Variables.screenSize.height - 230,150, controllPanel.getHeight());
 //		savePanel.setBackground(Color.red);
@@ -178,8 +178,8 @@ public class SimulationFrame extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				 try {
-					 getSaveSnapShot(frame, Variables.pathSim);
-					 saveData(Variables.DataFile);
+					 getSaveSnapShot(frame, Variables.pathSim);												//mache einen screenshot vom SimFrame und speicher ihn in dem Ordner auf dem Desktop
+					 saveData(Variables.DataFile);															//speicher das array der Tage mit all ihren daten in einem Text file
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
@@ -187,7 +187,7 @@ public class SimulationFrame extends JPanel {
 		});
 		savePanel.add(saveSimButton);
 		
-		saveGraphButton = new JButton();
+		saveGraphButton = new JButton();																			//Knopf zum speichern des Graphen wir wird erzeugt
 		saveGraphButton.setText("save Graph");
 		saveGraphButton.setFont(new Font("Arial", Font.PLAIN, 15));
 		saveGraphButton.setBackground(buttonColor);
@@ -198,8 +198,8 @@ public class SimulationFrame extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Main.switchToGraph();
 				 try {
-					 getSaveSnapShot(GraphManager.graphFrame, Variables.pathGraph);
-					 saveData(Variables.DataFile);
+					 getSaveSnapShot(GraphManager.graphFrame, Variables.pathGraph);									//mach eine screenshot vom graphen und speichert ihn in dem Ordner auf dem Desktop
+					 saveData(Variables.DataFile);																	//speicher das array der Tage mit all ihren daten in einem Text file
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
@@ -210,11 +210,11 @@ public class SimulationFrame extends JPanel {
 		frame.add(savePanel);
 	}
 	
-	public static void saveData(File file) {
+	public static void saveData(File file) {												//funktion welche die daten der tage in einem Text file speichert
 		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));				//writer der das file füllt
 		        for (Day day : Variables.days) {
-		        	 writer.write(""+day);
+		        	 writer.write(""+day);													//immer einen tag in string form(hab ich überschrieben)in eine Zeile
 				}
 		         writer.close();
 		}
@@ -223,21 +223,19 @@ public class SimulationFrame extends JPanel {
 		}
 	}
 
-	public static BufferedImage getScreenShot(Component component) {
-        BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TYPE_INT_RGB);
-        // paints into image's Graphics
+	public static BufferedImage getScreenShot(Component component) {															//funk die das bild von dem frame macht 
+        BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TYPE_INT_RGB);		//mit der höhe und breite des frmes & in farbig
         component.paint(image.getGraphics());
         return image;
     }
 
-    public static void getSaveSnapShot(Component component, String fileName) throws Exception {
+    public static void getSaveSnapShot(Component component, String fileName) throws Exception {									//fund die das bild im desktop ordner als png speichert
         BufferedImage img = getScreenShot(component);
-        // write the captured image as a PNG
         ImageIO.write(img, "png", new File(fileName));
     }
 
-	private void setupSliderPanel() {
-		sliderPanel = new JPanel();
+	private void setupSliderPanel() {																							//funk die dei slider auf der rechten seit erzeugt
+		sliderPanel = new JPanel();																								//panel das beide slider und den button beinhalten soll
 		sliderPanel.setBounds(controllPanel.getWidth()/3*2, 0, controllPanel.getWidth()/3, controllPanel.getHeight() - 10);
 //		sliderPanel.setBackground(Color.LIGHT_GRAY);
 		sliderPanel.setVisible(true);
