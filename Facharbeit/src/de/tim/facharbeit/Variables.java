@@ -26,7 +26,7 @@ public class Variables {
 	
 	public static int minimumDistance = 100;
 	
-	public static int streetCount = 10;
+	public static int streetCount = 15;
 	
 	public static int infectedCount = 10;
 	public static int imuneCount = 5;
@@ -64,6 +64,6 @@ public class Variables {
 	public static double mortality = 20;			//in %
 	public static double maskEffectivity = 20;		//in %
 	
-	public static boolean useFixedDayLength = true;
+	public static boolean useFixedDayLength = false;
 	public static int dayLength = 110000;
 }

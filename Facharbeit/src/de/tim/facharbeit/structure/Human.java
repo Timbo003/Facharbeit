@@ -66,7 +66,10 @@ public class Human extends Structure {
 	}
 
 	public boolean walkStep() {
-		Point target = path.get(pathIndex).getPoint();
+		if (path.contains(null)) {
+			//System.out.println(path);
+		}else {
+			Point target = path.get(pathIndex).getPoint();
 		Point point = nextPointOnTheWay(target);
 		super.setPoint(point);
 		if (point.equals(target)) {
@@ -75,6 +78,9 @@ public class Human extends Structure {
 			}
 		}
 		return false;
+		}
+		return false;
+		
 	}
 
 	public void die() {

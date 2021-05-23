@@ -80,6 +80,7 @@ public class Main {
 		InfectionManager.start();
 		
 		DayManager.nextDay();
+		System.out.println("totalHouses().size(): "+totalHouses().size());
 		}
 	
 	public static void setupSavePaths() {

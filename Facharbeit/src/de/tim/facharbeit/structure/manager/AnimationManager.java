@@ -100,6 +100,7 @@ public class AnimationManager {
 		DijkstraPoint entrancePoint = new DijkstraPoint(human.currentHouse.pointOnStreet);
 		human.path.add(0, midPoint);
 		human.path.add(1, entrancePoint);
+		
 
 		DijkstraPoint targetEntrance = new DijkstraPoint(human.targetHouse.pointOnStreet);
 		human.path.add(targetEntrance);
@@ -116,6 +117,24 @@ public class AnimationManager {
 
 		DijkstraPoint targetInside = new DijkstraPoint(p);
 		human.path.add(targetInside);
+		
+		
+		if (human.path.contains(null)) {
+			//Variables.stop = true;
+//			System.out.println("midPoint: " +midPoint);
+//			System.out.println("entrancePoint: " +entrancePoint);
+//			System.out.println("targetEntrance: " +targetEntrance);
+//			System.out.println("targetInside: " +targetInside);
+
+			
+			
+			human.blobColor = Color.orange;
+			System.out.println(human.path);
+			
+			human.path.remove(null);
+			System.out.println(human.path);
+		}
+		
 		human.currentHouse = null;
 
 	}
@@ -140,6 +159,7 @@ public class AnimationManager {
 
 	public static void walkAnimation() {
 		System.out.println("--------------------- walkAnimation ----------------------------------");
+		System.out.println("crossings: " + DijkstraManager.crossings);
 
 		Timer timer = new Timer();
 		Random random = new Random();

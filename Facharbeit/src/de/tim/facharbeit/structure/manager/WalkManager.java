@@ -13,6 +13,7 @@ import de.tim.facharbeit.structure.Health;
 import de.tim.facharbeit.structure.Human;
 
 public class WalkManager {
+	private static int animationCounter = 0;
 
 	public static void startHuman() {
 
@@ -24,31 +25,35 @@ public class WalkManager {
 
 			@Override
 			public void run() {
-				Random random = new Random();
-				if (random.nextInt(10) == 1) {
-					if (getHumansWhoMovedEnought().size() > 0) {
-						AnimationManager.prepairAnimation(AnimationManager.getRandomHuman());
-						willSomeoneDie();
-					}
-				}
-				for (Human human : Main.getAllLifingHumans()) { // soll heim gehen
-					if (!(human.isHumanAllowdToWalk()) && human.currentHouse != null
-							&& human.timeInHouse > human.minMovesInHouse) {
-						if (!(human.currentHouse.equals(human.getHome()))) {
-							try {
-								AnimationManager.prepairAnimation(human, human.getHome());
-							} catch (Exception e) {
-								System.err.println("this should not happen or is not suppoerted yet. WM");
-							}
-							// human.blobColor = Color.cyan;
+				animationCounter++;
+				if ((animationCounter % Math.abs(Variables.animationSpeed - 11) * 100) == 0
+						|| Variables.animationSpeed == 10) { // animationSpeed
+					Random random = new Random();
+					if (random.nextInt(10) == 1) {
+						if (getHumansWhoMovedEnought().size() > 0) {
+							AnimationManager.prepairAnimation(AnimationManager.getRandomHuman());
+							willSomeoneDie();
 						}
 					}
-				}
-				if (HumanManager.areAllHumansFinished()) {
-					timer.cancel();
-					timer.purge();
-					cancel();
-					System.out.println("canceled one startHuman timer");
+					for (Human human : Main.getAllLifingHumans()) { // soll heim gehen
+						if (!(human.isHumanAllowdToWalk()) && human.currentHouse != null
+								&& human.timeInHouse > human.minMovesInHouse) {
+							if (!(human.currentHouse.equals(human.getHome()))) {
+								try {
+									AnimationManager.prepairAnimation(human, human.getHome());
+								} catch (Exception e) {
+									System.err.println("this should not happen or is not suppoerted yet. WM");
+								}
+								// human.blobColor = Color.cyan;
+							}
+						}
+					}
+					if (HumanManager.areAllHumansFinished()) {
+						timer.cancel();
+						timer.purge();
+						cancel();
+						System.out.println("canceled one startHuman timer");
+					}
 				}
 			}
 		}, 100, 10);
