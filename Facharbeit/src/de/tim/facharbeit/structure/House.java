@@ -126,5 +126,6 @@ public class House extends Structure {
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(new Color(112, 146, 190));
+		graphics.drawRect(point.getX(), point.getY(), width, height);
 	}
 }
