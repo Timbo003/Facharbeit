@@ -48,46 +48,41 @@ public class Main {
 	static Random random = new Random();
 
 	public static void main(String[] args) {
-		setupSavePaths();
+		setupSavePaths();											//erzeuget die speicher pfade angepasst auf den Benutzer
 		System.out.println("start");
 		StartFrame = new StartFrame();
-		StartFrame.setupStartFrame();
+		StartFrame.setupStartFrame();								//erzeugt den StartFrame
 	}
 
-	public static void switchToSim() {		
+	public static void switchToSim() {								//funktion die den SimFrame erzeugt
 		SimulationFrame = new SimulationFrame();
 
-		createStreets();
+		createStreets();											//erzeugt die Randstraßen auf dem frame
 		SimulationFrame.instance.update();
 		System.out.println("created starting Street");
 
-		for (int i = 0; i < Variables.streetCount; i++) {
+		for (int i = 0; i < Variables.streetCount; i++) {			//fügt so viele Straßen hinzu wie es der Benutzer eingestellt hat
 			addStreet();
 			SimulationFrame.instance.update();
 		}
 
-		sortStreets();
+		sortStreets();												//sortiert alle Straßen
 		SimulationFrame.instance.update();
-		createBlocks();
+		createBlocks();												//erzeuget die Blocks
 
-		HumanManager.humanStartup();
-		HumanManager.healthStartup();
-		HumanManager.characterStartup();
+		HumanManager.humanStartup();								//setzt die eingestellte Anzahl an Menschen in alle Häuser				
+		HumanManager.healthStartup();								//gibt allen Mensche ihren Gesundheitszustand
+		HumanManager.characterStartup();							//gibt allen Mensche ihre Personality
 
-		DijkstraManager.createDijkstraPoints();
+		DijkstraManager.createDijkstraPoints();						//erzeugt alle DijPoints				
 		DijkstraManager.__init__();
 
-		InfectionManager.start();
+		InfectionManager.start();									//nun könne sich die Menschen anstecken
 		
-		DayManager.nextDay();
-		System.out.println("totalHouses().size(): "+totalHouses().size());
+		DayManager.nextDay();										//starte den ersten Tag
 		}
 	
-	public static void setupFonts() {
-		
-	}
-	
-	public static void setupSavePaths() {
+	public static void setupSavePaths() {							//erzeugt die speicher Pfade
 		String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
 		
 		new File(desktopPath + "\\SimulationData").mkdirs();
@@ -98,12 +93,12 @@ public class Main {
 		Variables.DataFile = new File(Variables.pathText);
 	}
 	
-	public static void switchToGraph() {
+	public static void switchToGraph() {							//erzeugt den GraphFframe 
 		GraphManager.setupNewGraph();
 	}
 
 	
-	public static List<Human> getAllHumans() {
+	public static List<Human> getAllHumans() {						//gibt eine Liste mit allen Mesnchen zurück
 		List<Human> humans = new ArrayList<>();
 		for (Structure structure : Main.structures) {
 			if (structure instanceof Human) {
@@ -114,7 +109,7 @@ public class Main {
 		return humans;
 	}
 	
-	public static List<Human> getAllLifingHumans() {
+	public static List<Human> getAllLifingHumans() {				//gibt eine Liste mit allen lebenden Mesnchen zurück
 		List<Human> humans = new ArrayList<>();
 		for (Structure structure : Main.structures) {
 			if (structure instanceof Human) {
@@ -129,7 +124,7 @@ public class Main {
 	}
 	
 
-	public static List<House> totalHouses() {
+	public static List<House> totalHouses() {					//gibt eine Liste mit allen Häusern zurück
 		List<House> houses = new ArrayList<>();
 		for (Structure structure : Main.structures) {
 			if (structure instanceof House) {
@@ -139,23 +134,15 @@ public class Main {
 		return houses;
 	}
 
-	public static int totalBlocks() { // return Street.blocks.size(); //<--- Reicht das nicht ????
+	public static int totalBlocks() { //gibt zurück wie viele Blocks es gibt
 		int totalBlocks = 0;
 		for (Block block : Street.blocks) {
 			totalBlocks += 1;
 		}
 		return totalBlocks;
 	}
-
-	public static void dumpAllStreets() {
-		System.out.println("DUMPING STREETS :");
-		for (Street street : Street.streets) {
-			System.out.println(street);
-		}
-		System.out.println("");
-	}	
 	
-	private static void createStreets() {
+	private static void createStreets() {		//funktion die die Randstraßen erzeugt
 		Street street0 = new Street(new Point(20, 20), StreetOrientation.HORIZONTAL, Variables.screenSize.width - 40); // 0 -
 		Street street1 = new Street(new Point(20, 20), StreetOrientation.VERTICAL, Variables.screenSize.height - 270); // 1|
 		Street street2 = new Street(new Point(20, Variables.screenSize.height - 250 ), StreetOrientation.HORIZONTAL, Variables.screenSize.width - 40); // 2 _
@@ -174,11 +161,10 @@ public class Main {
 		street3.end = street2;
 	}
 
-	public static void sortStreets() {
+	public static void sortStreets() {//sortiert für jede Straße alle Nachbarn
 		for (int i = 0; i < Street.streets.size(); i++) {
 			Street street = Street.streets.get(i);
 			street.sortsNeighbors();
-//			System.out.println(street.neighbors);
 		}
 	}
 
@@ -225,86 +211,14 @@ public class Main {
 			Street newStreet = new Street(point, orientation);
 			newStreet.start = old;
 			newStreet.reconfigureNeighbors();
-		} catch (Exception e) {
+		} catch (Exception e) {		//probier es nochmal
 			addStreet();
 		}
 	}
 
-	public static void givaAllNumbs() {
-
-		System.out.println("structures size: " + structures.size());
-
-		int Blocks = 0;
-		for (Structure structure : structures) {
-			if (structure instanceof Block) {
-//				System.out.println(structure);
-				Blocks++;
-			}
-		}
-		System.out.println("Blocks: " + Blocks);
-
-		int Houses = 0;
-		for (Structure structure : structures) {
-			if (structure instanceof House) {
-//				System.out.println(structure);
-				Houses++;
-			}
-		}
-		System.out.println("Houses: " + Houses);
-
-		int Humans = 0;
-		for (Structure structure : structures) {
-			if (structure instanceof Human) {
-//				System.out.println(structure);
-				Humans++;
-
-			}
-		}
-		System.out.println("Humans: " + Humans);
-
-		int Gardens = 0;
-		for (Structure structure : structures) {
-			if (structure instanceof Garden) {
-//				System.out.println(structure);
-				Gardens++;
-
-			}
-		}
-		System.out.println("Gardens: " + Gardens);
-
-		int DijPoint = 0;
-		for (Structure structure : structures) {
-			if (structure instanceof DijkstraPoint) {
-//				System.out.println(structure);
-				DijPoint++;
-
-			}
-		}
-		System.out.println("DijPoint: " + DijPoint);
-
-		int Entrances = 0;
-		for (Structure structure : structures) {
-			if (structure instanceof Entrance) {
-//				System.out.println(structure);
-				Entrances++;
-
-			}
-		}
-		System.out.println("Entrances: " + Entrances);
-
-		int Streets = 0;
-		for (Structure structure : structures) {
-			if (structure instanceof Street) {
-				Streets++;
-
-			}
-		}
-		System.out.println("Streets: " + Streets);
-	}
-
-	private static void createBlocks() {
+	private static void createBlocks() {			//funktion die die Blocks erzeugt
 		for (Street street : Street.streets) {
-			if (street.orientation == StreetOrientation.HORIZONTAL) {
+			if (street.orientation == StreetOrientation.HORIZONTAL) {	//gehe nur die Horizontale straßen durch, da alles sonst 2 mal erzeugt werden würde
 				street.createBlocks();
 			}
 		}

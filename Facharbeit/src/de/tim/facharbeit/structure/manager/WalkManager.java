@@ -37,8 +37,8 @@ public class WalkManager {
 					}
 					for (Human human : Main.getAllLifingHumans()) { // soll heim gehen
 						if (!(human.isHumanAllowdToWalk()) && human.currentHouse != null
-								&& human.timeInHouse > human.minMovesInHouse) {
-							if (!(human.currentHouse.equals(human.getHome()))) {
+								&& human.timeInHouse > human.minMovesInHouse&& isHomeFree(human)) {
+							if (!(human.currentHouse.equals(human.getHome())) ) {
 								try {
 									AnimationManager.prepairAnimation(human, human.getHome());
 								} catch (Exception e) {
@@ -59,6 +59,30 @@ public class WalkManager {
 		}, 100, 10);
 	}
 
+	private static boolean isHomeFree(Human human) {
+		int humansInThisHouse = 0;
+		for (Human h : Main.getAllLifingHumans()) {
+			if (h.currentHouse == null) {
+			} else {
+				if (h.currentHouse.equals(human.getHome())) {			//wenn ein Mensch in dem Haus ist +1
+					humansInThisHouse++;
+				}
+			}
+		}
+		for (Human h : Main.getAllLifingHumans()) {
+			if (h.targetHouse == null) {
+			} else {
+				if (h.targetHouse.equals(human.getHome())) {			//wenn ein Mensch auf dem weg dorthin ist +1
+					humansInThisHouse++;
+				}
+			}
+		}
+		if (humansInThisHouse >= Variables.maxHumansInHouse + Variables.maxHumansInHome) {
+			return false;
+		}
+		return true;
+	}
+	
 	private static void willSomeoneGetImune() {
 		Random random = new Random();
 		Human randInfected = HumanManager.getInfectedHumans()

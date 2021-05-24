@@ -31,15 +31,12 @@ public class DijkstraManager {
 			DijkstraPoint point = prepairAlgorithm(house);
 			if (point != null) {
 				crossings.add(point);
-			} else {
-				house.deactivate();
 			}
 		}
 	}
 
 	private static DijkstraPoint target;
 
-	
 	public static List<DijkstraPoint> startDijkstra(House start, House ziel) throws Exception {
 		ziel.color = Color.BLACK;
 		resetPoints();

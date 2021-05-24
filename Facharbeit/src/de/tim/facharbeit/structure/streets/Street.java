@@ -21,19 +21,19 @@ import de.tim.facharbeit.structure.Structure;
 public class Street extends Structure {
 
 	public static final int size = 4;
-	public static List<Street> streets = new ArrayList<>();
-	public List<Street> neighbors = new LinkedList<>();
-	public static List<Block> blocks = new LinkedList<>();
+	public static List<Street> streets = new ArrayList<>();									//alle Straﬂen
+	public List<Street> neighbors = new LinkedList<>();										//alle Nachbarn einer Straﬂe
+	public static List<Block> blocks = new LinkedList<>();									//alle Blocks
 
-	public Street start;
-	public Street end;
-	public Point startPoint;
-	public Point endPoint;
+	public Street start;																	//start Straﬂe
+	public Street end;																		//end Straﬂe
+	public Point startPoint;																//start Punkt
+	public Point endPoint;																	//end Punkt
 
 	private int length;
 	public StreetOrientation orientation;
 
-	private List<DijkstraPoint> points = new ArrayList<>();
+	private List<DijkstraPoint> points = new ArrayList<>();									//alle DijPoints auf einer Straﬂe
 	
 	public int getLength() {
 		return length;
@@ -43,13 +43,13 @@ public class Street extends Structure {
 		return orientation;
 	}
 
-	public Street(Point point, StreetOrientation orientation) throws Exception {
-		this(point, orientation, getEndStreet(point, orientation).getDistance(point));
+	public Street(Point point, StreetOrientation orientation) throws Exception {	//constructor f¸r alle straﬂen auﬂer den Randstraﬂen
+		this(point, orientation, getEndStreet(point, orientation).getDistance(point));	
 		this.end = getEndStreet(point, orientation);
 
 	}
 
-	public Street(Point point, StreetOrientation orientation, int length) {
+	public Street(Point point, StreetOrientation orientation, int length) { //constructor f¸r die Randstraﬂen
 		super(point, orientation == StreetOrientation.HORIZONTAL ? length : size,
 				orientation == StreetOrientation.VERTICAL ? length : size);
 		Main.structures.add(this);
@@ -63,7 +63,7 @@ public class Street extends Structure {
 	}
 	
 
-	public boolean isPointOnStreet(Point point) {
+	public boolean isPointOnStreet(Point point) {					//liegt ein punkt auf der Straﬂe
 		for (int i = 0; i <= length + size; i++) {
 			int x = orientation == StreetOrientation.HORIZONTAL ? this.getX() + i : this.getX();
 			int y = orientation == StreetOrientation.VERTICAL ? this.getY() + i : this.getY();
@@ -74,28 +74,23 @@ public class Street extends Structure {
 		return false;
 	}
 
-	public static Street getEndStreet(Point point, StreetOrientation orientation) {
+	public static Street getEndStreet(Point point, StreetOrientation orientation) {							//funktion die testet ob das ende einer Straﬂe auf einer anderen liegt
 		for (int i = 1; i <= 10000; i++) {
-//			System.out.println("------ " + i + " ------");
 			int x = orientation == StreetOrientation.HORIZONTAL ? point.getX() + i : point.getX();
 			int y = orientation == StreetOrientation.VERTICAL ? point.getY() + i : point.getY();
 			Point p = new Point(x, y);
 			for (Street street : streets) {
 				int index = streets.indexOf(street);
-//				System.out.print("index: " + index);
 				if (street.isPointOnStreet(p) && street.orientation != orientation) {
-//					System.out.println(" ok");
 					return street;
 				}
-//				System.out.println(" wrong");
 			}
 		}
-//		System.err.println("no neighours");
 		return null;
 
 	}
 
-	private int getDistance(Point point) {
+	private int getDistance(Point point) {								//distanz zu einem Punkt
 		if (this.orientation == StreetOrientation.VERTICAL) {
 			return this.getX() - point.getX();
 		} else {
@@ -103,7 +98,7 @@ public class Street extends Structure {
 		}
 	}
 
-	public void sortX() {
+	public void sortX() {										//sortiere die nachbarn ihres x wertes nach
 		Street temp = null;
 		for (int i = 0; i < this.neighbors.size(); i++) {
 			for (int j = 1; j < this.neighbors.size(); j++) {
@@ -116,7 +111,7 @@ public class Street extends Structure {
 		}
 	}
 
-	public void sortY() {
+	public void sortY() {//sortiere die nachbarn ihres y wertes nach
 		Street temp = null;
 		for (int i = 0; i < this.neighbors.size(); i++) {
 			for (int j = 1; j < this.neighbors.size(); j++) {
@@ -133,17 +128,16 @@ public class Street extends Structure {
 		this.neighbors.add(this.start);
 		this.neighbors.add(this.end);
 		for (Street n : neighbors) {
-			if (n.orientation.equals(StreetOrientation.HORIZONTAL)) {
-
+			if (n.orientation.equals(StreetOrientation.HORIZONTAL)) {		//wenn die straﬂe horizontal ist varriiert der x wert also x Sort
 				n.sortX();
-			} else {
-				n.sortY();
+			} else {	
+				n.sortY();													//wenn die straﬂe vertikal ist varriiert der y wert also y Sort
 
 			}
 		}
 	}
 
-	private Street getNextNeighbor(Street street) {
+	private Street getNextNeighbor(Street street) {							//gib den n‰chsten nachbar von dieser Straﬂe
 		boolean found = false;
 
 		for (int i = 0; i < neighbors.size(); i++) {
@@ -159,7 +153,7 @@ public class Street extends Structure {
 		return null;
 	}
 
-	public void createBlocks() {
+	public void createBlocks() {																//baut die Blˆcke in den rechtecken zwichen den Straﬂen
 		List<Street> children = new LinkedList<>();
 		;
 
@@ -180,7 +174,7 @@ public class Street extends Structure {
 		}
 	}
 
-	private void createHouse(Street s1, Street s2) {
+	private void createHouse(Street s1, Street s2) {						//erzeugt die H‰user
 		Street horizontal1 = this;
 		Street vertical1 = s1;
 		Street vertical2 = s2;
@@ -246,12 +240,12 @@ public class Street extends Structure {
 				+ this.getY() + " l: " + this.length + " color: " + color + " neighbors: " + neighbors.size();
 	}
 	
-	public void prepairPoints() {
+	public void prepairPoints() {							//welche DijPunkte liegen alle auf der strape
 		try {
 			points.add(DijkstraManager.getByPoint(startPoint));
 			for (int i = 1; i < neighbors.size() - 1; i++) {
 				Street neigbor = neighbors.get(i);
-				if (isPointOnStreet(neigbor.startPoint)) { //hier ein kleines if und schon l‰uft alles...
+				if (isPointOnStreet(neigbor.startPoint)) { 
 					points.add(DijkstraManager.getByPoint(neigbor.startPoint));
 				} else if (isPointOnStreet(neigbor.endPoint)) {
 					points.add(DijkstraManager.getByPoint(neigbor.endPoint));
@@ -285,7 +279,7 @@ public class Street extends Structure {
 		}
 	}
 	
-	public void addPoint(DijkstraPoint point) throws Exception { // 100 200
+	public void addPoint(DijkstraPoint point) throws Exception {
 		if (!this.isPointOnStreet(point.getPoint())) {
 			System.out.println("   :X");
 			return;
@@ -298,7 +292,7 @@ public class Street extends Structure {
 		
 		if (this.orientation == StreetOrientation.HORIZONTAL) {
 			for (int i = 0; i < points.size(); i++) {
-				DijkstraPoint p = points.get(i); // 50 200 | 120 200
+				DijkstraPoint p = points.get(i); 
 				if (point.getY() != p.getY()) {
 					System.out.println("  :o");
 					return;
@@ -338,7 +332,7 @@ public class Street extends Structure {
 		}
 	}
 
-	public DijkstraPoint getNextCrossing(DijkstraPoint point) throws Exception {
+	public DijkstraPoint getNextCrossing(DijkstraPoint point) throws Exception {		//DijPoint nach dem momentanen
 		if (!points.contains(point)) {
 			System.err.println(":ooo");
 			System.out.println(this);
@@ -347,7 +341,7 @@ public class Street extends Structure {
 		return points.get(points.indexOf(point) + 1); 
 	}
 	
-	public DijkstraPoint getPreviousCrossing(DijkstraPoint point) throws Exception {
+	public DijkstraPoint getPreviousCrossing(DijkstraPoint point) throws Exception {	//DijPoint vor dem momentanen
 		if (!points.contains(point)) {
 			System.err.println(":ooo");
 			System.out.println(this);

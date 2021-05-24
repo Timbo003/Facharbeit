@@ -25,9 +25,6 @@ public class House extends Structure {
 	public DijkstraPoint nearestDijkstra;
 	public Street street;
 	
-	@Deprecated
-	public boolean deactivated;
-	
 	public Color color;
 
 	// constructor//
@@ -50,13 +47,12 @@ public class House extends Structure {
 		}
 	}
 	
-	public DijkstraPoint getDijkstraPoint() {
+	public DijkstraPoint getDijkstraPoint() {		//such den nächst gelegensten DijPoint
 		boolean found = false;
 		Point pointToCheck = null;
 		int count = 0;
 		Street onThis = null;
 		while (!found) {
-//			System.out.println(count);
 			if (orientation == HouseOrientation.UP) {
 				pointToCheck = new Point(entrance.getX(), entrance.getY() - count);
 			} else if (orientation == HouseOrientation.DOWN) {
@@ -97,25 +93,22 @@ public class House extends Structure {
 				}
 			}
 		}
-//		System.out.println("entrance point " + entrance.point);
-//		System.out.println("on street " + pointOnStreet);
-//		System.out.println("nearest dij " + nearest.point);
 		nearestDijkstra = nearest;
 		return nearestDijkstra;
 	}
-
-	public void spawnBlob() {
+	
+	public void spawnBlob() {												//erzeugt alle Menschen in einem Haus 
 		Random random = new Random();
 
 		int x = random.nextInt(width - 20);
 		int y = random.nextInt(height - 20);
 		Point point = new Point(x + 10 + this.point.getX(), y + 10 + this.point.getY());
-		Human human = new Human(point, this, Health.HEALTHY);
+		Human human = new Human(point, this, Health.HEALTHY);								//als erstes sind alle menschen gesund, dann wird es aber so geändert, dass es zu den eingegebenen Werten past
 		humans.add(human);
 		Main.structures.add(human);
 	}
 
-	private void createEntrance() {
+	private void createEntrance() {											//erzeugt den Eingang des Hauses
 		this.entrance = new Entrance(new Point(this.getX() + orientation.getX(this.getWidth()),
 				this.getY() + orientation.getY(this.getHeight())), this);
 
@@ -125,11 +118,6 @@ public class House extends Structure {
 	// get & set//
 	public Block getBlock() {
 		return block;
-	}
-	
-	@Deprecated //debug
-	public void deactivate() {
-		deactivated = true;
 	}
 
 	public void setBlock(Block block) {
@@ -142,12 +130,5 @@ public class House extends Structure {
 		graphics.setColor(new Color(112, 146, 190));
 		if (color != null) graphics.setColor(Color.CYAN);
 		graphics.drawRect(point.getX(), point.getY(), width, height);
-		
-		if (deactivated) {
-			graphics.setColor(Color.red);
-			graphics.drawRect(point.getX(), point.getY(), width, height);
-		}
 	}
-	
-	
 }

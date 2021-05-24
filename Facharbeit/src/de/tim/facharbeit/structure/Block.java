@@ -44,7 +44,7 @@ public class Block extends Structure { 													// House stammt von Structur
 			houseHeight = this.getHeight() / nH;
 		}
 
-		for (int i = 0; i < nW; i++) {
+		for (int i = 0; i < nW; i++) {																			//erzeugung der punkte der verschiedenen Häuser
 			for (int j = 0; j < nH; j++) {
 				Point point = new Point(this.getX() + i * houseWidth, this.getY() + j * houseHeight);
 
@@ -65,7 +65,7 @@ public class Block extends Structure { 													// House stammt von Structur
 					houses.add(newHouse);
 					Main.structures.add(newHouse);
 				} else {
-					Garden garden = new Garden(point, houseWidth, houseHeight, this);
+					Garden garden = new Garden(point, houseWidth, houseHeight, this);								//wenn nicht mach einen Garten aus diesem Feld
 					gardens.add(garden);
 					Main.structures.add(garden);
 				}

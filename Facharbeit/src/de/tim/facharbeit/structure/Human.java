@@ -17,28 +17,28 @@ import de.tim.facharbeit.structure.manager.HumanManager;
 
 public class Human extends Structure {
 	// variables//
-	private House home;
-	public House targetHouse;
-	public House currentHouse;
-	public Color blobColor;
+	private House home;							//Zuhause
+	public House targetHouse;					//Ziel Haus
+	public House currentHouse;					//momentanes Haus
+	public Color blobColor;						//Farbe
 
-	public int timeInHouse;
-	public int minMovesInHouse;
+	public int timeInHouse;						//wie iel hat er sich schon in seinem Haus bewegt
+	public int minMovesInHouse;					//wieviel muss er sich in einem Haus bewegen
 
-	public int visited;
-	public int allowedVisits;
-	public int daysInfected = 0;
-	public boolean deathCheck;
-	public boolean isWearingMask = false;
+	public int visited;							//wie viele Häuser hat er schon besucht		
+	public int allowedVisits;					//wie viele Häuser darf er besuchen
+	public int daysInfected = 0;				//wielange ist er schon infiziert
+	public boolean deathCheck;					//wurde getestet ob er stirbt
+	public boolean isWearingMask = false;		//trägt er eine Maske
 
-	public Health health = null;
+	public Health health = null;				
 	public Personality personality;
 
-	public List<DijkstraPoint> path = new ArrayList<>();
-	public List<Human> infectionChecked = new ArrayList<>();
+	public List<DijkstraPoint> path = new ArrayList<>();			//Pfad zum Zielhaus
+	public List<Human> infectionChecked = new ArrayList<>();		//mit wem wurde er alle auf der straße schon getestet
 
 	public int pathIndex = 0;
-	public int speed = new Random().nextInt(7) + 2;
+	public int speed = new Random().nextInt(7) + 2;	//seine Geschwindigkeit
 
 	// constructor//
 	public Human(Point point, House home, Health health) {
@@ -65,7 +65,7 @@ public class Human extends Structure {
 		return allowedVisits > visited;
 	}
 
-	public boolean walkStep() {
+	public boolean walkStep() {								//nächster DijPoint zum Ziel
 		if (path.contains(null)) {
 			//System.out.println(path);
 		}else {
@@ -83,11 +83,11 @@ public class Human extends Structure {
 		
 	}
 
-	public void die() {
+	public void die() {							//stirb
 		this.setHealth(Health.DEAD);
 	}
 	
-	public Point nextPointToEntrance() {
+	public Point nextPointToEntrance() {				//nächster Punkt auf dem Weg zum Hauseingang
 		Point entrance = this.currentHouse.entrance.getPoint();
 		if (point.equals(entrance)) {
 			return null;
@@ -102,31 +102,26 @@ public class Human extends Structure {
 		}
 		return point;
 	}
-
-	private Point nextPointOnTheWay(Point target) {
+	
+	private Point nextPointOnTheWay(Point target) {//nächster Punkt zum nächsten DijPoint
 		int stride = 1;
-//		System.out.println(point);
 		if (target.getY() == point.getY()) { // Y gleich muss sich nach links oder rechts bewegen
-//			System.out.println("same y");
 			if (target.getX() > point.getX()) {
 				return new Point(point.getX() + stride, point.getY());
 			} else {
 				return new Point(point.getX() - stride, point.getY());
 			}
 		} else if (target.getX() == point.getX()) { // X gleich muss sich nach oben oder unten bewegen
-//			System.out.println("same x");
 			if (target.getY() > point.getY()) {
 				return new Point(point.getX(), point.getY() + stride);
 			} else {
 				return new Point(point.getX(), point.getY() - stride);
 			}
 		}
-//		System.err.println("not a fitting point");
-//		System.out.println(this.getPoint() + "-->" + target);
 		return target;
 	}
 
-	public void setHealth(Health health) {
+	public void setHealth(Health health) {		//passt Farbe der Gesundheit an
 		this.health = health;
 		switch (this.health) {
 		case HEALTHY: {
@@ -153,12 +148,11 @@ public class Human extends Structure {
 				break;
 			}
 			SimulationFrame.updateText();
-			;
 		}
 		SimulationFrame.instance.update();
 	}
 
-	public void setPersonality(Personality personality) {
+	public void setPersonality(Personality personality) {			//setup der Variabel allowedVisits
 		this.personality = personality;
 		switch (this.personality) {
 		case BEDACHT: {
@@ -178,17 +172,17 @@ public class Human extends Structure {
 		}
 	}
 
-	public void moveInHouse() {
+	public void moveInHouse() {								//bewegt sich im Haus
 		this.timeInHouse++;
-		Random random = new Random();
-		int x = random.nextInt(3) - 1;
+		Random random = new Random();	
+		int x = random.nextInt(3) - 1;						//der neue punkt darf 2 pixel weit entfernt sein
 		int y = random.nextInt(3) - 1;
 
 		int newX = getX() + x;
 		int newY = getY() + y;
 
-		if (newX < currentHouse.getX() + 10 || newX > currentHouse.getX() + currentHouse.width - 10) {
-			newX = getX() - x * 2;
+		if (newX < currentHouse.getX() + 10 || newX > currentHouse.getX() + currentHouse.width - 10) {	//wenn der neue Punkt nicht im haus liegt soll er sich wieder zurück bewegen
+			newX = getX() - x * 2;																		//der Mensch soll scih ja nicht aus dem Haus buggen
 		}
 		if (newY < currentHouse.getY() + 10 || newY > currentHouse.getY() + currentHouse.height - 10) {
 			newY = getY() - y * 2;
@@ -196,23 +190,23 @@ public class Human extends Structure {
 		setPoint(new Point(newX, newY));
 	}
 
-	public int distanceTo(Point point) {
+	public int distanceTo(Point point) {			//distanz zu einem Punkt
 		int distance = (int) Math.sqrt((point.getY() - this.getY()) * (point.getY() - this.getY())
 				+ (point.getX() - this.getX()) * (point.getX() - this.getX()));
 		return distance;
 	}
 
-	public int getPointAmountToWalk() {
+	public int getPointAmountToWalk() {			//beim wievielten DijPoint auf seinem Weg ist er
 		return path.size() - pathIndex;
 	}
 
-	public void reset() {
+	public void reset() {						//resetet den Human
 		pathIndex = 0;
 		path.clear();
 		infectionChecked.clear();
 	}
 
-	public void moveHome() {
+	public void moveHome() {					
 		this.reset();
 	}
 
@@ -224,12 +218,12 @@ public class Human extends Structure {
 	
 	@Override
 	public void draw(Graphics graphics) {
-		if (this.isWearingMask && this.currentHouse == null) {
+		if (this.isWearingMask && this.currentHouse == null) {			//maskenträger bekommen einen Punkt in der mitte
 			graphics.setColor(blobColor);
 			graphics.fillOval(point.getX() - 5, point.getY() - 5, width, height);
 			graphics.setColor(Color.gray);
 			graphics.fillOval(point.getX()-3 , point.getY()-3 , 5, 5);
-		}else {
+		}else {	//kein punkt in der Mitte
 			graphics.setColor(blobColor);
 			graphics.fillOval(point.getX() - 5, point.getY() - 5, width, height);
 		}
