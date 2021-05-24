@@ -61,7 +61,7 @@ public class Human extends Structure {
 	}
 
 	// others//
-	public boolean isHumanAllowdToWalk() {
+	public boolean isHumanAllowdToWalk() {					//allowed visits größer ist returnt er true sonst false
 		return allowedVisits > visited;
 	}
 

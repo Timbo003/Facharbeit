@@ -22,10 +22,10 @@ import de.tim.facharbeit.structure.streets.Street;
 
 public class AnimationManager {
 
-	public static void prepairAnimation(Human human) {
+	public static void prepairAnimation(Human human) {				//bereitet den weg vor, wenn der Mensch ein random Haus besuchen soll
 		Random random = new Random();
 
-		House house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));
+		House house = Main.totalHouses().get(random.nextInt(Main.totalHouses().size() - 1));			//such ein random haus	
 
 		int counter = 0;
 		boolean usable = true;
@@ -42,14 +42,12 @@ public class AnimationManager {
 			try {
 				prepairAnimation(human, house);
 			} catch (Exception e) {
-				//System.err.println("this should not happen or is not suppoerted yet. AM");
-				//e.printStackTrace();
 				prepairAnimation(human);
 			}
 		}
 	}
 
-	public static boolean isHouseOk(House house, Human human) {
+	public static boolean isHouseOk(House house, Human human) {				//ist platz im haus und liegt es in der erlaubten distanz
 		if (house.equals(human.getHome())) {
 			return false;
 		}
@@ -80,7 +78,7 @@ public class AnimationManager {
 		return true;
 	}
 
-	public static void prepairAnimation(Human human, House house) throws Exception {
+	public static void prepairAnimation(Human human, House house) throws Exception {		//kann direkt benutzt werden(wenn der Mensch nachhause soll) oder bekommt von der anderen Funk oben ein random haus
 		if (human == null || house == null) { 
 			throw new Exception("uff");
 		}
@@ -100,7 +98,7 @@ public class AnimationManager {
 		Point point = human.nextPointToEntrance();
 		DijkstraPoint midPoint = new DijkstraPoint(point);
 		DijkstraPoint entrancePoint = new DijkstraPoint(human.currentHouse.pointOnStreet);
-		human.path.add(0, midPoint);
+		human.path.add(0, midPoint);	//Punkt im  current haus wird dem weg geaddet
 //		human.path.add(1, entrancePoint);
 		
 
@@ -118,7 +116,7 @@ public class AnimationManager {
 		Point p = new Point(newX, newY);
 
 		DijkstraPoint targetInside = new DijkstraPoint(p);
-		human.path.add(targetInside);
+		human.path.add(targetInside);//Punkt im target haus wird dem weg geaddet
 		
 		
 		if (human.path.contains(null)) { 
@@ -127,17 +125,15 @@ public class AnimationManager {
 			throw new Exception("Path not supported!");
 		}
 		
-		human.currentHouse = null;
+		human.currentHouse = null; //nun ist er auf einer Straﬂe
 
 	}
 
-	public static Human getRandomHuman() {
+	public static Human getRandomHuman() {				//irgend ein Random human der Laufen darf
 		Random random = new Random();
 		ArrayList<Human> movedEnought = WalkManager.getHumansWhoMovedEnought();
 		Human human = movedEnought.get(random.nextInt(movedEnought.size()));
-		
-//		Human human = WalkManager.getHumansWhoMovedEnought()
-//				.get(random.nextInt(WalkManager.getHumansWhoMovedEnought().size()));
+	
 		if (human.isHumanAllowdToWalk() && human.currentHouse != null && human.timeInHouse > human.minMovesInHouse) {
 			human.timeInHouse = 0;
 			return human;
@@ -149,7 +145,7 @@ public class AnimationManager {
 	public static int counter = 0;
 	private static int animationCounter = 0;
 
-	public static void walkAnimation() {
+	public static void walkAnimation() {			//funk die die Menschen im Haus oder auf der straﬂe immer um die bestimmte Pixel anzahl bewegt
 		System.out.println("--------------------- walkAnimation ----------------------------------");
 
 		Timer timer = new Timer();
@@ -171,24 +167,23 @@ public class AnimationManager {
 						for (Human human : humans) {
 							if (!(counter % human.speed == 0))
 								continue;
-							if (human.currentHouse == null) {
-								if (human.walkStep()) {
-									human.timeInHouse = 0;
+							if (human.currentHouse == null) {					//wenn der Mensch auf einer Straﬂe ist				
+								if (human.walkStep()) {							//ist er schon am ziel	
+									human.timeInHouse = 0;						//reset damit er ins n‰chste haus kann		
 									human.currentHouse = human.targetHouse;
 									human.targetHouse = null;
 									human.visited++;
 									continue;
 								}
-							} else if (counter % (human.speed * 10) == 0) {
+							} else if (counter % (human.speed * 10) == 0) {		//ist er nicht auf einer straﬂe soll er sich im Haus bewegen
 								if (!(human.health.equals(Health.DEAD))) {
 									human.moveInHouse();
 								}
 
 							}
 						}
-						if (HumanManager.areAllHumansFinished()) {
-							
-							if (!Variables.useFixedDayLength || (Variables.dayLength < counter)) {
+						if (HumanManager.areAllHumansFinished()) {			//wenn alle Menschen fertig sind 
+							if (!Variables.useFixedDayLength || (Variables.dayLength < counter)) {			//und der Tag zuende ist
 								timer.cancel();
 								timer.purge();
 								cancel();
@@ -197,7 +192,7 @@ public class AnimationManager {
 								counter = 0;
 								System.out.println(Variables.days);
 								if (StopSim() != true) {
-									DayManager.nextDay();
+									DayManager.nextDay();		//n‰chster Tag
 	
 								} else {
 									Variables.stop = true;
@@ -214,7 +209,7 @@ public class AnimationManager {
 		}, 100, 1);
 	}
 
-	private static boolean StopSim() {
+	private static boolean StopSim() {							//die sim ist zuende, wenn es 2 tage keine infizierten mehr gibt
 		if (Variables.days.size() > 3) {
 			if (Variables.days.get(Variables.days.size() - 1).getInfected() == 0) {
 				SimulationFrame.stopButton.setText("Simulation zu Ende");

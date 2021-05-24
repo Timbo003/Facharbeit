@@ -72,7 +72,7 @@ public class SimulationFrame extends JPanel {
 	private static JSlider maxPpInHouseSlider = new JSlider(1, 25, Variables.maxHumansInHouse);
 	private static JLabel maxPpInHouseSliderText = new JLabel();
 
-	private static JSlider allowedDistanceSlider = new JSlider(200, 1000, Variables.allowedDistance);
+	private static JSlider allowedDistanceSlider = new JSlider(200, 2500, Variables.allowedDistance);
 	private static JLabel allowedDistanceSliderText = new JLabel();
 
 	public static SimulationFrame instance;

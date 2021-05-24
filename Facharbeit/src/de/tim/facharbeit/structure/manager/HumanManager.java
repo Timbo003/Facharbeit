@@ -30,7 +30,7 @@ public class HumanManager {
 	}
 
 	// SpawnTheRightAmountOfHumans//
-	public static void humanStartup() {
+	public static void humanStartup() {										//erzeugt die Menschen und setzt sie in ein random Haus
 		int tmpHumanCount = Variables.totalHumanCounter;
 		houseArr = Main.totalHouses();
 		int i = 0;
@@ -54,7 +54,7 @@ public class HumanManager {
 		}
 	}
 
-	public static void refrechHumanHealthVar() {
+	public static void refrechHumanHealthVar() {				//updated die Health Variables
 		Variables.infected = 0;
 		Variables.imune = 0;
 		Variables.dead = 0;
@@ -83,7 +83,7 @@ public class HumanManager {
 		}
 	}
 
-	private static void shuffleHouseList() {
+	private static void shuffleHouseList() {				//shuffled die Liste aller Häuser
 		House tmp;
 		int rand;
 		Random r = new Random();
@@ -96,19 +96,19 @@ public class HumanManager {
 	}
 
 	// MakeTheHealthRight//
-	public static void healthStartup() {
+	public static void healthStartup() {																	//macht, dass die Menschen zum Start die richtige Health bekommen
 		giveRightHealthToHumans(fillHealthArr(totalHumans() - Variables.imuneCount - Variables.infectedCount,
 				Variables.infectedCount, Variables.imuneCount));
 
 	}
 
-	public static void characterStartup() {
+	public static void characterStartup() {	//gibt den Menschen ihre personality
 		giveRightPersonalityToHumans(
 				fillpersonalityArr(totalHumans() - Variables.verweigererCount - Variables.bedachtCount,
 						Variables.bedachtCount, Variables.verweigererCount));
 	}
 
-	private static List<Personality> fillpersonalityArr(int normal, int bedacht, int verweigerer) {
+	private static List<Personality> fillpersonalityArr(int normal, int bedacht, int verweigerer) {	//macht eine Liste mit den persönlichkeiten von denen später ausgewählt werden kann
 		for (int i = 0; i < bedacht; i++) {
 			personalityArr.add(Personality.BEDACHT);
 		}
@@ -123,7 +123,7 @@ public class HumanManager {
 
 	}
 
-	private static List<Personality> shufflePersonalityList(List<Personality> personalityArr) {
+	private static List<Personality> shufflePersonalityList(List<Personality> personalityArr) {		//shuffelt die personality list
 		Personality tmp;
 		int rand;
 		Random r = new Random();
@@ -136,14 +136,14 @@ public class HumanManager {
 		return personalityArr;
 	}
 
-	private static void giveRightPersonalityToHumans(List<Personality> personalityArr) {
+	private static void giveRightPersonalityToHumans(List<Personality> personalityArr) {			//sucht einen passende Personality für jeden Menschen
 		for (Human human : Main.getAllHumans()) {
 			human.setPersonality(personalityArr.get(0));
 			personalityArr.remove(0);
 		}
 	}
 
-	public static boolean areAllHumansFinished() {
+	public static boolean areAllHumansFinished() {													//haben alle Menschen genug Häuser besucht und haben sich bewegt und sind wieder zuhause, dann sind sie alle fertig
 		for (Human human : Main.getAllLifingHumans()) {
 			if (human.currentHouse == null || human.currentHouse != human.getHome() || human.isHumanAllowdToWalk()
 					|| human.minMovesInHouse > human.timeInHouse) {
@@ -153,7 +153,7 @@ public class HumanManager {
 		return true;
 	}
 
-	private static List<Health> fillHealthArr(int healthy, int infected, int imune) {
+	private static List<Health> fillHealthArr(int healthy, int infected, int imune) {			//macht eine Liste mit den Gesundheiten von denen später ausgewählt werden kann
 		for (int i = 0; i < healthy; i++) {
 			healthArr.add(Health.HEALTHY);
 		}
@@ -167,7 +167,7 @@ public class HumanManager {
 		return healthArr;
 	}
 
-	private static List<Health> shuffleHealthList(List<Health> healthArr) {
+	private static List<Health> shuffleHealthList(List<Health> healthArr) {						//shuffelt die Health list
 		Health tmp;
 		int rand;
 		Random r = new Random();
@@ -180,7 +180,7 @@ public class HumanManager {
 		return healthArr;
 	}
 
-	public static List<Human> getInfectedHumans() {
+	public static List<Human> getInfectedHumans() {				
 		List<Human> infected = new ArrayList<>();
 		for (Human human : Main.getAllHumans()) {
 			if (human.health.equals(Health.INFECTED)) {
@@ -210,7 +210,7 @@ public class HumanManager {
 		return healthy;
 	}
 
-	private static void giveRightHealthToHumans(List<Health> healthArr) {
+	private static void giveRightHealthToHumans(List<Health> healthArr) {			//gibt den Menschen einen passenden Gesundheitszustand
 		for (Human human : Main.getAllHumans()) {
 			human.setHealth(healthArr.get(0));
 			healthArr.remove(0);

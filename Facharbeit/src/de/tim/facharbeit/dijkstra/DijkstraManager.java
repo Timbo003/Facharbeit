@@ -17,14 +17,14 @@ import de.tim.facharbeit.structure.streets.StreetOrientation;
 
 public class DijkstraManager {
 
-	public static List<DijkstraPoint> crossings = new ArrayList<>();
-	public static List<DijkstraPoint> markedPoints = new ArrayList<>();
-	private static List<Street> checkedStreets = new ArrayList<>();
-	public static List<DijkstraPoint> path = new ArrayList<>();
-	public static List<DijkstraPoint> toDelete = new ArrayList<>();
+	public static List<DijkstraPoint> crossings = new ArrayList<>();			//alle DijkstraPoints
+	public static List<DijkstraPoint> markedPoints = new ArrayList<>();			//welche punkte sind bereits markiert
+	private static List<Street> checkedStreets = new ArrayList<>();				//auf welchen straßen wurden bereits die Kreuzungspunkte erzeugt
+	public static List<DijkstraPoint> path = new ArrayList<>();					//weg der einem human gegeben wir
+	public static List<DijkstraPoint> toDelete = new ArrayList<>();				
 
-	public static void __init__() {
-		for (Street street : Street.streets) {
+	public static void __init__() {												//fügt die DijkstraPoints auf den Straßen hinzu
+		for (Street street : Street.streets) {									
 			street.prepairPoints();
 		}
 		for (House house : Main.totalHouses()) {
@@ -37,7 +37,7 @@ public class DijkstraManager {
 
 	private static DijkstraPoint target;
 
-	public static List<DijkstraPoint> startDijkstra(House start, House ziel) throws Exception {
+	public static List<DijkstraPoint> startDijkstra(House start, House ziel) throws Exception {		
 		ziel.color = Color.BLACK;
 		resetPoints();
 
@@ -94,7 +94,7 @@ public class DijkstraManager {
 		return dijkstraPoint;
 	}
 	
-	public static DijkstraPoint getByPoint(Point point) throws Exception {
+	public static DijkstraPoint getByPoint(Point point) throws Exception {			//gibt die entsprechende Kreuzung eines Punktes zurück
 		for (DijkstraPoint dijkstraPoint : crossings) {
 			if (dijkstraPoint.getPoint().equals(point)) {
 				return dijkstraPoint;
@@ -115,7 +115,7 @@ public class DijkstraManager {
 		checkedStreets = new ArrayList<>();
 	}
 
-	public static boolean dijkstraAlgorythmus(DijkstraPoint aktuell) {
+	public static boolean dijkstraAlgorythmus(DijkstraPoint aktuell) {			//siehe Text Facharbeit 4.4.3
 		if (aktuell == null) 
 			return false;
 		if (!aktuell.isMarked()) {
@@ -154,52 +154,41 @@ public class DijkstraManager {
 		return returner;
 	}
 
-	public static void buildPath() {
+	public static void buildPath() {			//setzt den Path für den human zusamme 
 		DijkstraPoint last = target;
-		path.add(last);
-		while (last != null) { //TODO endless
-			//System.out.println("last");
+		path.add(last);	
+		while (last != null) { 					//solange es ein last gibt wird das den path hinzu gefügt
 			path.add(last);
 			last.active = true;
 			last = last.last;
 		}
-
-//		System.out.println(path);
 		for (int i = 0; i < path.size() / 2; i++) {
 			DijkstraPoint tmp = path.get(i);
 			path.set(i, path.get(path.size() - i - 1));
 			path.set(path.size() - i - 1, tmp);
 		}
-//		System.out.println("swap: " + path);
-
 	}
 
-	public static void createDijkstraPoints() {
+	public static void createDijkstraPoints() {		//erzeugt die KreuzungsPunkte			
 		checkStreet(Street.streets.get(0));
-//		System.out.println("size: " + crossings.size());
 		for (DijkstraPoint dijkstraPoint : crossings) {
-			dijkstraPoint.setupDistances();
-//			System.out.println("distance to up: " + dijkstraPoint.distanceToUp + "\ndistance to down: "
-//					+ dijkstraPoint.distanceToDown + "\ndistance to left: " + dijkstraPoint.distanceToLeft
-//					+ "\ndistance to right: " + dijkstraPoint.distanceToRight + "\n\n");
+			dijkstraPoint.setupDistances();							//die distanz zu den nachbar punkten wir errechnet
 		}
 		Main.structures.addAll(crossings);
 		SimulationFrame.instance.update();
 
 	}
 
-	private static void checkStreet(Street street) {
+	private static void checkStreet(Street street) {						//setzt Nachbarschaftsbeziehungen der Kreuzungen einer Straße
 		DijkstraPoint last = null;
 		for (Street neighbor : street.neighbors) {
 			Point point = isPointEqual(street, neighbor.startPoint);
 			if (point == null) {
 				point = isPointEqual(street, neighbor.endPoint);
 			}
-			if (point == null) {
+			if (point == null) {											//wenn straßen  nichtaufeinander liegen
 				throw new Error("RIP");
 			}
-//			System.out.println("Build from " + street.orientation + " point: " + street.startPoint + " and: "
-//					+ neighbor.startPoint + " -->" + point);
 			DijkstraPoint current = new DijkstraPoint(point);
 			DijkstraPoint check = getPointFromCrossings(point);
 			if (check != null) {
@@ -227,7 +216,7 @@ public class DijkstraManager {
 		}
 	}
 
-	private static DijkstraPoint getPointFromCrossings(Point point) {
+	private static DijkstraPoint getPointFromCrossings(Point point) {		
 		for (DijkstraPoint dijkstraPoint : crossings) {
 			if (dijkstraPoint.getPoint().equals(point))
 				return dijkstraPoint;

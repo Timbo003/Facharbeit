@@ -30,9 +30,9 @@ public class WalkManager {
 						|| Variables.animationSpeed == 10) { // animationSpeed
 					Random random = new Random();
 					if (random.nextInt(10) == 1) {
-						if (getHumansWhoMovedEnought().size() > 0) {
+						if (getHumansWhoMovedEnought().size() > 0) {			//wenn es Mesnschen gibt die in ein neues Haus gehen d¸rfen
 							AnimationManager.prepairAnimation(AnimationManager.getRandomHuman());
-							willSomeoneDie();
+							willSomeoneDie();														//wird ein Mensch sterben?
 						}
 					}
 					for (Human human : Main.getAllLifingHumans()) { // soll heim gehen
@@ -48,7 +48,7 @@ public class WalkManager {
 							}
 						}
 					}
-					if (HumanManager.areAllHumansFinished()) {
+					if (HumanManager.areAllHumansFinished()) {			//wenn alle fertig sind werden keine Neuen Menschen mehr auf den Weg in ein Haus geschickt
 						timer.cancel();
 						timer.purge();
 						cancel();
@@ -59,7 +59,7 @@ public class WalkManager {
 		}, 100, 10);
 	}
 
-	private static boolean isHomeFree(Human human) {
+	private static boolean isHomeFree(Human human) {				//ist platz in seinem Zuhause
 		int humansInThisHouse = 0;
 		for (Human h : Main.getAllLifingHumans()) {
 			if (h.currentHouse == null) {
@@ -83,7 +83,7 @@ public class WalkManager {
 		return true;
 	}
 	
-	private static void willSomeoneGetImune() {
+	private static void willSomeoneGetImune() {										//wird ein Mesch immun werden
 		Random random = new Random();
 		Human randInfected = HumanManager.getInfectedHumans()
 				.get(random.nextInt(HumanManager.getInfectedHumans().size()));
@@ -92,7 +92,7 @@ public class WalkManager {
 		}
 	}
 
-	private static void willSomeoneDie() {
+	private static void willSomeoneDie() {											//wird ein Mesch sterben werden
 		Random random = new Random();
 		if (HumanManager.getInfectedHumans().size() > 0) {
 			Human randInfected = HumanManager.getInfectedHumans()
@@ -110,7 +110,7 @@ public class WalkManager {
 		}
 	}
 
-	public static ArrayList<Human> getHumansInAHouse() {
+	public static ArrayList<Human> getHumansInAHouse() {							//alle Menschen die sich in einem Haus befinden
 		ArrayList<Human> humansInsideAHouse = new ArrayList<>();
 		for (Human human : Main.getAllLifingHumans()) {
 			if (human.currentHouse != null && human.isHumanAllowdToWalk()) {
@@ -120,10 +120,10 @@ public class WalkManager {
 		return humansInsideAHouse;
 	}
 
-	public static ArrayList<Human> getHumansWhoMovedEnought() {
+	public static ArrayList<Human> getHumansWhoMovedEnought() {						//alle Menschen die 
 		ArrayList<Human> humansWhoMovedEnought = new ArrayList<>();
-		for (Human human : Main.getAllLifingHumans()) {
-			if (human.timeInHouse > human.minMovesInHouse && human.currentHouse != null
+		for (Human human : Main.getAllLifingHumans()) {								//leben
+			if (human.timeInHouse > human.minMovesInHouse && human.currentHouse != null			//sich genug in ihrem curren haus bewegt haben nicht auf einer straﬂe sind und es ihnen erlaubt ist zu laufen
 					&& human.isHumanAllowdToWalk()) {
 				humansWhoMovedEnought.add(human);
 			}
