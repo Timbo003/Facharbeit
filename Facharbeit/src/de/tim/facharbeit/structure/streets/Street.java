@@ -321,7 +321,7 @@ public class Street extends Structure {
 		}
 	}
 	
-	private void checkPoints() {
+	private void checkPoints() {										//debugging 
 		System.out.println("checking...");
 		for (int i = 1; i < points.size(); i++) {
 			Point a = points.get(i-1).getPoint();

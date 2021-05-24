@@ -173,23 +173,32 @@ public class Human extends Structure {
 	}
 
 	public void moveInHouse() {								//bewegt sich im Haus
-		this.timeInHouse++;
-		Random random = new Random();	
-		int x = random.nextInt(3) - 1;						//der neue punkt darf 2 pixel weit entfernt sein
-		int y = random.nextInt(3) - 1;
-
-		int newX = getX() + x;
-		int newY = getY() + y;
-
-		if (newX < currentHouse.getX() + 10 || newX > currentHouse.getX() + currentHouse.width - 10) {	//wenn der neue Punkt nicht im haus liegt soll er sich wieder zurück bewegen
-			newX = getX() - x * 2;																		//der Mensch soll scih ja nicht aus dem Haus buggen
+		try {
+			this.timeInHouse++;
+			Random random = new Random();	
+			int x = random.nextInt(3) - 1;						//der neue punkt darf 2 pixel weit entfernt sein
+			int y = random.nextInt(3) - 1;
+	
+			int newX = getX() + x;
+			int newY = getY() + y;
+	
+			if (newX < currentHouse.getX() + 10 || newX > currentHouse.getX() + currentHouse.width - 10) {	//wenn der neue Punkt nicht im haus liegt soll er sich wieder zurück bewegen
+				newX = getX() - x * 2;																		//der Mensch soll scih ja nicht aus dem Haus buggen
+			}
+			if (newY < currentHouse.getY() + 10 || newY > currentHouse.getY() + currentHouse.height - 10) {
+				newY = getY() - y * 2;
+			}
+			setPoint(new Point(newX, newY));
+		}catch (NullPointerException e) { 
+			System.err.println("unsupported move in house");
+			currentHouse = home;
+			targetHouse = null;
+			visited = allowedVisits;
+			super.setPoint(new Point(home.getX() + (home.width / 2), home.getY() + (home.height / 2)));
+			return;
 		}
-		if (newY < currentHouse.getY() + 10 || newY > currentHouse.getY() + currentHouse.height - 10) {
-			newY = getY() - y * 2;
-		}
-		setPoint(new Point(newX, newY));
 	}
-
+		
 	public int distanceTo(Point point) {			//distanz zu einem Punkt
 		int distance = (int) Math.sqrt((point.getY() - this.getY()) * (point.getY() - this.getY())
 				+ (point.getX() - this.getX()) * (point.getX() - this.getX()));

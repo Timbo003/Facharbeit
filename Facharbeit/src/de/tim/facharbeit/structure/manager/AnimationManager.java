@@ -42,7 +42,9 @@ public class AnimationManager {
 			try {
 				prepairAnimation(human, house);
 			} catch (Exception e) {
-				System.err.println("this should not happen or is not suppoerted yet. AM");
+				//System.err.println("this should not happen or is not suppoerted yet. AM");
+				//e.printStackTrace();
+				prepairAnimation(human);
 			}
 		}
 	}
@@ -79,13 +81,15 @@ public class AnimationManager {
 	}
 
 	public static void prepairAnimation(Human human, House house) throws Exception {
+		if (human == null || house == null) { 
+			throw new Exception("uff");
+		}
 		human.reset();
 
 		human.targetHouse = house;
 
 		House start = human.currentHouse;
 		House end = human.targetHouse;
-
 		
 		if (start.equals(end)) {
 			human.path = new ArrayList<>();
@@ -93,8 +97,6 @@ public class AnimationManager {
 		} else {
 			human.path = DijkstraManager.startDijkstra(start, end);
 		}
-
-
 		Point point = human.nextPointToEntrance();
 		DijkstraPoint midPoint = new DijkstraPoint(point);
 		DijkstraPoint entrancePoint = new DijkstraPoint(human.currentHouse.pointOnStreet);
@@ -119,11 +121,12 @@ public class AnimationManager {
 		human.path.add(targetInside);
 		
 		
-		if (human.path.contains(null)) {
-			System.out.println(human.path);
-			human.blobColor = Color.orange;
-			human.path.remove(null);
+		if (human.path.contains(null)) { 
+//			human.blobColor = Color.orange;
+			System.out.println("one point is null ");
+			throw new Exception("Path not supported!");
 		}
+		
 		human.currentHouse = null;
 
 	}

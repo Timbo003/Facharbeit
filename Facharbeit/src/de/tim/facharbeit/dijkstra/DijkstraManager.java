@@ -65,7 +65,7 @@ public class DijkstraManager {
 			previous = street.getPreviousCrossing(dijkstraPoint);
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showInputDialog(null, "This is the message", "This is the default text");
+//			JOptionPane.showInputDialog(null, "This is the message", "This is the default text");
 			return null;
 		}
 		crossings.add(dijkstraPoint);
@@ -100,7 +100,7 @@ public class DijkstraManager {
 				return dijkstraPoint;
 			}
 		}
-		System.out.println("byPoint");
+		System.out.println("byPoint: " + point); 
 		throw new Exception("oops. I'm a kek.");
 	}
 	
