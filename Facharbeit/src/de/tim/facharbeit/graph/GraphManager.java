@@ -39,7 +39,7 @@ public class GraphManager {
 	
 	private static void setupVariables() {									//wieviele Tage müssen auf die x Achse passen
 		double x = 1300D / (infected.size() - 1);
-		System.out.println("x: " + x + " size: " + infected.size());
+//		System.out.println("x: " + x + " size: " + infected.size());
 		xShift = (int) x;													//zu int casten 
 		
 		humanPixelSize = 570D / Variables.totalHumanCounter;				//länge der y Achse / Menschen

@@ -121,7 +121,7 @@ public class AnimationManager {
 		
 		if (human.path.contains(null)) { 
 //			human.blobColor = Color.orange;
-			System.out.println("one point is null ");
+//			System.out.println("one point is null ");
 			throw new Exception("Path not supported!");
 		}
 		
@@ -188,7 +188,7 @@ public class AnimationManager {
 								timer.purge();
 								cancel();
 								
-								System.out.println("finished at time " + counter);
+//								System.out.println("finished at time " + counter);
 								counter = 0;
 								System.out.println(Variables.days);
 								if (StopSim() != true) {

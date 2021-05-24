@@ -250,7 +250,7 @@ public class Street extends Structure {
 				} else if (isPointOnStreet(neigbor.endPoint)) {
 					points.add(DijkstraManager.getByPoint(neigbor.endPoint));
 				} else {
-					System.out.println("   :#");
+//					System.out.println("   :#");
 				}
 			}
 			points.add(DijkstraManager.getByPoint(endPoint));
@@ -261,15 +261,15 @@ public class Street extends Structure {
 				Point a = points.get(i-1).getPoint();
 				Point b = points.get(i).getPoint();
 				if (this.orientation == StreetOrientation.HORIZONTAL) {
-					System.out.println(a.getX() < b.getX() ? ";D" : "   ;/1");
+//					System.out.println(a.getX() < b.getX() ? ";D" : "   ;/1");
 					if (a.getY() != b.getY()) {
-						System.out.println("  :*1");
+//						System.out.println("  :*1");
 						return;
 					}
 				} else {
-					System.out.println(a.getY() < b.getY() ? ";D" : "   ;/2");
+//					System.out.println(a.getY() < b.getY() ? ";D" : "   ;/2");
 					if (a.getX() != b.getX()) {
-						System.out.println("  :*2");
+//						System.out.println("  :*2");
 						return;
 					}
 				}
@@ -281,7 +281,7 @@ public class Street extends Structure {
 	
 	public void addPoint(DijkstraPoint point) throws Exception {
 		if (!this.isPointOnStreet(point.getPoint())) {
-			System.out.println("   :X");
+//			System.out.println("   :X");
 			return;
 		}
 		for (DijkstraPoint p : points) {
@@ -294,12 +294,12 @@ public class Street extends Structure {
 			for (int i = 0; i < points.size(); i++) {
 				DijkstraPoint p = points.get(i); 
 				if (point.getY() != p.getY()) {
-					System.out.println("  :o");
+//					System.out.println("  :o");
 					return;
 				}
 				if (p.getX() > point.getX()) {
 					points.add(i, point);
-					System.out.println(points.indexOf(p) + " - " + points.indexOf(point));
+//					System.out.println(points.indexOf(p) + " - " + points.indexOf(point));
 					checkPoints();
 					return;
 				}
@@ -308,12 +308,12 @@ public class Street extends Structure {
 			for (int i = 0; i < points.size(); i++) {
 				DijkstraPoint p = points.get(i);
 				if (point.getX() != p.getX()) {
-					System.out.println("  :O");
+//					System.out.println("  :O");
 					return;
 				}
 				if (p.getY() > point.getY()) {
 					points.add(i, point);
-					System.out.println(points.indexOf(p) + " - " + points.indexOf(point));
+//					System.out.println(points.indexOf(p) + " - " + points.indexOf(point));
 					checkPoints();
 					return;
 				}
@@ -322,20 +322,20 @@ public class Street extends Structure {
 	}
 	
 	private void checkPoints() {										//debugging 
-		System.out.println("checking...");
+//		System.out.println("checking...");
 		for (int i = 1; i < points.size(); i++) {
 			Point a = points.get(i-1).getPoint();
 			Point b = points.get(i).getPoint();
 			if (a.distanceToPoint(b) != a.pointDistance(b)) {
-				System.out.println("ouch ;\\");
+//				System.out.println("ouch ;\\");
 			}
 		}
 	}
 
 	public DijkstraPoint getNextCrossing(DijkstraPoint point) throws Exception {		//DijPoint nach dem momentanen
 		if (!points.contains(point)) {
-			System.err.println(":ooo");
-			System.out.println(this);
+//			System.err.println(":ooo");
+//			System.out.println(this);
 			throw new Exception("That feature isn't supported yet.");
 		}
 		return points.get(points.indexOf(point) + 1); 
@@ -343,8 +343,8 @@ public class Street extends Structure {
 	
 	public DijkstraPoint getPreviousCrossing(DijkstraPoint point) throws Exception {	//DijPoint vor dem momentanen
 		if (!points.contains(point)) {
-			System.err.println(":ooo");
-			System.out.println(this);
+//			System.err.println(":ooo");
+//			System.out.println(this);
 			throw new Exception("That feature isn't supported yet.");
 		}
 		return points.get(points.indexOf(point) - 1); 

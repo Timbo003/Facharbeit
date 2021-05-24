@@ -99,8 +99,8 @@ public class DijkstraManager {
 				return dijkstraPoint;
 			}
 		}
-		System.out.println("byPoint: " + point); 
-		throw new Exception("oops. I'm a kek.");
+//		System.out.println("byPoint: " + point); 
+		throw new Exception("oops.");
 	}
 	
 	private static void resetPoints() {
