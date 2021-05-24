@@ -117,19 +117,19 @@ public class StartFrame {
 		p1.addActionListener((e) -> {															//beim drücken werden:
 			System.out.println("p1");
 			Variables.streetCount = 15;															//die Variabeln geändert
-			streetSliderText.setText("Streets: " + Variables.streetCount);						//der Text upgedated
+			streetSliderText.setText("Straßen: " + Variables.streetCount);						//der Text upgedated
 			streetSlider.setValue(Variables.streetCount);										//der Slider rückt zur richtigen Stelle
 			
 			Variables.infectedCount = 5;														//immer das gleiche
-			infectedSliderText.setText("Infected: " + Variables.infectedCount);
+			infectedSliderText.setText("Infizierte: " + Variables.infectedCount);
 			infectedSlider.setValue(Variables.infectedCount);
 
 			Variables.imuneCount = 0;
-			imuneSliderText.setText("Imune: " + Variables.imuneCount);
+			imuneSliderText.setText("Immune: " + Variables.imuneCount);
 			imuneSlider.setValue(Variables.imuneCount);
 
 			Variables.totalHumanCounter = 223;
-			humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
+			humanCountSliderText.setText("Menschen Anzahl: " + Variables.totalHumanCounter);
 			humanCountSlider.setValue(Variables.totalHumanCounter);
 
 			Variables.maxHumansInHome = 4;
@@ -145,21 +145,21 @@ public class StartFrame {
 			verweigererSlider.setValue(Variables.verweigererCount);
 
 			Variables.maxTimeSick = 14;
-			maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
+			maxTimeSickSliderText.setText("Krankheitsdauer: " + Variables.maxTimeSick);
 			maxTimeSickSlider.setValue(Variables.maxTimeSick);
 
 			Variables.infectionDistance = 3;
-			infectionDistanceSliderText.setText("infectionDistance: " + Variables.infectionDistance);
+			infectionDistanceSliderText.setText("Infektionsdistanz: " + Variables.infectionDistance);
 			infectionDistanceSlider.setValue(Variables.infectionDistance);
 
 			Variables.infectionRisk = 0.044;
-			infectionRiskText.setText("infectionRisk: " + Variables.infectionRisk + "%");
+			infectionRiskText.setText("Infectionsrisiko: " + Variables.infectionRisk + "%");
 
 			Variables.mortality = 2.57;
-			mortalityText.setText("mortality: " + Variables.mortality + "%");
+			mortalityText.setText("Mortalität: " + Variables.mortality + "%");
 			
 			Variables.maskEffectivity = 90;
-			maskEffectivityText.setText("maskEffectivity: " + Variables.maskEffectivity + "%");
+			maskEffectivityText.setText("MaskEffectivity: " + Variables.maskEffectivity + "%");
 		});
 		p1.setBounds(0, 25, 115, 83);
 
@@ -171,51 +171,6 @@ public class StartFrame {
 		JButton p2 = new JButton("Preset 2");														//siehe p1
 		p2.setFont(Variables.defaultFont);
 		p2.addActionListener((e) -> {
-			System.out.println("P2");
-			Variables.streetCount = 12;
-			streetSliderText.setText("Streets: " + Variables.streetCount);
-			streetSlider.setValue(Variables.streetCount);
-
-			Variables.infectedCount = 10;
-			infectedSliderText.setText("Infected: " + Variables.infectedCount);
-			infectedSlider.setValue(Variables.infectedCount);
-
-			Variables.imuneCount = 5;
-			imuneSliderText.setText("Imune: " + Variables.imuneCount);
-			imuneSlider.setValue(Variables.imuneCount);
-
-			Variables.totalHumanCounter = 250;
-			humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
-			humanCountSlider.setValue(Variables.totalHumanCounter);
-
-			Variables.maxHumansInHome = 4;
-			maxHumansInHomeSliderText.setText("Fam. größe: " + Variables.maxHumansInHome);
-			maxHumansInHomeSlider.setValue(Variables.maxHumansInHome);
-
-			Variables.bedachtCount = 20;
-			bedachtSliderText.setText("Bedachte: " + Variables.bedachtCount);
-			bedachtSlider.setValue(Variables.bedachtCount);
-
-			Variables.verweigererCount = 20;
-			verweigererSliderText.setText("Verweigerer: " + Variables.verweigererCount);
-			verweigererSlider.setValue(Variables.verweigererCount);
-
-			Variables.maxTimeSick = 5;
-			maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
-			maxTimeSickSlider.setValue(Variables.maxTimeSick);
-
-			Variables.infectionDistance = 10;
-			infectionDistanceSliderText.setText("infectionDistance: " + Variables.infectionDistance);
-			infectionDistanceSlider.setValue(Variables.infectionDistance);
-
-			Variables.infectionRisk = 0.005;
-			infectionRiskText.setText("infectionRisk: " + Variables.infectionRisk + "%");
-
-			Variables.mortality = 2.57;
-			mortalityText.setText("mortality: " + Variables.mortality + "%");
-			
-			Variables.maskEffectivity = 90;
-			maskEffectivityText.setText("maskEffectivity: " + Variables.maskEffectivity + "%");
 		});
 		p2.setBounds(0, 133, 115, 83);
 		p2.setVisible(true);
@@ -227,20 +182,20 @@ public class StartFrame {
 		p3.addActionListener((e) -> {
 			System.out.println("P3");
 			Variables.streetCount = 15;
-			streetSliderText.setText("Streets: " + Variables.streetCount);
+			streetSliderText.setText("Straßen: " + Variables.streetCount);
 			streetSlider.setValue(Variables.streetCount);
 			
 
 			Variables.infectedCount = 1;
-			infectedSliderText.setText("Infected: " + Variables.infectedCount);
+			infectedSliderText.setText("Infizierte: " + Variables.infectedCount);
 			infectedSlider.setValue(Variables.infectedCount);
 
 			Variables.imuneCount = 0;
-			imuneSliderText.setText("Imune: " + Variables.imuneCount);
+			imuneSliderText.setText("Immune: " + Variables.imuneCount);
 			imuneSlider.setValue(Variables.imuneCount);
 
 			Variables.totalHumanCounter = 1;
-			humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
+			humanCountSliderText.setText("Menschen Anzahl: " + Variables.totalHumanCounter);
 			humanCountSlider.setValue(Variables.totalHumanCounter);
 
 			Variables.maxHumansInHome = 1;
@@ -256,18 +211,18 @@ public class StartFrame {
 			verweigererSlider.setValue(Variables.verweigererCount);
 
 			Variables.maxTimeSick = 1;
-			maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
+			maxTimeSickSliderText.setText("Krankheitsdauer: " + Variables.maxTimeSick);
 			maxTimeSickSlider.setValue(Variables.maxTimeSick);
 
 
 			Variables.infectionRisk = 0.005;
-			infectionRiskText.setText("infectionRisk: " + Variables.infectionRisk + "%");
+			infectionRiskText.setText("Infectionsrisiko: " + Variables.infectionRisk + "%");
 
 			Variables.mortality = 2.57;
-			mortalityText.setText("mortality: " + Variables.mortality + "%");
+			mortalityText.setText("Mortalität: " + Variables.mortality + "%");
 			
 			Variables.maskEffectivity = 90;
-			maskEffectivityText.setText("maskEffectivity: " + Variables.maskEffectivity + "%");
+			maskEffectivityText.setText("MaskEffectivity: " + Variables.maskEffectivity + "%");
 		});
 		p3.setBounds(0, 241, 115, 83);
 		p3.setVisible(true);
@@ -296,14 +251,14 @@ public class StartFrame {
 		streetSliderText.setFont(textFont);
 		streetSliderText.setBounds(310, 0, 200, 30);
 		streetSliderText.setVisible(true);
-		streetSliderText.setText("Streets: " + Variables.streetCount);										//bekommt diese Aufschrift
+		streetSliderText.setText("Straßen: " + Variables.streetCount);										//bekommt diese Aufschrift
 
 		streetSlider = new JSlider(0, 50, Variables.streetCount);											//Slider um die Variabel anzupassen
 		streetSlider.addChangeListener((e) -> {																//passt die Variabel seinem momentanen Value an
 			int value = ((JSlider) e.getSource()).getValue();
 			System.out.println(value);
 			Variables.streetCount = value;
-			streetSliderText.setText("Streets: " + value);
+			streetSliderText.setText("Straßen: " + value);
 		});
 		streetSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		streetSlider.setVisible(true);
@@ -324,12 +279,12 @@ public class StartFrame {
 		infectedSliderText.setFont(textFont);
 		infectedSliderText.setBounds(310, 0, 200, 30);
 		infectedSliderText.setVisible(true);
-		infectedSliderText.setText("Infected: " + Variables.infectedCount);
+		infectedSliderText.setText("Infizierte: " + Variables.infectedCount);
 
 		infectedSlider = new JSlider(1, 100, Variables.infectedCount);
 		infectedSlider.addChangeListener((e) -> {
 			Variables.infectedCount = ((JSlider) e.getSource()).getValue();
-			infectedSliderText.setText("Infected: " + Variables.infectedCount);
+			infectedSliderText.setText("Infizierte: " + Variables.infectedCount);
 		});
 		infectedSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		infectedSlider.setVisible(true);
@@ -349,12 +304,12 @@ public class StartFrame {
 		imuneSliderText.setFont(textFont);
 		imuneSliderText.setBounds(310, 0, 200, 30);
 		imuneSliderText.setVisible(true);
-		imuneSliderText.setText("Imune: " + Variables.imuneCount);
+		imuneSliderText.setText("Immune: " + Variables.imuneCount);
 
 		imuneSlider = new JSlider(0, 100, Variables.imuneCount);
 		imuneSlider.addChangeListener((e1) -> {
 			Variables.imuneCount = ((JSlider) e1.getSource()).getValue();
-			imuneSliderText.setText("Imune: " + Variables.imuneCount);
+			imuneSliderText.setText("Immune: " + Variables.imuneCount);
 		});
 		imuneSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		imuneSlider.setVisible(true);
@@ -373,12 +328,12 @@ public class StartFrame {
 		humanCountSliderText.setFont(textFont);
 		humanCountSliderText.setBounds(310, 0, 200, 30);
 		humanCountSliderText.setVisible(true);
-		humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
+		humanCountSliderText.setText("Menschen Anzahl: " + Variables.totalHumanCounter);
 
 		humanCountSlider = new JSlider(1, 400, Variables.totalHumanCounter);
 		humanCountSlider.addChangeListener((e) -> {
 			Variables.totalHumanCounter = ((JSlider) e.getSource()).getValue();
-			humanCountSliderText.setText("Humans: " + Variables.totalHumanCounter);
+			humanCountSliderText.setText("Menschen Anzahl: " + Variables.totalHumanCounter);
 		});
 		humanCountSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		humanCountSlider.setVisible(true);
@@ -423,7 +378,7 @@ public class StartFrame {
 		bedachtSliderText.setFont(textFont);
 		bedachtSliderText.setBounds(310, 0, 200, 30);
 		bedachtSliderText.setVisible(true);
-		bedachtSliderText.setText("bedacht: " + Variables.bedachtCount);
+		bedachtSliderText.setText("Bedachte: " + Variables.bedachtCount);
 
 		bedachtSlider = new JSlider(0, 100, Variables.bedachtCount);
 		bedachtSlider.addChangeListener((e) -> {
@@ -473,12 +428,12 @@ public class StartFrame {
 		maxTimeSickSliderText.setFont(textFont);
 		maxTimeSickSliderText.setBounds(310, 0, 200, 30);
 		maxTimeSickSliderText.setVisible(true);
-		maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
+		maxTimeSickSliderText.setText("Krankheitsdauer: " + Variables.maxTimeSick);
 
 		maxTimeSickSlider = new JSlider(0, 30, Variables.maxTimeSick);
 		maxTimeSickSlider.addChangeListener((e) -> {
 			Variables.maxTimeSick = ((JSlider) e.getSource()).getValue();
-			maxTimeSickSliderText.setText("maxTimeSick: " + Variables.maxTimeSick);
+			maxTimeSickSliderText.setText("Krankheitsdauer: " + Variables.maxTimeSick);
 		});
 		maxTimeSickSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		maxTimeSickSlider.setVisible(true);
@@ -498,12 +453,12 @@ public class StartFrame {
 		infectionDistanceSliderText.setFont(textFont);
 		infectionDistanceSliderText.setBounds(310, 0, 200, 30);
 		infectionDistanceSliderText.setVisible(true);
-		infectionDistanceSliderText.setText("infectionDistance: " + Variables.infectionDistance);
+		infectionDistanceSliderText.setText("Infektionsdistanz: " + Variables.infectionDistance);
 
 		infectionDistanceSlider = new JSlider(0, 30, Variables.infectionDistance);
 		infectionDistanceSlider.addChangeListener((e) -> {
 			Variables.infectionDistance = ((JSlider) e.getSource()).getValue();
-			infectionDistanceSliderText.setText("infectionDistance: " + Variables.infectionDistance);
+			infectionDistanceSliderText.setText("Infektionsdistanz: " + Variables.infectionDistance);
 		});
 		infectionDistanceSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		infectionDistanceSlider.setVisible(true);
@@ -523,7 +478,7 @@ public class StartFrame {
 		infectionRiskText.setFont(textFont);
 		infectionRiskText.setBounds(310, 0, 200, 30);
 		infectionRiskText.setVisible(true);
-		infectionRiskText.setText("infectionRisk: " + Variables.infectionRisk + "%");											//Text wird zu "infectionRisk: " + Variables.infectionRisk + "%"
+		infectionRiskText.setText("Infectionsrisiko: " + Variables.infectionRisk + "%");											//Text wird zu "Infectionsrisiko: " + Variables.infectionRisk + "%"
 
 		JTextField infectionRiskInput = new JTextField(6);
 		infectionRiskInput.addActionListener(new ActionListener() {
@@ -537,7 +492,7 @@ public class StartFrame {
 						infectionRiskText.setForeground(Color.red);
 						Variables.infectionRiskInputOk = false;
 					} else {																									//wenn nicht error message & button rot
-						infectionRiskText.setText("infectionRisk: " + infectionRiskInput.getText() + "%");
+						infectionRiskText.setText("Infectionsrisiko: " + infectionRiskInput.getText() + "%");
 						Variables.infectionRiskInputOk = true;
 						infectionRiskText.setForeground(Color.black);
 						if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true
@@ -572,7 +527,7 @@ public class StartFrame {
 		mortalityText.setFont(textFont);
 		mortalityText.setBounds(310, 0, 200, 30);
 		mortalityText.setVisible(true);
-		mortalityText.setText("mortality: " + Variables.mortality + "%");
+		mortalityText.setText("Mortalität: " + Variables.mortality + "%");
 
 		JTextField mortalityInput = new JTextField(6);
 		mortalityInput.addActionListener(new ActionListener() {
@@ -586,7 +541,7 @@ public class StartFrame {
 						mortalityText.setForeground(Color.red);
 						Variables.mortalityInputOk = false;
 					} else {
-						mortalityText.setText("mortality: " + mortalityInput.getText() + "%");
+						mortalityText.setText("Mortalität: " + mortalityInput.getText() + "%");
 						Variables.mortalityInputOk = true;
 						mortalityText.setForeground(Color.black);
 						if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true
@@ -620,7 +575,7 @@ public class StartFrame {
 		maskEffectivityText.setFont(textFont);
 		maskEffectivityText.setBounds(310, 0, 200, 30);
 		maskEffectivityText.setVisible(true);
-		maskEffectivityText.setText("maskEffectivity: " + Variables.maskEffectivity + "%");
+		maskEffectivityText.setText("MaskEffectivity: " + Variables.maskEffectivity + "%");
 
 		JTextField maskEffectivityInput = new JTextField(6);
 		maskEffectivityInput.addActionListener(new ActionListener() {
@@ -634,7 +589,7 @@ public class StartFrame {
 						maskEffectivityText.setForeground(Color.red);
 						Variables.maskEffectivityInputOk = false;
 					} else {
-						maskEffectivityText.setText("maskEffectivity: " + maskEffectivityInput.getText() + "%");
+						maskEffectivityText.setText("MaskEffectivity: " + maskEffectivityInput.getText() + "%");
 						Variables.maskEffectivityInputOk = true;
 						maskEffectivityText.setForeground(Color.black);
 						if (Variables.infectionRiskInputOk == true && Variables.mortalityInputOk == true
