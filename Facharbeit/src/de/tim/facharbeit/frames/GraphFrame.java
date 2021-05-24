@@ -34,7 +34,7 @@ public class GraphFrame extends JPanel {
 	public GraphFrame() {
 		instance = this;											
         frame = new JFrame("Graph");										//Name des Fensters				
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);			//wird beendet wenn es geschlossen wird
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);			//wird gelöscht wenn es geschlossen wird
         frame.setResizable(false);											//man kann es nicht größer oder kleiner ziehen
 		frame.getContentPane().setPreferredSize(new Dimension(1500,750));	//die größe width & height
 		super.setBackground(Color.WHITE);									//Hintergrund Farbe

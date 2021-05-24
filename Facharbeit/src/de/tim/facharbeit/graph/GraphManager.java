@@ -16,11 +16,11 @@ public class GraphManager {
 	public static int minX = 100;
 	public static int minY = 50;
 
-	public static int xShift;
+	public static int xShift;														//versatz auf der x achse
 	
 	public static double humanPixelSize;
 
-	private static List<Integer> infected = new ArrayList<>();
+	private static List<Integer> infected = new ArrayList<>();						//Daten Liste die später gefüllt werden
 	private static List<Integer> dead = new ArrayList<>();
 	private static List<Integer> imune = new ArrayList<>();
 	private static List<Integer> healthy = new ArrayList<>();
@@ -37,16 +37,16 @@ public class GraphManager {
 		setupGraphLine();
 	}
 	
-	private static void setupVariables() {
+	private static void setupVariables() {									//wieviele Tage müssen auf die x Achse passen
 		double x = 1300D / (infected.size() - 1);
 		System.out.println("x: " + x + " size: " + infected.size());
-		xShift = (int) x;
+		xShift = (int) x;													//zu int casten 
 		
 		humanPixelSize = 570D / Variables.totalHumanCounter;				//länge der y Achse / Menschen
 		System.out.println("hps:" + humanPixelSize);
 	}
 
-	private static void fillDataLists() {
+	private static void fillDataLists() {									//füllt die Daten Listen mit den entschprechenden werten z.b. [day1.inf,day2.inf,usw]
 		for (Day day : Variables.days) { 
 			infected.add(day.getInfected());
 			imune.add(day.getImune());
@@ -55,7 +55,7 @@ public class GraphManager {
 		}
 	}
 
-	private static void resetForNewGraph() {
+	private static void resetForNewGraph() {								//reset, damit ein neuer Graph erzeugt werden kann
 		Main.graphStructures.clear();
 		infected.clear();
 		dead.clear();
@@ -63,7 +63,7 @@ public class GraphManager {
 		healthy.clear();
 	}
 
-	private static void setupGraphLine() {
+	private static void setupGraphLine() {												//erstellt die Graph lines und added sie auf den Frame
 		List<GraphPoint> ImuneList = fillListWithGraphPoints(imune, Color.blue);
 		GraphLine ImuneLine = new GraphLine(ImuneList, Color.blue);
 		Main.graphStructures.add(ImuneLine);
@@ -81,7 +81,7 @@ public class GraphManager {
 		Main.graphStructures.add(InfectedLine);
 	}
 
-	public static void setUpNamingOnX(Graphics2D graphics) {
+	public static void setUpNamingOnX(Graphics2D graphics) {					//Beschriftung der x und y achse sowie der anderen werte unter der x achse
 		graphics.setColor(Color.black);
 		graphics.setFont(Variables.defaultFont); 
 		
@@ -127,7 +127,7 @@ public class GraphManager {
 		
 	}
 	
-	public static void setUpNamingOnY(Graphics2D graphics) {
+	public static void setUpNamingOnY(Graphics2D graphics) {										//zahlen an der y achse
 		graphics.setColor(Color.black);
 		graphics.setFont(Variables.defaultFont); 
 		
@@ -141,7 +141,7 @@ public class GraphManager {
 		}
 	}
 
-	public static List<GraphPoint> fillListWithGraphPoints(List<Integer> intList, Color color) {
+	public static List<GraphPoint> fillListWithGraphPoints(List<Integer> intList, Color color) {				//erstellt die GraphPoints für die Graph line
 		List<GraphPoint> graphPointList = new ArrayList<GraphPoint>();
 		
 		for (int i = 0; i < intList.size(); i++) {
@@ -153,16 +153,5 @@ public class GraphManager {
 			Main.graphStructures.add(newPoint);
 		}
 		return graphPointList;
-	}
-
-	private static List<GraphPoint> getRandPoints(Color color) {
-		List<GraphPoint> list = new ArrayList<GraphPoint>();
-		Random random = new Random();
-		for (int i = 0; i < 20; i++) {
-			GraphPoint p = new GraphPoint(i * 75 + 50, random.nextInt(600), color);
-			list.add(p);
-			Main.graphStructures.add(p);
-		}
-		return list;
 	}
 }

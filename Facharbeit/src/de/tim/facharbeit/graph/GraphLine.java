@@ -10,11 +10,11 @@ import java.util.List;
 
 public class GraphLine extends GraphStructure {
 
-	private List<GraphPoint> points = new ArrayList<GraphPoint>();
-	public Color color;
+	private List<GraphPoint> points = new ArrayList<GraphPoint>();				//punkte die zu einer linie verbunden werden müssen
+	public Color color;															//Farbe
 	
 	
-	public GraphLine(List<GraphPoint> points,Color color) {
+	public GraphLine(List<GraphPoint> points,Color color) {	
 		this.color = color;
 		this.points = points;
 	}
@@ -25,18 +25,13 @@ public class GraphLine extends GraphStructure {
 		int iterator = 1;
 		
 		graphics.setColor(color);
-		for (int i = 1; i < points.size(); i += iterator) {
-			GraphPoint a = points.get(i-1);
-			GraphPoint b = points.get(i);
+		for (int i = 1; i < points.size(); i += iterator) {						//widerholen für jeden Punkt
+			GraphPoint a = points.get(i-1);										//vorheriger Punkt
+			GraphPoint b = points.get(i);										//momentaner Punkt
 			
 			Graphics2D g2 = (Graphics2D) graphics;
-			g2.setStroke(new BasicStroke(4));
-			g2.drawLine(a.getX(), a.getY(), b.getX(), b.getY());
-			
-			//System.out.println("form : " + a + "  to : " + b);
-			//graphics.drawLine(a.getX(), a.getY(), b.getX(), b.getY());
-//			graphics.drawLine(a.getX()-1, a.getY()-1, b.getX()-1, b.getY()-1);
-//			graphics.drawLine(a.getX()+1, a.getY()+1, b.getX()+1, b.getY()+1);
+			g2.setStroke(new BasicStroke(4));									//dicke der Linie
+			g2.drawLine(a.getX(), a.getY(), b.getX(), b.getY());				//male eine linie von a nach b
 		}
 	}
 

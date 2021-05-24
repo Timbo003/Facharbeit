@@ -72,7 +72,7 @@ public class SimulationFrame extends JPanel {
 	private static JSlider maxPpInHouseSlider = new JSlider(1, 25, Variables.maxHumansInHouse);
 	private static JLabel maxPpInHouseSliderText = new JLabel();
 
-	private static JSlider allowedDistanceSlider = new JSlider(50, 1000, Variables.allowedDistance);
+	private static JSlider allowedDistanceSlider = new JSlider(200, 1000, Variables.allowedDistance);
 	private static JLabel allowedDistanceSliderText = new JLabel();
 
 	public static SimulationFrame instance;
@@ -241,9 +241,9 @@ public class SimulationFrame extends JPanel {
 		sliderPanel.setVisible(true);
 		sliderPanel.setLayout(null);
 
-		// slider & text for animationSpeed
-		animationSpeedPanel = new JPanel();
-		animationSpeedPanel.setBounds(5, 10, sliderPanel.getWidth() - 10, 30);
+		// slider & text for animationSpeed																						//das was nun folgt ist für jeden slider & seinen Text gleich
+		animationSpeedPanel = new JPanel();									
+		animationSpeedPanel.setBounds(5, 10, sliderPanel.getWidth() - 10, 30);													//Panel für slider und Text
 //		animationSpeedPanel.setBackground(Color.red);
 		animationSpeedPanel.setVisible(true);
 		animationSpeedPanel.setLayout(null);
@@ -251,20 +251,20 @@ public class SimulationFrame extends JPanel {
 		animationSpeedSliderText.setBounds(animationSpeedPanel.getWidth()/2+5,
 				animationSpeedPanel.getHeight() / 2 - 10, animationSpeedPanel.getWidth()/2-5, 20);
 		animationSpeedSliderText.setVisible(true);
-		animationSpeedSliderText.setText("Animation Speed: " + Variables.animationSpeed);
-		animationSpeedSliderText.setFont(varFont);
+		animationSpeedSliderText.setText("Animation Speed: " + Variables.animationSpeed);										//aufschrieb des Textes neben dem SLider
+		animationSpeedSliderText.setFont(varFont);																				//Font wird angepasst
 
-		animationSpeedSlider.addChangeListener((e) -> {
-			Variables.animationSpeed = animationSpeedSlider.getValue();
-			animationSpeedSliderText.setText("Animation Speed: " + animationSpeedSlider.getValue());
+		animationSpeedSlider.addChangeListener((e) -> {																			//der change listener welcher der Slider hinzugefügt wird
+			Variables.animationSpeed = animationSpeedSlider.getValue();															//der wert in Variables wird zum value des sliders
+			animationSpeedSliderText.setText("Animation Speed: " + animationSpeedSlider.getValue());							//der Text wird angepasst
 		});
 		animationSpeedSlider.setBounds(0, -5, animationSpeedPanel.getWidth() /2, 40);
 		animationSpeedSlider.setVisible(true);
 
-		animationSpeedPanel.add(animationSpeedSliderText);
-		animationSpeedPanel.add(animationSpeedSlider);
-		sliderPanel.add(animationSpeedPanel);
-		controllPanel.add(sliderPanel);
+		animationSpeedPanel.add(animationSpeedSliderText);																		//Text wird zu slider Panel geaddet  -> animation speed panel
+		animationSpeedPanel.add(animationSpeedSlider);																			//slider wird zu slider Panel geaddet -> animation speed panel
+		sliderPanel.add(animationSpeedPanel);																					//slider panel bekommt das animation speed panel geaddet
+		controllPanel.add(sliderPanel);																							//dem controll panel wird sliderPanle geaddet
 
 		// Slider & Text & Button for Masks
 		maskPanel = new JPanel();
@@ -283,7 +283,7 @@ public class SimulationFrame extends JPanel {
 				Variables.wearingMask = maskSlider.getValue();
 				maskSliderText.setText(maskSlider.getValue() + "% wearing a mask");
 				
-				Variables.howManyAreWearingMasks = (int) ((Variables.wearingMask * 0.01) * Variables.aliveAndWilling.size());
+				Variables.howManyAreWearingMasks = (int) ((Variables.wearingMask * 0.01) * Variables.aliveAndWilling.size());				//protzent wird auf alle lebenden die keine verweigerer sind übertragen 
 				maskButton.setText(Variables.howManyAreWearingMasks + " will wear a mask");
 			}
 		});
@@ -296,22 +296,22 @@ public class SimulationFrame extends JPanel {
 		maskButton = new JButton(Variables.howManyAreWearingMasks + " will wear a mask");
 		maskButton.setFont(varFont);
 		maskButton.addActionListener((e) -> {
-			if (Variables.maskButtonPressed) {
-				Variables.maskButtonPressed = false;
+			if (Variables.maskButtonPressed) {																								//wenn der knopf nicht locked ist
+				Variables.maskButtonPressed = false;																						//das nächste mal vermerken
 				maskButton.setText(Variables.howManyAreWearingMasks + " will wear a mask");
 				maskSliderText.setText(Variables.howManyAreWearingMasks + " will wear  a mask");
 				for (Human human : Variables.aliveAndWilling) {
-					human.isWearingMask = false;
+					human.isWearingMask = false;																							//alle bekommen die Maske abgezogen
 				}
 
-			} else {
+			} else {																														//wenn der Knopf locked ist
 				maskSliderText.setText("locked");
 				maskButton.setText("off");
 				Variables.maskButtonPressed = true;
 				maskButton.setText(Variables.howManyAreWearingMasks + " are wearing a mask");
 
 				for (int i = 0; i < Variables.howManyAreWearingMasks; i++) {
-					Variables.aliveAndWilling.get(i).isWearingMask = true;
+					Variables.aliveAndWilling.get(i).isWearingMask = true;																	//aus den Menschen die keine verweigerer sind und die leben wird x Menschen eine Maske gegeben								
 				}
 			}
 		});
@@ -333,7 +333,7 @@ public class SimulationFrame extends JPanel {
 		varPanel.setVisible(true);
 		varPanel.setLayout(null);
 
-		p1 = new JPanel();
+		p1 = new JPanel();																		//panel mit dem Text für infected, imune und healthy 
 		p1.setBounds(0, 0, varPanel.getWidth(), 50);
 //		p1.setBackground(Color.blue);
 		p1.setVisible(true);
@@ -342,7 +342,7 @@ public class SimulationFrame extends JPanel {
 		// infected
 		infectedLable.setBounds(10 + p1.getWidth() / 3 * 0, -20, 200, 100);
 		infectedLable.setVisible(true);
-		infectedLable.setForeground(Color.red);
+		infectedLable.setForeground(Color.red);													//Farbe passend zu dem Gesundheitszustand
 		infectedLable.setText("infected: " + Variables.infected);
 		infectedLable.setFont(varFont);
 		p1.add(infectedLable);
@@ -350,21 +350,21 @@ public class SimulationFrame extends JPanel {
 		// imune
 		imuneLable.setBounds(10 + p1.getWidth() / 3 * 1, -20, 200, 100);
 		imuneLable.setVisible(true);
-		imuneLable.setForeground(Color.blue);
+		imuneLable.setForeground(Color.blue);													//Farbe passend zu dem Gesundheitszustand
 		imuneLable.setText("imune: " + Variables.imune);
 		imuneLable.setFont(varFont);
 		p1.add(imuneLable);
 
 		// healthy
 		healthyLable.setBounds(10 + p1.getWidth() / 3 * 2, -20, 200, 100);
-		healthyLable.setForeground(new Color(0,205,0));
+		healthyLable.setForeground(new Color(0,205,0));											//Farbe passend zu dem Gesundheitszustand
 		healthyLable.setVisible(true);
 		healthyLable.setText("healthy: " + Variables.healthy);
 		healthyLable.setFont(varFont);
 		p1.add(healthyLable);
 
-		p2 = new JPanel();
-		p2.setBounds(0, 50, varPanel.getWidth(), 50);
+		p2 = new JPanel();																		//panel für dead, alive und date
+		p2.setBounds(0, 50, varPanel.getWidth(), 50);		
 //		p2.setBackground(Color.cyan);
 		p2.setVisible(true);
 		p2.setLayout(null);
@@ -372,12 +372,12 @@ public class SimulationFrame extends JPanel {
 		// dead
 		deadLable.setBounds(10 + p2.getWidth() / 3 * 0, -20, 200, 100);
 		deadLable.setVisible(true);
-		deadLable.setForeground(Color.gray);
+		deadLable.setForeground(Color.gray);													//Farbe passend zu dem Gesundheitszustand
 		deadLable.setText("dead: " + Variables.dead);
 		deadLable.setFont(varFont);
 		p2.add(deadLable);
 
-		// gesHumans
+		// alle Lebenden
 		notDead.setBounds(10 + p2.getWidth() / 3 * 1, -20, 200, 100);
 		notDead.setVisible(true);
 		notDead.setText("alive: " + Main.getAllLifingHumans().size());
@@ -391,7 +391,7 @@ public class SimulationFrame extends JPanel {
 		dateLable.setFont(varFont);
 		p2.add(dateLable);
 
-		p3 = new JPanel();
+		p3 = new JPanel();																		//panel für die max Besucher Anzahl und den Text dafür
 		p3.setBounds(0, 100, varPanel.getWidth(), 40);
 //		p3.setBackground(Color.orange);
 		p3.setVisible(true);
@@ -413,7 +413,7 @@ public class SimulationFrame extends JPanel {
 		p3.add(maxPpInHouseSlider);
 		p3.add(maxPpInHouseSliderText);
 		
-		p4 = new JPanel();
+		p4 = new JPanel();																		//panel für den maximalen Bewegungsradius und den Text dafür
 		p4.setBounds(0, 140, varPanel.getWidth(), 50);
 //		p4.setBackground(Color.pink);
 		p4.setVisible(true);
@@ -443,10 +443,10 @@ public class SimulationFrame extends JPanel {
 	}
 
 	public static void updateDate() {
-		dateLable.setText("date: " + (Variables.days.size()));
+		dateLable.setText("date: " + (Variables.days.size()));									//das datum wir neu ermittelt / refreshed
 	}
 
-	public static void updateText() {
+	public static void updateText() {															//alle Text fariabeln im varPanel bekommen die passenden werte (also was gerade auf der grafischen oberfläche passiert)
 		HumanManager.refrechHumanHealthVar();
 
 		notDead.setText("alive: " + Variables.alive);
@@ -461,7 +461,7 @@ public class SimulationFrame extends JPanel {
 	}
 
 	@Override
-	public void paint(Graphics graphics) {
+	public void paint(Graphics graphics) {																					//funk die alle Structures (Häuser Menschen, usw.) der Rheinfolge nach malt
 		graphics.setColor(Color.WHITE);
 		graphics.fillRect(0, 0, Variables.screenSize.width, Variables.screenSize.height - 230);
 

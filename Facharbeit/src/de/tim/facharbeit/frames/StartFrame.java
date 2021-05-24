@@ -55,18 +55,18 @@ public class StartFrame {
 	public static JButton startSimButton;
 
 
-	public static int SliderX = 5;
+	public static int SliderX = 5;							//genormte slider Maße
 	public static int SliderY = 5;
 	public static int SliderW = 300;
 	public static int SliderH = 20;
 
-	public static Color buttonColor = new Color(230, 239, 244);
+	public static Color buttonColor = new Color(230, 239, 244);				//Hellblaue Farbe der Knöpfe
 
 	public StartFrame() {
-		frame = new JFrame("StartScreen");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.getContentPane().setPreferredSize(new Dimension(750, 500));
+		frame = new JFrame("StartScreen");//Name des Fensters									
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//wird beendet wenn es geschlossen wird
+		frame.setResizable(false);//man kann es nicht größer oder kleiner ziehen
+		frame.getContentPane().setPreferredSize(new Dimension(750, 500));//width & height 
 		frame.setLayout(null);
 
 		setupStartFrame();
@@ -83,7 +83,7 @@ public class StartFrame {
 		presetSetup();
 	}
 
-	private static void startButtonSetup() {
+	private static void startButtonSetup() {													//funk die den großen Start Knopf unten erzeugt
 		// Start Button
 		startSimButton = new JButton("Start Sim");
 		startSimButton.setFont(Variables.defaultFont);
@@ -104,7 +104,7 @@ public class StartFrame {
 		frame.add(startSimButton);
 	}
 
-	private static void presetSetup() {
+	private static void presetSetup() {															//funktion die die Knöpfe ganz rechts mit den presets erzeugt
 		// PresetLable
 		JPanel PresetLable = new JPanel();
 		PresetLable.setVisible(true);
@@ -112,15 +112,15 @@ public class StartFrame {
 //		PresetLable.setBackground(Color.white);
 		PresetLable.setLayout(null);
 
-		JButton p1 = new JButton("Preset 1");
+		JButton p1 = new JButton("Preset 1");													//neuer Knopf wird erzeugt
 		p1.setFont(Variables.defaultFont);
-		p1.addActionListener((e) -> {
+		p1.addActionListener((e) -> {															//beim drücken werden:
 			System.out.println("p1");
-			Variables.streetCount = 15;
-			streetSliderText.setText("Streets: " + Variables.streetCount);
-			streetSlider.setValue(Variables.streetCount);
-
-			Variables.infectedCount = 5;
+			Variables.streetCount = 15;															//die Variabeln geändert
+			streetSliderText.setText("Streets: " + Variables.streetCount);						//der Text upgedated
+			streetSlider.setValue(Variables.streetCount);										//der Slider rückt zur richtigen Stelle
+			
+			Variables.infectedCount = 5;														//immer das gleiche
 			infectedSliderText.setText("Infected: " + Variables.infectedCount);
 			infectedSlider.setValue(Variables.infectedCount);
 
@@ -168,7 +168,7 @@ public class StartFrame {
 		p1.setVisible(true);
 		PresetLable.add(p1);
 
-		JButton p2 = new JButton("Preset 2");
+		JButton p2 = new JButton("Preset 2");														//siehe p1
 		p2.setFont(Variables.defaultFont);
 		p2.addActionListener((e) -> {
 			System.out.println("P2");
@@ -222,7 +222,7 @@ public class StartFrame {
 		p2.setBackground(buttonColor);
 		PresetLable.add(p2);
 
-		JButton p3 = new JButton("Preset 3");
+		JButton p3 = new JButton("Preset 3");														//siehe p1
 		p3.setFont(Variables.defaultFont);
 		p3.addActionListener((e) -> {
 			System.out.println("P3");
@@ -274,32 +274,32 @@ public class StartFrame {
 		p3.setBackground(buttonColor);
 		PresetLable.add(p3);
 
-		frame.add(PresetLable);
+		frame.add(PresetLable);																				//alle presets werden zu dem Frame hinzugefügt
 	}
 
 	private static void sliderSetup() {
 		// SliderLabele
-		JPanel SliderLable = new JPanel();
+		JPanel SliderLable = new JPanel();																	//panel für alle silider auf dem start frame
 		SliderLable.setVisible(true);
 		SliderLable.setBounds(25, 15, 550, 365);
 //		SliderLable.setBackground(Color.LIGHT_GRAY);
 		SliderLable.setLayout(null);
 
-		// slider & text for Streets
-		JPanel streetPanel = new JPanel();
-		streetPanel.setVisible(true);
+		// slider & text for Streets																		//das folgende ist für alle slider gleich
+		JPanel streetPanel = new JPanel();																	//panel auf dem sich die slider befinden wird erschaffen											
+		streetPanel.setVisible(true);	
 		streetPanel.setBounds(50, 0, 500, 30);
 //		streetPanel.setBackground(Color.red);
 		streetPanel.setLayout(null);
 
-		streetSliderText = new JLabel();
+		streetSliderText = new JLabel();																	//Text der neben dem Slider steht wird erstellt 
 		streetSliderText.setFont(textFont);
 		streetSliderText.setBounds(310, 0, 200, 30);
 		streetSliderText.setVisible(true);
-		streetSliderText.setText("Streets: " + Variables.streetCount);
+		streetSliderText.setText("Streets: " + Variables.streetCount);										//bekommt diese Aufschrift
 
-		streetSlider = new JSlider(0, 50, Variables.streetCount);
-		streetSlider.addChangeListener((e) -> {
+		streetSlider = new JSlider(0, 50, Variables.streetCount);											//Slider um die Variabel anzupassen
+		streetSlider.addChangeListener((e) -> {																//passt die Variabel seinem momentanen Value an
 			int value = ((JSlider) e.getSource()).getValue();
 			System.out.println(value);
 			Variables.streetCount = value;
@@ -308,10 +308,10 @@ public class StartFrame {
 		streetSlider.setBounds(SliderX, SliderY, SliderW, SliderH);
 		streetSlider.setVisible(true);
 
-		streetPanel.add(streetSlider);
+		streetPanel.add(streetSlider);																		
 		streetPanel.add(streetSliderText);
 
-		SliderLable.add(streetPanel);
+		SliderLable.add(streetPanel);																		//das panel mit dem slider und seinem Text wird dem sliderLable geadded
 
 		// slider & text for Infected
 		JPanel infectedPanel = new JPanel();
@@ -512,31 +512,31 @@ public class StartFrame {
 		infectionDistancePanel.add(infectionDistanceSliderText);
 		SliderLable.add(infectionDistancePanel);
 
-		// TextInput for infectionRisk
-		JPanel infectionRiskPanel = new JPanel();
+		// TextInput for infectionRisk																							//das folgende ist für alle 3 Text Eingaben das gleiche
+		JPanel infectionRiskPanel = new JPanel();																				//panel für Eingabefeld und den Tetx nebendran
 		infectionRiskPanel.setVisible(true);
 		infectionRiskPanel.setBounds(50, 270, 450, 30);
 //		infectionRiskPanel.setBackground(Color.green);
 		infectionRiskPanel.setLayout(null);
 
-		infectionRiskText = new JLabel();
+		infectionRiskText = new JLabel();																						//Text wird erstellt
 		infectionRiskText.setFont(textFont);
 		infectionRiskText.setBounds(310, 0, 200, 30);
 		infectionRiskText.setVisible(true);
-		infectionRiskText.setText("infectionRisk: " + Variables.infectionRisk + "%");
+		infectionRiskText.setText("infectionRisk: " + Variables.infectionRisk + "%");											//Text wird zu "infectionRisk: " + Variables.infectionRisk + "%"
 
 		JTextField infectionRiskInput = new JTextField(6);
 		infectionRiskInput.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-				try {
+			public void actionPerformed(ActionEvent e) {																		//wird enter gepresst?
+				try {																											//besteht es aus zahlen?
 					System.out.println("enter pressed");
-					Variables.infectionRisk = Double.parseDouble(infectionRiskInput.getText());
-					if (Variables.infectionRisk < 0  || Variables.infectionRisk > 100) {
+					Variables.infectionRisk = Double.parseDouble(infectionRiskInput.getText());	
+					if (Variables.infectionRisk < 0  || Variables.infectionRisk > 100) {										//ist es eine zahl zwischen 0-100								
 						infectionRiskText.setText("ungültiger Wert");
 						infectionRiskText.setForeground(Color.red);
 						Variables.infectionRiskInputOk = false;
-					} else {
+					} else {																									//wenn nicht error message & button rot
 						infectionRiskText.setText("infectionRisk: " + infectionRiskInput.getText() + "%");
 						Variables.infectionRiskInputOk = true;
 						infectionRiskText.setForeground(Color.black);
@@ -545,8 +545,8 @@ public class StartFrame {
 							startSimButton.setBackground(buttonColor);
 						}
 					}
-				} catch (Exception e2) {
-					infectionRiskText.setText("ungültiger Wert");
+				} catch (Exception e2) {																						//wenn es keine zahl ist dann  error message & button rot
+					infectionRiskText.setText("ungültiger Wert");	
 					Variables.infectionRiskInputOk = false;
 					infectionRiskText.setForeground(Color.red);
 
@@ -555,7 +555,7 @@ public class StartFrame {
 		});
 		infectionRiskInput.setVisible(true);
 		infectionRiskInput.setBounds(SliderX, SliderY, SliderW, SliderH);
-		infectionRiskInput.setHorizontalAlignment(JTextField.CENTER);
+		infectionRiskInput.setHorizontalAlignment(JTextField.CENTER);															//man schreibt in der mitte des Eingabefelds
 
 		infectionRiskPanel.add(infectionRiskText);
 		infectionRiskPanel.add(infectionRiskInput);

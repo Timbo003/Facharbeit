@@ -7,9 +7,9 @@ import de.tim.facharbeit.structure.Health;
 
 public class GraphPoint extends GraphStructure {
 
-	Color color;
-	private int x;
-	private int y;
+	Color color;												//Farbe	
+	private int x;												//x koordinate
+	private int y;												//y koordinate
 
 	public GraphPoint(int x, int y, Color color) {
 		this.x = x;

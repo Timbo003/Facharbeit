@@ -99,11 +99,11 @@ public class AnimationManager {
 		DijkstraPoint midPoint = new DijkstraPoint(point);
 		DijkstraPoint entrancePoint = new DijkstraPoint(human.currentHouse.pointOnStreet);
 		human.path.add(0, midPoint);
-		human.path.add(1, entrancePoint);
+//		human.path.add(1, entrancePoint);
 		
 
 		DijkstraPoint targetEntrance = new DijkstraPoint(human.targetHouse.pointOnStreet);
-		human.path.add(targetEntrance);
+//		human.path.add(targetEntrance);
 
 		Point insidePoint = human.targetHouse.entrance.getPoint();
 
@@ -120,10 +120,10 @@ public class AnimationManager {
 		
 		
 		if (human.path.contains(null)) {
-//			human.blobColor = Color.orange;
+			System.out.println(human.path);
+			human.blobColor = Color.orange;
 			human.path.remove(null);
 		}
-		
 		human.currentHouse = null;
 
 	}
