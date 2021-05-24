@@ -38,7 +38,6 @@ public class DijkstraManager {
 	private static DijkstraPoint target;
 
 	public static List<DijkstraPoint> startDijkstra(House start, House ziel) throws Exception {		
-		ziel.color = Color.BLACK;
 		resetPoints();
 
 		DijkstraPoint startPoint = getByPoint(start.pointOnStreet);

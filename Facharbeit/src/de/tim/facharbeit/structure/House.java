@@ -25,8 +25,6 @@ public class House extends Structure {
 	public DijkstraPoint nearestDijkstra;
 	public Street street;
 	
-	public Color color;
-
 	// constructor//
 	public House(Point point, int width, int height, Block block, HouseOrientation orientation) {
 		super(point, width, height);
@@ -128,7 +126,5 @@ public class House extends Structure {
 	@Override
 	public void draw(Graphics graphics) {
 		graphics.setColor(new Color(112, 146, 190));
-		if (color != null) graphics.setColor(Color.CYAN);
-		graphics.drawRect(point.getX(), point.getY(), width, height);
 	}
 }
